@@ -1,0 +1,660 @@
+/* デモなので簡易的なリセット */ 
+* {
+    margin: 0;
+    padding: 0;
+}
+*::after,
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html {
+    overflow-x: hidden;
+    width:100%;
+}
+body {
+    font-family: 'Lato', sans-serif;
+    background: #fff;
+    width:100vw;
+
+}
+article {
+    height: auto;
+    text-align: center;
+    line-height: 1.9;
+    font-size: 14px;
+}
+article p {
+    margin-bottom: 1em;
+}
+
+a {
+    color: #36d1e5;
+}
+
+:root {
+/*    shinjuku
+  --color-primary: #c0e0f7;
+  --color-primary-rgb:192,224,247;
+*/
+/*    akihabara
+  --color-primary: #c0f7e4;
+  --color-primary-rgb:192,247,228;
+    */
+
+/*    shinsaibashi 
+  --color-primary: #ffd4e5;
+  --color-primary-rgb:255,212,229;
+*/
+
+/*    tenjin    */
+  --color-primary: #36d1e5;
+  --color-primary-rgb:189,247,247;
+
+
+}
+#main-visual img{
+    width: 100%;
+}
+
+footer {
+    padding-bottom: 30px;
+    text-align: center;
+    background: #fff;
+}
+footer a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+#link_shoplist{
+    margin-bottom: 50px;
+}
+#shoplist li{
+    margin: 0 10px;
+    display: inline-block;
+}
+#shoplist img{
+    width: 80px;
+}
+@media screen and (max-width: 780px) {
+    #shoplist ul{
+        padding: 0px 0px 0px;
+    }
+     #shoplist img{
+      width: 60px;  
+    }
+}
+@media screen and (max-width: 450px) {
+    #shoplist img{
+        width: 45px;  
+    }
+}
+/* ▲▲▲ここまではナビゲーションに関係ない設定▲▲▲ */
+
+.inner {
+    width: 100%;
+    margin: 0 auto;
+}
+.inner:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+/* header */
+#top-head {
+    font-size: 14px;
+    top: -80px;
+    position: absolute;
+    width: 100%;
+    margin: 100px auto 0;
+    padding: 20px 0 0;
+    line-height: 1;
+    z-index: 999;
+}
+#top-head a,
+#top-head {
+    color: #767676;
+    text-decoration: none;
+}
+#top-head .inner {
+    position: relative;  
+}
+#global-nav {
+    text-align: center;
+    width: 100%;
+}
+#global-nav ul {
+    list-style: none;
+    display: inline-block;
+    bottom: 0;
+    font-size: 17px;
+    font-family: "Nico Moji";
+}
+#global-nav ul li {
+    display: inline-block;
+    position: relative;
+}
+#global-nav ul li a {
+    padding: 0 2.5vw;
+}
+/* Btn Hover */
+#global-nav ul li:after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: -10px;
+    transition: all 0.1s ease;
+    -webkit-transition: all 0.1s ease;
+    -moz-transition: all 0.1s ease;
+}
+#global-nav ul li:hover:after {
+    background: #fff;
+    bottom: -20px;
+}
+/* Fixed */
+#top-head.fixed {
+    margin-top: 0;
+    top: 0;
+    color: #333;
+    position: fixed;
+    padding-top: 22px;
+    height: 55px;
+    background: rgba(255,255,255,.7);
+    transition: top 0.65s ease-in;
+    -webkit-transition: top 0.65s ease-in;
+    -moz-transition: top 0.65s ease-in;
+}
+#top-head.fixed #global-nav ul li a {
+    color: #666;
+    padding: 0 20px;
+}
+/* Fixed Btn Hover */
+#top-head.fixed #global-nav ul li:after {
+    bottom: -10px;
+}
+#top-head.fixed #global-nav ul li:hover:after {
+    background: #EEE;
+    bottom: -20px;
+}
+/* Toggle Button */
+#nav-toggle {
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 14px;
+    width: 28px;
+    height: 36px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+#nav-toggle div {
+    position: relative;
+}
+#nav-toggle span {
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #777;
+    left: 0;
+    -webkit-transition: .35s ease-in-out;
+    -moz-transition: .35s ease-in-out;
+    transition: .35s ease-in-out;
+}
+#nav-toggle span:nth-child(1) {
+    top: 0;
+}
+#nav-toggle span:nth-child(2) {
+    top: 11px;
+}
+#nav-toggle span:nth-child(3) {
+    top: 22px;
+}
+@media screen and (max-width: 780px) {
+    .inner {
+        width: 100%;
+        padding: 0 20px;
+    }
+    #global-nav ul li a {
+        padding: 0 20px;
+    }
+    #top-head.fixed #global-nav ul li a {
+        padding: 0 15px;
+    }
+    #top-head,
+    .inner {
+        width: 100%;
+        padding: 0;
+    }
+    #top-head {
+        top: 0;
+        position: fixed;
+        margin-top: 0;
+    }
+    /* Fixed reset */
+    #top-head.fixed {
+        padding-top: 0;
+        background: transparent;
+    }
+    #mobile-head {
+        width: 100%;
+        height: 56px;
+        z-index: 999;
+        position: relative;
+    }
+    #top-head.fixed .logo,
+    #top-head .logo {
+        position: absolute;
+        left: 13px;
+        top: 13px;
+        color: #333;
+        font-size: 26px;
+    }
+
+    #global-nav {
+        position: absolute;
+        opacity: .85;
+        height:100vh;
+        /* 開いてないときは画面外に配置 */
+        top: -500px;
+        top: -200vh;
+        background: var(--color-primary);
+        text-align: center;
+        padding: 10px 0;
+        -webkit-transition: .5s ease-in-out;
+        -moz-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
+    }
+    #global-nav ul {
+        list-style: none;
+        position: static;
+        right: 0;
+        bottom: 0;
+        font-size: 11px;
+    }
+    #global-nav ul li {
+        float: none;
+        position: static;
+        display: block;
+    }
+    #global-nav ul li:after  {
+        display: none;
+    }
+    #top-head #global-nav ul li a,
+    #top-head.fixed #global-nav ul li a {
+        width: 100%;
+        display: block;
+        color: #ffffff;
+        padding: 25px 0;
+        margin-bottom: 10%;
+    }
+    #nav-toggle {
+        display: block;
+    }
+    /* #nav-toggle 切り替えアニメーション */
+    .open #nav-toggle span:nth-child(1) {
+        top: 11px;
+        -webkit-transform: rotate(315deg);
+        -moz-transform: rotate(315deg);
+        transform: rotate(315deg);
+    }
+    .open #nav-toggle span:nth-child(2) {
+        width: 0;
+        left: 50%;
+    }
+    .open #nav-toggle span:nth-child(3) {
+        top: 11px;
+        -webkit-transform: rotate(-315deg);
+        -moz-transform: rotate(-315deg);
+        transform: rotate(-315deg);
+    }
+    /* #global-nav スライドアニメーション */
+    .open #global-nav {
+        -moz-transform: translateY(500px);
+        -webkit-transform: translateY(500px);
+        transform: translateY(500px);
+        /* #global-nav top + #mobile-head height */
+        -moz-transform: translateY(200vh);
+        -webkit-transform: translateY(200vh);
+        transform: translateY(200vh);
+    }
+}
+.content {
+    padding: 90px 0 50px;
+}
+
+table {
+    width: 50%;
+    margin: 10px auto;
+    text-align: center;
+    
+}
+table , td {
+    border: 1px solid #fff;
+    border-collapse: collapse;
+}
+td{
+    padding: 5px 10px;
+    height: 25px;
+    background: #fff;
+    color: #999;
+    min-width: 120px;
+    font-size: 13px;
+}
+td.large {
+    font-size :40px;
+}
+td span{
+    font-size:12px;
+    font-weight: bold;
+    color: #ffaf8e;
+}
+h2{
+    letter-spacing: 9px;
+    font-size:36px;
+    color: #fff;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    background: var(--color-primary);
+    margin: 0 auto 50px;
+    max-width: 800px;
+    width: 80%;
+    line-height: 1.5;
+    font-family: 'Hiragino Maru Gothic Pro','Meiryo UI','sans-serif';
+}
+
+h3{
+    margin: 50px 0 10px;
+        letter-spacing: 4px;
+}
+h4{
+    margin-top: 10px;
+}
+h5{
+    letter-spacing: 4px;
+    font-size:26px;
+    text-align: center;
+}
+h6{
+    letter-spacing: 4px;
+    font-size:24px;
+    color: #22a1b2;
+
+}
+@media screen and (max-width: 780px) {
+    h2 {
+        font-size: 27px;
+    }  
+}
+
+#shopinfo {
+    background: #fff;
+    background: url("../../images/index.png") #fff;
+    display: block;
+    color: #000;
+    position: relative;
+    padding-top: 100px;
+}
+#shopinfo h5{
+    width: 100px;
+    color: #36d1e5;
+    left: 50%;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 16px;
+}
+#shopinfo ul {
+    font-family: 'Hiragino Maru Gothic Pro','Meiryo UI','sans-serif';
+    position: relative;
+    left: 50%;
+    margin: 0 0 100px 35px;
+    width: 450px;
+    text-align: left;
+    list-style: none;
+
+}
+#shopinfo ul li{
+    color: #555;
+    line-height: 1.9;
+    font-size: 15px;
+    margin-bottom: 31px;
+}
+#shopinfo ul span{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#shopinfo img {
+    margin: 0px auto;
+
+}
+#shopinfo .logo {
+    width: 300px;
+}
+#shopinfo .map {
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    margin: -8px 0 0 -479px;
+    width: 480px;
+    height: 400px;
+}
+.shopTtl{
+    display:flex;
+    height: 60px;
+}
+.icon_twitter{
+    height: 60px;
+    border-radius: 50%;
+}
+.icon_twitter img{
+    height: 100%;
+    border-radius: 50px;
+    background: var(--color-primary);
+}
+
+#event{
+    /*background:url("../../images/index.png");*/
+    background: rgba(var(--color-primary-rgb),0.2);
+}
+#event h2{
+    border: solid 2px #fff;
+}
+.schedule_box{
+    margin: 0 auto;
+    width: 80%;
+    background: #fff;
+    border: solid 2px var(--color-primary);
+    border-radius: 15px;
+    max-width: 600px;
+    color: #22a1b2;
+}
+.schedule_box ul{
+    padding: 20px 20px;
+    text-align: left;
+    color: #36d1e5;
+}
+.schedule_box li{
+    font-family: 'Hiragino Maru Gothic Pro','Meiryo UI','sans-serif';
+    list-style: none;
+    padding: 1% 0 0 20%;
+    font-weight: 600;
+    color: #22a1b2;
+}
+.day_event{
+    font-weight: 500;
+    font-size: 1.1em;
+    margin-right: 10%;
+    vertical-align: middle;
+    color: #22a1b2;
+}
+#twitter {
+  
+}
+#recruit{
+   margin: 20px auto;
+}
+#gallery{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.bunner {
+    background: #fff;
+    width: 100%;
+}
+.banner img {
+width: 100%;
+}
+.banner{
+    width: 100%;
+    max-width: 800px;
+    margin: 100 auto;
+}
+.button a:hover {
+    opacity: 0.7;
+    transition-duration: 0.2s;
+ }
+.button {
+    margin: 5px auto;
+}
+.button a{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 50px;
+    background: var(--color-primary);
+    padding: 10 80;
+}
+#gotop {
+   display: none;
+}
+#gotop img{
+    position: fixed;
+    width: 36px;
+    right: 15px;
+    bottom: 20px;
+    margin-right: 10px;
+    opacity: 0.9;
+    background-color: var(--color-primary);
+}
+@media screen and (max-width: 780px) {
+    .content {
+        padding: 40px 0px;
+    }
+    #shopinfo{    
+    }
+    #shopinfo ul h5 {
+        font-size: 12px;
+        width: 20%;
+    }
+    #shopinfo ul {
+        left: 0;
+        margin: 0 auto 10.6666667vw;
+        width: 92vw;
+    }
+    #shopinfo ul li{
+        border-bottom: 0.26666667vw solid #36d1e5;
+        margin: 0 0 4.8vw;
+        padding: 0 0px 15px;
+        font-size: 12px;
+    }
+     #shopinfo .map {
+        position: initial;
+        top: 655px;
+        left: 50%;
+        margin: 0px auto 30px;
+        width: 90%;
+        height:auto;
+    }
+     .schedule_box{
+        max-width: 450px;
+     }
+    .schedule_box ul{
+    padding: 10px 10px;
+    font-size: 0.8em;
+    }
+    .schedule_box li{
+    padding: 1% 0 0 20%;
+    font-weight: 200;
+    }
+    .day_event{
+    font-size: 1em;
+    }
+}
+#egmap_canvas_1 {
+    margin: 50px auto 20px;
+}
+#egmap_canvas_1 td,#egmap_canvas_1 table{
+    border: none;
+}
+.swiper-container,.swiper-wrapper {
+    width: 100vw;
+    height: calc(100vw * 1080 / 1920);
+}
+.swiper-container img{
+    width: 100vw;
+}
+.swiper-button-next, .swiper-button-prev {
+    position: absolute;
+    top: 55%;
+    width: 37px;
+    height: 26px;
+    margin-top: -22px;
+    z-index: 10;
+    cursor: pointer;
+    background-size: 27px 44px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: none;
+    font-size: 25px;
+    color: #a79222;
+    background-image: url();
+    font-weight: bold;
+}
+
+.timeline-Viewport {
+    margin: 40px !important;
+}
+
+.swiper-container-horizontal>.swiper-scrollbar {
+    display: none;
+}
+
+.gallery2{
+columns: 3;/*段組みの数*/
+padding:0 15px;/*ギャラリー左右に余白をつける*/
+margin:0;
+}
+
+.gallery2 li {
+    margin-bottom: 20px;/*各画像下に余白をつける*/
+list-style:none;
+}
+
+/*ギャラリー内のイメージは横幅100%にする*/
+.gallery2 img{
+    width:100%;
+    height:auto;
+    vertical-align: bottom;/*画像の下にできる余白を削除*/}
+
+/*　横幅900px以下の段組み設定　*/
+@media only screen and (max-width: 900px) {
+    .gallery2{
+    columns:3;
+    }   
+}
+
+@media only screen and (max-width: 768px) {
+    .gallery2{
+    columns: 2;
+    }   
+}
+.seo_h1{
+  position:absolute;
+  left:-9999px;
+}

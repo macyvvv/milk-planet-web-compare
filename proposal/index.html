@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>milk planet proposal</title>
+  <style>
+    :root{
+      --bg:#f4efe7;
+      --ink:#1d2633;
+      --muted:#5f6b7a;
+      --card:#ffffff;
+      --accent:#2f7ea1;
+      --accent-2:#d46a3a;
+      --line:#d9d0c4;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(47,126,161,.18), transparent 26%),
+        radial-gradient(circle at 90% 10%, rgba(212,106,58,.16), transparent 24%),
+        var(--bg);
+      font:15px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    .hero{
+      padding:24px 20px 16px;
+      border-bottom:1px solid var(--line);
+      position:sticky;
+      top:0;
+      background:rgba(244,239,231,.86);
+      backdrop-filter: blur(8px);
+      z-index:10;
+    }
+    .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--accent)}
+    h1{margin:6px 0 8px;font-size:28px;line-height:1.15}
+    .lead{max-width:72ch;color:var(--muted);margin:0}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      padding:16px;
+    }
+    .panel{
+      background:rgba(255,255,255,.82);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:0 12px 28px rgba(23,31,44,.08);
+    }
+    .panel h2{margin:0 0 10px;font-size:18px}
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .card .thumb{
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(135deg, rgba(47,126,161,.16), rgba(212,106,58,.14));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-size:12px;
+      padding:10px;
+      text-align:center;
+    }
+    .card .body{padding:12px}
+    .card strong{display:block;margin-bottom:4px}
+    .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 14px;
+      border-radius:999px;
+      text-decoration:none;
+      border:1px solid transparent;
+      font-weight:600;
+    }
+    .cta.primary{background:var(--accent);color:#fff}
+    .cta.secondary{background:#fff;color:var(--ink);border-color:var(--line)}
+    .list{margin:0;padding-left:18px;color:var(--muted)}
+    .spot{
+      min-height:180px;
+      background:
+        linear-gradient(135deg, rgba(47,126,161,.15), rgba(47,126,161,.03)),
+        url('../clone/milk-planet.com/images/top1.jpg') center/cover;
+      border-radius:18px;
+      border:1px solid var(--line);
+      position:relative;
+      overflow:hidden;
+    }
+    .spot::after{
+      content:'PC向けに情報を再配置した入口イメージ';
+      position:absolute;
+      left:16px;
+      bottom:16px;
+      background:rgba(255,255,255,.88);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+      h1{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="eyebrow">proposal</div>
+    <h1>PCで読みやすく、クリック可能性を明確化した改修案</h1>
+    <p class="lead">横長素材を前提にしない。画像は縦長カード、店舗別の縦積み、明確なCTAで構成し、SNSや店頭掲示にも流用しやすい粒度を保つ。</p>
+    <div class="cta-row">
+      <a class="cta primary" href="../clone/milk-planet.com/index.html">currently を確認</a>
+      <a class="cta secondary" href="../index.html">比較トップへ戻る</a>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="panel">
+      <h2>ホームの再配置イメージ</h2>
+      <div class="spot"></div>
+      <div class="cards" style="margin-top:12px">
+        <article class="card">
+          <div class="thumb">店舗一覧の入口</div>
+          <div class="body"><strong>Shop</strong> 店舗を比較しやすいカード型一覧にする。</div>
+        </article>
+        <article class="card">
+          <div class="thumb">キャスト一覧の入口</div>
+          <div class="body"><strong>Cast</strong> 絞り込みしやすい構造にする。</div>
+        </article>
+        <article class="card">
+          <div class="thumb">システム&メニュー</div>
+          <div class="body"><strong>System</strong> 料金・注意事項を先に出す。</div>
+        </article>
+        <article class="card">
+          <div class="thumb">採用導線</div>
+          <div class="body"><strong>Recruit</strong> 応募までの導線を短くする。</div>
+        </article>
+      </div>
+    </div>
+    <aside class="panel">
+      <h2>改修原則</h2>
+      <ul class="list">
+        <li>リンクとボタンの見た目を統一する</li>
+        <li>カルーセルは主導線から外す</li>
+        <li>PCは余白と列構成で整理する</li>
+        <li>素材は縦長前提で切り出す</li>
+        <li>比較できる単位でページを揃える</li>
+      </ul>
+      <div style="margin-top:16px" class="panel">
+        <h2 style="margin-top:0">運用の前提</h2>
+        <p style="margin:0;color:var(--muted)">SNSや店頭掲示で使う画像を壊さず、サイト側では複数サイズへ転用できるようにする。</p>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>

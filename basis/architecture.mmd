@@ -1,0 +1,15 @@
+flowchart TD
+  Home[Home] --> ShopList[Shop List]
+  Home --> CastList[Cast List]
+  Home --> SystemMenu[System & Menu]
+  Home --> Event[Event]
+  Home --> Recruit[Recruit]
+
+  ShopList --> ShopDetail[Shop Detail]
+  ShopDetail --> ShopActions[Actions: access / menu / social / contact]
+  CastList --> CastDetail[Cast Detail]
+  Event --> EventDetail[Event Detail]
+
+  classDef decision fill:#eef,stroke:#446;
+  classDef content fill:#efe,stroke:#464;
+  class Home,ShopList,CastList,SystemMenu,Event,Recruit,ShopDetail,CastDetail,EventDetail,ShopActions content;
