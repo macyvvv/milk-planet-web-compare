@@ -2,7 +2,7 @@
 
 ## 想定構成
 - `index.html`: comparison entry
-- `clone/`: currently の静的複製
+- `currently/`: 現状の正本
 - `proposal/`: 改修案モック
 - `basis/`: 設計メモ
 
@@ -13,7 +13,7 @@
 
 ## 公開後の確認
 - `/` で左右比較が出ること
-- `clone/milk-planet.com/index.html` が開くこと
+- `currently/index.html` が開くこと
 - `proposal/index.html` が開くこと
 
 ## 注意

@@ -107,7 +107,7 @@ a {
     position: fixed;
     padding-top: 22px;
     height: 55px;
-    background: rgba(255,255,255,.7);
+    background: transparent;
     transition: top 0.65s ease-in;
     -webkit-transition: top 0.65s ease-in;
     -moz-transition: top 0.65s ease-in;
@@ -877,3 +877,8 @@ footer p{
     }
 }
 /* Googleカレンダー用ここまで */
+@media screen and (min-width: 781px) {
+    #nav-toggle { display: block; }
+    #global-nav { display: none; }
+    .open #global-nav { display: block; }
+}

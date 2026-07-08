@@ -8,9 +8,9 @@
 <meta name="robots" content="noindex,follow">
 <meta name="viewport" content="width=device-width, maximum-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-<link href="/vendor/aos/aos.css" rel="stylesheet">
+<link href="../vendor/aos/aos.css" rel="stylesheet">
 <script src="../jquery-1.8.3.min.js"></script>
-<link rel="stylesheet" href="/vendor/swiper/swiper.min.css" />
+<link rel="stylesheet" href="../vendor/swiper/swiper.min.css" />
 <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="cast.css">
 <script>
@@ -83,12 +83,12 @@
 			</div>
 			<nav id="global-nav">
 				<ul>
-				<li><a href="../">ほぉむ</a></li>
-				<li><a href="../shop/">わくせい</a></li>
-				<li><a href="#">きゃすと</a></li>
+				<li><a href="../index.html">ほぉむ</a></li>
+				<li><a href="../shop/index.html">わくせい</a></li>
+				<li><a href="./index.html">きゃすと</a></li>
 				<li><a href="../#sys">しすてむ&めにゅう</a></li>
 				<li><a href="../#event">いべんと</a></li>
-				<li><a href="../recruit/">りくるうと</a></li>
+				<li><a href="../recruit/index.html">りくるうと</a></li>
 			</ul>
 			</nav>
 		</div>	
@@ -147,93 +147,66 @@
 
 	       </dl>
 		</div>
-	    <div id="boxes">
+	<div id="boxes">
 	      <script src="./castlist.js"></script>
 	    </div>
 	</div>
 	<!--キャスト一覧-->
 <script>
-	var btns = document.querySelectorAll('dd'); // 選択肢のボタン
-	var parent = document.getElementById('boxes'); // 要素を囲う親要素
-	var box = document.querySelectorAll('#boxes div'); // それぞれのBOX
-	var selected; // 選択されたクラスを入れるための変数
-	var selectLi = []; // 選択されたboxを入れておくための配列
-	var first = true; // 1回目かどうか
+  window.addEventListener('DOMContentLoaded', function () {
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('#list dd'));
+    var parent = document.getElementById('boxes');
+    var allBoxes = Array.prototype.slice.call(parent.children);
 
-	for (var i = 0; i < btns.length; i++) {
-  	// 選択肢のクリックがあったら
-  	btns[i].addEventListener('click', function () {
-    	// 1回目の場合の処理
-    	if (first) {
-      	// 選択されたクラス名を取得
-      	selected = this.className;
-      	// 一旦全部をアニメーションで消し
-      	for (var j = 0; j < box.length; j++) {
-        	box[j].classList.add('hidden');
-        	// 選択されたクラスが付いているものだけを selectLi の配列へ
-        	if(box[j].classList.contains(selected)) {
-          		selectLi.push(box[j]);
-     		}
-     	}
-      // 時間差で処理。消すときのアニメーションを待つため
-      setTimeout(function () {
-        // 親要素内の要素をすべて削除
-        for (var j = 0; j < box.length; j++) {
-        	parent.removeChild(box[j]);
-        }
-        // 親要素に選択されたboxを追加
-        for (var j = 0; j < selectLi.length; j++) {
-        	parent.appendChild(selectLi[j]);
-        }
-        // 時間差で処理。アニメーションをさせたいため。
-        setTimeout(function () {
-          // hiddenクラスを削除し、アニメーションで表示
-          for (var j = 0; j < selectLi.length; j++) {
-            selectLi[j].classList.remove('hidden');
-          }
-        },100);
-      }, 500); // 500ミリ秒後に設定。アニメーションの時間
-      first = false; // 1回目かどうかのフラグにfalseを代入
+    function getAreaFromNode(node) {
+      return node ? node.className : '';
     }
-    // 2回目以降の処理
-    else {
-      // 選択されたboxをアニメーションで消す。
-      for (var j = 0; j < selectLi.length; j++) {
-        selectLi[j].classList.add('hidden');
+
+    function getAreaFromHash() {
+      var hash = location.hash.replace('#', '');
+      return hash || 'shandy';
+    }
+
+    function activate(area) {
+      if (!area) return;
+
+      var next = [];
+
+      allBoxes.forEach(function (node) {
+        if (node.classList.contains(area)) {
+          next.push(node);
+        }
+      });
+
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
       }
-      // 選択されたボタンのクラスを取得
-      selected = this.className;
-      // 選択された要素を入れるための配列を一旦空にして
-      selectLi = [];
-      // 時間差で処理
-      setTimeout(function () {
-        // 親要素に一旦もとの要素全部追加して
-        for (var j = 0; j < box.length; j++) {
-          parent.appendChild(box[j]);
-          // 選択されたboxを selectLi 配列へ
-          if(box[j].classList.contains(selected)) {
-            selectLi.push(box[j]);
-          }
-        }
-        // 親要素内の要素を全部消し、
-        for (var j = 0; j < box.length; j++) {
-          parent.removeChild(box[j]);
-        }
-        // 選択された要素だけを親要素に追加
-        for (var j = 0; j < selectLi.length; j++) {
-          parent.appendChild(selectLi[j]);
-        }
-        // 時間差で処理。アニメーションのため
-        setTimeout(function () {
-          for (var j = 0; j < selectLi.length; j++) {
-            // hiddenクラスを削除して、アニメーションで表示
-            selectLi[j].classList.remove('hidden');
-          }
-        },100);
-      }, 500);
+
+      next.forEach(function (node) {
+        node.classList.remove('hidden');
+        parent.appendChild(node);
+      });
+
+      buttons.forEach(function (dd) {
+        dd.classList.toggle('active', dd.classList.contains(area));
+      });
     }
+
+    buttons.forEach(function (dd) {
+      dd.addEventListener('click', function () {
+        activate(getAreaFromNode(this));
+      });
+      dd.addEventListener('change', function () {
+        activate(getAreaFromNode(this));
+      });
+    });
+
+    window.addEventListener('hashchange', function () {
+      activate(getAreaFromHash());
+    });
+
+    activate(getAreaFromHash());
   });
-}
 </script>
 
 	</article>
@@ -245,12 +218,12 @@ frameborder="0"
 src="../footer.html"></iframe>
 
 	<!--aos読み込み-->
-	<script src="/vendor/aos/aos.js"></script>
+	<script src="../vendor/aos/aos.js"></script>
 	<script>
 		AOS.init();
 	</script>
 	<!--スライダー-->
-	<script src="/vendor/swiper/swiper.min.js"></script>
+	<script src="../vendor/swiper/swiper.min.js"></script>
 	<script src="cast.js"></script>
 </body>
 </html>
