@@ -126,7 +126,7 @@ html body #global-nav {
   width: 198px !important;
   height: auto !important;
   max-height: calc(100vh - 68px) !important;
-  background: rgba(255, 255, 255, 0.66) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
   border: 1px solid rgba(80, 80, 80, 0.18) !important;
   border-radius: 22px !important;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12) !important;
@@ -210,7 +210,7 @@ html body #nav-toggle:focus-visible {
 }
 
 html body #top-head.open #nav-toggle {
-  background: rgba(255, 255, 255, 0.66) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
 }
 
 @media (max-width: 780px) {
