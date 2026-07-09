@@ -1,0 +1,905 @@
+/* デモなので簡易的なリセット */
+* {
+    margin: 0;
+    padding: 0;
+}
+*::after,
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html {
+    overflow-x: hidden;
+    width:100%;
+}
+body {
+    font-family: 'Lato', sans-serif;
+    background: #fff;
+    width:100%;
+
+}
+article {
+    height: auto;
+    text-align: center;
+    line-height: 1.9;
+    font-size: 14px;
+}
+article p {
+
+}
+a {
+    color: #0b8793;
+}
+#main-visual img{
+    width: 100%;
+}
+
+/* ▲▲▲ここまではナビゲーションに関係ない設定▲▲▲ */
+
+.inner {
+    width: 100%;
+    margin: 0 auto;
+}
+.inner:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+/* header */
+#top-head {
+    font-size: 14px;
+    top: -80px;
+    position: absolute;
+    width: 100%;
+    margin: 100px auto 0;
+    padding: 20px 0 0;
+    line-height: 1;
+    z-index: 999;
+}
+#top-head a,
+#top-head {
+    color: #666;
+    text-decoration: none;
+}
+#top-head .inner {
+    position: relative;  
+}
+#global-nav {
+    text-align: center;
+    width: 100%;
+}
+#global-nav ul {
+    list-style: none;
+    display: inline-block;
+    bottom: 0;
+    font-size: 17px;
+    font-family: "Nico Moji";
+}
+#global-nav ul li {
+    display: inline-block;
+    position: relative;
+}
+#global-nav ul li a {
+    padding: 0 2.5vw;
+}
+/* Btn Hover */
+#global-nav ul li:after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: -10px;
+    transition: all 0.1s ease;
+    -webkit-transition: all 0.1s ease;
+    -moz-transition: all 0.1s ease;
+}
+#global-nav ul li:hover:after {
+    background: #fff;
+    bottom: -20px;
+}
+/* Fixed */
+#top-head.fixed {
+    margin-top: 0;
+    top: 0;
+    color: #333;
+    position: fixed;
+    padding-top: 22px;
+    height: 55px;
+    background: transparent;
+    transition: top 0.65s ease-in;
+    -webkit-transition: top 0.65s ease-in;
+    -moz-transition: top 0.65s ease-in;
+}
+#top-head.fixed #global-nav ul li a {
+    color: #666;
+    padding: 0 20px;
+}
+/* Fixed Btn Hover */
+#top-head.fixed #global-nav ul li:after {
+    bottom: -10px;
+}
+#top-head.fixed #global-nav ul li:hover:after {
+    background: #EEE;
+    bottom: -20px;
+}
+/* Toggle Button */
+#nav-toggle {
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 14px;
+    width: 28px;
+    height: 36px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+#nav-toggle div {
+    position: relative;
+}
+#nav-toggle span {
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #444;
+    left: 0;
+    -webkit-transition: .35s ease-in-out;
+    -moz-transition: .35s ease-in-out;
+    transition: .35s ease-in-out;
+}
+#nav-toggle span:nth-child(1) {
+    top: 0;
+}
+#nav-toggle span:nth-child(2) {
+    top: 11px;
+}
+#nav-toggle span:nth-child(3) {
+    top: 22px;
+}
+@media screen and (max-width: 780px) {
+    .inner {
+        width: 100%;
+        padding: 0 20px;
+    }
+    #global-nav ul li a {
+        padding: 0 20px;
+    }
+    #top-head.fixed #global-nav ul li a {
+        padding: 0 15px;
+    }
+    #top-head,
+    .inner {
+        width: 100%;
+        padding: 0;
+    }
+    #top-head {
+        top: 0;
+        position: fixed;
+        margin-top: 0;
+    }
+    /* Fixed reset */
+    #top-head.fixed {
+        padding-top: 0;
+        background: transparent;
+    }
+    #mobile-head {
+        width: 100%;
+        height: 56px;
+        z-index: 999;
+        position: relative;
+    }
+    #top-head.fixed .logo,
+    #top-head .logo {
+        position: absolute;
+        left: 13px;
+        top: 13px;
+        color: #333;
+        font-size: 26px;
+    }
+
+    #global-nav {
+        position: absolute;
+        opacity: .95;
+        height:100vh;
+        /* 開いてないときは画面外に配置 */
+        top: -500px;
+        top: -200vh;
+        background: #c0e0f7;
+        text-align: center;
+        padding: 10px 0;
+        -webkit-transition: .5s ease-in-out;
+        -moz-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
+    }
+    #global-nav ul {
+        list-style: none;
+        position: static;
+        right: 0;
+        bottom: 0;
+        font-size: 11px;
+    }
+    #global-nav ul li {
+        float: none;
+        position: static;
+        display: block;
+    }
+    #global-nav ul li:after  {
+        display: none;
+    }
+    #top-head #global-nav ul li a,
+    #top-head.fixed #global-nav ul li a {
+        width: 100%;
+        display: block;
+        color: #444;
+        padding: 25px 0;
+        margin-bottom: 10%;
+    }
+    #nav-toggle {
+        display: block;
+    }
+    /* #nav-toggle 切り替えアニメーション */
+    .open #nav-toggle span:nth-child(1) {
+        top: 11px;
+        -webkit-transform: rotate(315deg);
+        -moz-transform: rotate(315deg);
+        transform: rotate(315deg);
+    }
+    .open #nav-toggle span:nth-child(2) {
+        width: 0;
+        left: 50%;
+    }
+    .open #nav-toggle span:nth-child(3) {
+        top: 11px;
+        -webkit-transform: rotate(-315deg);
+        -moz-transform: rotate(-315deg);
+        transform: rotate(-315deg);
+    }
+    /* #global-nav スライドアニメーション */
+    .open #global-nav {
+        -moz-transform: translateY(500px);
+        -webkit-transform: translateY(500px);
+        transform: translateY(500px);
+        /* #global-nav top + #mobile-head height */
+        -moz-transform: translateY(200vh);
+        -webkit-transform: translateY(200vh);
+        transform: translateY(200vh);
+    }
+}
+
+table {
+    width: 50%;
+    margin: 10px auto;
+    text-align: left;
+    display:inline-table;
+    vertical-align: top;
+    
+}
+table , td {
+    border: none;
+    border-collapse: collapse;
+}
+th {
+    padding: 5px 10px;
+    height: 25px;
+    min-width: 100px;
+    vertical-align: top;
+}
+td {
+    padding: 5px 10px;
+    height: 25px;
+    min-width: 120px;
+}
+td span {
+    font-size:12px;
+    font-weight: bold;
+    color: rgb(255, 119, 150);
+}
+h1 {
+    letter-spacing: 7px;
+    display: inline-block;
+    font-size: 36px;
+    color: #FFF;
+    width: 100%;
+    background:#c0e0f7;
+    padding: 120px 0 90px;
+    position: relative;
+}
+h1::before {
+    content: '';
+    position: absolute;
+    top: 120px;
+    z-index: 1;
+    display: block;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: url(../images/w_shop.png) 0 0 / 100% 69px no-repeat;
+    width: 173px;
+    height: 70px;
+}
+h1::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 99;
+    display: block;
+    background: url("../images/cutline.png") 0 0 / 100% 129px no-repeat;
+    width: 100%;
+    height: 129px;
+}
+#about {
+    background: url("../images/index.png")#fff;
+    padding: 100px 0;
+}
+#about p {
+    padding: 60px 0 45px;
+    text-align: center;
+    line-height: 50px;
+    letter-spacing: 0.15em;
+    font-weight: bold;
+    font-size: 20px;
+}
+#about p strong{
+    display: inline-block;
+    font-size: 26px;
+    color: #c0e0f7;
+    background: -webkit-linear-gradient(-4deg, #c0e0f7, #4aceff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.shop {
+position: relative;
+}
+
+.omise {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 450px;
+    text-align: left;
+}
+
+/* 各店舗のメインカラー */
+#milk {
+    background-color: #c0e0f7;
+}
+#candy {
+    background-color: #f2cdc7;
+}
+#chocolat {
+    background-color: #70181b;
+}
+#chocolat_hnr{
+    background-color: #89393c;
+}
+#magical {
+    background-color: #a996c3;
+}
+#suite {
+    background-color: #f2ebb5;
+}
+#planet {
+    background-color: #a8a8a8;
+}
+#milk_a {
+    background-color: #c0f7e4;
+}
+#shandy {
+    background-color: #8f0100;
+}
+#roysuga {
+    background-color: #ecabbb;
+}
+#chocolat_hnr {
+	background-color: #89393c;
+}
+#cybar_s {
+    background-color: #b0a1da;
+}
+#cybar_b {
+    background-color: #73f9d8;
+}
+#cybar_b2 {
+    background-color: #d4295e;
+}
+#cybar_l {
+    background-color: #aa00ff;
+}
+#tweeny {
+    background-color: #36d1e5;
+}
+#bloody {
+    background-color: #3f0f12;
+}
+#melty {
+    background-color: #fecff3;
+}
+
+
+/* 各店舗のメインカラー */
+h4 {
+    position: relative;
+    left: 50%;
+    margin: 0 0 40px -455px;
+    width: 490px;
+    letter-spacing: 0.1em;
+    font-size: 30px;
+    color: #fff;
+    text-align: left;
+}
+h4 span {
+    display: block;
+    padding: 70px 0 0px;
+    font-size: 14px;
+}
+.title {
+    font-size: 27px;
+    }
+
+.shop p {
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    margin: 48px 0 0 -455px;
+    width: 420px;
+    line-height: 2.2;
+    letter-spacing: 0.02em;
+    font-size: 16px;
+    color: #fff;
+    text-align: left;
+}
+.data {
+    display: block;
+    margin-inline-start: 40px;
+    color: #000;
+}
+.data::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: block;
+     background: 0 0 / 100% 100% no-repeat;
+    width: 800px;
+    height: 450px;
+}
+
+/* メインのでかい写真 */
+.milk::before {
+    background: url("images/milkplanet-gallery1.jpg") 50% 0 / cover no-repeat;
+}
+.candy::before {
+    background: url("images/milkplanet-gallery1.jpg") 50% 0 / cover no-repeat;
+}
+.chocolat::before {
+    background: url("images/chocolatplanet-room-interior.jpg") 50% 0 / cover no-repeat;
+}
+.chocolat_hnr::before {
+    background: url("images/chocolatplanet-hanare-signboard.jpg") 50% 0 / cover no-repeat;
+}
+.magical::before {
+    background: url("images/chocolatplanet-room-interior.jpg") 50% 0 / cover no-repeat;
+}
+.suite::before {
+    background: url("images/chocolatplanet-room-interior.jpg") 50% 0 / cover no-repeat;
+}
+.planet::before {
+    background: url("images/planet_01.jpg") 50% 0 / cover no-repeat;
+}
+.milk_a::before {
+    background: url("images/milkplanet-gallery1.jpg") 50% 0 / cover no-repeat;
+}
+.shandy::before {
+    background: url("images/shandylove-wallpaper-neon.jpg") 50% 0 / cover no-repeat;
+}
+.roysuga::before {
+    background: url("images/royalsugar-room-interior.jpg") 50% 0 / cover no-repeat;
+}
+.chocolat_n::before {
+    background: url("images/chocolatplanet-room-interior.jpg") 50% 0 / cover no-repeat;
+}
+.cybar_s::before {
+    background: url("images/cybarplanet-tokyo-logo-signboard.jpg") 0 0 / 100% 100% no-repeat;
+}
+.cybar_b::before {
+    background: url("images/cybarplanet-bangkok-neon-room.jpg") 50% 0 / cover no-repeat;
+}
+.cybar_b2::before {
+    background: url("images/cybarplanet-bangkok-2nd-counter.jpg") 50% 0 / cover no-repeat;
+}
+.cybar_l::before {
+    background: url("images/cybarplanet-laos-entrance.jpg") 50% 0 / cover no-repeat;
+}
+.tweeny::before {
+    background: url("images/tweeny-room-interior.jpg") 50% 0 / cover no-repeat;
+}
+.bloody::before {
+    background: url("images/bloodysugar-neon-interior.jpg") 50% 0 / cover no-repeat;
+}
+.melty::before {
+    background: url("images/meltymousse-room-interior1.jpg") 50% 0 / cover no-repeat;
+}
+
+/* メインのでかい写真 */
+
+/* サブの写真のcss */
+.data .photos {
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 20px auto 45px;
+    width: 1000px;
+}
+.data .photos img {
+    margin: 0 10px;
+    width: 230px;
+    height: 160px;
+}
+/* サブの写真のcss */
+
+.data .map {
+    position: absolute;
+    top: 655px;
+    left: 50%;
+    margin: -8px 0 0 -479px;
+    width: 480px;
+    height: 384px;
+}
+.data .logo {
+    width: 300px;
+}
+.data h5{
+    width: 100px;
+    color: #fbb6de;
+    left: 50%;
+    vertical-align: top;
+    display: inline-block;
+    font-size: 17px;
+}
+.data ul {
+    position: relative;
+    left: 50%;
+    margin: 0 0 100px 35px;
+    width: 450px;
+    color: #000;
+    text-align: left;
+    list-style: none;
+
+}
+.data ul li{
+    color: #000;
+    line-height: 1.9;
+    font-size: 14px;
+    margin-bottom: 31px;
+    font-size: 16px;
+
+}
+.data ul span{
+    display: inline-block;
+}
+.shop .button a {
+    display: block;
+    border-radius: 3px;
+    background: #c0e0f7;
+    width: 280px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    margin: 70px auto;
+ }
+ .shop .button a:hover {
+    background: #719cb9;
+    transition-duration: 0.2s;
+    color: #ddd;
+ }
+
+
+@media screen and (max-width: 780px) {
+    
+    table {
+        width: 80%;
+    }
+    th {
+        font-size: 13px;
+        min-width: 80px;
+    }
+    td {
+        font-size: 12px;
+    }
+
+    h1::before {
+        top: 88px;
+        background: url(images/w_shop.png) 0 0 / 100% 37px no-repeat;
+        width: 116px;
+        height: 42px;
+    }
+    h1 {
+        padding: 80px 0 50px;
+        font-size: 24px;
+    }
+    h1::after {
+        background: url("../images/cutline.png") 0 0 / 100% 60px no-repeat;
+        height: 60px;
+    }
+    #about {
+    padding: 50px 0;
+    }
+    #about p {
+        line-height: 30px;
+        letter-spacing: 0.15em;
+        font-size: 8px;
+        padding: 40px;
+    }
+    #about p strong{
+        font-size: 16px;
+
+    }
+    .shop p {
+        position: relative;
+        top: auto;
+        left: 0;
+        box-sizing: border-box;
+        margin: 0 0 7.1111111vw;
+        padding: 134.2222222vw 7.1111111vw 10.6666667vw;
+        width: 100vw;
+        font-size: 3.2vw;
+        margin-bottom: 0px;
+    }
+    .omise {
+        height:auto;
+    }
+    .data{
+        display: block;
+        position: relative;
+        margin-inline-start: 0px;
+    }
+    .data::before {
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 100vw;
+        height: 56.2666667vw;
+    }
+    .data .photos {
+        position: absolute;
+        top: 62vw;
+        left: 2.5777778vw;
+        margin: 0;
+        width: 94.6666667vw;
+    }
+    .data .photos img{
+        margin: 0 0 2.6666667vw;
+        width: 46.0444444vw;
+        height: 32vw;
+    }
+    .milk .photos img:nth-child(1) {
+        display: none !important;
+    }
+    .data ul li .logo {
+        position: relative;
+        margin: 0 auto;
+        width: 90vw;
+        max-width: 380px;
+    }
+    .data ul li:first-child h5,
+    .data ul li .shopTtl {
+        width: auto;
+        margin: 0;
+    }
+    .data ul h5 {
+        font-size: 12px;
+        width: 45px;
+    }
+    .data ul {
+        left: 0;
+        margin: 0 auto 10.6666667vw;
+        width: 92vw;
+    }
+    .data ul li{
+        border-bottom: 0.26666667vw solid #eeefed;
+        margin: 0 0 4.8vw;
+        padding: 0 0px 15px;
+        font-size: 3vw;
+    }
+    .data .map {
+        position: initial;
+        top: 655px;
+        left: 50%;
+        margin: 0px auto 30px;
+        width: 100%;
+        height:auto;
+    }
+    h3 {
+        -webkit-text-stroke: 1px #F8F8F8;
+	    text-shadow: 0px 0.5px 4px #6b6d69a8;
+        margin: 35px 0 10px;
+        font-size: 16px;
+    }
+    h4 {
+        -webkit-text-stroke: 1px #F8F8F8;
+	    text-shadow: 0px 0.5px 4px #6b6d69a8;
+        left: auto;
+        margin: 0 0 6.2222222vw 7.1111111vw;
+        width: auto;
+        font-size: 6.4vw;
+    }
+    h4 span {
+        padding: 30px 0 0px;
+    }
+    .title {
+        font-size: 5.0vw;
+        }
+    #milk_a h4{
+        font-size: 5.8vw;
+    }
+    #milk_s h4{
+        font-size: 5.8vw;
+    }
+    .bg_milk {
+        background: #c0e0f7;
+    }
+    .bg_candy {
+        background: #f2cdc7;
+    }
+    .bg_chocolat {
+        background: #70181b;
+    }
+    .bg_chocolat_hnr {
+        background: #89393c;
+    }
+    .bg_cyber_b {
+        background: #73f9d8;
+    }
+    .bg_cybar_s {
+        background: #b0a1da;
+    }
+    .bg_cybar_b2 {
+        background: #d4295e;
+    }
+    .bg_cybar_l {
+        background: #aa00ff;
+    }
+    .bg_suite{
+        background: #f2ebb5;;
+    }
+    .bg_planet {
+        background: #a8a8a8;
+    }
+    .bg_milk_a {
+        background: #c0f7e4;
+    }
+    .bg_milk_s {
+        background: #ffd4e5;
+    }
+    .bg_roysuga {
+        background: #ecabbb;
+    }
+    .bg_milk_n {
+        background: #c0e0f7;
+	}
+    .bg_shandy {
+        background: #8f0100;
+    }
+    .bg_tweeny {
+        background: #36d1e5;
+    }
+    .bg_bloody {
+        background: #3f0f12;
+    }
+    .bg_melty {
+        background: #fecff3;
+    }
+    #shop img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+    }
+    #shop .omise.pullhead h4 img.logo {
+        width: auto;
+        max-width: 270px;
+        max-height: 84px;
+        display: block;
+        margin: 0 auto;
+    }
+    #shop .data .photos img {
+        width: 46.0444444vw;
+        height: 32vw;
+        object-fit: cover;
+        display: block;
+    }
+    #shop .data .map {
+        width: 100%;
+        height: auto;
+    }
+    .pullhead.close {
+        background: url("images/close.png") #555 no-repeat;
+        background-position: 93% 53%;
+        background-size: 13px;
+    }
+    .pullhead.open {
+        background: url("images/open.png") #555 no-repeat;
+        background-position: 93% 53%;
+        background-size: 13px;
+    }
+    .pullbody {
+        display:none;
+    }
+}
+#contact{
+    background: #c0e0f7;
+}
+#contact ul{
+    text-align: center;
+    padding:90px 0;
+}
+#contact li{
+    margin: 10px;
+    display: inline-block;
+}
+#contact img{
+    width: 38px;
+}
+@media screen and (max-width: 780px) {
+    #contact ul{
+        text-align: center;
+        padding:0px 0;
+    }
+}
+
+
+footer {
+    padding:65px 0;
+    text-align: center;
+    background: #BFE0F7;
+    width: 100%;
+}
+footer a {
+    text-decoration: none;
+    color: #fff;
+}
+footer p{
+     margin-top: 30px;
+}
+#shoplist li{
+    margin: 0 10px;
+    display: inline-block;
+}
+#shoplist img{
+    width: 80px;
+}
+#gotop {
+    display: none;
+}
+#gotop img{
+    position: fixed;
+    width: 36px;
+    right: 15px;
+    bottom: 20px;
+    margin-right: 10px;
+    z-index: 1;
+}
+@media screen and (max-width: 780px) {
+    #shoplist ul{
+        padding: 0px 0px 30px;
+    }
+     #shoplist img{
+      width: 60px;  
+    }
+}
+@media screen and (max-width: 450px) {
+    #shoplist img{
+        width: 45px;  
+    }
+}
+/* ナビゲーションの表示制御はproposal.cssで一元管理しています */

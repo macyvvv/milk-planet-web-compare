@@ -1,0 +1,195 @@
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>きゃすと一覧 | めいどカフェ＆バー milk planet</title>
+<meta name="description" content="milk planetのメイド一覧">
+<meta name="keywords" content="planet group,メイド喫茶,シーシャ,新宿,歌舞伎町,ミルプラ,みるぷら,シャンラブ,">
+<meta name="robots" content="noindex,follow">
+<meta name="viewport" content="width=device-width, maximum-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+<link href="../vendor/aos/aos.css" rel="stylesheet">
+<script src="../jquery-1.8.3.min.js"></script>
+<link rel="stylesheet" href="../vendor/swiper/swiper.min.css" />
+<link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="cast.css">
+
+  <link rel="stylesheet" type="text/css" href="../proposal.css">
+<script>
+	$(function() {
+	    $(window).scroll(function() {
+	      var st = $(window).scrollTop();
+	      if (st > 500) {
+	        $('#gotop').show("slow");
+	      } else {
+	        $('#gotop').hide('slow');
+	      }
+
+	      // タイトルのフローティング用クラス付与
+	      if (st > 100) {
+	        $('h1.title').addClass('scrolled-title');
+	      } else {
+	        $('h1.title').removeClass('scrolled-title');
+	      }
+	    });
+	});
+</script>
+</head>
+<body>
+	<header id="top-head">
+	<div class="inner">
+		<div id="nav-toggle">
+			<div class="nav-toggle-bars">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<span class="nav-toggle-label">めにゅう</span>
+		</div>
+		<nav id="global-nav">
+			<ul>
+				<li><a href="../index.html">ほぉむ</a></li>
+				<li><a href="../shop/index.html">わくせい</a></li>
+				<li><a href="../cast/index.html">きゃすと</a></li>
+				<li><a href="../index.html#sys-title-wrapper">しすてむ＆めにゅう</a></li>
+				<li><a href="../index.html#event">いべんと</a></li>
+				<li><a href="../recruit/index.html">りくるうと</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+		<h1 class="title" style="--page-h1-bg:#f2cdc7; --scrolled-bg: rgba(242, 205, 199, 0.9);">きゃすと一覧</h1>
+
+	<article>
+
+	<!--キャスト一覧-->
+	<div id="cast" class="content">
+		<div id="list"> 
+			<dl>
+		      <dt>店舗</dt>
+			 　 <dd class="shandy">
+			　	<input id="select_shandy" type="radio" name="rate" value="shandy">
+				<label for="select_shandy">
+					<img>
+				</label>
+			</dd>
+						<dd class="shinjuku">
+		      	<input id="select_shinjuku" type="radio" name="rate" value="shinjuku">
+		      	<label for="select_shinjuku">
+		      		<img>
+		      	</label>
+		      </dd>	
+
+			<dd class="chocolat">
+				<input id="select_chocolat" type="radio" name="rate" value="chocolatplanet">
+				<label for="select_chocolat">
+					<img>
+				</label>
+			</dd>
+
+			<dd class="melty">
+		      	<input id="select_melty" type="radio" name="rate" value="melty">
+		      	<label for="select_melty">
+		      		<img>
+		      	</label>
+		    </dd> 
+			  
+			<dd class="roysuga">
+		      	<input id="select_roysuga" type="radio" name="rate" value="roysuga">
+		      	<label for="select_roysuga">
+		      		<img>
+		      	</label>
+		    </dd>
+
+			<dd class="tweeny">
+		      	<input id="select_tweeny" type="radio" name="rate" value="tweeny">
+		      	<label for="select_tweeny">
+		      		<img>
+		      	</label>
+		    </dd> 
+
+
+	       </dl>
+		</div>
+	<div id="boxes">
+	      <script src="./castlist.js"></script>
+	    </div>
+	</div>
+	<!--キャスト一覧-->
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('#list dd'));
+    var parent = document.getElementById('boxes');
+    var allBoxes = Array.prototype.slice.call(parent.children);
+
+    function getAreaFromNode(node) {
+      return node ? node.className : '';
+    }
+
+    function getAreaFromHash() {
+      var hash = location.hash.replace('#', '');
+      return hash || 'shandy';
+    }
+
+    function activate(area) {
+      if (!area) return;
+
+      var next = [];
+
+      allBoxes.forEach(function (node) {
+        if (node.classList.contains(area)) {
+          next.push(node);
+        }
+      });
+
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
+
+      next.forEach(function (node) {
+        node.classList.remove('hidden');
+        parent.appendChild(node);
+      });
+
+      buttons.forEach(function (dd) {
+        dd.classList.toggle('active', dd.classList.contains(area));
+      });
+    }
+
+    buttons.forEach(function (dd) {
+      dd.addEventListener('click', function () {
+        activate(getAreaFromNode(this));
+      });
+      dd.addEventListener('change', function () {
+        activate(getAreaFromNode(this));
+      });
+    });
+
+    window.addEventListener('hashchange', function () {
+      activate(getAreaFromHash());
+    });
+
+    activate(getAreaFromHash());
+  });
+</script>
+
+	</article>
+	
+<iframe width="100%"
+height="400px"
+scrolling="no"
+frameborder="0"
+src="../footer.html"></iframe>
+
+	<!--aos読み込み-->
+	<script src="../vendor/aos/aos.js"></script>
+	<script>
+		AOS.init();
+	</script>
+	<!--スライダー-->
+	<script src="../vendor/swiper/swiper.min.js"></script>
+	<script src="cast.js"></script>
+  <script src="../proposal.js"></script>
+</body>
+</html>
