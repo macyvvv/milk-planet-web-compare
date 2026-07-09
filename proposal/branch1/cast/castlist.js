@@ -177,7 +177,7 @@ for(k=0;k<position.length;k++){
       for(j=0;j<cast[i].length;j++){
           if(cast[i][j][4]=== position[k]){
           document.write('<div class="all '+area[i]+' '+cast[i][j][4]+'"><li><img src="./'+area[i]+'/'+cast[i][j][0]+'.jpg"><p>'+cast[i][j][1]+
-          '<a href="https://twitter.com/'+cast[i][j][2]+'"></a><br>Birth '+cast[i][j][3]+'</br></p></li></div>');
+          '<a class="sns" href="https://twitter.com/'+cast[i][j][2]+'" target="_blank" rel="noopener">X</a><br>Birth '+cast[i][j][3]+'</br></p></li></div>');
           }
       }
    }
@@ -188,7 +188,7 @@ for(k=0;k<position.length;k++){
         if(typeof cast[i][j]=== "undefined"){}
         else if(typeof cast[i][j][4]=== "undefined"){
           document.write('<div class="all '+area[i]+' '+cast[i][j][4]+'"><li><img src="./'+area[i]+'/'+cast[i][j][0]+'.jpg"><p>'+cast[i][j][1]+
-          '<a href="https://twitter.com/'+cast[i][j][2]+'"></a><br>Birth '+cast[i][j][3]+'</br></p></li></div>');
+          '<a class="sns" href="https://twitter.com/'+cast[i][j][2]+'" target="_blank" rel="noopener">X</a><br>Birth '+cast[i][j][3]+'</br></p></li></div>');
         }
         if(j%2==1){
           if(i+1==cast.length){

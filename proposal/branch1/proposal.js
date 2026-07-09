@@ -22,8 +22,8 @@
     toggle.setAttribute('aria-label', 'めにゅうを開く');
 
     function openClose() {
-      header.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', header.classList.contains('open') ? 'true' : 'false');
+      var isOpen = header.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     }
 
     toggle.addEventListener('click', openClose);
@@ -35,7 +35,10 @@
     });
 
     nav.addEventListener('click', function (e) {
-      if (e.target && e.target.tagName === 'A') header.classList.remove('open');
+      if (e.target && e.target.tagName === 'A') {
+        header.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
     });
 
     function syncFixed() {
@@ -66,11 +69,21 @@
     window.addEventListener('scroll', syncFixed, { passive: true });
     syncFixed();
 
+    function normalizeAnchor(href) {
+      if (!href) return '';
+      var hashIndex = href.indexOf('#');
+      return hashIndex >= 0 ? href.slice(hashIndex) : href;
+    }
+
     function resolveAnchor(href) {
-      if (href === '#sys-title-wrapper') {
+      var anchor = normalizeAnchor(href);
+      if (anchor === '#sys-title-wrapper') {
         return document.querySelector('.sys-title-wrapper');
       }
-      return document.querySelector(href);
+      if (anchor.charAt(0) === '#') {
+        return document.querySelector(anchor);
+      }
+      return null;
     }
 
     function scrollToAnchor(href) {
@@ -78,7 +91,7 @@
       if (!target) return false;
       var targetTop = target.getBoundingClientRect().top + window.pageYOffset;
       var scrollTop = targetTop;
-      if (href === '#sys-title-wrapper') {
+      if (normalizeAnchor(href) === '#sys-title-wrapper') {
         scrollTop = targetTop;
       }
       window.scrollTo({ top: Math.max(0, scrollTop), behavior: 'smooth' });
@@ -87,10 +100,13 @@
     }
 
     document.addEventListener('click', function (e) {
-      var anchor = e.target.closest && e.target.closest('a[href^="#"]');
+      var anchor = e.target.closest && e.target.closest('a[href*="#"]');
       if (!anchor) return;
       var href = anchor.getAttribute('href');
       if (!href || href === '#') return;
+      if (href.indexOf('#') > 0 && href.charAt(0) !== '#') {
+        return;
+      }
       e.preventDefault();
       scrollToAnchor(href);
     });

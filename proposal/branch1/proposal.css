@@ -17,7 +17,8 @@ html body #top-head {
   align-items: unset !important;
   height: 0 !important;
   overflow: visible !important;
-  pointer-events: none !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
 }
 
 html body #top-head.fixed {
@@ -77,7 +78,7 @@ html body #nav-toggle:hover .nav-toggle-bars span {
 }
 
 html body #nav-toggle .nav-toggle-label {
-  font-size: 16px !important;
+  font-size: 14px !important;
   font-weight: bold !important;
   line-height: 1 !important;
   letter-spacing: 0.12em !important;
@@ -86,6 +87,8 @@ html body #nav-toggle .nav-toggle-label {
   width: auto !important;
   height: auto !important;
   background: transparent !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
 }
 
 html body #nav-toggle .nav-toggle-label::before {
@@ -115,22 +118,36 @@ html body #nav-toggle .nav-toggle-bars span {
 
 /* --- コンテキストメニュー（ナビゲーション） --- */
 html body #global-nav {
-  display: none !important;
-  position: absolute !important;
-  top: 100% !important;
+  display: block !important;
+  position: fixed !important;
+  top: 54px !important;
   right: 0 !important;
-  margin-top: 6px !important;
-  width: 220px !important;
+  margin-top: 0 !important;
+  width: 198px !important;
+  height: auto !important;
+  max-height: calc(100vh - 68px) !important;
   background: rgba(255, 255, 255, 0.66) !important;
   border: 1px solid rgba(80, 80, 80, 0.18) !important;
-  border-radius: 12px !important;
+  border-radius: 22px !important;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12) !important;
-  padding: 8px 0 !important;
+  padding: 1px 0 !important;
+  overflow: hidden !important;
   z-index: 10000 !important;
+  pointer-events: auto !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(-8px) !important;
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease !important;
 }
 
 html body #top-head.open #global-nav {
-  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+
+html body #top-head.open {
+  pointer-events: auto !important;
 }
 
 html body #global-nav ul {
@@ -141,6 +158,7 @@ html body #global-nav ul {
   margin: 0 !important;
   padding: 0 !important;
   align-items: stretch !important;
+  width: 100% !important;
 }
 
 html body #global-nav ul li {
@@ -156,17 +174,19 @@ html body #global-nav ul li::after {
 
 html body #global-nav ul li a {
   position: relative !important;
-  display: block !important;
+  display: flex !important;
+  align-items: center !important;
   width: 100% !important;
-  padding: 14px 20px !important;
-  border-radius: 0 !important;
+  min-height: 24px !important;
+  padding: 2px 12px !important;
+  border-radius: 999px !important;
   border: none !important;
   background: transparent !important;
   text-align: left !important;
   color: #444 !important;
   text-decoration: none !important;
-  font-size: 17px !important;
-  line-height: 1.4 !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
   letter-spacing: 0.1em !important;
   transition: background 0.15s ease, transform 0.15s ease, font-size 0.15s ease !important;
 }
@@ -175,12 +195,12 @@ html body #global-nav ul li a:hover {
   transform: none !important;
   border-color: transparent !important;
   background: rgba(255, 255, 255, 0.8) !important;
-  font-size: 18px !important;
+  font-size: 14px !important;
 }
 
 html body #global-nav ul li a:focus-visible {
   background: rgba(255, 255, 255, 0.8) !important;
-  font-size: 18px !important;
+  font-size: 14px !important;
 }
 
 html body #global-nav ul li a:focus-visible,
@@ -191,6 +211,23 @@ html body #nav-toggle:focus-visible {
 
 html body #top-head.open #nav-toggle {
   background: rgba(255, 255, 255, 0.66) !important;
+}
+
+@media (max-width: 780px) {
+  html body #nav-toggle .nav-toggle-label {
+    font-size: 13px !important;
+  }
+
+  html body #global-nav {
+    top: 46px !important;
+    right: 12px !important;
+    width: min(198px, calc(100vw - 24px)) !important;
+    max-height: calc(100vh - 58px) !important;
+  }
+
+  html body #top-head.open {
+    height: auto !important;
+  }
 }
 
 /* Shop menu pages: image grid */
@@ -232,6 +269,12 @@ html body #shopinfo iframe {
   }
 }
 
+@media (max-width: 780px) {
+  html body #top .swiper-container {
+    padding: 0 !important;
+  }
+}
+
 /* Global page spacing */
 html body #top {
   margin-top: 0 !important;
@@ -244,7 +287,7 @@ html body article {
 /* Top page */
 html body #top .swiper-container {
   width: 100% !important;
-  padding: 0 1vw 0 !important;
+  padding: 0 !important;
   overflow: hidden !important;
 }
 
@@ -277,6 +320,39 @@ html body #top .swiper-slide img {
   object-fit: contain !important;
 }
 
+@media (max-width: 780px) {
+  html body #top .swiper-container {
+    padding: 0 !important;
+    height: auto !important;
+  }
+
+  html body #top .swiper-wrapper {
+    height: auto !important;
+  }
+
+  html body #top .swiper-slide {
+    width: 100vw !important;
+    height: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  html body #top .swiper-slide-active,
+  html body #top .swiper-slide-prev,
+  html body #top .swiper-slide-next {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  html body #top .swiper-slide img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    border-radius: 0 !important;
+  }
+}
+
 @media (min-width: 768px) {
   html body #top .swiper-container {
     height: 60vh !important;
@@ -290,7 +366,7 @@ html body #top .swiper-slide img {
     transform: scale(0.8) !important;
   }
   html body #top .swiper-slide-active {
-    transform: scale(1.2) !important;
+    transform: scale(1.25) !important;
   }
   html body #top .swiper-slide img {
     width: 100% !important;
@@ -369,10 +445,11 @@ html body .content {
 .sys-title-wrapper h2 {
   letter-spacing: 10px !important;
   font-size: 36px !important;
-  color: #009afa !important;
+  color: #88b7ef !important;
   margin: 0 !important;
   padding: 0 !important;
   line-height: 1.2 !important;
+  white-space: nowrap !important;
 }
 
 .sys-title-wrapper h2 span {
@@ -430,10 +507,10 @@ html body .content {
 
 #instagram .instagram_gallery a .ig-watermark {
   position: absolute !important;
-  bottom: 10px !important;
-  right: 10px !important;
-  width: 40% !important;
-  max-width: 80px !important;
+  bottom: 2px !important;
+  right: 2px !important;
+  width: 66% !important;
+  max-width: 120px !important;
   height: auto !important;
   opacity: 0.85 !important;
   pointer-events: none !important;
@@ -470,14 +547,197 @@ html body .content {
 
 @media screen and (max-width: 780px) {
   .omise.pullhead h4 img.logo {
+    width: auto !important;
     height: 84px !important;
     max-width: 270px !important;
+    max-height: 84px !important;
+    margin: 0 auto !important;
+    display: block !important;
   }
 }
 
 @media screen and (max-width: 780px) {
   .omise.pullhead h4 {
-    margin-top: 15vw !important; /* スマホ: 上に余白を設けて説明文に近づける */
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .pullhead {
+    position: relative !important;
+    cursor: pointer !important;
+  }
+
+  .pullhead::after {
+    content: '>' !important;
+    position: absolute !important;
+    right: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    padding: 0 !important;
+    background: transparent !important;
+    color: rgba(90, 90, 90, 0.72) !important;
+    font-size: 28px !important;
+    font-weight: 300 !important;
+    letter-spacing: 0 !important;
+    line-height: 1 !important;
+    pointer-events: none !important;
+    transition: opacity 0.15s ease, transform 0.15s ease !important;
+    z-index: 2 !important;
+  }
+
+  .pullhead.open::after {
+    content: '>' !important;
+    opacity: 0.78 !important;
+    transform: translateY(-50%) rotate(90deg) !important;
+  }
+
+  .omise.pullhead h4 {
+    position: relative !important;
+    z-index: 2 !important;
+    padding-top: 14px !important;
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .omise.pullhead h4::before {
+    content: 'めいどカフェ&バー' !important;
+    display: block !important;
+    margin-bottom: 8px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 15px !important;
+    letter-spacing: 0.12em !important;
+    line-height: 1 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .data .logo,
+  .data ul li .logo,
+  .data ul h5 .logo {
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  #shop .omise.pullhead h4 img.logo,
+  #shop .data ul h5 img.logo,
+  #shop .data .logo {
+    width: auto !important;
+    height: auto !important;
+    max-width: 270px !important;
+    max-height: 84px !important;
+  }
+
+  .data .photos img {
+    width: 46.0444444vw !important;
+    height: 32vw !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  #shop .data .photos img,
+  #shop .data .map {
+    width: 46.0444444vw !important;
+    max-width: none !important;
+    height: 32vw !important;
+  }
+
+  #shop .data .map {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  #cybar_s.omise.pullhead h4::before,
+  #cybar_b.omise.pullhead h4::before,
+  #cybar_b2.omise.pullhead h4::before,
+  #cybar_l.omise.pullhead h4::before {
+    content: 'コンセプトカフェ' !important;
+  }
+
+  #shandy.omise.pullhead h4::before {
+    content: 'コンセプトカフェ&ダイニングバー' !important;
+  }
+
+  #melty.omise.pullhead h4::before,
+  #bloody.omise.pullhead h4::before,
+  #roysuga.omise.pullhead h4::before,
+  #tweeny.omise.pullhead h4::before {
+    content: 'コンセプトカフェ' !important;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  #sys {
+    padding: 18px 6px 24px !important;
+    overflow: hidden !important;
+  }
+
+  #sys .sys-shops {
+    display: grid !important;
+    grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+    column-gap: 4px !important;
+    row-gap: 4px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    align-items: center !important;
+    justify-items: center !important;
+    justify-content: center !important;
+    align-content: start !important;
+  }
+
+  #sys .sys-shops a {
+    width: min(100%, 72px) !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    transform: scale(1.2) !important;
+    transform-origin: center center !important;
+  }
+
+  #sys .sys-shops a img {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    object-fit: contain !important;
+  }
+
+  #sys .sys-shops a:nth-child(1) { grid-column: 2 !important; grid-row: 1 !important; }
+  #sys .sys-shops a:nth-child(2) { grid-column: 4 !important; grid-row: 1 !important; }
+  #sys .sys-shops a:nth-child(3) { grid-column: 6 !important; grid-row: 1 !important; }
+
+  #sys .sys-shops a:nth-child(4) { grid-column: 1 !important; grid-row: 2 !important; }
+  #sys .sys-shops a:nth-child(5) { grid-column: 3 !important; grid-row: 2 !important; }
+  #sys .sys-shops a:nth-child(6) { grid-column: 5 !important; grid-row: 2 !important; }
+  #sys .sys-shops a:nth-child(7) { grid-column: 7 !important; grid-row: 2 !important; }
+
+  #sys .sys-shops a:nth-child(8) { grid-column: 2 !important; grid-row: 3 !important; }
+  #sys .sys-shops a:nth-child(9) { grid-column: 4 !important; grid-row: 3 !important; }
+  #sys .sys-shops a:nth-child(10) { grid-column: 6 !important; grid-row: 3 !important; }
+
+  .sys-title-wrapper h2 {
+    font-size: 22px !important;
+    letter-spacing: 2px !important;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+  }
+
+  .sys-title-wrapper h2 span {
+    font-size: 22px !important;
+    margin: 0 4px !important;
+  }
+
+  #instagram .instagram_gallery a .ig-watermark {
+    width: 43% !important;
+    max-width: 72px !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    opacity: 0.82 !important;
   }
 }
 
