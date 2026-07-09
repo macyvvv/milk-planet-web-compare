@@ -1,0 +1,60 @@
+{"kind":"deck","id":"pr/zznhpp","name":"Deck"}
+{"kind":"layout","layoutId":"247d0b43-7bc2-412e-b1e1-fce038152871","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"04f4b3da-e28e-49df-849f-fcdb4a1263b1","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/j9ewx2","slide":1,"title":"milk-planet","textShapes":6}
+{"kind":"shape","id":"sh/val87ed8","slide":1,"bbox":[70,70,1140,580]}
+{"kind":"textbox","id":"sh/kre1w7mp","slide":1,"text":"milk-planet\nweb 改修提案","textPreview":"milk-planet | web 改修提案","textChars":20,"textLines":2,"bbox":[110,118,760,180]}
+{"kind":"textbox","id":"sh/dcbulwva","slide":1,"text":"目的: 既存素材を使い回しながら、新旧比較しやすいプレゼン用モックに整える","textPreview":"目的: 既存素材を使い回しながら、新旧比較しやすいプレゼン用モックに整える","textChars":37,"textLines":1,"bbox":[110,308,860,90]}
+{"kind":"shape","id":"sh/2x4nap4r","slide":1,"bbox":[110,420,470,150]}
+{"kind":"textbox","id":"sh/vixczed8","slide":1,"text":"対象","textPreview":"対象","textChars":2,"textLines":1,"bbox":[140,446,120,40]}
+{"kind":"textbox","id":"sh/k3q5o7qp","slide":1,"text":"proposal/branch1\nトップ / 店舗 / キャスト / 採用 / 補助ページ","textPreview":"proposal/branch1 | トップ / 店舗 / キャスト / 採用 / 補助ページ","textChars":45,"textLines":2,"bbox":[140,488,400,90]}
+{"kind":"shape","id":"sh/donyd0z6","slide":1,"bbox":[630,420,500,150]}
+{"kind":"textbox","id":"sh/29gr2p8n","slide":1,"text":"方針","textPreview":"方針","textChars":2,"textLines":1,"bbox":[660,446,120,40]}
+{"kind":"textbox","id":"sh/vu9knih4","slide":1,"text":"PCは固定、以後はSPを主に調整。\n見た目と導線だけを、元サイトに寄せて再構成。","textPreview":"PCは固定、以後はSPを主に調整。 | 見た目と導線だけを、元サイトに寄せて再構成。","textChars":40,"textLines":2,"bbox":[660,488,410,90]}
+{"kind":"notes","id":"nt/j9ewx2","slide":1,"text":""}
+{"kind":"slide","id":"sl/5xjuh8","slide":2,"title":"大きな修正","textShapes":9}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":2,"text":"大きな修正","textPreview":"大きな修正","textChars":5,"textLines":1,"bbox":[80,52,600,70]}
+{"kind":"shape","id":"sh/d8v6psfi","slide":2,"bbox":[80,140,1120,520]}
+{"kind":"shape","id":"sh/onyd0z61","slide":2,"bbox":[120,190,460,150]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":2,"text":"トップ","textPreview":"トップ","textChars":3,"textLines":1,"bbox":[144,208,120,34]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":2,"text":"カルーセルを元画像を切らずに最大表示。\n中央を主役にしつつ、周辺画像との関係を整理。","textPreview":"カルーセルを元画像を切らずに最大表示。 | 中央を主役にしつつ、周辺画像との関係を整理。","textChars":42,"textLines":2,"bbox":[144,248,408,84]}
+{"kind":"shape","id":"sh/dg7adsji","slide":2,"bbox":[620,190,460,150]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":2,"text":"導線","textPreview":"導線","textChars":2,"textLines":1,"bbox":[644,208,120,34]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":2,"text":"ハンバーガーを全ページで統一。\n`しすてむ＆めにゅう` の遷移先を安定化。","textPreview":"ハンバーガーを全ページで統一。 | `しすてむ＆めにゅう` の遷移先を安定化。","textChars":37,"textLines":2,"bbox":[644,248,408,84]}
+{"kind":"shape","id":"sh/61032lsz","slide":2,"bbox":[120,400,460,150]}
+{"kind":"textbox","id":"sh/wval87ed","slide":2,"text":"店舗","textPreview":"店舗","textChars":2,"textLines":1,"bbox":[144,418,120,34]}
+{"kind":"textbox","id":"sh/pg3ex0nu","slide":2,"text":"店舗一覧・個別店舗ページの見え方を統一。\nバナー、アクセス、ロゴのサイズ感を修正。","textPreview":"店舗一覧・個別店舗ページの見え方を統一。 | バナー、アクセス、ロゴのサイズ感を修正。","textChars":41,"textLines":2,"bbox":[144,458,408,84]}
+{"kind":"shape","id":"sh/epkzupwb","slide":2,"bbox":[620,400,460,150]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":2,"text":"キャスト","textPreview":"キャスト","textChars":4,"textLines":1,"bbox":[644,418,120,34]}
+{"kind":"textbox","id":"sh/w7mp0bi9","slide":2,"text":"縦横間隔を詰め、SNSリンクを復元。\n店舗切替の見え方も調整。","textPreview":"縦横間隔を詰め、SNSリンクを復元。 | 店舗切替の見え方も調整。","textChars":31,"textLines":2,"bbox":[644,458,408,84]}
+{"kind":"notes","id":"nt/5xjuh8","slide":2,"text":""}
+{"kind":"slide","id":"sl/5se6jv","slide":3,"title":"実装の考え方","textShapes":5}
+{"kind":"textbox","id":"sh/3q5o7qpg","slide":3,"text":"実装の考え方","textPreview":"実装の考え方","textChars":6,"textLines":1,"bbox":[80,52,620,70]}
+{"kind":"shape","id":"sh/wb2hwfyx","slide":3,"bbox":[80,140,540,500]}
+{"kind":"shape","id":"sh/lwval87e","slide":3,"bbox":[660,140,540,500]}
+{"kind":"textbox","id":"sh/ex0nuxc3","slide":3,"text":"守ったこと","textPreview":"守ったこと","textChars":5,"textLines":1,"bbox":[110,176,200,40]}
+{"kind":"textbox","id":"sh/3itgfmlk","slide":3,"text":"・既存の画像とHTMLを使い回す\n・追加素材を前提にしない\n・PC版は特別指示があるまで触らない\n・SPの変更は CSS/JS 中心で完結させる\n・相対パスとアンカー遷移を都度確認する","textPreview":"・既存の画像とHTMLを使い回す | ・追加素材を前提にしない | ・PC版は特別指示があるまで触らない | ・SPの変更は CSS/JS 中心で完結させる | ・相対パスとアンカー遷移を都度確認する","textChars":92,"textLines":5,"bbox":[110,232,470,260]}
+{"kind":"textbox","id":"sh/w3m94fu1","slide":3,"text":"詰まりやすかった点","textPreview":"詰まりやすかった点","textChars":9,"textLines":1,"bbox":[690,176,260,40]}
+{"kind":"textbox","id":"sh/loj2t83i","slide":3,"text":"・空アンカーや別ページの hash を誤って横取りする\n・要素の見た目ではなく親要素の幅に潰される\n・画像がないのではなく、DOM/CSS で隠れている\n・1ページ内の塊を、塊内余白と塊間余白に分けて考える","textPreview":"・空アンカーや別ページの hash を誤って横取りする | ・要素の見た目ではなく親要素の幅に潰される | ・画像がないのではなく、DOM/CSS で隠れている | ・1ページ内の塊を、塊内余白と塊間余白に分けて考える","textChars":103,"textLines":4,"bbox":[690,232,470,260]}
+{"kind":"notes","id":"nt/5se6jv","slide":3,"text":""}
+{"kind":"slide","id":"sl/rfywev","slide":4,"title":"最終状態の要点","textShapes":7}
+{"kind":"textbox","id":"sh/fil0rqd4","slide":4,"text":"最終状態の要点","textPreview":"最終状態の要点","textChars":7,"textLines":1,"bbox":[80,52,620,70]}
+{"kind":"shape","id":"sh/83itgfml","slide":4,"bbox":[80,140,1120,500]}
+{"kind":"shape","id":"sh/xobm58z2","slide":4,"bbox":[120,191,16,16]}
+{"kind":"textbox","id":"sh/m94fu18j","slide":4,"text":"トップ: カルーセルが自然に回り、中央の画像が主役として見える","textPreview":"トップ: カルーセルが自然に回り、中央の画像が主役として見える","textChars":31,"textLines":1,"bbox":[150,186,980,34]}
+{"kind":"shape","id":"sh/fu18jqh0","slide":4,"bbox":[120,261,16,16]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":4,"text":"導線: ハンバーガーから各ページに迷わず移動できる","textPreview":"導線: ハンバーガーから各ページに迷わず移動できる","textChars":25,"textLines":1,"bbox":[150,256,980,34]}
+{"kind":"shape","id":"sh/x0nuxc3y","slide":4,"bbox":[120,331,16,16]}
+{"kind":"textbox","id":"sh/mlkjm1cf","slide":4,"text":"店舗: 店舗名・ロゴ・アクセスの見え方がオリジナルに近い","textPreview":"店舗: 店舗名・ロゴ・アクセスの見え方がオリジナルに近い","textChars":28,"textLines":1,"bbox":[150,326,980,34]}
+{"kind":"shape","id":"sh/f6dcbulw","slide":4,"bbox":[120,401,16,16]}
+{"kind":"textbox","id":"sh/vixczed8","slide":4,"text":"キャスト: 縦横の余白を整理し、SNSリンクが確認できる","textPreview":"キャスト: 縦横の余白を整理し、SNSリンクが確認できる","textChars":28,"textLines":1,"bbox":[150,396,980,34]}
+{"kind":"shape","id":"sh/2x4nap4r","slide":4,"bbox":[120,471,16,16]}
+{"kind":"textbox","id":"sh/donyd0z6","slide":4,"text":"運用: 既存素材を使い回せるため、更新コストを増やさない","textPreview":"運用: 既存素材を使い回せるため、更新コストを増やさない","textChars":28,"textLines":1,"bbox":[150,466,980,34]}
+{"kind":"textbox","id":"sh/k3q5o7qp","slide":4,"text":"結論: 画面の派手さではなく、比較しやすさと運用しやすさを両立するモックにした。","textPreview":"結論: 画面の派手さではなく、比較しやすさと運用しやすさを両立するモックにした。","textChars":40,"textLines":1,"bbox":[120,520,980,60]}
+{"kind":"notes","id":"nt/rfywev","slide":4,"text":""}
+{"kind":"slide","id":"sl/r2vv98","slide":5,"title":"次に使うための実装指示書も更新済み","textShapes":3}
+{"kind":"shape","id":"sh/t83itgfm","slide":5,"bbox":[100,160,1080,320]}
+{"kind":"textbox","id":"sh/mhk3q5o7","slide":5,"text":"次に使うための実装指示書も更新済み","textPreview":"次に使うための実装指示書も更新済み","textChars":17,"textLines":1,"bbox":[140,220,880,60]}
+{"kind":"textbox","id":"sh/b2hwfyxo","slide":5,"text":"・SPは proposal/branch1 の CSS / JS を中心に変更\n・PCは特別指示があるまで触らない\n・別ページ hash と同一ページアンカーを分離\n・画像は「無い」のではなく「隠れている」可能性を先に疑う","textPreview":"・SPは proposal/branch1 の CSS / JS を中心に変更 | ・PCは特別指示があるまで触らない | ・別ページ hash と同一ページアンカーを分離 | ・画像は「無い」のではなく「隠れている」可能性を先に疑う","textChars":111,"textLines":4,"bbox":[140,290,900,130]}
+{"kind":"textbox","id":"sh/4byhgn29","slide":5,"text":"このまま、比較用のブラウザ確認とプレゼン説明に使える状態。","textPreview":"このまま、比較用のブラウザ確認とプレゼン説明に使える状態。","textChars":29,"textLines":1,"bbox":[140,430,820,40]}
+{"kind":"notes","id":"nt/r2vv98","slide":5,"text":""}
