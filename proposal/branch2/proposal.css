@@ -215,15 +215,39 @@ html body #top-head.open #nav-toggle {
 }
 
 @media (max-width: 780px) {
+  html body #top-head .inner {
+    top: 10px !important;
+    right: 12px !important;
+  }
+
+  html body #nav-toggle {
+    gap: 0 !important;
+    padding: 0 !important;
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
   html body #nav-toggle .nav-toggle-label {
-    font-size: 13px !important;
+    display: none !important;
+  }
+
+  html body #nav-toggle .nav-toggle-bars {
+    gap: 5px !important;
+  }
+
+  html body #nav-toggle .nav-toggle-bars span {
+    width: 20px !important;
   }
 
   html body #global-nav {
-    top: 46px !important;
-    right: 12px !important;
-    width: min(214px, calc(100vw - 24px)) !important;
-    max-height: calc(100vh - 56px) !important;
+    top: 52px !important;
+    right: 10px !important;
+    width: min(214px, calc(100vw - 20px)) !important;
+    max-height: calc(100vh - 60px) !important;
   }
 
   html body #global-nav ul li a {
@@ -795,6 +819,7 @@ h1.seo_h1.scrolled-title {
   padding: calc(24px - (14px * var(--h1-progress))) 0 calc(129px - (129px * var(--h1-progress))) !important;
   background: var(--scrolled-bg, var(--page-h1-bg, transparent)) !important;
   font-size: calc(36px - (12px * var(--h1-progress))) !important;
+  opacity: 0.66 !important;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 2px 10px rgba(0,0,0, calc(0.10 * var(--h1-progress)));
