@@ -795,6 +795,7 @@ h1.seo_h1.scrolled-title {
   padding: calc(24px - (14px * var(--h1-progress))) 0 calc(129px - (129px * var(--h1-progress))) !important;
   background: var(--scrolled-bg, var(--page-h1-bg, transparent)) !important;
   font-size: calc(36px - (12px * var(--h1-progress))) !important;
+  opacity: 0.66 !important;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 2px 10px rgba(0,0,0, calc(0.10 * var(--h1-progress)));
