@@ -113,7 +113,7 @@ while(sliderepeat===true){
           for(j=0;j<events[i].length;j++){
               eventimage = eventimage +
                 '<li><a href="'+pass+'event/'+events[i][j][2]+
-                '.jpg" class="gallery" data-group="gallery"><img src="./event/'+events[i][j][2]+'.jpg"></a></li>';
+                '.jpg" class="gallery" data-group="gallery"><img src="'+pass+'event/'+events[i][j][2]+'.jpg"></a></li>';
           }
           if(shopNo !== 0 && i!=shopNo) i=shopNo-1;
     }

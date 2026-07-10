@@ -124,7 +124,7 @@
     var allBoxes = Array.prototype.slice.call(parent.children);
 
     function getAreaFromNode(node) {
-      return node ? node.className : '';
+      return node && node.classList.length ? node.classList[0] : '';
     }
 
     function getAreaFromHash() {
