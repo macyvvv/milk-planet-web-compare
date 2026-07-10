@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: 'Lato', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  background: linear-gradient(180deg, #f7fbff 0%, #ffffff 36%, #f7fbff 100%);
+  color: #2c3140;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.page-title {
+  color: #fff;
+  font-size: 27px;
+}
+
+.content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 34px 24px 60px;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 24px;
+}
+
+.store-card {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(192, 224, 247, 0.9);
+  border-radius: 24px;
+  box-shadow: 0 14px 30px rgba(71, 92, 122, 0.08);
+  padding: 22px 20px 24px;
+  overflow: hidden;
+}
+
+.store-card__logo-wrap {
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 14px;
+}
+
+.store-card__logo {
+  display: block;
+  width: min(82%, 360px);
+  max-width: 360px;
+  height: auto;
+}
+
+.store-card__image-link {
+  display: block;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f6f8fb;
+  border: 1px solid rgba(192, 224, 247, 0.8);
+}
+
+.store-card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.store-card__image--placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+.store-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #667189;
+}
+
+.store-card__account {
+  font-weight: 700;
+  color: #48546d;
+}
+
+.store-card__status {
+  font-size: 12px;
+  color: #8a95a8;
+}
+
+.store-card--small .store-card__logo {
+  width: min(72%, 320px);
+}
+
+.store-card--placeholder .store-card__image-link {
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.store-card--placeholder .store-card__image {
+  width: min(82%, 420px);
+  height: auto;
+}
+
+@media (max-width: 780px) {
+  .page-title {
+    font-size: 5vw;
+  }
+
+  .content {
+    padding: 22px 14px 52px;
+  }
+
+  .schedule-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .store-card {
+    padding: 18px 14px 18px;
+    border-radius: 20px;
+  }
+
+  .store-card__logo-wrap {
+    min-height: 66px;
+    padding-bottom: 10px;
+  }
+
+  .store-card__logo,
+  .store-card--small .store-card__logo {
+    width: min(88%, 320px);
+    max-width: 88vw;
+  }
+
+  .store-card__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .store-card--placeholder .store-card__image-link {
+    min-height: 160px;
+  }
+}

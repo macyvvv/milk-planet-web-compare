@@ -125,13 +125,14 @@ html body #global-nav {
   margin-top: 0 !important;
   width: 198px !important;
   height: auto !important;
-  max-height: calc(100vh - 68px) !important;
+  max-height: calc(100vh - 48px) !important;
   background: rgba(255, 255, 255, 0.85) !important;
   border: 1px solid rgba(80, 80, 80, 0.18) !important;
   border-radius: 22px !important;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12) !important;
   padding: 1px 0 !important;
-  overflow: hidden !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
   z-index: 10000 !important;
   pointer-events: auto !important;
   opacity: 0 !important;
@@ -221,8 +222,15 @@ html body #top-head.open #nav-toggle {
   html body #global-nav {
     top: 46px !important;
     right: 12px !important;
-    width: min(198px, calc(100vw - 24px)) !important;
-    max-height: calc(100vh - 58px) !important;
+    width: min(214px, calc(100vw - 24px)) !important;
+    max-height: calc(100vh - 56px) !important;
+  }
+
+  html body #global-nav ul li a {
+    min-height: 20px !important;
+    padding: 1px 12px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.06em !important;
   }
 
   html body #top-head.open {
