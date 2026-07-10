@@ -1,4 +1,4 @@
-window.addEventListener('load', function () {
+function initializeEventList() {
   var i=j=0;
   var eventimage='';
   var eventname='';
@@ -114,7 +114,7 @@ while(sliderepeat===true){
           for(j=0;j<events[i].length;j++){
               eventimage = eventimage +
                 '<li><a href="'+pass+'event/'+events[i][j][2]+
-                '.jpg" class="gallery" data-group="gallery"><img loading="lazy" src="./event/'+events[i][j][2]+'.jpg"></a></li>';
+                '.jpg" class="gallery" data-group="gallery"><img loading="lazy" src="'+pass+'event/'+events[i][j][2]+'.jpg"></a></li>';
           }
           if(shopNo !== 0 && i!=shopNo) i=shopNo-1;
     }
@@ -140,7 +140,14 @@ var eventtitle = document.getElementById('eventtitle');
 if (eventtitle) {
   eventtitle.innerHTML = '<ul >'+eventname+'</ul>';
 }
-});
+}
+
+// Execute immediately if DOM is ready, otherwise wait for DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeEventList);
+} else {
+  initializeEventList();
+}
 
 
 // function showslide(){

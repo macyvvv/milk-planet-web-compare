@@ -24,7 +24,7 @@ body {
 /*ヘッダーのフォント */
 #top-head a, 
 #global-nav ul {
-font-family: "Nico Moji";
+font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 
 article {
@@ -125,7 +125,7 @@ footer a {
     display: inline-block;
     bottom: 0;
     font-size: 17px;
-    font-family: "Nico Moji";
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 #global-nav ul li {
     display: inline-block;

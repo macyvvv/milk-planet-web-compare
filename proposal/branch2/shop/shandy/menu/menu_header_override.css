@@ -46,7 +46,7 @@
     display: inline-block;
     bottom: 0;
     font-size: 17px;
-    font-family: "Nico Moji";
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
     flex-direction: row !important;
     align-items: initial !important;
 }

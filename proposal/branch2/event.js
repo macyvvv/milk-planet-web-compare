@@ -1,3 +1,4 @@
+function initializeEvent() {
   $('.slider').slick({
     autoplay: true,//自動的に動き出すか。初期値はfalse。
     infinite: true,//スライドをループさせるかどうか。初期値はtrue。
@@ -74,6 +75,12 @@ $(".iframe-open").modaal({
     $('html').css('overflow-y','scroll');/*縦スクロールバーを出す*/
   }
 });
+}
 
-
+// Execute immediately if DOM is ready, otherwise wait for DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeEvent);
+} else {
+  initializeEvent();
+}
 

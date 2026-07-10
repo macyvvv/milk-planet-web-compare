@@ -81,7 +81,7 @@ footer a {
     display: inline-block;
     bottom: 0;
     font-size: 17px;
-    font-family: "Nico Moji";
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 #global-nav ul li {
     display: inline-block;
@@ -314,7 +314,7 @@ h2{
     font-size:36px;
     color: #88b7ef;
     margin-bottom: 50px;
-    font-family: "Nico Moji";
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 h3{
     margin: 50px 0 10px;
@@ -349,7 +349,7 @@ h6{
     width: 50%;
 }
 #concept h2 {
-    font-family: "Nico Moji";
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 #concept p {
     text-align: center;

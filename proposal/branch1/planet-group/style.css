@@ -76,7 +76,7 @@ a {
     display: inline-block;
     bottom: 0;
     font-size: 17px;
-    font-family: "Nico Moji";
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 #global-nav ul li {
     display: inline-block;
@@ -215,7 +215,7 @@ a {
             -webkit-transition: .5s ease-in-out;
             -moz-transition: .5s ease-in-out;
             transition: .5s ease-in-out;
-            font-family: "Nico Moji";
+            font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
         }
         #global-nav ul {
             list-style: none;
@@ -306,7 +306,7 @@ h2 {
     letter-spacing: 0.15em;
     font-size: 42px;
     color : #444;
-    font-family: 'Nico moji';
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 h3 {
     margin: 5% 0 2.2%;

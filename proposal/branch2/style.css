@@ -81,7 +81,7 @@ footer a {
     display: inline-block;
     bottom: 0;
     font-size: 17px;
-    font-family: "Nico Moji";
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 #global-nav ul li {
     display: inline-block;
@@ -314,7 +314,7 @@ h2{
     font-size:36px;
     color: #88b7ef;
     margin-bottom: 50px;
-    font-family: "Nico Moji";
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 h3{
     margin: 50px 0 10px;
@@ -349,7 +349,7 @@ h6{
     width: 50%;
 }
 #concept h2 {
-    font-family: "Nico Moji";
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
 }
 #concept p {
     text-align: center;
@@ -367,7 +367,7 @@ h6{
 }
 
 #shop {
-    background: url(images/tennai.png) left top / 2310px 410px no-repeat;
+    background: url(images/tennai.jpg) left top / 2310px 410px no-repeat;
     margin: 0 auto;
     width: 100%;
     min-width: 1200px;
@@ -443,7 +443,7 @@ h6{
  }
 
  #maid{
-    background: url(images/cheki.png) left top / 2310px 410px no-repeat;
+    background: url(images/cheki.jpg) left top / 2310px 410px no-repeat;
     margin: 0 auto 30px;
     width: 100%;
     min-width: 1200px;
@@ -623,7 +623,7 @@ h6{
         height: auto;
     }
     #shop {
-        background: url(images/tennai.png) 0% bottom / 300vw auto no-repeat;
+        background: url(images/tennai.jpg) 0% bottom / 300vw auto no-repeat;
         margin: -20 auto 0;
         padding: 0 0 52vw;
         min-width: 100%;
@@ -657,7 +657,7 @@ h6{
         display: none;
     }
     #maid {
-        background: url(images/cheki.png) 0% bottom / 300vw auto no-repeat;
+        background: url(images/cheki.jpg) 0% bottom / 300vw auto no-repeat;
         margin: 0 auto;
         padding: 10vw 0 90vw;
         min-width: 100%;
