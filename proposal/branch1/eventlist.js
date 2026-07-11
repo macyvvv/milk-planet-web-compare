@@ -65,43 +65,30 @@ const events = [
     [//cybarbkk2
     ]
   ];
-switch(pathname){
-  case"":
-    shopNo = 0;
-  break;
-  case"/shop/shinjuku/":
-    shopNo = 1;
-  break;
-  case"/shop/cybarshinjuku/":
-    shopNo = 2;
-	break;
-  case"/shop/chocolat/":
-    shopNo = 3;
-  break;
-  case"/shop/shandy/":
-    shopNo = 4;
-  break;
-  case"/shop/melty/":
-    shopNo = 5;
-  break;
-  case"/shop/bloody/":
-    shopNo = 6;
-  break;
-  case"/shop/roysuga/":
-    shopNo = 7;
-  break;
-  case"/shop/tweeny/":
-    shopNo = 8;
-  break;
-  case"/shop/cybarbkk/":
-    shopNo = 9;
-  break;
-  case"/shop/cybarlaos/":
-    shopNo = 10;
-  break;
-  case"/shop/cybarbkk2/":
-    shopNo = 11;
-  break;
+var normalizedPath = pathname.replace(/index\.html$/, '');
+var shopPathMap = {
+  '/shop/shinjuku/': 1,
+  '/shop/cybarshinjuku/': 2,
+  '/shop/chocolat/': 3,
+  '/shop/shandy/': 4,
+  '/shop/melty/': 5,
+  '/shop/bloody/': 6,
+  '/shop/roysuga/': 7,
+  '/shop/tweeny/': 8,
+  '/shop/cybarbkk/': 9,
+  '/shop/cybarlaos/': 10,
+  '/shop/cybarbkk2/': 11
+};
+
+if (shopPathMap[normalizedPath] !== undefined) {
+  shopNo = shopPathMap[normalizedPath];
+} else {
+  // Support file:// local preview paths such as .../shop/cybarshinjuku/index.html
+  Object.keys(shopPathMap).forEach(function(pathKey) {
+    if (normalizedPath.indexOf(pathKey) !== -1) {
+      shopNo = shopPathMap[pathKey];
+    }
+  });
 }
 //shopNo = 12;
 
