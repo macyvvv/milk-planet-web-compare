@@ -321,22 +321,25 @@ html body #top-head.open #nav-toggle {
   }
 
   html body #global-nav ul li a {
-    min-height: 20px !important;
-    padding: 1px 12px !important;
-    font-size: 12px !important;
+    min-height: 44px !important;
+    padding: 5px 12px !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
     letter-spacing: 0.06em !important;
   }
 
   html body #global-nav .nav-submenu-toggle {
-    min-height: 20px !important;
-    padding: 1px 12px !important;
-    font-size: 12px !important;
+    min-height: 44px !important;
+    padding: 5px 12px !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
     letter-spacing: 0.06em !important;
   }
 
   html body #global-nav .nav-submenu li a {
-    font-size: 12px !important;
-    padding-left: 10px !important;
+    font-size: 16px !important;
+    padding: 5px 10px 5px 10px !important;
+    line-height: 1.6 !important;
   }
 
   html body #global-nav .nav-submenu li + li {
