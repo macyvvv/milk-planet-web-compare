@@ -90,7 +90,7 @@ a {
   justify-content: space-between;
   gap: 12px;
   margin-top: 14px;
-  font-size: 13px;
+  font-size: 15px;
   color: #667189;
 }
 
@@ -100,8 +100,19 @@ a {
 }
 
 .store-card__status {
-  font-size: 12px;
+  font-size: 24px;
+  line-height: 1.35;
+  font-weight: 700;
   color: #8a95a8;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  white-space: nowrap;
+}
+
+.store-card__status .hours-line {
+  display: block;
 }
 
 .store-card--small .store-card__logo {
@@ -155,6 +166,12 @@ a {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
+  }
+
+  .store-card__status {
+    font-size: 20px;
+    text-align: left;
+    align-items: flex-start;
   }
 
   .store-card--placeholder .store-card__image-link {
