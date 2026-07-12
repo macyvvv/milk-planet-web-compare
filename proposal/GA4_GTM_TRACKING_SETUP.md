@@ -193,9 +193,15 @@ GTM はアカウントや新UIで画面構成が異なります。
 
 1. GTM 左メニュー `タグ` -> `新規`
 2. タグタイプ: `Google アナリティクス: GA4 設定`
-3. `測定 ID` に `G-XXXXXXXXXX` を入力
+3. `測定 ID` に `G-YW42LKCZ6W` を入力
 4. トリガー: `All Pages`
 5. 保存（例: `GA4 - Config`）
+
+このリポジトリで現在使っている GA4 の計測ID:
+
+- `G-YW42LKCZ6W`
+
+別の GA4 プロパティへ送る場合は、この値をそのプロパティの計測IDに置き換えてください。
 
 左メニューがない場合の導線例:
 
@@ -279,11 +285,21 @@ GTM はアカウントや新UIで画面構成が異なります。
 
 作成手順（1つずつ同じ操作）:
 
-1. GTM 左メニュー `トリガー` -> `新規`
-2. `トリガーの設定` -> `カスタムイベント`
-3. `イベント名` に `ui_click` などを入力
-4. このトリガーの発生場所: `すべてのカスタムイベント`
-5. 保存
+1. GTM の `トリガー` 画面を開く
+2. `新規` をクリック
+3. トリガー名を入力（例: `CE - ui_click`）
+4. `トリガーの設定` をクリック
+5. トリガータイプ `カスタムイベント` を選択
+6. `イベント名` に対象イベント名を入力（例: `ui_click`）
+7. このトリガーの発生場所: `すべてのカスタムイベント`
+8. 保存
+
+入力項目（毎回共通）:
+
+- トリガータイプ: `カスタムイベント`
+- イベント名: 下表のイベント名をそのまま入力（大文字小文字一致）
+- このトリガーの発生場所: `すべてのカスタムイベント`
+- 条件（Some Custom Events）は通常不要
 
 左メニューがない場合の導線例:
 
@@ -291,18 +307,71 @@ GTM はアカウントや新UIで画面構成が異なります。
 2. `新規`
 3. 以降は同じ
 
+作成するトリガー一覧:
+
+| トリガー名 | イベント名 | 用途 |
+| --- | --- | --- |
+| `CE - ui_click` | `ui_click` | リンク/ボタンなどの操作計測 |
+| `CE - outbound_click` | `outbound_click` | 外部リンククリック計測 |
+| `CE - form_submit` | `form_submit` | フォーム送信計測 |
+| `CE - menu_toggle` | `menu_toggle` | メニュー開閉計測 |
+
+設定確認（作成後に必ず実施）:
+
+1. GTM 右上 `プレビュー`
+2. 対象ページへ接続
+3. サイト上でクリックやフォーム送信を実行
+4. Tag Assistant 左のイベント一覧に `ui_click` / `outbound_click` / `form_submit` / `menu_toggle` が出るか確認
+5. 各イベントを選択し `Tags Fired` に対応する GA4 タグが表示されるか確認
+
+発火しない場合の確認:
+
+- `イベント名` のスペルミス（例: `ui-click` は別イベント扱い）
+- トリガーが `すべてのカスタムイベント` ではなく条件付きになっている
+- プレビュー接続先が `file://` になっている（`https://` で確認）
+- デバッグ対象ページが古いキャッシュのまま（ハードリロード後に再確認）
+
 ### 3) GA4 イベントタグ
 イベントごとに GA4 イベントタグを作成:
 
+重要:
+
+- GA4 イベントタグ自体には通常 `測定 ID` を直接入力しません
+- 代わりに `設定タグ` として `GA4 - Config` を選びます
+- その `GA4 - Config` の中に `測定 ID`（この案件では `G-YW42LKCZ6W`）が入っている必要があります
+- つまり、イベントタグが送信先を認識するのは `GA4 - Config` 経由です
+
 共通の作成手順:
 
-1. GTM 左メニュー `タグ` -> `新規`
-2. タグタイプ: `Google アナリティクス: GA4 イベント`
-3. `設定タグ` で `GA4 - Config`（または既存のGA4設定タグ）を選択
-4. `イベント名` を入力（例: `ui_click`）
-5. `イベント パラメータ` でキーと値を追加
-6. `トリガー` に対応する `CE - ...` を設定
-7. 保存
+1. GTM の `タグ` 画面を開く
+2. `新規` をクリック
+3. タグ名を入力（例: `GA4 - ui_click`）
+4. `タグの設定` -> `Google アナリティクス: GA4 イベント`
+5. `設定タグ` に `GA4 - Config`（または既存GA4設定タグ）を選択
+6. `イベント名` を入力（例: `ui_click`）
+7. `イベント パラメータ` を追加（キー/値）
+8. `トリガー` に対応する `CE - ...` を設定
+9. 保存
+
+入力項目（毎回共通）:
+
+- タグタイプ: `Google アナリティクス: GA4 イベント`
+- 設定タグ: `GA4 - Config`
+- `GA4 - Config` 内の測定 ID: `G-YW42LKCZ6W`
+- イベント名: 対象イベント名をそのまま入力（大文字小文字一致）
+- イベント パラメータ: 下表のキーと `{{dlv_*}}` 変数を設定
+- トリガー: 対応する `CE - ...`
+
+先に確認すべきこと:
+
+1. `GA4 - Config` タグが存在する
+2. そのタグの `測定 ID` が `G-YW42LKCZ6W` になっている
+3. `GA4 - Config` が `All Pages` で発火する
+
+もし `GA4 - Config` が無い場合:
+
+- 先に `### 0.5) （未設定なら）GA4 設定タグを先に作成` の手順で作成してください
+- その後にこの `### 3) GA4 イベントタグ` を設定してください
 
 左メニューがない場合の導線例:
 
@@ -310,7 +379,16 @@ GTM はアカウントや新UIで画面構成が異なります。
 2. `新規`
 3. 以降は同じ
 
-`GA4 - ui_click` のイベントパラメータ設定例:
+タグ作成一覧:
+
+| タグ名 | イベント名 | トリガー |
+| --- | --- | --- |
+| `GA4 - ui_click` | `ui_click` | `CE - ui_click` |
+| `GA4 - outbound_click` | `outbound_click` | `CE - outbound_click` |
+| `GA4 - form_submit` | `form_submit` | `CE - form_submit` |
+| `GA4 - menu_toggle` | `menu_toggle` | `CE - menu_toggle` |
+
+`GA4 - ui_click` のイベントパラメータ（完全版）:
 
 - `click_text` = `{{dlv_click_text}}`
 - `click_type` = `{{dlv_click_type}}`
@@ -321,41 +399,57 @@ GTM はアカウントや新UIで画面構成が異なります。
 - `click_area` = `{{dlv_click_area}}`
 - `outbound` = `{{dlv_outbound}}`
 
-- タグ `GA4 - ui_click`
-  - Event Name: `ui_click`
-  - Event parameters: 上記 `dlv_*` のクリック系パラメータをマッピング
+`GA4 - outbound_click` のイベントパラメータ:
 
-- タグ `GA4 - outbound_click`
-  - Event Name: `outbound_click`
-  - Event parameters:
-    - `click_text` = `{{dlv_click_text}}`
-    - `click_url` = `{{dlv_click_url}}`
-    - `click_domain` = `{{dlv_click_domain}}`
-    - `click_area` = `{{dlv_click_area}}`
+- `click_text` = `{{dlv_click_text}}`
+- `click_url` = `{{dlv_click_url}}`
+- `click_domain` = `{{dlv_click_domain}}`
+- `click_area` = `{{dlv_click_area}}`
 
-- タグ `GA4 - form_submit`
-  - Event Name: `form_submit`
-  - Event parameters:
-    - `form_id` = `{{dlv_form_id}}`
-    - `form_name` = `{{dlv_form_name}}`
-    - `form_action` = `{{dlv_form_action}}`
-    - `form_area` = `{{dlv_form_area}}`
+`GA4 - form_submit` のイベントパラメータ:
 
-- タグ `GA4 - menu_toggle`
-  - Event Name: `menu_toggle`
-  - Event parameters:
-    - `menu_state` = `{{dlv_menu_state}}`
-    - `menu_id` = `{{dlv_menu_id}}`
+- `form_id` = `{{dlv_form_id}}`
+- `form_name` = `{{dlv_form_name}}`
+- `form_action` = `{{dlv_form_action}}`
+- `form_area` = `{{dlv_form_area}}`
+
+`GA4 - menu_toggle` のイベントパラメータ:
+
+- `menu_state` = `{{dlv_menu_state}}`
+- `menu_id` = `{{dlv_menu_id}}`
 
 各タグは対応するカスタムイベントトリガーに紐付けてください。
+
+設定確認（タグ作成後に必ず実施）:
+
+1. GTM `プレビュー` で対象URLに接続
+2. サイト操作後、Tag Assistant のイベント一覧で `ui_click` 等を選択
+3. `Tags Fired` に対応する `GA4 - ...` タグが出るか確認
+4. `Variables` タブで `{{dlv_*}}` 値が埋まっているか確認
+
+発火しない場合の確認:
+
+- タグのトリガーが誤っている（例: `CE - ui_click` ではなく別トリガー）
+- イベント名が不一致（例: `outbound-click` など）
+- `GA4 - Config` が存在しない、または測定IDが `G-YW42LKCZ6W` ではない
+- タグが `一時停止` になっている
+- プレビュー接続先が `file://` になっている（`https://` で確認）
 
 ### 4) プレビューと公開
 
 1. 右上 `プレビュー` をクリック
-2. 対象URLを入力して接続
+2. 対象URL（必ず `https://`）を入力して接続
 3. サイト上でクリック/フォーム送信を実行
-4. GTMプレビューで `ui_click` などのイベント発火を確認
-5. 問題なければ GTM 右上 `公開`
+4. Tag Assistant で `ui_click` / `outbound_click` / `form_submit` / `menu_toggle` のイベントを確認
+5. 各イベントの `Tags Fired` で GA4 タグ発火を確認
+6. 問題なければ GTM 右上 `公開`
+7. `バージョン名` と `説明` を入力して公開（後で追跡しやすくするため）
+
+公開後の即時確認:
+
+1. 公開ページを再読み込み（ハードリロード）
+2. GA4 DebugView でイベント受信を確認
+3. 反映待ちで見えない場合は 5-15 分程度待って再確認
 
 ## QA チェックリスト
 
@@ -365,6 +459,14 @@ GTM はアカウントや新UIで画面構成が異なります。
 4. フォーム送信操作で `form_submit` が入ることを確認
 5. GA4 DebugView でイベント名とパラメータを確認
 6. 検証後に GTM コンテナを公開
+
+QA 追加チェック（推奨）:
+
+1. `ui_click` の `click_text` / `click_url` / `click_area` が空でないこと
+2. 外部リンクのみ `outbound=1` になること
+3. `outbound_click` で `click_domain` が期待どおり入ること
+4. `menu_toggle` で `menu_state` が `open` / `close` 両方取れること
+5. 同一操作で二重発火していないこと（同イベントが連続2件出ないこと）
 
 ## 補足
 

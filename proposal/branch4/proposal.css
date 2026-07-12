@@ -31,7 +31,7 @@ html body #top-head .inner {
   width: auto !important;
   margin: 0 !important;
   position: absolute !important;
-  top: 14px !important;
+  top: 24px !important;
   right: 16px !important;
   display: inline-block !important;
   pointer-events: auto !important;
@@ -44,13 +44,13 @@ html body #nav-toggle {
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 8px !important;
-  border-radius: 30px !important;
+  gap: 10px !important;
+  border-radius: 44px !important;
   background: rgba(255, 255, 255, 0.33) !important;
   border: 1px solid rgba(80, 80, 80, 0.22) !important;
-  padding: 0 28px !important;
-  height: 48px !important;
-  line-height: 48px !important;
+  padding: 0 41px !important;
+  height: 68px !important;
+  line-height: 68px !important;
   width: auto !important;
   min-width: 0 !important;
   max-width: none !important;
@@ -78,7 +78,7 @@ html body #nav-toggle:hover .nav-toggle-bars span {
 }
 
 html body #nav-toggle .nav-toggle-label {
-  font-size: 14px !important;
+  font-size: 19px !important;
   font-weight: bold !important;
   line-height: 1 !important;
   letter-spacing: 0.12em !important;
@@ -98,7 +98,7 @@ html body #nav-toggle .nav-toggle-label::before {
 html body #nav-toggle .nav-toggle-bars {
   display: flex !important;
   flex-direction: column !important;
-  gap: 4px !important;
+  gap: 5px !important;
   position: static !important;
   width: auto !important;
   height: auto !important;
@@ -107,7 +107,7 @@ html body #nav-toggle .nav-toggle-bars {
 html body #nav-toggle .nav-toggle-bars span {
   display: block !important;
   position: static !important;
-  width: 18px !important;
+  width: 27px !important;
   height: 2px !important;
   border-radius: 999px !important;
   background: #444 !important;
@@ -121,16 +121,16 @@ html body #global-nav {
   display: block !important;
   position: fixed !important;
   top: 54px !important;
-  right: 0 !important;
+  right: 16px !important;
   margin-top: 0 !important;
-  width: 198px !important;
+  width: 220px !important;
   height: auto !important;
   max-height: calc(100vh - 68px) !important;
   background: rgba(255, 255, 255, 0.85) !important;
   border: 1px solid rgba(80, 80, 80, 0.18) !important;
-  border-radius: 22px !important;
+  border-radius: 26px !important;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12) !important;
-  padding: 8px 0 !important;
+  padding: 12px 0 !important;
   overflow: visible !important;
   z-index: 10000 !important;
   pointer-events: auto !important;
@@ -154,7 +154,7 @@ html body #global-nav ul {
   list-style: none !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 2px !important;
+  gap: 4px !important;
   margin: 0 !important;
   padding: 0 !important;
   align-items: stretch !important;
@@ -177,15 +177,15 @@ html body #global-nav ul li a {
   display: flex !important;
   align-items: center !important;
   width: 100% !important;
-  min-height: 30px !important;
-  padding: 6px 14px !important;
+  min-height: 40px !important;
+  padding: 8px 18px !important;
   border-radius: 999px !important;
   border: none !important;
   background: transparent !important;
   text-align: left !important;
   color: #444 !important;
   text-decoration: none !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
   line-height: 1.35 !important;
   letter-spacing: 0.1em !important;
   transition: background 0.15s ease, transform 0.15s ease, font-size 0.15s ease !important;
@@ -195,12 +195,12 @@ html body #global-nav ul li a:hover {
   transform: none !important;
   border-color: transparent !important;
   background: rgba(255, 255, 255, 0.8) !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
 }
 
 html body #global-nav ul li a:focus-visible {
   background: rgba(255, 255, 255, 0.8) !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
 }
 
 html body #global-nav ul li a:focus-visible,
@@ -219,12 +219,12 @@ html body #global-nav .nav-submenu-toggle {
   align-items: center !important;
   justify-content: flex-start !important;
   width: 100% !important;
-  min-height: 30px !important;
-  padding: 6px 14px !important;
+  min-height: 40px !important;
+  padding: 8px 18px !important;
   border: none !important;
   background: transparent !important;
   color: #444 !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
   line-height: 1.35 !important;
   letter-spacing: 0.1em !important;
   text-align: left !important;
