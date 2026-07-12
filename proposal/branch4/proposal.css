@@ -438,7 +438,7 @@ html body #top .swiper-slide {
   opacity: 0.22 !important;
   transform: scale(0.8) !important;
   transition: opacity 0.28s ease, transform 0.28s ease !important;
-  transform-origin: center center !important;
+  transform-origin: center top !important;
 }
 
 html body #top .swiper-slide-active {
@@ -495,22 +495,33 @@ html body #top .swiper-slide img {
 
 @media (min-width: 768px) {
   html body #top .swiper-container {
-    height: 52vh !important;
+    --top-carousel-height: 67.8vh;
+    height: var(--top-carousel-height) !important;
   }
   html body #top .swiper-wrapper {
     height: 100% !important;
   }
   html body #top .swiper-slide {
-    width: min(88vw, calc(52vh * 1.7778)) !important;
-    height: 100% !important;
-    transform: scale(0.96) !important;
+    width: min(78vw, calc((var(--top-carousel-height) / 1.7424) * 1.7778)) !important;
+    height: calc(var(--top-carousel-height) / 1.7424) !important;
+    transform: scale(0.72) !important;
+    transform-origin: center top !important;
   }
   html body #top .swiper-slide-active {
-    transform: scale(1) !important;
+    opacity: 1 !important;
+    transform: scale(1.7424) !important;
+    z-index: 4 !important;
   }
   html body #top .swiper-slide-prev,
   html body #top .swiper-slide-next {
-    transform: scale(0.96) !important;
+    opacity: 0.2 !important;
+    z-index: 1 !important;
+  }
+  html body #top .swiper-slide-prev {
+    transform: translateX(calc(-12.86vw + 16px)) scale(0.8712) !important;
+  }
+  html body #top .swiper-slide-next {
+    transform: translateX(calc(12.86vw - 16px)) scale(0.8712) !important;
   }
   html body #top .swiper-slide img {
     width: 100% !important;
