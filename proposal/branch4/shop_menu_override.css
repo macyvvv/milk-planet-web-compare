@@ -127,7 +127,7 @@ html body #global-nav {
   border: 1px solid rgba(80, 80, 80, 0.18) !important;
   border-radius: 22px !important;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12) !important;
-  padding: 1px 0 !important;
+  padding: 8px 0 !important;
   overflow: visible !important;
   z-index: 10000 !important;
   pointer-events: auto !important;
@@ -151,7 +151,7 @@ html body #global-nav ul {
   list-style: none !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 0 !important;
+  gap: 2px !important;
   margin: 0 !important;
   padding: 0 !important;
   align-items: stretch !important;
@@ -174,8 +174,8 @@ html body #global-nav ul li a {
   display: flex !important;
   align-items: center !important;
   width: 100% !important;
-  min-height: 24px !important;
-  padding: 2px 12px !important;
+  min-height: 30px !important;
+  padding: 6px 14px !important;
   border-radius: 999px !important;
   border: none !important;
   background: transparent !important;
@@ -183,7 +183,7 @@ html body #global-nav ul li a {
   color: #444 !important;
   text-decoration: none !important;
   font-size: 14px !important;
-  line-height: 1 !important;
+  line-height: 1.35 !important;
   letter-spacing: 0.1em !important;
   transition: background 0.15s ease, transform 0.15s ease, font-size 0.15s ease !important;
 }
@@ -216,13 +216,13 @@ html body #global-nav .nav-submenu-toggle {
   align-items: center !important;
   justify-content: flex-start !important;
   width: 100% !important;
-  min-height: 24px !important;
-  padding: 2px 12px !important;
+  min-height: 30px !important;
+  padding: 6px 14px !important;
   border: none !important;
   background: transparent !important;
   color: #444 !important;
   font-size: 14px !important;
-  line-height: 1 !important;
+  line-height: 1.35 !important;
   letter-spacing: 0.1em !important;
   text-align: left !important;
   cursor: pointer !important;
@@ -265,7 +265,7 @@ html body #global-nav .nav-submenu li a {
   display: flex !important;
   width: 100% !important;
   background: transparent !important;
-  padding-left: 12px !important;
+  padding-left: 14px !important;
   font-size: 13px !important;
   color: #333 !important;
   border-radius: 10px !important;
@@ -318,28 +318,33 @@ html body #top-head.open #nav-toggle {
     right: 10px !important;
     width: min(214px, calc(100vw - 20px)) !important;
     max-height: calc(100vh - 60px) !important;
+    padding: 10px 0 !important;
+  }
+
+  html body #global-nav ul {
+    gap: 3px !important;
   }
 
   html body #global-nav ul li a {
-    min-height: 44px !important;
-    padding: 5px 12px !important;
+    min-height: 46px !important;
+    padding: 8px 14px !important;
     font-size: 16px !important;
-    line-height: 1.6 !important;
+    line-height: 1.45 !important;
     letter-spacing: 0.06em !important;
   }
 
   html body #global-nav .nav-submenu-toggle {
-    min-height: 44px !important;
-    padding: 5px 12px !important;
+    min-height: 46px !important;
+    padding: 8px 14px !important;
     font-size: 16px !important;
-    line-height: 1.6 !important;
+    line-height: 1.45 !important;
     letter-spacing: 0.06em !important;
   }
 
   html body #global-nav .nav-submenu li a {
     font-size: 16px !important;
-    padding: 5px 10px 5px 10px !important;
-    line-height: 1.6 !important;
+    padding: 7px 12px !important;
+    line-height: 1.45 !important;
   }
 
   html body #global-nav .nav-submenu li + li {
