@@ -1,0 +1,364 @@
+/* Header/menu override for shop pages to match top-page behavior */
+
+html body #top-head {
+  position: fixed !important;
+  top: 0 !important;
+  z-index: 9999 !important;
+  width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  display: block !important;
+  justify-content: unset !important;
+  align-items: unset !important;
+  height: 0 !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+}
+
+html body #top-head.fixed {
+  position: fixed !important;
+  top: 0 !important;
+  background: transparent !important;
+}
+
+html body #top-head .inner {
+  width: auto !important;
+  margin: 0 !important;
+  position: absolute !important;
+  top: 14px !important;
+  right: 16px !important;
+  display: inline-block !important;
+  pointer-events: auto !important;
+}
+
+html body #nav-toggle {
+  position: relative !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  border-radius: 30px !important;
+  background: rgba(255, 255, 255, 0.33) !important;
+  border: 1px solid rgba(80, 80, 80, 0.22) !important;
+  padding: 0 28px !important;
+  height: 48px !important;
+  line-height: 48px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  box-shadow: none !important;
+  transition: background 0.2s ease !important;
+  top: auto !important;
+  right: auto !important;
+  z-index: 101 !important;
+}
+
+html body #nav-toggle:hover {
+  background: rgba(255, 255, 255, 0.45) !important;
+}
+
+html body #nav-toggle:hover .nav-toggle-label {
+  color: #444 !important;
+}
+
+html body #nav-toggle:hover .nav-toggle-bars span {
+  background: #444 !important;
+}
+
+html body #nav-toggle .nav-toggle-label {
+  font-size: 14px !important;
+  font-weight: bold !important;
+  line-height: 1 !important;
+  letter-spacing: 0.12em !important;
+  color: #444 !important;
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  background: transparent !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}
+
+html body #nav-toggle .nav-toggle-label::before {
+  content: "" !important;
+}
+
+html body #nav-toggle .nav-toggle-bars {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+html body #nav-toggle .nav-toggle-bars span {
+  display: block !important;
+  position: static !important;
+  width: 18px !important;
+  height: 2px !important;
+  border-radius: 999px !important;
+  background: #444 !important;
+  left: auto !important;
+  top: auto !important;
+  transition: none !important;
+}
+
+html body #global-nav {
+  display: block !important;
+  position: fixed !important;
+  top: 54px !important;
+  right: 0 !important;
+  margin-top: 0 !important;
+  width: 198px !important;
+  height: auto !important;
+  max-height: calc(100vh - 68px) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(80, 80, 80, 0.18) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12) !important;
+  padding: 8px 0 !important;
+  overflow: visible !important;
+  z-index: 10000 !important;
+  pointer-events: auto !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(-8px) !important;
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease !important;
+}
+
+html body #top-head.open #global-nav {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+
+html body #top-head.open {
+  pointer-events: auto !important;
+}
+
+html body #global-nav ul {
+  list-style: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  align-items: stretch !important;
+  width: 100% !important;
+}
+
+html body #global-nav ul li {
+  width: 100% !important;
+  display: block !important;
+  position: relative !important;
+}
+
+html body #global-nav ul li::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body #global-nav ul li a {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 30px !important;
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  border: none !important;
+  background: transparent !important;
+  text-align: left !important;
+  color: #444 !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.1em !important;
+  transition: background 0.15s ease, transform 0.15s ease, font-size 0.15s ease !important;
+}
+
+html body #global-nav ul li a:hover {
+  transform: none !important;
+  border-color: transparent !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  font-size: 14px !important;
+}
+
+html body #global-nav ul li a:focus-visible {
+  background: rgba(255, 255, 255, 0.8) !important;
+  font-size: 14px !important;
+}
+
+html body #global-nav ul li a:focus-visible,
+html body #nav-toggle:focus-visible {
+  outline: 3px solid rgba(62, 111, 180, 0.45) !important;
+  outline-offset: 2px !important;
+}
+
+html body #global-nav .nav-submenu-item {
+  position: relative !important;
+  display: block !important;
+}
+
+html body #global-nav .nav-submenu-toggle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  min-height: 30px !important;
+  padding: 6px 14px !important;
+  border: none !important;
+  background: transparent !important;
+  color: #444 !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.1em !important;
+  text-align: left !important;
+  cursor: pointer !important;
+}
+
+html body #global-nav .nav-submenu-toggle::after {
+  content: "▾" !important;
+  margin-left: auto !important;
+  font-size: 11px !important;
+  opacity: 0.7 !important;
+}
+
+html body #global-nav .nav-submenu {
+  display: none !important;
+  position: absolute !important;
+  top: -4px !important;
+  bottom: auto !important;
+  right: calc(100% - 18px) !important;
+  left: auto !important;
+  min-width: 182px !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 8px !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(80, 80, 80, 0.18) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14) !important;
+  z-index: 10001 !important;
+}
+
+html body #global-nav .nav-submenu-item.open .nav-submenu {
+  display: block !important;
+}
+
+html body #global-nav .nav-submenu-item.open .nav-submenu-toggle::after {
+  content: "▴" !important;
+}
+
+html body #global-nav .nav-submenu li a {
+  display: flex !important;
+  width: 100% !important;
+  background: transparent !important;
+  padding-left: 14px !important;
+  font-size: 13px !important;
+  color: #333 !important;
+  border-radius: 10px !important;
+}
+
+html body #global-nav .nav-submenu li + li {
+  margin-top: 4px !important;
+}
+
+html body #global-nav .nav-submenu li a:hover,
+html body #global-nav .nav-submenu li a:focus-visible {
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+
+html body #top-head.open #nav-toggle {
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+@media (max-width: 780px) {
+  html body #top-head .inner {
+    top: 10px !important;
+    right: 12px !important;
+  }
+
+  html body #nav-toggle {
+    gap: 0 !important;
+    padding: 0 !important;
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  html body #nav-toggle .nav-toggle-label {
+    display: none !important;
+  }
+
+  html body #nav-toggle .nav-toggle-bars {
+    gap: 5px !important;
+  }
+
+  html body #nav-toggle .nav-toggle-bars span {
+    width: 20px !important;
+  }
+
+  html body #global-nav {
+    top: 52px !important;
+    right: 10px !important;
+    width: min(214px, calc(100vw - 20px)) !important;
+    max-height: calc(100vh - 60px) !important;
+    padding: 10px 0 !important;
+  }
+
+  html body #global-nav ul {
+    gap: 3px !important;
+  }
+
+  html body #global-nav ul li a {
+    min-height: 46px !important;
+    padding: 8px 14px !important;
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  html body #global-nav .nav-submenu-toggle {
+    min-height: 46px !important;
+    padding: 8px 14px !important;
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  html body #global-nav .nav-submenu li a {
+    font-size: 16px !important;
+    padding: 7px 12px !important;
+    line-height: 1.45 !important;
+  }
+
+  html body #global-nav .nav-submenu li + li {
+    margin-top: 2px !important;
+  }
+
+  html body #global-nav .nav-submenu {
+    bottom: auto !important;
+    right: calc(100% - 12px) !important;
+    left: auto !important;
+    min-width: 160px !important;
+  }
+
+  html body #top-head.open {
+    height: auto !important;
+  }
+}

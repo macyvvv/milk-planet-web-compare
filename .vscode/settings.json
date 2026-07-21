@@ -1,0 +1,14 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "printf": true,
+        "diff": true,
+        "/^cd '/Users/ariel/Documents/tools/amagi/milk-planet _web改修案' && python3 - <<'PY'\nimport os, re, pathlib\nfrom urllib\\.parse import urlparse\nroots=\\['proposal/branch1/shop','proposal/branch2/shop','proposal/branch3/shop'\\]\nfor root in roots:\n    print\\(f'===== \\{root\\} ====='\\)\n    for path in sorted\\(pathlib\\.Path\\(root\\)\\.glob\\('\\*/index\\.html'\\)\\):\n        txt=path\\.read_text\\(encoding='utf-8', errors='ignore'\\)\n        refs=re\\.findall\\(r'''\\(\\?:src\\|href\\)=\\[\"'\\]\\(\\[\\^\"'\\]\\+\\)\\[\"'\\]''', txt, re\\.I\\)\n        missing=\\[\\]\n        for ref in refs:\n            if ref\\.startswith\\(\\('http://','https://','mailto:','javascript:','#','data:'\\)\\):\n                continue\n            u=urlparse\\(ref\\)\n            if u\\.scheme or u\\.netloc:\n                continue\n            target=ref\\.split\\('\\?',1\\)\\[0\\]\\.split\\('#',1\\)\\[0\\]\n            if target\\.startswith\\('/'\\):\n                p=pathlib\\.Path\\(target\\.lstrip\\('/'\\)\\)\n            else:\n                p=\\(path\\.parent / target\\)\\.resolve\\(\\)\n            # allow directory index paths to existing dir or file\n            if not p\\.exists\\(\\):\n                missing\\.append\\(ref\\)\n        if missing:\n            print\\(path, '->', missing\\[:8\\]\\)\n    print\\(\\)\nPY$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^cd '/Users/ariel/Documents/tools/amagi/milk-planet _web改修案' && echo '--- proposal\\.css selectors ---' && grep -nE '\\^\\(body\\|header\\|#top-head\\|#global-nav\\|\\\\\\.inner\\|\\\\\\.content\\|h1\\|\\\\\\.nav-toggle\\|#shopinfo\\|#event\\|#twitter\\|#gallery\\|#recruit\\|img\\|article\\)' proposal/branch1/proposal\\.css \\| head -120 && echo '\n--- branch page stylesheet links ---' && python3 - <<'PY'\nfrom pathlib import Path\nfor p in \\[Path\\('proposal/branch1/shop/bloody/index\\.html'\\), Path\\('proposal/branch2/shop/bloody/index\\.html'\\), Path\\('proposal/branch3/shop/bloody/index\\.html'\\)\\]:\n    txt=p\\.read_text\\(encoding='utf-8', errors='ignore'\\)\n    print\\(p, '=>'\\)\n    for line in txt\\.splitlines\\(\\):\n        if 'stylesheet' in line\\.lower\\(\\) or 'proposal\\.css' in line\\.lower\\(\\):\n            print\\(line\\.strip\\(\\)\\)\n    print\\(\\)\nPY$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

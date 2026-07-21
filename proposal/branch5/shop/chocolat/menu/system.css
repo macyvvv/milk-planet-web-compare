@@ -1,0 +1,611 @@
+/* デモなので簡易的なリセット */
+* {
+    margin: 0;
+    padding: 0;
+}
+*::after,
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html {
+    overflow-x: hidden;
+    width:100%;
+}
+body {
+    font-family: 'Lato', sans-serif;
+    background: #fff;
+    width:100%;
+    text-align: center;
+
+}
+article {
+    height: auto;
+    text-align: center;
+    line-height: 1.9;
+    font-size: 14px;
+    background: #fff;
+}
+article p {
+    margin-bottom: 1em;
+}
+a {
+    color: #0b8793;
+}
+#main-visual img{
+    width: 100%;
+}
+
+footer {
+    padding:50px 0;
+    text-align: center;
+    background: #BFE0F7;
+}
+footer a {
+    text-decoration: none;
+    color: #fff;
+}
+#shoplist li{
+    margin: 0 10px;
+    display: inline-block;
+}
+#shoplist img{
+    width: 80px;
+}
+#gotop {
+    display: none;
+}
+#gotop img{
+    position: fixed;
+    width: 36px;
+    right: 15px;
+    bottom: 20px;
+    margin-right: 10px;
+    z-index: 1;
+}
+@media screen and (max-width: 780px) {
+    #shoplist ul{
+        padding: 0px 0px 30px;
+    }
+     #shoplist img{
+      width: 60px;  
+    }
+}
+@media screen and (max-width: 450px) {
+    #shoplist img{
+        width: 45px;  
+    }
+}
+
+/* ▲▲▲ここまではナビゲーションに関係ない設定▲▲▲ */
+
+.inner {
+    width: 100%;
+    margin: 0 auto;
+}
+.inner:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+/* header */
+#top-head {
+    font-size: 14px;
+    top: -80px;
+    position: absolute;
+    width: 100%;
+    margin: 100px auto 0;
+    padding: 20px 0 0;
+    line-height: 1;
+    z-index: 999;
+}
+#top-head a,
+#top-head {
+    color: #c3a8aa;
+    text-decoration: none;
+}
+#top-head .inner {
+    position: relative;  
+}
+#global-nav {
+    text-align: center;
+    width: 100%;
+}
+#global-nav ul {
+    list-style: none;
+    display: inline-block;
+    bottom: 0;
+    font-size: 17px;
+    font-family: "Nico Moji", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", sans-serif;
+}
+#global-nav ul li {
+    display: inline-block;
+    position: relative;
+}
+#global-nav ul li a {
+    padding: 0 2.5vw;
+}
+/* Btn Hover */
+#global-nav ul li:after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: -10px;
+    transition: all 0.1s ease;
+    -webkit-transition: all 0.1s ease;
+    -moz-transition: all 0.1s ease;
+}
+#global-nav ul li:hover:after {
+    background: #fff;
+    bottom: -20px;
+}
+/* Fixed */
+#top-head.fixed {
+    margin-top: 0;
+    top: 0;
+    color: #333;
+    position: fixed;
+    padding-top: 22px;
+    height: 55px;
+    background: transparent;
+    transition: top 0.65s ease-in;
+    -webkit-transition: top 0.65s ease-in;
+    -moz-transition: top 0.65s ease-in;
+}
+#top-head.fixed #global-nav ul li a {
+    color: #666;
+    padding: 0 1.8VW;
+}
+/* Fixed Btn Hover */
+#top-head.fixed #global-nav ul li:after {
+    bottom: -10px;
+}
+#top-head.fixed #global-nav ul li:hover:after {
+    background: #EEE;
+    bottom: -20px;
+}
+/* Toggle Button */
+#nav-toggle {
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 14px;
+    width: 28px;
+    height: 36px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+#nav-toggle div {
+    position: relative;
+}
+#nav-toggle span {
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #444;
+    left: 0;
+    -webkit-transition: .35s ease-in-out;
+    -moz-transition: .35s ease-in-out;
+    transition: .35s ease-in-out;
+}
+#nav-toggle span:nth-child(1) {
+    top: 0;
+}
+#nav-toggle span:nth-child(2) {
+    top: 11px;
+}
+#nav-toggle span:nth-child(3) {
+    top: 22px;
+}
+@media screen and (max-width: 780px) {
+    .inner {
+        width: 100%;
+        padding: 0 20px;
+    }
+    #global-nav ul li a {
+        padding: 0 20px;
+    }
+    #top-head.fixed #global-nav ul li a {
+        padding: 0 15px;
+    }
+    #top-head,
+    .inner {
+        width: 100%;
+        padding: 0;
+    }
+    #top-head {
+        top: 0;
+        position: fixed;
+        margin-top: 0;
+    }
+    /* Fixed reset */
+    #top-head.fixed {
+        padding-top: 0;
+        background: transparent;
+    }
+    #mobile-head {
+        width: 100%;
+        height: 56px;
+        z-index: 999;
+        position: relative;
+    }
+    #top-head.fixed .logo,
+    #top-head .logo {
+        position: absolute;
+        left: 13px;
+        top: 13px;
+        color: #333;
+        font-size: 26px;
+    }
+
+    #global-nav {
+        position: absolute;
+        opacity: .95;
+        height:100vh;
+        /* 開いてないときは画面外に配置 */
+        top: -500px;
+        top: -200vh;
+        background: #89393c;
+        text-align: center;
+        padding: 10px 0;
+        -webkit-transition: .5s ease-in-out;
+        -moz-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
+    }
+    #global-nav ul {
+        list-style: none;
+        position: static;
+        right: 0;
+        bottom: 0;
+        font-size: 11px;
+    }
+    #global-nav ul li {
+        float: none;
+        position: static;
+        display: block;
+    }
+    #global-nav ul li:after  {
+        display: none;
+    }
+    #top-head #global-nav ul li a,
+    #top-head.fixed #global-nav ul li a {
+        width: 100%;
+        display: block;
+        color: #c3a8aa;
+        padding: 25px 0;
+        margin-bottom: 10%;
+    }
+    #nav-toggle {
+        display: block;
+    }
+    /* #nav-toggle 切り替えアニメーション */
+    .open #nav-toggle span:nth-child(1) {
+        top: 11px;
+        -webkit-transform: rotate(315deg);
+        -moz-transform: rotate(315deg);
+        transform: rotate(315deg);
+    }
+    .open #nav-toggle span:nth-child(2) {
+        width: 0;
+        left: 50%;
+    }
+    .open #nav-toggle span:nth-child(3) {
+        top: 11px;
+        -webkit-transform: rotate(-315deg);
+        -moz-transform: rotate(-315deg);
+        transform: rotate(-315deg);
+    }
+    /* #global-nav スライドアニメーション */
+    .open #global-nav {
+        -moz-transform: translateY(500px);
+        -webkit-transform: translateY(500px);
+        transform: translateY(500px);
+        /* #global-nav top + #mobile-head height */
+        -moz-transform: translateY(200vh);
+        -webkit-transform: translateY(200vh);
+        transform: translateY(200vh);
+    }
+}
+.content {
+    padding: 30px 0;
+}
+
+table {
+    width: 500px;
+    margin: -30px auto 0;
+    text-align: center;
+    display:inline-table;
+    vertical-align: top;
+    
+}
+table , td {
+    /*border: none;*/
+    border-collapse: collapse;
+}
+th {
+    padding: 5px 10px;
+    height: 25px;
+    min-width: 100px;
+    vertical-align: top;
+}
+td {
+    color: #666;
+    border:solid 1px #ccc;
+    padding: 5px 20px;
+    height: 25px;
+    min-width: 120px;
+    background: #fff;
+}
+td span {
+    font-size:12px;
+    font-weight: bold;
+    color: rgb(255, 119, 150);
+}
+p {
+    
+}
+h1 {
+    letter-spacing: 7px;
+    display: inline-block;
+    font-size: 36px;
+    color: #FFF;
+    width: 100%;
+    background:/*f2cdc7*/#70181b;
+    padding: 120 0 90;
+    position: relative;
+}
+h1::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 99;
+    display: block;
+    background: url("images/cutline.png") 0 0 / 100% 129px no-repeat;
+    width: 100%;
+    height: 129px;
+}
+h2{
+    letter-spacing: 8px;
+    font-size:24px;
+    color: #fff;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    background: #c0e0f7;
+    margin: 50 auto 50px;
+    max-width: 350px;
+    width: 80%;
+    line-height: 2;
+    font-family: 'Hiragino Maru Gothic Pro','Meiryo UI','sans-serif';
+}
+h4 {
+    border:4px solid #c0e0f7;
+    display:block;
+    width:600px;
+    padding:20px 0;
+    margin:0px auto 50px;
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+h4 strong{
+    display: inline-block;
+    font-size: 26px;
+    color: #B9D3E5;
+    margin-right:20px;
+    background: -webkit-linear-gradient(-4deg, #B9D3E5, #61b7f3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.caption {
+    font-size: 12px;ssssssssssssss
+    font-weight: bold;
+    color: #000;
+    padding: 0 10px;
+}
+.top{
+    position: relative;
+}
+.top img {
+    width :100%; 
+}
+.top::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 99;
+    display: block;
+    background: url("images/cutline.png") 0 0 / 100% 129px no-repeat;
+    width: 100%;
+    height: 129px;
+}
+
+p {
+    margin:30px;
+}
+
+.button {
+    margin: 40px auto;
+    width: 280px;
+}
+.button a {
+    display: block;
+    border-radius: 3px;
+    background: #c0e0f7;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+}
+.button a:hover {
+    background: #719cb9;
+    transition-duration: 0.2s;
+    color: #ddd;
+}
+
+#system{
+    background: #fff;
+    background: url("images/index.png")repeat;
+    background-size: 1600px;
+    padding: 50px 0;
+    margin: 0px 0;
+	    background-attachment: fixed;
+}
+.spacer{
+        height: 40px;
+    }
+.goods{
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+}
+.about_point{
+    font-size: 18px;
+    line-height: 1.4;
+    color:#777;
+    background: #fff;
+    border:solid 1px #ccc;
+    border-radius:10px;
+    max-width: 550px;
+    padding: 10px 0;
+    margin: 20px auto 0;
+}
+.annotation{
+    margin: 0;
+    color: #777;
+    font-size: 15px;
+}
+.box_annotation{
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    margin: -30px auto 0;
+    padding: 20px 0;
+}
+.box_annotation li{
+    list-style: none;
+    font-size: 12px;
+    color: #777;
+    padding: 0 30px;
+}
+.menu { width: 60%; }
+
+.content {
+    padding: 90px 0 50px;
+}
+
+
+#gotop {
+        display: none;
+}
+#gotop img{
+         position: fixed;
+         width: 36px;
+         right: 15px;
+         bottom: 20px;
+         margin-right: 10px;
+         opacity: 0.9;
+         background-color: var(--color-primary);
+}
+
+@media screen and (max-width: 780px) {
+    
+    table {
+        width: 80%;
+    }
+    th {
+        font-size: 13px;
+        min-width: 80px;
+    }
+    td {
+        font-size: 12px;
+    }
+    h1 {
+        padding: 80px 0 50;
+        font-size: 24px;
+    }
+    h1::after {
+        background: url("images/cutline.png") 0 0 / 100% 60px no-repeat;
+        height: 60px;
+    }
+    h2{
+        font-size: 20px;
+        width: 300px;
+        letter-spacing: 5;
+    }
+
+    h3 {
+        margin: 35px 0 10px;
+        font-size: 16px;
+    }
+    h4 {
+        width: 90%;
+        font-size: 22px;
+        margin-bottom: 30px;
+    }
+    h4 strong{
+        font-size: 18px;
+    }
+    .content {
+        padding: 0px 0;
+    }
+    .spacer{
+        height: 20px;
+    }
+    #system{
+    padding: 50px 0;
+    margin: 0px 0;
+    }
+    .about_point{
+    font-size: 12px;
+    line-height: 1.4;
+    padding: 10px 0;
+    width: 85%;
+    }
+    .annotation{
+    font-size: 10px;
+    }
+    .box_annotation li{
+        font-size: 10px;
+    }
+    .menu { width: 100%; }
+
+    .content {
+        padding: 90px 0 50px;
+    }
+
+    #gotop {
+        display: none;
+     }
+     #gotop img{
+         position: fixed;
+         width: 36px;
+         right: 15px;
+         bottom: 20px;
+         margin-right: 10px;
+         opacity: 0.9;
+         background-color: var(--color-primary);
+     }
+     
+}
+
+@media screen and (min-width: 781px) {
+    #nav-toggle {
+        display: block;
+    }
+    #global-nav {
+        display: none;
+    }
+    .open #global-nav {
+        display: block;
+    }
+}

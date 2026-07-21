@@ -1,0 +1,116 @@
+.slider {/*横幅94%で左右に余白を持たせて中央寄せ*/
+    width:94%;
+    margin:0 auto;
+    /*background: #fff;*/
+    padding: 0px;
+}
+@media screen and (max-width: 780px) {
+    .slider {
+       height: 95vw;
+    }
+}
+
+.slider img {
+    width:60vw;/*スライダー内の画像を60vwにしてレスポンシブ化*/
+    height:auto;
+    max-width: 480px;
+    margin: 0 15px;
+}
+
+.slider .slick-slide {
+	transform: scale(0.75);/*左右の画像のサイズを80%に*/
+	transition: all .6s;/*拡大や透過のアニメーションを0.5秒で行う*/
+	opacity: 1;/*透過なし*/
+}
+
+.slider .slick-slide.slick-center{
+	transform: scale(1);/*中央の画像のサイズだけ等倍に*/
+	opacity: 1;/*透過なし*/
+}
+
+
+
+/*矢印の設定*/
+
+/*戻る、次へ矢印の位置*/
+.slick-prev, 
+.slick-next {
+    position: absolute;/*絶対配置にする*/
+    top: 42%;
+    cursor: pointer;/*マウスカーソルを指マークに*/
+    outline: none;/*クリックをしたら出てくる枠線を消す*/
+    border-top: 2px solid #666;/*矢印の色*/
+    border-right: 2px solid #666;/*矢印の色*/
+    height: 15px;
+    width: 15px;
+}
+
+.slick-prev {/*戻る矢印の位置と形状*/
+    left: -1.5%;
+    transform: rotate(-135deg);
+}
+
+.slick-next {/*次へ矢印の位置と形状*/
+    right: -1.5%;
+    transform: rotate(45deg);
+}
+
+/*ドットナビゲーションの設定*/
+
+.slick-dots {
+    text-align:center;
+	margin:1px 0 0 0;
+}
+
+.slick-dots li {
+    display:inline-block;
+	margin:0 5px;
+}
+
+.slick-dots button {
+    color: transparent;
+    outline: none;
+    width:8px;/*ドットボタンのサイズ*/
+    height:8px;/*ドットボタンのサイズ*/
+    /*display:block;*/
+    border-radius:50%;
+    background:#ccc;/*ドットボタンの色*/
+    display: none;
+}
+
+.slick-dots .slick-active button{
+    background:#333;/*ドットボタンの現在地表示の色*/
+}
+
+
+
+/*モーダルウィンドウ*/
+/*全て共通：hideエリアをはじめは非表示*/
+.hide-area{
+    display: none;
+}
+
+/*全て共通：モーダルのボタンの色を変更したい場合*/
+.modaal-close:after, 
+.modaal-close:before{
+    background:#ccc;    
+}
+
+.modaal-close:focus:after,
+.modaal-close:focus:before,
+.modaal-close:hover:after,
+.modaal-close:hover:before{
+    background:#666;
+}
+
+/*確認を促すモーダル：タイトルの色を変更したい場合*/
+#modaal-title{
+    font-size:1.2rem;
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+/*動画表示のモーダル：余白を変更したい場合*/
+.modaal-video .modaal-inner-wrapper{
+    padding:0;
+}

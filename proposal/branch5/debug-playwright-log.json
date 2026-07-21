@@ -1,0 +1,516 @@
+{
+  "console": [
+    {
+      "type": "error",
+      "text": "Access to font at 'https://fonts.gstatic.com/ea/nicomoji/v1/NicoMoji-Regular.woff2' from origin 'http://127.0.0.1:8001' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "location": {
+        "url": "http://127.0.0.1:8001/proposal/branch2/index.html",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "location": {
+        "url": "https://fonts.gstatic.com/ea/nicomoji/v1/NicoMoji-Regular.woff2",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "type": "error",
+      "text": "Access to font at 'https://fonts.gstatic.com/ea/nicomoji/v1/NicoMoji-Regular.woff' from origin 'http://127.0.0.1:8001' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "location": {
+        "url": "http://127.0.0.1:8001/proposal/branch2/index.html",
+        "line": 275,
+        "column": 0,
+        "lineNumber": 275,
+        "columnNumber": 0
+      }
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "location": {
+        "url": "https://fonts.gstatic.com/ea/nicomoji/v1/NicoMoji-Regular.woff",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "type": "error",
+      "text": "Access to font at 'https://fonts.gstatic.com/ea/nicomoji/v1/NicoMoji-Regular.ttf' from origin 'http://127.0.0.1:8001' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "location": {
+        "url": "http://127.0.0.1:8001/proposal/branch2/index.html",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "location": {
+        "url": "https://fonts.gstatic.com/ea/nicomoji/v1/NicoMoji-Regular.ttf",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "pageErrors": [],
+  "requestFailures": [
+    {
+      "url": "https://fonts.gstatic.com/ea/nicomoji/v1/NicoMoji-Regular.woff2",
+      "method": "GET",
+      "failure": "net::ERR_FAILED"
+    },
+    {
+      "url": "https://fonts.gstatic.com/ea/nicomoji/v1/NicoMoji-Regular.woff",
+      "method": "GET",
+      "failure": "net::ERR_FAILED"
+    },
+    {
+      "url": "https://fonts.gstatic.com/ea/nicomoji/v1/NicoMoji-Regular.ttf",
+      "method": "GET",
+      "failure": "net::ERR_FAILED"
+    }
+  ],
+  "responses": [
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/index.html",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/vendor/aos/aos.css",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/vendor/slick/slick.css",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/vendor/swiper/swiper.min.css",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event.css",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/vendor/modaal/modaal.min.css",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/style.css",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/proposal.css",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/top3.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/top1.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/top4.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/top5.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/top6.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/top8.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/top7.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/jquery-1.8.3.min.js",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/vendor/aos/aos.js",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/vendor/swiper/swiper.min.js",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/vendor/slick/slick.min.js",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/vendor/modaal/modaal.min.js",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/eventlist.js",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event.js",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/proposal.js",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Lato&display=swap",
+      "status": 200,
+      "statusText": "",
+      "timing": null
+    },
+    {
+      "url": "https://fonts.googleapis.com/earlyaccess/nicomoji.css",
+      "status": 200,
+      "statusText": "",
+      "timing": null
+    },
+    {
+      "url": "https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css",
+      "status": 200,
+      "statusText": "",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/tennai.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/index.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/wakusei.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/cheki.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/maid.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/bg_sysmenu.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/aisatsu.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_cp.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_shinjuku.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_shandy.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_melty.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_bloody.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/recruit.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_cybar_bkk2.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_tweeny.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_cybar_bkk.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_roysuga.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/list_cybar_laos.png",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "https://fonts.gstatic.com/s/lato/v25/S6uyw4BMUTPHjx4wXiWtFCc.woff2",
+      "status": 200,
+      "statusText": "",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/instagram/instagram_gallery9.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/instagram/instagram_gallery8.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/images/instagram/instagram_gallery7.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/event0.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/shinjuku0705.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/cybar0727.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/event1.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/chocolat0700.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/chocolat0725.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/shandy0.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/shandy0703.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/shandy0704.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/shandy0709.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/shandy0717.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/shandy0711.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/shandy0718.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/shandy0725.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/melty0704.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/bloody0706.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/bloody0725.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/roysuga0707.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/roysuga0710.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/roysuga0712.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/tweenyevent.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/tweeny0707.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    },
+    {
+      "url": "http://127.0.0.1:8001/proposal/branch2/event/roysuga0725.jpg",
+      "status": 200,
+      "statusText": "OK",
+      "timing": null
+    }
+  ]
+}
