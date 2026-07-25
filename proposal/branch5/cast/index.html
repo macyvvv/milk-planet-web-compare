@@ -16,25 +16,6 @@
 <link type="text/css" rel="stylesheet" href="cast.css">
 
   <link rel="stylesheet" type="text/css" href="../proposal.css">
-<script>
-	$(function() {
-	    $(window).scroll(function() {
-	      var st = $(window).scrollTop();
-	      if (st > 500) {
-	        $('#gotop').show("slow");
-	      } else {
-	        $('#gotop').hide('slow');
-	      }
-
-	      // タイトルのフローティング用クラス付与
-	      if (st > 100) {
-	        $('h1.title').addClass('scrolled-title');
-	      } else {
-	        $('h1.title').removeClass('scrolled-title');
-	      }
-	    });
-	});
-</script>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -61,8 +42,8 @@
 		<nav id="global-nav">
 			<ul>
 				<li><a href="../index.html">ほぉむ</a></li>
-				<li><a href="../shop/index.html">わくせい</a></li>
-				<li><a href="../cast/index.html">きゃすと</a></li>
+				<li><a href="../shop/index.html">わくせい｜店舗一覧</a></li>
+				<li><a href="../cast/index.html">きゃすと｜キャスト一覧</a></li>
 				<li><a href="../okyuji/index.html">おきゅうじ よてい</a></li>
 				<li><a href="../index.html#sys-title-wrapper">しすてむ＆めにゅう</a></li>
 				<li><a href="../index.html#event">いべんと</a></li>
@@ -78,7 +59,8 @@
 
 	<!--キャスト一覧-->
 	<div id="cast" class="content">
-		<div id="list"> 
+		<div id="list">
+			<p class="cast-scope-note">掲載は一部店舗のみとなります。</p>
 			<dl>
 		      <dt>店舗</dt>
 			 　 <dd class="shandy">
@@ -90,7 +72,7 @@
 						<dd class="shinjuku">
 		      	<input id="select_shinjuku" type="radio" name="rate" value="shinjuku">
 		      	<label for="select_shinjuku">
-		      		<img alt="milkplanet">
+		      		<img alt="milk planet">
 		      	</label>
 		      </dd>	
 
@@ -128,6 +110,9 @@
 	<div id="boxes">
 	      <script src="./castlist.js"></script>
 	    </div>
+	    <noscript>
+	      <p class="js-fallback-note">キャスト情報の表示にはJavaScriptが必要です。各店舗の詳細・SNSは<a href="../shop/index.html">わくせい｜店舗一覧</a>からご確認いただけます。</p>
+	    </noscript>
 	</div>
 	<!--キャスト一覧-->
 <script>
@@ -148,21 +133,8 @@
     function activate(area) {
       if (!area) return;
 
-      var next = [];
-
       allBoxes.forEach(function (node) {
-        if (node.classList.contains(area)) {
-          next.push(node);
-        }
-      });
-
-      while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-      }
-
-      next.forEach(function (node) {
-        node.classList.remove('hidden');
-        parent.appendChild(node);
+        node.classList.toggle('hidden', !node.classList.contains(area));
       });
 
       buttons.forEach(function (dd) {

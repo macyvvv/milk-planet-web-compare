@@ -191,5 +191,81 @@
         if (submenuButton) submenuButton.setAttribute('aria-expanded', 'false');
       }
     });
+
+    /* Escapeキーでメニュー（と開いているサブメニュー）を閉じ、トグルへフォーカスを戻す */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' && e.key !== 'Esc') return;
+      if (!header.classList.contains('open')) return;
+      header.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      var submenuItem = nav.querySelector('.nav-submenu-item.open');
+      if (submenuItem) {
+        submenuItem.classList.remove('open');
+        var submenuButton = submenuItem.querySelector('.nav-submenu-toggle');
+        if (submenuButton) submenuButton.setAttribute('aria-expanded', 'false');
+      }
+      toggle.focus();
+    });
+  });
+
+  /* --- 店舗一覧アコーディオン（shop/index.html）: 遷移とトグルの責務分離 + ARIA同期 --- */
+  ready(function () {
+    var pullheadToggles = Array.prototype.slice.call(document.querySelectorAll('.pullhead-toggle'));
+    if (!pullheadToggles.length) return;
+
+    pullheadToggles.forEach(function (btn) {
+      var pullhead = btn.closest('.pullhead');
+      var pullbody = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!pullhead || !pullbody) return;
+
+      var initiallyOpen = window.getComputedStyle(pullbody).display !== 'none';
+      pullhead.classList.toggle('open', initiallyOpen);
+      pullhead.classList.toggle('close', !initiallyOpen);
+      btn.setAttribute('aria-expanded', initiallyOpen ? 'true' : 'false');
+      pullbody.setAttribute('aria-hidden', initiallyOpen ? 'false' : 'true');
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var willOpen = !pullhead.classList.contains('open');
+
+        if (window.jQuery) {
+          window.jQuery(pullbody).stop(true, true).slideToggle('fast');
+        } else {
+          pullbody.style.display = willOpen ? 'block' : 'none';
+        }
+
+        pullhead.classList.toggle('open', willOpen);
+        pullhead.classList.toggle('close', !willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        pullbody.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+      });
+    });
+  });
+
+  /* --- Swiperカルーセル初期化（各店舗ページで共通） --- */
+  ready(function () {
+    var swiperContainer = document.querySelector('.swiper-container');
+    if (!swiperContainer || typeof window.Swiper !== 'function') return;
+
+    new window.Swiper('.swiper-container', {
+      loop: true,
+      speed: 600,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      direction: 'horizontal',
+      effect: 'slide',
+      autoplay: {
+        delay: 5000,
+        stopOnLast: false,
+        disableOnInteraction: true
+      },
+      pagination: {
+        el: '.swiper-pagination'
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    });
   });
 })();
