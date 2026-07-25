@@ -822,18 +822,11 @@ h4 span {
         width: 100%;
         height: auto;
     }
-    .pullhead.close {
-        background: url("images/close.png") #555 no-repeat;
-        background-position: 93% 53%;
-        background-size: 13px;
-    }
-    .pullhead.open {
-        background: url("images/open.png") #555 no-repeat;
-        background-position: 93% 53%;
-        background-size: 13px;
-    }
-    .pullbody {
+    .pullhead.close + .pullbody {
         display:none;
+    }
+    .pullhead.open + .pullbody {
+        display:block;
     }
 }
 #contact{
