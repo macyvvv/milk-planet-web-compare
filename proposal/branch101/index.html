@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>branch101 — シフト管理システム</title>
+  <style>
+    :root {
+      --bg: #0e1116;
+      --panel: #151a22;
+      --panel-2: #1b2230;
+      --text: #edf2f7;
+      --muted: #9aa7b8;
+      --accent: #7dd3fc;
+      --warn: #f4a261;
+      --line: rgba(255,255,255,.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 14px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(125,211,252,.14), transparent 34%),
+        radial-gradient(circle at top right, rgba(244,114,182,.10), transparent 28%),
+        var(--bg);
+      min-height: 100vh;
+    }
+    header {
+      padding: 28px 20px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(10px);
+    }
+    header p { margin: 6px 0 0; color: var(--muted); }
+    h1 { margin: 0; font-size: 22px; }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    section {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    section h2 { margin: 0 0 10px; font-size: 16px; }
+    section p { margin: 0 0 10px; color: var(--muted); }
+    section p:last-child { margin-bottom: 0; }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid var(--line);
+    }
+    .badge.warn { color: var(--warn); border-color: rgba(244,162,97,.4); background: rgba(244,162,97,.08); }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+    .btn:hover { border-color: var(--accent); }
+    .btn.disabled { opacity: .5; pointer-events: none; }
+    ul { margin: 0; padding-left: 20px; color: var(--muted); }
+    li { margin: 4px 0; }
+    a { color: var(--accent); }
+    code {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../index.html" style="color: var(--muted); text-decoration: none; font-size: 12px;">← proposal 一覧へ戻る</a>
+    <h1>branch101 — シフト管理システム</h1>
+    <p>複数店舗の出勤希望収集・確定シフト作成・公開を行う社内向け業務システム。他のbranchとは異なり、
+      デザイン比較用の静的モックではなく、認証・DBを持つ実働アプリです。</p>
+  </header>
+  <main>
+    <section>
+      <h2>公開状況 <span class="badge warn">開発中・未デプロイ</span></h2>
+      <p>
+        このアプリはNext.js + PostgreSQLで動作するため、GitHub Pages(静的配信のみ)には
+        直接デプロイできません。実アプリはVercel等の別ホスティング + マネージドPostgreSQLへ
+        デプロイする方針です(<a href="basis/decision_log.md">decision_log.md D-001</a>参照)。
+        デプロイ後、下のリンクが有効になります。
+      </p>
+      <div class="links">
+        <a class="btn disabled" href="#" aria-disabled="true">アプリを開く(デプロイ後に有効化)</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>設計資料</h2>
+      <p>要件定義・データモデル・状態遷移・権限表など、実装の正本となる設計文書。</p>
+      <ul>
+        <li><a href="basis/README.md">basis/README.md</a> — 資料一覧と読む順序</li>
+        <li><a href="basis/requirements.md">requirements.md</a> — 要件定義(REQ-ID)</li>
+        <li><a href="basis/data_model.md">data_model.md</a> — データモデル</li>
+        <li><a href="basis/decision_log.md">decision_log.md</a> — 採用判断・矛盾点の記録</li>
+        <li><a href="basis/WBS.md">WBS.md</a> — 実装状況サマリ</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>ソースコード</h2>
+      <p>
+        アプリ本体は <code>proposal/branch101/app/</code> にNext.jsプロジェクトとして格納。
+        セットアップ手順は <code>app/README.md</code> を参照してください。
+      </p>
+    </section>
+  </main>
+</body>
+</html>

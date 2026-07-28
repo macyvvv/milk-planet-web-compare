@@ -1,0 +1,71 @@
+graph TB
+  subgraph Client["ブラウザ(スマートフォン優先)"]
+    CastUI["キャスト画面"]
+    AdminUI["管理者画面"]
+  end
+
+  subgraph App["Next.js アプリケーション(単一デプロイ, 別ホスティング上 D-001)"]
+    direction TB
+
+    subgraph Boundary["境界層: Server Components / Server Functions / Route Handlers"]
+      B1["入出力の窓口のみ。業務ルールを書かない"]
+    end
+
+    subgraph Services["サービス層(ユースケース)"]
+      SvcAuth["Authentication\nログイン/初期設定/パスワード再設定/セッション"]
+      SvcUsers["Users\nユーザー・ロール"]
+      SvcStores["Stores\n店舗マスタ"]
+      SvcMembership["Memberships\n所属履歴・管理店舗スコープ"]
+      SvcPeriods["Periods\nピリオド生成・締切設定"]
+      SvcEvents["Events\nイベント登録・変更履歴・確認状態"]
+      SvcAvailability["Availability\n標準シフト・出勤希望下書き/提出"]
+      SvcTargets["Targets\n提出対象者生成・対象外設定"]
+      SvcScheduling["Scheduling\n確定シフト作成・希望差分判定"]
+      SvcPublication["Publication\n公開版生成・公開後変更"]
+      SvcNotifications["Notifications\nLINE文章生成(送信はしない)"]
+      SvcCSV["CSV\nインポート/エクスポート・プレビュー検証"]
+      SvcAudit["Audit\n監査ログ記録(追記専用)"]
+    end
+
+    B1 --> SvcAuth & SvcUsers & SvcStores & SvcMembership & SvcPeriods & SvcEvents & SvcAvailability & SvcTargets & SvcScheduling & SvcPublication & SvcNotifications & SvcCSV
+
+    SvcAvailability --> SvcTargets
+    SvcAvailability --> SvcPeriods
+    SvcAvailability --> SvcEvents
+    SvcScheduling --> SvcAvailability
+    SvcScheduling --> SvcEvents
+    SvcScheduling --> SvcMembership
+    SvcPublication --> SvcScheduling
+    SvcNotifications --> SvcTargets
+    SvcNotifications --> SvcAvailability
+    SvcCSV --> SvcAvailability
+    SvcCSV --> SvcScheduling
+    SvcCSV --> SvcUsers
+    SvcCSV --> SvcEvents
+
+    SvcAuth -. 全操作の権限再検証 .-> SvcAudit
+    SvcUsers -.-> SvcAudit
+    SvcMembership -.-> SvcAudit
+    SvcPeriods -.-> SvcAudit
+    SvcEvents -.-> SvcAudit
+    SvcAvailability -.-> SvcAudit
+    SvcTargets -.-> SvcAudit
+    SvcScheduling -.-> SvcAudit
+    SvcPublication -.-> SvcAudit
+    SvcCSV -.-> SvcAudit
+  end
+
+  subgraph DB["PostgreSQL(マネージドサービス)"]
+    Tables["users / user_credentials / user_roles\nstores / manager_store_scopes / cast_store_memberships\nperiods / period_store_settings / period_cast_targets\nevents / event_stores / event_versions / event_acknowledgements\nstandard_shift_patterns\navailability_submissions / *_versions / availability_entries\nconfirmed_shifts / confirmed_shift_versions\nshift_publications / published_shift_entries\nnotification_templates / generated_notifications\npassword_setup_tokens / password_reset_requests / sessions\ncsv_import_jobs / csv_import_rows / csv_export_jobs\naudit_logs"]
+  end
+
+  CastUI --> Boundary
+  AdminUI --> Boundary
+  Services --> DB
+
+  subgraph StaticSite["proposal/ (GitHub Pages, 既存の静的サイト)"]
+    CompareIndex["proposal/index.html\n(branch比較サイト)"]
+    Branch101Entry["proposal/branch101/index.html\n(静的エントリページ)"]
+  end
+  CompareIndex --> Branch101Entry
+  Branch101Entry -. リンク .-> Client

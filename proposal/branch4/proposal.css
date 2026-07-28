@@ -354,11 +354,18 @@ html body #top-head.open #nav-toggle {
     margin-top: 2px !important;
   }
 
+  /* 子メニューは親項目の右端に揃えて真横に重ねて表示し、画面幅・高さからはみ出さないようにする */
   html body #global-nav .nav-submenu {
-    bottom: auto !important;
-    right: calc(100% - 12px) !important;
+    position: absolute !important;
+    top: auto !important;
+    bottom: -4px !important;
+    right: 0 !important;
     left: auto !important;
-    min-width: 160px !important;
+    width: min(220px, calc(100vw - 20px)) !important;
+    min-width: 0 !important;
+    max-width: calc(100vw - 20px) !important;
+    max-height: calc(100vh - 90px) !important;
+    overflow-y: auto !important;
   }
 
   html body #top-head.open {

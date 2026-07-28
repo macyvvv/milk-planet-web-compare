@@ -1,0 +1,715 @@
+// Prisma schema for the shift management system (branch101).
+// Source of truth for this schema is /proposal/branch101/basis/data_model.md — keep them in sync.
+//
+// Constraints Prisma cannot express natively (partial unique indexes, GiST exclusion constraints,
+// CHECK constraints) are applied via prisma/migrations/<ts>_manual_constraints/migration.sql
+// (see D-002, D-004 in basis/decision_log.md). Requires the btree_gist extension.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------------------
+// 1. ユーザー・認証・権限
+// ---------------------------------------------------------------------------
+
+enum UserStatus {
+  PENDING_SETUP
+  ACTIVE
+  INACTIVE
+}
+
+model User {
+  id                     String     @id @default(uuid()) @db.Uuid
+  loginName              String     @map("login_name")
+  displayName            String     @map("display_name")
+  displayNameKana        String     @map("display_name_kana")
+  status                 UserStatus @default(PENDING_SETUP)
+  resignationScheduledOn DateTime?  @map("resignation_scheduled_on") @db.Date
+  version                Int        @default(1)
+  createdAt              DateTime   @default(now()) @map("created_at")
+  updatedAt              DateTime   @updatedAt @map("updated_at")
+
+  credential              UserCredential?
+  rolesGranted            UserRole[]               @relation("RoleGrantedTo")
+  rolesGrantedBy          UserRole[]               @relation("RoleGrantedBy")
+  rolesRevokedBy          UserRole[]               @relation("RoleRevokedBy")
+  managerScopes           ManagerStoreScope[]      @relation("ScopeUser")
+  managerScopesGrantedBy  ManagerStoreScope[]      @relation("ScopeGrantedBy")
+  memberships             CastStoreMembership[]    @relation("MembershipUser")
+  membershipsCreatedBy    CastStoreMembership[]    @relation("MembershipCreatedBy")
+  periodCastTargets       PeriodCastTarget[]
+  standardShiftPatterns   StandardShiftPattern[]
+  availabilitySubmissions AvailabilitySubmission[]
+  eventAcknowledgements   EventAcknowledgement[]
+  confirmedShifts         ConfirmedShift[]         @relation("ConfirmedShiftCast")
+  sessions                Session[]
+  passwordSetupTokens     PasswordSetupToken[]     @relation("TokenOwner")
+
+  @@map("users")
+}
+
+model UserCredential {
+  userId              String    @id @map("user_id") @db.Uuid
+  passwordHash        String?   @map("password_hash")
+  passwordAlgo        String    @default("argon2id") @map("password_algo")
+  failedLoginAttempts Int       @default(0) @map("failed_login_attempts")
+  lockedUntil         DateTime? @map("locked_until")
+  passwordUpdatedAt   DateTime? @map("password_updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("user_credentials")
+}
+
+enum Role {
+  CAST
+  STORE_MANAGER
+  STORE_DEPUTY_MANAGER
+  AREA_MANAGER
+  SUPER_USER
+}
+
+model UserRole {
+  id          String    @id @default(uuid()) @db.Uuid
+  userId      String    @map("user_id") @db.Uuid
+  role        Role
+  grantedById String    @map("granted_by") @db.Uuid
+  grantedAt   DateTime  @default(now()) @map("granted_at")
+  revokedById String?   @map("revoked_by") @db.Uuid
+  revokedAt   DateTime? @map("revoked_at")
+
+  user      User  @relation("RoleGrantedTo", fields: [userId], references: [id])
+  grantedBy User  @relation("RoleGrantedBy", fields: [grantedById], references: [id])
+  revokedBy User? @relation("RoleRevokedBy", fields: [revokedById], references: [id])
+
+  @@index([userId])
+  @@map("user_roles")
+}
+
+enum StoreStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Store {
+  id        String      @id @default(uuid()) @db.Uuid
+  name      String
+  status    StoreStatus @default(ACTIVE)
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  managerScopes     ManagerStoreScope[]
+  memberships       CastStoreMembership[]
+  periodSettings    PeriodStoreSetting[]
+  periodCastTargets PeriodCastTarget[]
+  eventStores       EventStore[]
+  availabilitySubs  AvailabilitySubmission[]
+  confirmedShifts   ConfirmedShift[]
+  shiftPublications ShiftPublication[]
+  eventAcks         EventAcknowledgement[]
+
+  @@map("stores")
+}
+
+model ManagerStoreScope {
+  id          String    @id @default(uuid()) @db.Uuid
+  userId      String    @map("user_id") @db.Uuid
+  storeId     String    @map("store_id") @db.Uuid
+  grantedById String    @map("granted_by") @db.Uuid
+  grantedAt   DateTime  @default(now()) @map("granted_at")
+  revokedAt   DateTime? @map("revoked_at")
+
+  user      User  @relation("ScopeUser", fields: [userId], references: [id])
+  grantedBy User  @relation("ScopeGrantedBy", fields: [grantedById], references: [id])
+  store     Store @relation(fields: [storeId], references: [id])
+
+  @@index([userId])
+  @@index([storeId])
+  @@map("manager_store_scopes")
+}
+
+enum MembershipType {
+  PRIMARY
+  TEMPORARY
+}
+
+model CastStoreMembership {
+  id             String         @id @default(uuid()) @db.Uuid
+  userId         String         @map("user_id") @db.Uuid
+  storeId        String         @map("store_id") @db.Uuid
+  validFrom      DateTime       @map("valid_from") @db.Date
+  validTo        DateTime?      @map("valid_to") @db.Date
+  membershipType MembershipType @map("membership_type")
+  createdById    String         @map("created_by") @db.Uuid
+  createdAt      DateTime       @default(now()) @map("created_at")
+
+  user      User  @relation("MembershipUser", fields: [userId], references: [id])
+  createdBy User  @relation("MembershipCreatedBy", fields: [createdById], references: [id])
+  store     Store @relation(fields: [storeId], references: [id])
+
+  @@index([userId])
+  @@index([storeId])
+  @@map("cast_store_memberships")
+}
+
+// ---------------------------------------------------------------------------
+// 2. ピリオド・イベント
+// ---------------------------------------------------------------------------
+
+model Period {
+  id        String   @id @default(uuid()) @db.Uuid
+  startDate DateTime @map("start_date") @db.Date
+  endDate   DateTime @map("end_date") @db.Date
+  createdAt DateTime @default(now()) @map("created_at")
+
+  storeSettings          PeriodStoreSetting[]
+  castTargets            PeriodCastTarget[]
+  availabilitySubs       AvailabilitySubmission[]
+  confirmedShifts        ConfirmedShift[]
+  shiftPublications      ShiftPublication[]
+  eventAcks              EventAcknowledgement[]
+  generatedNotifications GeneratedNotification[]
+
+  @@unique([startDate, endDate])
+  @@map("periods")
+}
+
+enum CollectionStatus {
+  PREPARING
+  OPEN
+  CLOSED
+}
+
+enum SchedulingStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  CONFIRMED
+}
+
+enum PublicationStatus {
+  UNPUBLISHED
+  PUBLISHED
+}
+
+model PeriodStoreSetting {
+  id                   String            @id @default(uuid()) @db.Uuid
+  periodId             String            @map("period_id") @db.Uuid
+  storeId              String            @map("store_id") @db.Uuid
+  submissionOpenAt     DateTime?         @map("submission_open_at")
+  submissionDeadlineAt DateTime?         @map("submission_deadline_at")
+  collectionStatus     CollectionStatus  @default(PREPARING) @map("collection_status")
+  schedulingStatus     SchedulingStatus  @default(NOT_STARTED) @map("scheduling_status")
+  publicationStatus    PublicationStatus @default(UNPUBLISHED) @map("publication_status")
+  publishedAt          DateTime?         @map("published_at")
+  eventsConfirmedAt    DateTime?         @map("events_confirmed_at")
+  eventsConfirmedById  String?           @map("events_confirmed_by") @db.Uuid
+  version              Int               @default(1)
+
+  period Period @relation(fields: [periodId], references: [id])
+  store  Store  @relation(fields: [storeId], references: [id])
+
+  @@unique([periodId, storeId])
+  @@map("period_store_settings")
+}
+
+enum TargetStatus {
+  ACTIVE
+  EXCLUDED_RESIGNED
+  EXCLUDED_LONG_ABSENCE
+  EXCLUDED_OTHER
+}
+
+model PeriodCastTarget {
+  id              String       @id @default(uuid()) @db.Uuid
+  periodId        String       @map("period_id") @db.Uuid
+  storeId         String       @map("store_id") @db.Uuid
+  userId          String       @map("user_id") @db.Uuid
+  targetStatus    TargetStatus @default(ACTIVE) @map("target_status")
+  exclusionReason String?      @map("exclusion_reason")
+  generatedAt     DateTime     @default(now()) @map("generated_at")
+  updatedById     String?      @map("updated_by") @db.Uuid
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  period Period @relation(fields: [periodId], references: [id])
+  store  Store  @relation(fields: [storeId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([periodId, storeId, userId])
+  @@map("period_cast_targets")
+}
+
+enum EventStatus {
+  ACTIVE
+  DISABLED
+}
+
+model Event {
+  id               String      @id @default(uuid()) @db.Uuid
+  name             String
+  eventDate        DateTime    @map("event_date") @db.Date
+  isAllStores      Boolean     @default(false) @map("is_all_stores")
+  castNote         String?     @map("cast_note")
+  adminNote        String?     @map("admin_note")
+  status           EventStatus @default(ACTIVE)
+  currentVersionNo Int         @default(1) @map("current_version_no")
+  createdById      String      @map("created_by") @db.Uuid
+  createdAt        DateTime    @default(now()) @map("created_at")
+  updatedAt        DateTime    @updatedAt @map("updated_at")
+
+  stores           EventStore[]
+  versions         EventVersion[]
+  acknowledgements EventAcknowledgement[]
+
+  @@map("events")
+}
+
+model EventStore {
+  id      String @id @default(uuid()) @db.Uuid
+  eventId String @map("event_id") @db.Uuid
+  storeId String @map("store_id") @db.Uuid
+
+  event Event @relation(fields: [eventId], references: [id])
+  store Store @relation(fields: [storeId], references: [id])
+
+  @@unique([eventId, storeId])
+  @@map("event_stores")
+}
+
+model EventVersion {
+  id               String      @id @default(uuid()) @db.Uuid
+  eventId          String      @map("event_id") @db.Uuid
+  versionNo        Int         @map("version_no")
+  name             String
+  eventDate        DateTime    @map("event_date") @db.Date
+  isAllStores      Boolean     @map("is_all_stores")
+  storeIdsSnapshot Json        @map("store_ids_snapshot")
+  castNote         String?     @map("cast_note")
+  adminNote        String?     @map("admin_note")
+  status           EventStatus
+  changeReason     String?     @map("change_reason")
+  changedById      String      @map("changed_by") @db.Uuid
+  changedAt        DateTime    @default(now()) @map("changed_at")
+
+  event Event @relation(fields: [eventId], references: [id])
+
+  @@unique([eventId, versionNo])
+  @@map("event_versions")
+}
+
+enum AcknowledgementStatus {
+  UP_TO_DATE
+  NEEDS_ACK
+}
+
+model EventAcknowledgement {
+  id                    String                @id @default(uuid()) @db.Uuid
+  eventId               String                @map("event_id") @db.Uuid
+  userId                String                @map("user_id") @db.Uuid
+  periodId              String                @map("period_id") @db.Uuid
+  storeId               String                @map("store_id") @db.Uuid
+  acknowledgedVersionNo Int?                  @map("acknowledged_version_no")
+  status                AcknowledgementStatus @default(UP_TO_DATE)
+  createdAt             DateTime              @default(now()) @map("created_at")
+  updatedAt             DateTime              @updatedAt @map("updated_at")
+
+  event  Event  @relation(fields: [eventId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+  period Period @relation(fields: [periodId], references: [id])
+  store  Store  @relation(fields: [storeId], references: [id])
+
+  @@unique([eventId, userId, periodId])
+  @@map("event_acknowledgements")
+}
+
+// ---------------------------------------------------------------------------
+// 3. 標準シフト・出勤希望
+// ---------------------------------------------------------------------------
+
+model StandardShiftPattern {
+  id           String   @id @default(uuid()) @db.Uuid
+  userId       String   @map("user_id") @db.Uuid
+  dayOfWeek    Int      @map("day_of_week") @db.SmallInt // 0=Sun .. 6=Sat
+  isWorking    Boolean  @map("is_working")
+  startMinutes Int?     @map("start_minutes") @db.SmallInt // 0-1799 (up to 30:00)
+  endMinutes   Int?     @map("end_minutes") @db.SmallInt
+  note         String?
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, dayOfWeek])
+  @@map("standard_shift_patterns")
+}
+
+enum SubmissionHeaderStatus {
+  NOT_STARTED
+  DRAFT
+  SUBMITTED
+  LATE_SUBMITTED
+  LOCKED
+}
+
+model AvailabilitySubmission {
+  id                   String                 @id @default(uuid()) @db.Uuid
+  periodId             String                 @map("period_id") @db.Uuid
+  storeId              String                 @map("store_id") @db.Uuid
+  userId               String                 @map("user_id") @db.Uuid
+  headerStatus         SubmissionHeaderStatus @default(NOT_STARTED) @map("header_status")
+  submittedAt          DateTime?              @map("submitted_at")
+  currentVersionNo     Int                    @default(0) @map("current_version_no")
+  lastReopenedAt       DateTime?              @map("last_reopened_at")
+  lastReopenedById     String?                @map("last_reopened_by") @db.Uuid
+  lastReopenReason     String?                @map("last_reopen_reason")
+  lastReopenDeadlineAt DateTime?              @map("last_reopen_deadline_at")
+  version              Int                    @default(1)
+  createdAt            DateTime               @default(now()) @map("created_at")
+  updatedAt            DateTime               @updatedAt @map("updated_at")
+
+  period   Period                          @relation(fields: [periodId], references: [id])
+  store    Store                           @relation(fields: [storeId], references: [id])
+  user     User                            @relation(fields: [userId], references: [id])
+  entries  AvailabilityEntry[]
+  versions AvailabilitySubmissionVersion[]
+
+  @@unique([periodId, storeId, userId])
+  @@map("availability_submissions")
+}
+
+enum AvailabilityStatus {
+  OFF
+  AVAILABLE
+  PREFERRED
+  TIME_NEGOTIABLE
+}
+
+model AvailabilityEntry {
+  id                 String             @id @default(uuid()) @db.Uuid
+  submissionId       String             @map("submission_id") @db.Uuid
+  targetDate         DateTime           @map("target_date") @db.Date
+  availabilityStatus AvailabilityStatus @map("availability_status")
+  startAt            DateTime?          @map("start_at")
+  endAt              DateTime?          @map("end_at")
+  note               String?
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+
+  submission AvailabilitySubmission @relation(fields: [submissionId], references: [id])
+
+  @@unique([submissionId, targetDate])
+  @@map("availability_entries")
+}
+
+model AvailabilitySubmissionVersion {
+  id                 String                 @id @default(uuid()) @db.Uuid
+  submissionId       String                 @map("submission_id") @db.Uuid
+  versionNo          Int                    @map("version_no")
+  headerStatusAtSave SubmissionHeaderStatus @map("header_status_at_save")
+  entriesSnapshot    Json                   @map("entries_snapshot")
+  createdById        String                 @map("created_by") @db.Uuid
+  createdAt          DateTime               @default(now()) @map("created_at")
+
+  submission AvailabilitySubmission @relation(fields: [submissionId], references: [id])
+
+  @@unique([submissionId, versionNo])
+  @@map("availability_submission_versions")
+}
+
+// ---------------------------------------------------------------------------
+// 4. 確定シフト・公開
+// ---------------------------------------------------------------------------
+
+enum ConfirmedShiftStatus {
+  DRAFT
+  CONFIRMED
+  PUBLISHED
+  CANCELLED
+}
+
+model ConfirmedShift {
+  id               String               @id @default(uuid()) @db.Uuid
+  periodId         String               @map("period_id") @db.Uuid
+  storeId          String               @map("store_id") @db.Uuid
+  userId           String               @map("user_id") @db.Uuid
+  workDate         DateTime             @map("work_date") @db.Date
+  startAt          DateTime             @map("start_at")
+  endAt            DateTime             @map("end_at")
+  status           ConfirmedShiftStatus @default(DRAFT)
+  adminNote        String?              @map("admin_note")
+  castNote         String?              @map("cast_note")
+  changeReason     String?              @map("change_reason")
+  currentVersionNo Int                  @default(1) @map("current_version_no")
+  version          Int                  @default(1)
+  createdById      String               @map("created_by") @db.Uuid
+  updatedById      String               @map("updated_by") @db.Uuid
+  createdAt        DateTime             @default(now()) @map("created_at")
+  updatedAt        DateTime             @updatedAt @map("updated_at")
+
+  period   Period                  @relation(fields: [periodId], references: [id])
+  store    Store                   @relation(fields: [storeId], references: [id])
+  user     User                    @relation("ConfirmedShiftCast", fields: [userId], references: [id])
+  versions ConfirmedShiftVersion[]
+
+  @@index([userId, workDate])
+  @@index([periodId, storeId])
+  @@map("confirmed_shifts")
+}
+
+enum NotifiedStatus {
+  NOT_NOTIFIED
+  NOTIFIED
+}
+
+model ConfirmedShiftVersion {
+  id                      String               @id @default(uuid()) @db.Uuid
+  confirmedShiftId        String               @map("confirmed_shift_id") @db.Uuid
+  versionNo               Int                  @map("version_no")
+  storeId                 String               @map("store_id") @db.Uuid
+  workDate                DateTime             @map("work_date") @db.Date
+  startAt                 DateTime             @map("start_at")
+  endAt                   DateTime             @map("end_at")
+  status                  ConfirmedShiftStatus
+  adminNote               String?              @map("admin_note")
+  castNote                String?              @map("cast_note")
+  changeReason            String?              @map("change_reason")
+  isPostPublicationChange Boolean              @default(false) @map("is_post_publication_change")
+  castNotifiedStatus      NotifiedStatus?      @map("cast_notified_status")
+  notifiedAt              DateTime?            @map("notified_at")
+  notifiedById            String?              @map("notified_by") @db.Uuid
+  changedById             String               @map("changed_by") @db.Uuid
+  changedAt               DateTime             @default(now()) @map("changed_at")
+
+  confirmedShift ConfirmedShift @relation(fields: [confirmedShiftId], references: [id])
+
+  @@unique([confirmedShiftId, versionNo])
+  @@map("confirmed_shift_versions")
+}
+
+model ShiftPublication {
+  id            String   @id @default(uuid()) @db.Uuid
+  periodId      String   @map("period_id") @db.Uuid
+  storeId       String   @map("store_id") @db.Uuid
+  publicationNo Int      @map("publication_no")
+  publishedById String   @map("published_by") @db.Uuid
+  publishedAt   DateTime @default(now()) @map("published_at")
+
+  period  Period                @relation(fields: [periodId], references: [id])
+  store   Store                 @relation(fields: [storeId], references: [id])
+  entries PublishedShiftEntry[]
+
+  @@unique([periodId, storeId, publicationNo])
+  @@map("shift_publications")
+}
+
+model PublishedShiftEntry {
+  id                String   @id @default(uuid()) @db.Uuid
+  publicationId     String   @map("publication_id") @db.Uuid
+  userId            String   @map("user_id") @db.Uuid
+  storeId           String   @map("store_id") @db.Uuid
+  workDate          DateTime @map("work_date") @db.Date
+  startAt           DateTime @map("start_at")
+  endAt             DateTime @map("end_at")
+  adminNoteSnapshot String?  @map("admin_note_snapshot")
+  castNoteSnapshot  String?  @map("cast_note_snapshot")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  publication ShiftPublication @relation(fields: [publicationId], references: [id])
+
+  @@unique([publicationId, userId, workDate])
+  @@map("published_shift_entries")
+}
+
+// ---------------------------------------------------------------------------
+// 5. 通知・CSV・認証補助
+// ---------------------------------------------------------------------------
+
+enum NotificationTemplateType {
+  STORE_UNSUBMITTED
+  ALL_STORES_UNSUBMITTED
+  EVENT_CHANGE_RENOTIFY
+}
+
+model NotificationTemplate {
+  id           String                   @id @default(uuid()) @db.Uuid
+  templateType NotificationTemplateType @map("template_type")
+  storeId      String?                  @map("store_id") @db.Uuid
+  body         String
+  updatedById  String?                  @map("updated_by") @db.Uuid
+  updatedAt    DateTime                 @updatedAt @map("updated_at")
+
+  @@map("notification_templates")
+}
+
+model GeneratedNotification {
+  id              String                   @id @default(uuid()) @db.Uuid
+  templateType    NotificationTemplateType @map("template_type")
+  storeId         String?                  @map("store_id") @db.Uuid
+  periodId        String                   @map("period_id") @db.Uuid
+  contentSnapshot String                   @map("content_snapshot")
+  generatedById   String                   @map("generated_by") @db.Uuid
+  generatedAt     DateTime                 @default(now()) @map("generated_at")
+
+  period Period @relation(fields: [periodId], references: [id])
+
+  @@map("generated_notifications")
+}
+
+enum TokenPurpose {
+  INITIAL_SETUP
+  PASSWORD_RESET
+}
+
+model PasswordSetupToken {
+  id         String       @id @default(uuid()) @db.Uuid
+  userId     String       @map("user_id") @db.Uuid
+  purpose    TokenPurpose
+  tokenHash  String       @map("token_hash")
+  expiresAt  DateTime     @map("expires_at")
+  usedAt     DateTime?    @map("used_at")
+  issuedById String       @map("issued_by") @db.Uuid
+  issuedAt   DateTime     @default(now()) @map("issued_at")
+
+  user         User                  @relation("TokenOwner", fields: [userId], references: [id])
+  resetRequest PasswordResetRequest?
+
+  @@index([userId, purpose])
+  @@map("password_setup_tokens")
+}
+
+model PasswordResetRequest {
+  id            String   @id @default(uuid()) @db.Uuid
+  userId        String   @map("user_id") @db.Uuid
+  requestedNote String?  @map("requested_note")
+  approvedById  String   @map("approved_by") @db.Uuid
+  approvedAt    DateTime @default(now()) @map("approved_at")
+  issuedTokenId String   @unique @map("issued_token_id") @db.Uuid
+
+  issuedToken PasswordSetupToken @relation(fields: [issuedTokenId], references: [id])
+
+  @@map("password_reset_requests")
+}
+
+model Session {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @map("user_id") @db.Uuid
+  tokenHash  String    @unique @map("token_hash")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  lastSeenAt DateTime  @default(now()) @map("last_seen_at")
+  expiresAt  DateTime  @map("expires_at")
+  revokedAt  DateTime? @map("revoked_at")
+  ipAddress  String?   @map("ip_address")
+  userAgent  String?   @map("user_agent")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+enum CsvJobType {
+  CASTS
+  MEMBERSHIPS
+  AVAILABILITY
+  EVENTS
+  CONFIRMED_SHIFTS
+}
+
+enum CsvImportStatus {
+  UPLOADED
+  VALIDATING
+  PREVIEW_READY
+  VALIDATION_FAILED
+  CONFIRMED
+  APPLIED
+  FAILED
+  CANCELLED
+}
+
+model CsvImportJob {
+  id           String          @id @default(uuid()) @db.Uuid
+  jobType      CsvJobType      @map("job_type")
+  storeId      String?         @map("store_id") @db.Uuid
+  periodId     String?         @map("period_id") @db.Uuid
+  status       CsvImportStatus @default(UPLOADED)
+  reason       String?
+  uploadedById String          @map("uploaded_by") @db.Uuid
+  uploadedAt   DateTime        @default(now()) @map("uploaded_at")
+  appliedById  String?         @map("applied_by") @db.Uuid
+  appliedAt    DateTime?       @map("applied_at")
+  errorSummary String?         @map("error_summary")
+
+  rows CsvImportRow[]
+
+  @@map("csv_import_jobs")
+}
+
+enum CsvRowStatus {
+  VALID
+  INVALID
+}
+
+model CsvImportRow {
+  id               String       @id @default(uuid()) @db.Uuid
+  jobId            String       @map("job_id") @db.Uuid
+  rowNo            Int          @map("row_no")
+  rawData          Json         @map("raw_data")
+  validationErrors Json?        @map("validation_errors")
+  status           CsvRowStatus
+
+  job CsvImportJob @relation(fields: [jobId], references: [id])
+
+  @@unique([jobId, rowNo])
+  @@map("csv_import_rows")
+}
+
+enum CsvExportType {
+  CASTS
+  AVAILABILITY
+  SUBMISSIONS
+  CONFIRMED_SHIFTS
+  DIFFERENCES
+  EVENTS
+  MEMBERSHIPS
+}
+
+model CsvExportJob {
+  id            String        @id @default(uuid()) @db.Uuid
+  exportType    CsvExportType @map("export_type")
+  storeId       String?       @map("store_id") @db.Uuid
+  periodId      String?       @map("period_id") @db.Uuid
+  rowCount      Int           @map("row_count")
+  requestedById String        @map("requested_by") @db.Uuid
+  requestedAt   DateTime      @default(now()) @map("requested_at")
+
+  @@map("csv_export_jobs")
+}
+
+// ---------------------------------------------------------------------------
+// 6. 監査(追記専用。アプリケーションDBロールへUPDATE/DELETE権限を付与しない)
+// ---------------------------------------------------------------------------
+
+model AuditLog {
+  id          String   @id @default(uuid()) @db.Uuid
+  actorUserId String?  @map("actor_user_id") @db.Uuid
+  action      String
+  entityType  String   @map("entity_type")
+  entityId    String?  @map("entity_id") @db.Uuid
+  storeId     String?  @map("store_id") @db.Uuid
+  periodId    String?  @map("period_id") @db.Uuid
+  beforeData  Json?    @map("before_data")
+  afterData   Json?    @map("after_data")
+  reason      String?
+  requestId   String?  @map("request_id")
+  ipAddress   String?  @map("ip_address")
+  userAgent   String?  @map("user_agent")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([actorUserId])
+  @@index([entityType, entityId])
+  @@index([storeId, periodId])
+  @@map("audit_logs")
+}
