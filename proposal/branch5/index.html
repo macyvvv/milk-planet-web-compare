@@ -162,47 +162,35 @@
 			<h2>いんすたぐらむ</h2>
       <ul id="instagram_list"></ul>
       <script>
-				let gallery = [
-				'https://www.instagram.com/p/DKY1Db0TsZB/',
-        'https://www.instagram.com/p/DF7glyBzYNY/',
-	    'https://www.instagram.com/p/DKXoLO0zqFy/',
-        'https://www.instagram.com/p/C3RuxUbr8yz/',
-        'https://www.instagram.com/p/C00EWodvxOH/',
-        'https://www.instagram.com/p/DLgtHX_RQH5/',
-        'https://www.instagram.com/p/C0vUyqyr2iZ/',
-        'https://www.instagram.com/p/Cr5ocrEP115/',
-        'https://www.instagram.com/p/Cr5oRYjPFcG/'
-				];
+        // 投稿・保存画像・投稿元店舗を1件単位で管理し、対応関係のずれを防ぐ。
+        const instagramPosts = [
+          { url: 'https://www.instagram.com/p/DKY1Db0TsZB/', image: 1, shop: 'ShandyLove', watermark: './images/list_shandy.png' },
+          { url: 'https://www.instagram.com/p/DF7glyBzYNY/', image: 2, shop: 'milk planet', watermark: './images/list_shinjuku.png' },
+          { url: 'https://www.instagram.com/p/DKXoLO0zqFy/', image: 3, shop: 'Royal Sugar', watermark: './images/list_roysuga.png' },
+          { url: 'https://www.instagram.com/p/C3RuxUbr8yz/', image: 4, shop: 'milk planet', watermark: './images/list_shinjuku.png' },
+          { url: 'https://www.instagram.com/p/C00EWodvxOH/', image: 5, shop: 'MeltyMousse', watermark: './images/list_melty.png' },
+          { url: 'https://www.instagram.com/p/DLgtHX_RQH5/', image: 6, shop: 'milk planet', watermark: './images/list_shinjuku.png' },
+          { url: 'https://www.instagram.com/p/C0vUyqyr2iZ/', image: 7, shop: 'MeltyMousse', watermark: './images/list_melty.png' },
+          { url: 'https://www.instagram.com/p/Cr5ocrEP115/', image: 8, shop: 'ShandyLove', watermark: './images/list_shandy.png' },
+          { url: 'https://www.instagram.com/p/Cr5oRYjPFcG/', image: 9, shop: 'ShandyLove', watermark: './images/list_shandy.png' }
+        ];
 
-        // 投稿IDから店舗ロゴへのマッピング
-        // ※URLからは店舗名が取得できないため、投稿IDごとのロゴ画像パスを指定しています。
-        const igWatermarks = {
-          'DKY1Db0TsZB': './images/list_shinjuku.png',
-          'DF7glyBzYNY': './images/list_cp.png',
-          'DKXoLO0zqFy': './images/list_shandy.png',
-          'C3RuxUbr8yz': './images/list_melty.png',
-          'C00EWodvxOH': './images/list_bloody.png',
-          'DLgtHX_RQH5': './images/list_roysuga.png',
-          'C0vUyqyr2iZ': './images/list_tweeny.png',
-          'Cr5ocrEP115': './images/list_cybar_bkk.png',
-          'Cr5oRYjPFcG': './images/list_cybar_laos.png'
-        };
-
-        let html = '';
-				for(let i=gallery.length; i>0; i--){
-          let url = gallery[i-1];
-          let postIdMatch = url.match(/\/p\/([^\/]+)\//);
-          let postId = postIdMatch ? postIdMatch[1] : '';
-          let watermarkSrc = igWatermarks[postId] || '';
-          let watermarkHtml = watermarkSrc ? '<img src="' + watermarkSrc + '" class="ig-watermark">' : '';
-
-				  html += '<div class="instagram_gallery"><li><a href="'+url+'" target="_blank">'+
-				  '<img src="./images/instagram/instagram_gallery'+(i)+'.jpg" loading="lazy" class="ig-photo">' + watermarkHtml + '</a></li></div>';
-			  }
-        document.getElementById('instagram_list').innerHTML = html;
+        const instagramList = document.getElementById('instagram_list');
+        instagramList.innerHTML = instagramPosts
+          .slice(0, 9)
+          .reverse()
+          .map(({ url, image, shop, watermark }) => (
+            '<li class="instagram_gallery">' +
+              '<a href="' + url + '" target="_blank" rel="noopener noreferrer" aria-label="' + shop + 'のInstagram投稿を見る">' +
+                '<img src="./images/instagram/instagram_gallery' + image + '.jpg" loading="lazy" class="ig-photo" alt="' + shop + 'のInstagram投稿写真">' +
+                '<img src="' + watermark + '" class="ig-watermark" alt="" aria-hidden="true">' +
+              '</a>' +
+            '</li>'
+          ))
+          .join('');
       </script>
       <div class="button">
-		      <a href="https://www.instagram.com/milkplanet_cafe/" target="_blank">instagram</a>
+		      <a href="https://www.instagram.com/milkplanet_cafe/" target="_blank" rel="noopener noreferrer">instagram</a>
 		  </div>	
   </div>
 	<!--instagram-->
