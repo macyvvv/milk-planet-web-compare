@@ -16,112 +16,6 @@
       document.querySelectorAll('article h1, h1.title, h1.seo_h1')
     );
 
-    function truncate(str, max) {
-      if (!str) return '';
-      return String(str).slice(0, max);
-    }
-
-    function getCleanText(node) {
-      if (!node) return '';
-      return truncate((node.textContent || '').replace(/\s+/g, ' ').trim(), 120);
-    }
-
-    function normalizeHref(href) {
-      if (!href) return '';
-      return truncate(href, 300);
-    }
-
-    function getSectionName(node) {
-      if (!node || !node.closest) return '';
-      var section = node.closest('section, article, nav, header, footer, main, [id]');
-      if (!section) return '';
-      return truncate(section.id || section.className || section.tagName.toLowerCase(), 80);
-    }
-
-    function getClickType(el) {
-      if (!el || !el.tagName) return 'unknown';
-      var tag = el.tagName.toLowerCase();
-      if (tag === 'a') return 'link';
-      if (tag === 'button') return 'button';
-      if (tag === 'input') return 'input';
-      return tag;
-    }
-
-    function toUrl(href) {
-      try {
-        return new URL(href, window.location.href);
-      } catch (error) {
-        return null;
-      }
-    }
-
-    function isOutbound(href) {
-      var url = toUrl(href);
-      if (!url) return false;
-      if (url.protocol !== 'http:' && url.protocol !== 'https:') return false;
-      return url.origin !== window.location.origin;
-    }
-
-    function pushAnalyticsEvent(eventName, params) {
-      var payload = Object.assign({
-        event_name: eventName,
-        page_path: window.location.pathname,
-        page_title: document.title
-      }, params || {});
-
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', eventName, payload);
-      }
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(Object.assign({ event: eventName }, payload));
-    }
-
-    document.addEventListener('click', function (event) {
-      var el = event.target && event.target.closest
-        ? event.target.closest('a, button, [role="button"], input[type="button"], input[type="submit"]')
-        : null;
-      if (!el) return;
-      if (el.hasAttribute('data-ga-ignore')) return;
-
-      var href = el.getAttribute('href') || '';
-      var outbound = isOutbound(href);
-      var url = toUrl(href);
-      var clickText = getCleanText(el) || truncate(el.getAttribute('aria-label') || el.getAttribute('title') || '', 120);
-      var clickArea = getSectionName(el);
-      var clickType = getClickType(el);
-
-      pushAnalyticsEvent('ui_click', {
-        click_text: clickText,
-        click_type: clickType,
-        click_id: truncate(el.id || '', 80),
-        click_classes: truncate((el.className || '').toString(), 160),
-        click_url: normalizeHref(href),
-        click_domain: url ? truncate(url.hostname || '', 120) : '',
-        click_area: clickArea,
-        outbound: outbound ? '1' : '0'
-      });
-
-      if (outbound) {
-        pushAnalyticsEvent('outbound_click', {
-          click_text: clickText,
-          click_url: normalizeHref(href),
-          click_domain: url ? truncate(url.hostname || '', 120) : '',
-          click_area: clickArea
-        });
-      }
-    }, true);
-
-    document.addEventListener('submit', function (event) {
-      var form = event.target;
-      if (!form || form.tagName !== 'FORM') return;
-      pushAnalyticsEvent('form_submit', {
-        form_id: truncate(form.id || '', 80),
-        form_name: truncate(form.getAttribute('name') || '', 80),
-        form_action: normalizeHref(form.getAttribute('action') || window.location.pathname),
-        form_area: getSectionName(form)
-      });
-    }, true);
-
     if (!header || !toggle || !nav) return;
 
     var navList = nav.querySelector('ul');
@@ -160,10 +54,12 @@
     function openClose() {
       var isOpen = header.classList.toggle('open');
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      pushAnalyticsEvent('menu_toggle', {
-        menu_state: isOpen ? 'open' : 'close',
-        menu_id: 'global-nav'
-      });
+      if (window.siteAnalytics) {
+        window.siteAnalytics.track('menu_toggle', {
+          menu_state: isOpen ? 'open' : 'close',
+          menu_id: 'global-nav'
+        });
+      }
     }
 
     toggle.addEventListener('click', openClose);
@@ -293,6 +189,82 @@
         submenuItem.classList.remove('open');
         var submenuButton = submenuItem.querySelector('.nav-submenu-toggle');
         if (submenuButton) submenuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* Escapeキーでメニュー（と開いているサブメニュー）を閉じ、トグルへフォーカスを戻す */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' && e.key !== 'Esc') return;
+      if (!header.classList.contains('open')) return;
+      header.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      var submenuItem = nav.querySelector('.nav-submenu-item.open');
+      if (submenuItem) {
+        submenuItem.classList.remove('open');
+        var submenuButton = submenuItem.querySelector('.nav-submenu-toggle');
+        if (submenuButton) submenuButton.setAttribute('aria-expanded', 'false');
+      }
+      toggle.focus();
+    });
+  });
+
+  /* --- 店舗一覧アコーディオン（shop/index.html）: 遷移とトグルの責務分離 + ARIA同期 --- */
+  ready(function () {
+    var pullheadToggles = Array.prototype.slice.call(document.querySelectorAll('.pullhead-toggle'));
+    if (!pullheadToggles.length) return;
+
+    pullheadToggles.forEach(function (btn) {
+      var pullhead = btn.closest('.pullhead');
+      var pullbody = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!pullhead || !pullbody) return;
+
+      var initiallyOpen = window.getComputedStyle(pullbody).display !== 'none';
+      pullhead.classList.toggle('open', initiallyOpen);
+      pullhead.classList.toggle('close', !initiallyOpen);
+      btn.setAttribute('aria-expanded', initiallyOpen ? 'true' : 'false');
+      pullbody.setAttribute('aria-hidden', initiallyOpen ? 'false' : 'true');
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var willOpen = !pullhead.classList.contains('open');
+
+        if (window.jQuery) {
+          window.jQuery(pullbody).stop(true, true).slideToggle('fast');
+        } else {
+          pullbody.style.display = willOpen ? 'block' : 'none';
+        }
+
+        pullhead.classList.toggle('open', willOpen);
+        pullhead.classList.toggle('close', !willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        pullbody.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+      });
+    });
+  });
+
+  /* --- Swiperカルーセル初期化（各店舗ページで共通） --- */
+  ready(function () {
+    var swiperContainer = document.querySelector('.swiper-container');
+    if (!swiperContainer || typeof window.Swiper !== 'function') return;
+
+    new window.Swiper('.swiper-container', {
+      loop: true,
+      speed: 600,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      direction: 'horizontal',
+      effect: 'slide',
+      autoplay: {
+        delay: 5000,
+        stopOnLast: false,
+        disableOnInteraction: true
+      },
+      pagination: {
+        el: '.swiper-pagination'
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
       }
     });
   });

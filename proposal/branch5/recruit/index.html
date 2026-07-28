@@ -16,24 +16,6 @@
 <link type="text/css" rel="stylesheet" href="recruit.css">
 
   <link rel="stylesheet" type="text/css" href="../proposal.css">
-<script>
-	$(function() {
-	    $(window).scroll(function() {
-	      var st = $(window).scrollTop();
-	      if (st > 500) {
-	        $('#gotop').show("slow");
-	      } else {
-	        $('#gotop').hide('slow');
-	      }
-	      // タイトルのフローティング用クラス付与
-	      if (st > 100) {
-	        $('h1.title').addClass('scrolled-title');
-	      } else {
-	        $('h1.title').removeClass('scrolled-title');
-	      }
-	    });
-	});
-</script>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -60,8 +42,8 @@
 		<nav id="global-nav">
 			<ul>
 				<li><a href="../index.html">ほぉむ</a></li>
-				<li><a href="../shop/index.html">わくせい</a></li>
-				<li><a href="../cast/index.html">きゃすと</a></li>
+				<li><a href="../shop/index.html">わくせい｜店舗一覧</a></li>
+				<li><a href="../cast/index.html">きゃすと｜キャスト一覧</a></li>
 				<li><a href="../okyuji/index.html">おきゅうじ よてい</a></li>
 				<li><a href="../index.html#sys-title-wrapper">しすてむ&めにゅう</a></li>
 				<li><a href="../index.html#event">いべんと</a></li>
@@ -150,29 +132,29 @@
 
 				<div id="open_tokyo"class="hidden checked_area">
 					<div class="image-rowtow">
-					<img alt="milkplanet 採用バナー" src="images/shinjuku.jpg" class="aligncenter size-full">
-					<img alt="Shandy Love 採用バナー" src="images/shandy.jpg"  class="aligncenter size-full"></div>
+					<img alt="milk planet" src="images/shinjuku.jpg" class="aligncenter size-full">
+					<img alt="ShandyLove" src="images/shandy.jpg"  class="aligncenter size-full"></div>
 					<div class="image-row">
-					<img alt="chocolat planet 採用バナー" src="images/chocolat.jpg"  class="aligncenter size-full">
-					<img alt="CyBARplanet 採用バナー" src="images/cybar.jpg"  class="aligncenter size-full">
-					<img alt="Melty Mousse 採用バナー" src="images/melty.jpg"  class="aligncenter size-full"></div>
+					<img alt="chocolatplanet" src="images/chocolat.jpg"  class="aligncenter size-full">
+					<img alt="CyBARplanet" src="images/cybar.jpg"  class="aligncenter size-full">
+					<img alt="MeltyMousse" src="images/melty.jpg"  class="aligncenter size-full"></div>
 					<p style="font-weight:bold">東京エリア連絡先▼</p>
       				<a href="https://lin.ee/sSGUB9tR" ><img alt="LINE" class="line"src="images/line.png"></a>
 				</div>	
 				<div id="open_osaka"class="hidden checked_area">
 					<div class="image-rowtow">
-					<img alt="Bloody Sugar 採用バナー" src="images/bloody.jpg"  class="aligncenter size-full"></div>
+					<img alt="BloodySugar" src="images/bloody.jpg"  class="aligncenter size-full"></div>
 					<p style="font-weight:bold">大阪エリア連絡先▼</p>
 					<a href="https://line.me/ti/p/9F4nkUQhxB" ><img alt="LINE" class="line"src="images/line.png"></a>
 				</div>	
 				<div id="open_fukuoka"class="hidden checked_area">
 					<div class="image-rowtow">
-					<img alt="Royal♡Sugar 採用バナー" src="images/roysuga.jpg"  class="aligncenter size-full">
-					<img alt="Tweeny Heart Cafe 採用バナー" src="images/tweeny.jpg"  class="aligncenter size-full"></div>
+					<img alt="RoyalSugar" src="images/roysuga.jpg"  class="aligncenter size-full">
+					<img alt="TweenyHeartCafe" src="images/tweeny.jpg"  class="aligncenter size-full"></div>
 					<p style="font-weight:bold">Royal♡Sugar連絡先▼</p>
       				<a href="https://line.me/ti/p/_jXMwg5nVf" ><img alt="LINE" class="line"src="images/line.png"></a>
 					<p style="font-weight:bold">Tweeny heart cafe連絡先▼</p>
-      				<a href="https://x.com/CafeTweeny" ><img alt="X（Twitter）" class="line"src="images/x.png"></a>
+      				<a href="https://x.com/CafeTweeny" ><img alt="X" class="line"src="images/x.png"></a>
 				</div>	
 				<div id="common_content"class="hidden checked_area">
 					<h2>お友達追加後に以下の情報を添えてご連絡ください。</h2>
@@ -212,6 +194,7 @@ src="../footer.html"></iframe>
 	</script>
 	<!--スライダー-->
 	<script src="../../../vendor/swiper/swiper.min.js"></script>
+  <script src="../analytics.js"></script>
   <script src="../proposal.js"></script>
 </body>
 </html>

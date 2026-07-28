@@ -14,7 +14,7 @@
 	<link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="../../../../vendor/modaal/modaal.min.css">
 	<link type="text/css" rel="stylesheet" href="style.css">
-<link rel="stylesheet" type="text/css" href="../../shop_menu_override.css">
+<link rel="stylesheet" type="text/css" href="../../proposal.css">
 	<link rel="stylesheet" type="text/css" href="../../event.css">
 <link rel="stylesheet" href="../../../../vendor/lightbox/lightbox.min.css" />
 
@@ -47,8 +47,8 @@
 		<nav id="global-nav">
 			<ul>
 				<li><a href="../../index.html">ほぉむ</a></li>
-				<li><a href="../../shop/index.html">わくせい</a></li>
-				<li><a href="../../cast/index.html">きゃすと</a></li>
+				<li><a href="../../shop/index.html">わくせい｜店舗一覧</a></li>
+				<li><a href="../../cast/index.html">きゃすと｜キャスト一覧</a></li>
 				<li><a href="../../okyuji/index.html">おきゅうじ よてい</a></li>
 				<li><a href="../../index.html#sys-title-wrapper">しすてむ&めにゅう</a></li>
 				<li><a href="../../index.html#event">いべんと</a></li>
@@ -63,7 +63,7 @@
 		        <!-- 各スライド -->
 		        <div class="swiper-slide"><img src="images/top1.jpg" alt="CyBARplanetのカタカナを用いたロゴ"></div>
 		        <div class="swiper-slide"><img src="images/top2.jpg" alt="ネオン輝く近未来的な店内"></div>
-		        <!-- <div class="swiper-slide"><img alt="店舗イメージ写真" src="images/top3.jpg"></div> -->
+		        <!-- <div class="swiper-slide"><img src="images/top3.jpg"></div> -->
 		    </div>
 
 		    <!-- ページネーションを表示する場合 -->
@@ -85,7 +85,7 @@
 	<!--//店舗情報//-->
 	<div id="shopinfo" class="content">
 			<h2>SHOP</h2>	
-			<img alt="地図" class="map" src="./images/map.png">
+			<img alt="CyBARplanet-bangkok-へのアクセスマップ" class="map" src="./images/map.png">
 			<ul>
 				<li>
 						<div class="shopTtl">
@@ -140,6 +140,7 @@
 			</div>
 	</div>
 	<script src="../../eventlist.js"></script>
+	<noscript><p class="js-fallback-note">最新のイベント情報の表示にはJavaScriptが必要です。<a href="#twitter">公式X</a>にてご確認いただけます。</p></noscript>
 	<!-- イベント -->
 
 	<!--TWITTER -->
@@ -167,7 +168,7 @@
 
 	<!--RECRUIT-->	
 		<div id="recruit" class="banner">
-			<a href="../../recruit/index.html"><img alt="りくるうと ばなー" src="../../images/recruit.jpg"></a>
+			<a href="../../recruit/index.html"><img alt="採用情報" src="../../images/recruit.jpg"></a>
 		</div>
 	<!--RECRUIT-->
 
@@ -180,42 +181,13 @@ frameborder="0"
 src="../../footer.html"></iframe>
 
 <script src="../../../../vendor/swiper/swiper.min.js"></script>
-	 <script>
-var mySwiper = new Swiper ('.swiper-container', {
-    // オプションパラメータ(一部のみ抜粋)
-    loop: true, // 最後のスライドまで到達した場合、最初に戻らずに続けてスライド可能にするか。
-    speed: 600, // スライドが切り替わるトランジション時間(ミリ秒)。
-    slidesPerView: 1, // 何枚のスライドを表示するか
-    spaceBetween: 0, // スライド間の余白サイズ(ピクセル)
-    direction: 'horizontal', // スライド方向。 'horizontal'(水平) か 'vertical'(垂直)。effectオプションが 'slide' 以外は無効。
-    effect: 'slide', // "slide", "fade"(フェード), "cube"(キューブ回転), "coverflow"(カバーフロー) または "flip"(平面回転)
-
-    // スライダーの自動再生
-    // autoplay: true 　のみなら既定値での自動再生
-    autoplay: {
-      delay: 5000, // スライドが切り替わるまでの表示時間(ミリ秒)
-      stopOnLast: false, // 最後のスライドまで表示されたら自動再生を中止するか
-      disableOnInteraction: true // ユーザーのスワイプ操作を検出したら自動再生を中止するか
-    },
-
-    // ページネーションを表示する場合
-    pagination: {
-      el: '.swiper-pagination',　 // ページネーションを表示するセレクタ
-    },
-
-    // 前後スライドへのナビゲーションを表示する場合
-    navigation: {
-      nextEl: '.swiper-button-next', // 次のスライドボタンのセレクタ
-      prevEl: '.swiper-button-prev', // 前のスライドボタンのセレクタ
-    },
-  });
-</script>
 <script src="../../../../vendor/slick/slick.min.js"></script>
 <script src="../../../../vendor/modaal/modaal.min.js"></script>
 <script src="../../../../vendor/lightbox/lightbox.min.js"></script>
 <!--自作のJS-->
 <script src="../../event.js"></script>
 <script src="../gallery.js"></script>
+<script src="../../analytics.js"></script>
 <script src="../../proposal.js"></script>
   
 </body>

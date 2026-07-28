@@ -12,7 +12,7 @@
 	<link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="../../../../vendor/modaal/modaal.min.css">
 	<link type="text/css" rel="stylesheet" href="style.css">
-<link rel="stylesheet" type="text/css" href="../../shop_menu_override.css">
+<link rel="stylesheet" type="text/css" href="../../proposal.css">
 	<link rel="stylesheet" type="text/css" href="../../event.css">
 <link rel="stylesheet" href="../../../../vendor/lightbox/lightbox.min.css" />
 
@@ -46,8 +46,8 @@
 		<nav id="global-nav">
 			<ul>
 				<li><a href="../../index.html">ほぉむ</a></li>
-				<li><a href="../../shop/index.html">わくせい</a></li>
-				<li><a href="../../cast/index.html">きゃすと</a></li>
+				<li><a href="../../shop/index.html">わくせい｜店舗一覧</a></li>
+				<li><a href="../../cast/index.html">きゃすと｜キャスト一覧</a></li>
 				<li><a href="../../okyuji/index.html">おきゅうじ よてい</a></li>
 				<li><a href="../../index.html#sys-title-wrapper">しすてむ&めにゅう</a></li>
 				<li><a href="../../index.html#event">いべんと</a></li>
@@ -61,7 +61,7 @@
 		    <!-- 全スライドをまとめるラッパー -->
 		    <div class="swiper-wrapper">
 		        <!-- 各スライド -->
-				<div class="swiper-slide"><img src="images/top4.jpg" alt="紫と黒の衣装を着たcybarplanetキャストの集合写真"></div>
+				<div class="swiper-slide"><img src="images/top4.jpg" alt="紫と黒の衣装を着たCyBARplanetキャストの集合写真"></div>
 		        <div class="swiper-slide"><img src="images/top2.jpg" alt="店の雰囲気を象徴するサイバー系の背景とロゴ"></div>
 		    </div>
 
@@ -83,13 +83,13 @@
 	<!--//店舗情報//-->
 	<div id="shopinfo" class="content">
 			<h2>SHOP</h2>	
-			<img class="map" src="images/map_cybar.jpg" alt="cybarplanetへのアクセスマップ">
+			<img class="map" src="images/map_cybar.jpg" alt="CyBARplanetへのアクセスマップ">
 			<ul>
 				<li>
 						<div class="shopTtl">
 					<img class="logo" src="images/shop_cybar_logo.jpg" alt="CyBARplanet新宿店ロゴ">
 							<div class="icon_twitter">
-							<a href="https://x.com/CyBARplanet_JP" target="_blank" rel="noopener noreferrer"><img alt="X（Twitter）" src="../images/twitter_icon.png"></a>
+							<a href="https://x.com/CyBARplanet_JP" target="_blank" rel="noopener noreferrer"><img alt="X" src="../images/twitter_icon.png"></a>
 							</div>
 						</div>
 				</li>
@@ -144,6 +144,7 @@
 			<p class="schedule_hours" style="margin:12px auto 0;text-align:center;font-size:14px;line-height:1.6;">営業時間: 18:00-last</p>
 	</div>
 	<script src="../../eventlist.js"></script>
+	<noscript><p class="js-fallback-note">最新のイベント情報の表示にはJavaScriptが必要です。<a href="#twitter">公式X</a>にてご確認いただけます。</p></noscript>
 	<!-- イベント -->
 
 	<!--TWITTER -->
@@ -160,7 +161,7 @@
 			<ul class="gallery2">
 					<li><a href="images/cybar_01.jpg" data-lightbox="gallery1" ><img src="images/cybar_01.jpg" alt="紫のネオンが栄えるスタイリッシュなカウンター席"></a></li>
 					<li><a href="images/cybar_02.jpg" data-lightbox="gallery1" data-title=""><img src="images/cybar_02.jpg" alt="店内にあるサイプラロゴの立体看板"></a></li>
-					<li><a href="images/cybar_03.jpg" data-lightbox="gallery1" data-title=""><img src="images/cybar_03.jpg" alt="cybarplanetを代表する紫のネオン看板があるフォトスポット"></a></li>
+					<li><a href="images/cybar_03.jpg" data-lightbox="gallery1" data-title=""><img src="images/cybar_03.jpg" alt="CyBARplanetを代表する紫のネオン看板があるフォトスポット"></a></li>
 					<!--<li><a href="images/gallery4.jpg" data-lightbox="gallery1" data-title=""><img src="images/gallery04.jpg" alt=""></a></li>
 					<li><a href="images/gallery5.jpg" data-lightbox="gallery1" data-title=""><img src="images/gallery5.jpg" alt=""></a></li>
 					<li><a href="images/gallery6.jpg" data-lightbox="gallery1" data-title=""><img src="images/gallery6.jpg" alt=""></a></li-->
@@ -183,42 +184,13 @@ frameborder="0"
 src="../../footer.html"></iframe>
 
 <script src="../../../../vendor/swiper/swiper.min.js"></script>
-	 <script>
-var mySwiper = new Swiper ('.swiper-container', {
-    // オプションパラメータ(一部のみ抜粋)
-    loop: true, // 最後のスライドまで到達した場合、最初に戻らずに続けてスライド可能にするか。
-    speed: 600, // スライドが切り替わるトランジション時間(ミリ秒)。
-    slidesPerView: 1, // 何枚のスライドを表示するか
-    spaceBetween: 0, // スライド間の余白サイズ(ピクセル)
-    direction: 'horizontal', // スライド方向。 'horizontal'(水平) か 'vertical'(垂直)。effectオプションが 'slide' 以外は無効。
-    effect: 'slide', // "slide", "fade"(フェード), "cube"(キューブ回転), "coverflow"(カバーフロー) または "flip"(平面回転)
-
-    // スライダーの自動再生
-    // autoplay: true 　のみなら既定値での自動再生
-    autoplay: {
-      delay: 5000, // スライドが切り替わるまでの表示時間(ミリ秒)
-      stopOnLast: false, // 最後のスライドまで表示されたら自動再生を中止するか
-      disableOnInteraction: true // ユーザーのスワイプ操作を検出したら自動再生を中止するか
-    },
-
-    // ページネーションを表示する場合
-    pagination: {
-      el: '.swiper-pagination',　 // ページネーションを表示するセレクタ
-    },
-
-    // 前後スライドへのナビゲーションを表示する場合
-    navigation: {
-      nextEl: '.swiper-button-next', // 次のスライドボタンのセレクタ
-      prevEl: '.swiper-button-prev', // 前のスライドボタンのセレクタ
-    },
-  });
-</script>
 <script src="../../../../vendor/slick/slick.min.js"></script>
 <script src="../../../../vendor/modaal/modaal.min.js"></script>
 <script src="../../../../vendor/lightbox/lightbox.min.js"></script>
 <!--自作のJS-->
 <script src="../../event.js"></script>
 <script src="../gallery.js"></script>
+<script src="../../analytics.js"></script>
 <script src="../../proposal.js"></script>
   
 </body>
