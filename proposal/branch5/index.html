@@ -310,7 +310,10 @@ window.addEventListener('DOMContentLoaded', function () {
   AOS.init({
     once: true,
   });
-  var mySwiper = new Swiper ('#top .swiper-container', {
+  var topCarousel = document.querySelector('#top .swiper-container');
+  if (!topCarousel || topCarousel.swiper) return;
+
+  new Swiper(topCarousel, {
     // オプションパラメータ(一部のみ抜粋)
     loop: true,
     loopAdditionalSlides: 3,
@@ -331,15 +334,10 @@ window.addEventListener('DOMContentLoaded', function () {
       disableOnInteraction: true // ユーザーのスワイプ操作を検出したら自動再生を中止するか
     },
 
-    // ページネーションを表示する場合
-    pagination: {
-      el: '.swiper-pagination',　 // ページネーションを表示するセレクタ
-    },
-
     // 前後スライドへのナビゲーションを表示する場合
     navigation: {
-      nextEl: '.swiper-button-next', // 次のスライドボタンのセレクタ
-      prevEl: '.swiper-button-prev', // 前のスライドボタンのセレクタ
+      nextEl: topCarousel.querySelector('.swiper-button-next'),
+      prevEl: topCarousel.querySelector('.swiper-button-prev'),
     },
   });
 });

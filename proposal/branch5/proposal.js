@@ -242,30 +242,41 @@
     });
   });
 
-  /* --- Swiperカルーセル初期化（各店舗ページで共通） --- */
+  /* --- Swiperカルーセル初期化（TOPとは責務を分離） --- */
   ready(function () {
-    var swiperContainer = document.querySelector('.swiper-container');
-    if (!swiperContainer || typeof window.Swiper !== 'function') return;
+    if (typeof window.Swiper !== 'function') return;
 
-    new window.Swiper('.swiper-container', {
-      loop: true,
-      speed: 600,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      direction: 'horizontal',
-      effect: 'slide',
-      autoplay: {
-        delay: 5000,
-        stopOnLast: false,
-        disableOnInteraction: true
-      },
-      pagination: {
-        el: '.swiper-pagination'
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
+    function initializeCarousel(container) {
+      if (!container || container.swiper) return;
+
+      new window.Swiper(container, {
+        loop: true,
+        speed: 600,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        direction: 'horizontal',
+        effect: 'slide',
+        autoplay: {
+          delay: 5000,
+          stopOnLast: false,
+          disableOnInteraction: true
+        },
+        pagination: {
+          el: container.querySelector('.swiper-pagination')
+        },
+        navigation: {
+          nextEl: container.querySelector('.swiper-button-next'),
+          prevEl: container.querySelector('.swiper-button-prev')
+        }
+      });
+    }
+
+    Array.prototype.forEach.call(
+      document.querySelectorAll('.swiper-container'),
+      function (container) {
+        if (container.closest('#top')) return;
+        initializeCarousel(container);
       }
-    });
+    );
   });
 })();
