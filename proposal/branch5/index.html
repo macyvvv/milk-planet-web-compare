@@ -162,32 +162,53 @@
 			<h2>いんすたぐらむ</h2>
       <ul id="instagram_list"></ul>
       <script>
-        // 投稿・保存画像・投稿元店舗を1件単位で管理し、対応関係のずれを防ぐ。
-        const instagramPosts = [
-          { url: 'https://www.instagram.com/p/DKY1Db0TsZB/', image: 1, shop: 'ShandyLove', watermark: './images/list_shandy.png' },
-          { url: 'https://www.instagram.com/p/DF7glyBzYNY/', image: 2, shop: 'milk planet', watermark: './images/list_shinjuku.png' },
-          { url: 'https://www.instagram.com/p/DKXoLO0zqFy/', image: 3, shop: 'Royal Sugar', watermark: './images/list_roysuga.png' },
-          { url: 'https://www.instagram.com/p/C3RuxUbr8yz/', image: 4, shop: 'milk planet', watermark: './images/list_shinjuku.png' },
-          { url: 'https://www.instagram.com/p/C00EWodvxOH/', image: 5, shop: 'MeltyMousse', watermark: './images/list_melty.png' },
-          { url: 'https://www.instagram.com/p/DLgtHX_RQH5/', image: 6, shop: 'milk planet', watermark: './images/list_shinjuku.png' },
-          { url: 'https://www.instagram.com/p/C0vUyqyr2iZ/', image: 7, shop: 'MeltyMousse', watermark: './images/list_melty.png' },
-          { url: 'https://www.instagram.com/p/Cr5ocrEP115/', image: 8, shop: 'ShandyLove', watermark: './images/list_shandy.png' },
-          { url: 'https://www.instagram.com/p/Cr5oRYjPFcG/', image: 9, shop: 'ShandyLove', watermark: './images/list_shandy.png' }
-        ];
-
         const instagramList = document.getElementById('instagram_list');
-        instagramList.innerHTML = instagramPosts
-          .slice(0, 9)
-          .reverse()
-          .map(({ url, image, shop, watermark }) => (
-            '<li class="instagram_gallery">' +
-              '<a href="' + url + '" target="_blank" rel="noopener noreferrer" aria-label="' + shop + 'のInstagram投稿を見る">' +
-                '<img src="./images/instagram/instagram_gallery' + image + '.jpg" loading="lazy" class="ig-photo" alt="' + shop + 'のInstagram投稿写真">' +
-                '<img src="' + watermark + '" class="ig-watermark" alt="" aria-hidden="true">' +
-              '</a>' +
-            '</li>'
-          ))
-          .join('');
+
+        fetch('./instagram-snapshot.json')
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Instagramスナップショットを取得できませんでした。');
+            }
+            return response.json();
+          })
+          .then(({ posts }) => {
+            if (!Array.isArray(posts) || posts.length !== 9) {
+              throw new Error('Instagramスナップショットは9件である必要があります。');
+            }
+
+            const fragment = document.createDocumentFragment();
+            posts.forEach(({ shopName, account, postUrl, image, watermark }) => {
+              const item = document.createElement('li');
+              item.className = 'instagram_gallery';
+
+              const link = document.createElement('a');
+              link.href = postUrl;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              link.setAttribute('aria-label', `${shopName}（@${account}）のInstagram投稿を見る`);
+
+              const photo = document.createElement('img');
+              photo.src = image;
+              photo.loading = 'lazy';
+              photo.className = 'ig-photo';
+              photo.alt = `${shopName}（@${account}）のInstagram投稿写真`;
+
+              const logo = document.createElement('img');
+              logo.src = watermark;
+              logo.className = 'ig-watermark';
+              logo.alt = '';
+              logo.setAttribute('aria-hidden', 'true');
+
+              link.append(photo, logo);
+              item.append(link);
+              fragment.append(item);
+            });
+            instagramList.replaceChildren(fragment);
+          })
+          .catch((error) => {
+            console.error(error);
+            instagramList.innerHTML = '<li class="instagram-load-error">Instagramの投稿を読み込めませんでした。</li>';
+          });
       </script>
       <div class="button">
 		      <a href="https://www.instagram.com/milkplanet_cafe/" target="_blank" rel="noopener noreferrer">instagram</a>

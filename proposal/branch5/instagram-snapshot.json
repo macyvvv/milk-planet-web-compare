@@ -1,0 +1,96 @@
+{
+  "capturedAt": "2026-07-28T06:44:52.812Z",
+  "source": "Instagram public profile snapshot",
+  "posts": [
+    {
+      "shopId": "milk",
+      "shopName": "milk planet",
+      "account": "milkplanet_cafe",
+      "postType": "reel",
+      "postCode": "DYonccvTW9e",
+      "postUrl": "https://www.instagram.com/milkplanet_cafe/reel/DYonccvTW9e/",
+      "image": "./images/instagram/instagram_gallery1.jpg",
+      "watermark": "./images/list_shinjuku.png"
+    },
+    {
+      "shopId": "milk",
+      "shopName": "milk planet",
+      "account": "milkplanet_cafe",
+      "postType": "p",
+      "postCode": "DT4716jEzbH",
+      "postUrl": "https://www.instagram.com/milkplanet_cafe/p/DT4716jEzbH/",
+      "image": "./images/instagram/instagram_gallery2.jpg",
+      "watermark": "./images/list_shinjuku.png"
+    },
+    {
+      "shopId": "cybar-shinjuku",
+      "shopName": "CyBARplanet 東京",
+      "account": "cybarplanet_jp",
+      "postType": "p",
+      "postCode": "C551xgmv-H6",
+      "postUrl": "https://www.instagram.com/cybarplanet_jp/p/C551xgmv-H6/",
+      "image": "./images/instagram/instagram_gallery3.jpg",
+      "watermark": "./images/list_cp.png"
+    },
+    {
+      "shopId": "cybar-shinjuku",
+      "shopName": "CyBARplanet 東京",
+      "account": "cybarplanet_jp",
+      "postType": "p",
+      "postCode": "C551wDFv3vF",
+      "postUrl": "https://www.instagram.com/cybarplanet_jp/p/C551wDFv3vF/",
+      "image": "./images/instagram/instagram_gallery4.jpg",
+      "watermark": "./images/list_cp.png"
+    },
+    {
+      "shopId": "shandy",
+      "shopName": "ShandyLove",
+      "account": "shandy._.love",
+      "postType": "p",
+      "postCode": "DZFBezAtgP1",
+      "postUrl": "https://www.instagram.com/shandy._.love/p/DZFBezAtgP1/",
+      "image": "./images/instagram/instagram_gallery5.jpg",
+      "watermark": "./images/list_shandy.png"
+    },
+    {
+      "shopId": "melty",
+      "shopName": "MeltyMousse",
+      "account": "melty_mousse",
+      "postType": "p",
+      "postCode": "DVnwkYTj3-7",
+      "postUrl": "https://www.instagram.com/melty_mousse/p/DVnwkYTj3-7/",
+      "image": "./images/instagram/instagram_gallery6.jpg",
+      "watermark": "./images/list_melty.png"
+    },
+    {
+      "shopId": "bloody",
+      "shopName": "BloodySugar",
+      "account": "bloody__sugar_osaka",
+      "postType": "p",
+      "postCode": "DY2IBQayEE7",
+      "postUrl": "https://www.instagram.com/bloody__sugar_osaka/p/DY2IBQayEE7/",
+      "image": "./images/instagram/instagram_gallery7.jpg",
+      "watermark": "./images/list_bloody.png"
+    },
+    {
+      "shopId": "royal-sugar",
+      "shopName": "Royal Sugar",
+      "account": "royalsugar_fuk",
+      "postType": "p",
+      "postCode": "DSmOUp3kkqa",
+      "postUrl": "https://www.instagram.com/royalsugar_fuk/p/DSmOUp3kkqa/",
+      "image": "./images/instagram/instagram_gallery8.jpg",
+      "watermark": "./images/list_roysuga.png"
+    },
+    {
+      "shopId": "tweeny",
+      "shopName": "TweenyHeartCafe",
+      "account": "tweenyheartcafe",
+      "postType": "p",
+      "postCode": "DZrs_2uGLqB",
+      "postUrl": "https://www.instagram.com/tweenyheartcafe/p/DZrs_2uGLqB/",
+      "image": "./images/instagram/instagram_gallery9.jpg",
+      "watermark": "./images/list_tweeny.png"
+    }
+  ]
+}
