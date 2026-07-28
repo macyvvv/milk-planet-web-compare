@@ -125,7 +125,7 @@ html body #global-nav {
   top: 64px !important;
   right: 16px !important;
   margin-top: 0 !important;
-  width: 220px !important;
+  width: 260px !important;
   box-sizing: border-box !important;
   height: auto !important;
   max-height: calc(100vh - 76px) !important;
@@ -227,51 +227,76 @@ html body #global-nav .nav-submenu-toggle {
   width: 100% !important;
   box-sizing: border-box !important;
   margin: 0 !important;
-  min-height: 40px !important;
-  padding: 8px var(--nav-indent) !important;
-  border: none !important;
-  background: transparent !important;
-  color: #444 !important;
-  font-size: 16px !important;
+  min-height: 48px !important;
+  padding: 9px 14px !important;
+  border: 1px solid rgba(79, 110, 168, 0.22) !important;
+  border-radius: 14px !important;
+  background: rgba(226, 241, 252, 0.72) !important;
+  color: #334155 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
   line-height: 1.35 !important;
   letter-spacing: 0.1em !important;
   text-align: left !important;
   cursor: pointer !important;
+  transition: background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease !important;
 }
 
 html body #global-nav .nav-submenu-toggle::after {
   content: "▾" !important;
   margin-left: auto !important;
-  font-size: 11px !important;
-  opacity: 0.7 !important;
+  font-size: 16px !important;
+  opacity: 0.8 !important;
+  transform: rotate(0deg) !important;
+  transition: transform 0.16s ease !important;
 }
 
 html body #global-nav .nav-submenu {
-  display: none !important;
+  display: block !important;
   position: static !important;
   top: auto !important;
   bottom: auto !important;
   right: auto !important;
   left: auto !important;
-  width: 100% !important;
+  width: calc(100% - 12px) !important;
   min-width: 0 !important;
   max-width: 100% !important;
   list-style: none !important;
-  margin: 4px 0 2px !important;
-  padding: 4px 0 !important;
-  background: rgba(0, 0, 0, 0.03) !important;
+  max-height: 0 !important;
+  margin: 0 6px !important;
+  padding: 0 !important;
+  background: rgba(246, 251, 255, 0.96) !important;
   border: none !important;
+  border-left: 3px solid rgba(79, 110, 168, 0.58) !important;
   border-radius: 12px !important;
-  box-shadow: none !important;
+  box-shadow: 0 5px 16px rgba(55, 91, 128, 0.10) !important;
   z-index: auto !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(-4px) !important;
+  transition: max-height 0.18s ease, margin 0.18s ease, padding 0.18s ease, opacity 0.14s ease, transform 0.18s ease, visibility 0.18s ease !important;
 }
 
 html body #global-nav .nav-submenu-item.open .nav-submenu {
-  display: block !important;
+  max-height: 560px !important;
+  margin: 8px 6px 4px !important;
+  padding: 8px 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
 }
 
 html body #global-nav .nav-submenu-item.open .nav-submenu-toggle::after {
-  content: "▴" !important;
+  transform: rotate(180deg) !important;
+}
+
+html body #global-nav .nav-submenu-item.open .nav-submenu-toggle {
+  background: rgba(199, 229, 249, 0.92) !important;
+  border-color: rgba(79, 110, 168, 0.42) !important;
+  box-shadow: 0 3px 10px rgba(55, 91, 128, 0.10) !important;
 }
 
 html body #global-nav .nav-submenu li a {
@@ -279,7 +304,7 @@ html body #global-nav .nav-submenu li a {
   width: 100% !important;
   background: transparent !important;
   padding-left: var(--nav-indent-sub) !important;
-  font-size: 13px !important;
+  font-size: 14px !important;
   color: #333 !important;
   border-radius: 10px !important;
 }
@@ -335,7 +360,7 @@ html body #top-head.open #nav-toggle {
     --nav-indent-sub: 22px;
     top: 52px !important;
     right: 10px !important;
-    width: min(214px, calc(100vw - 20px)) !important;
+    width: min(280px, calc(100vw - 20px)) !important;
     max-height: calc(100vh - 60px) !important;
     padding: 10px 0 !important;
   }
@@ -353,9 +378,9 @@ html body #top-head.open #nav-toggle {
   }
 
   html body #global-nav .nav-submenu-toggle {
-    min-height: 46px !important;
-    padding: 8px var(--nav-indent) !important;
-    font-size: 16px !important;
+    min-height: 48px !important;
+    padding: 9px 14px !important;
+    font-size: 18px !important;
     line-height: 1.45 !important;
     letter-spacing: 0.06em !important;
   }
@@ -1010,14 +1035,15 @@ h1.seo_h1.scrolled-title {
   min-height: 64px !important;
   padding: 0 220px !important;
   line-height: 64px !important;
-  background: var(--scrolled-bg, var(--page-h1-bg, rgba(255, 255, 255, 0.94))) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+  background: color-mix(in srgb, var(--scrolled-bg, var(--page-h1-bg, #fff)) 82%, transparent) !important;
   font-size: 24px !important;
   opacity: 1 !important;
   overflow: hidden !important;
   white-space: nowrap !important;
   text-overflow: ellipsis !important;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px) saturate(1.08);
+  -webkit-backdrop-filter: blur(8px) saturate(1.08);
   box-shadow: 0 2px 10px rgba(0,0,0,0.10);
 }
 

@@ -15,7 +15,7 @@
     var titles = Array.prototype.slice.call(
       document.querySelectorAll('h1.title, h1.seo_h1')
     );
-    var titlePositions = [];
+    var titleShrinkDistance = 120;
 
     if (!header || !toggle || !nav) return;
 
@@ -94,29 +94,37 @@
       }
     });
 
-    function measureTitlePositions() {
-      titlePositions = titles.map(function (node) {
+    function measureTitleShrinkDistance() {
+      var standardDistance = window.innerWidth <= 780 ? 96 : 120;
+      var compactBarHeight = window.innerWidth <= 780 ? 56 : 64;
+      var firstShop = document.querySelector('#shop .omise, .omise.pullhead');
+      var firstShopTop = 0;
+
+      if (firstShop) {
+        var current = firstShop;
         var top = 0;
-        var current = node;
         while (current) {
           top += current.offsetTop || 0;
           current = current.offsetParent;
         }
-        return top;
-      });
+        firstShopTop = top;
+      }
+
+      titleShrinkDistance = firstShopTop > compactBarHeight
+        ? Math.min(standardDistance, firstShopTop - compactBarHeight)
+        : standardDistance;
+      titleShrinkDistance = Math.max(1, titleShrinkDistance);
     }
 
     function syncFixed() {
       var y = window.scrollY || window.pageYOffset || 0;
       var titleProgress = 0;
 
-      titles.forEach(function (node, index) {
-        var titleTop = titlePositions[index] || 0;
-        var shrinkStart = titleTop > 180 ? titleTop - 140 : 40;
-        var nodeProgress = Math.max(0, Math.min(1, (y - shrinkStart) / 140));
+      titles.forEach(function (node) {
+        var nodeProgress = Math.max(0, Math.min(1, y / titleShrinkDistance));
         titleProgress = Math.max(titleProgress, nodeProgress);
         node.style.setProperty('--h1-progress', nodeProgress.toFixed(3));
-        if (nodeProgress > 0.5) {
+        if (nodeProgress >= 0.999) {
           node.classList.add('scrolled-title');
         } else {
           node.classList.remove('scrolled-title');
@@ -127,7 +135,7 @@
         ? titleProgress
         : Math.max(0, Math.min(1, (y - 220) / 180));
       header.style.setProperty('--header-progress', headerProgress.toFixed(3));
-      if (headerProgress > 0.5) {
+      if (headerProgress >= 0.999) {
         header.classList.add('fixed');
       } else {
         header.classList.remove('fixed');
@@ -137,14 +145,14 @@
       }
     }
 
-    measureTitlePositions();
+    measureTitleShrinkDistance();
     window.addEventListener('scroll', syncFixed, { passive: true });
     window.addEventListener('resize', function () {
-      measureTitlePositions();
+      measureTitleShrinkDistance();
       syncFixed();
     });
     window.addEventListener('load', function () {
-      measureTitlePositions();
+      measureTitleShrinkDistance();
       syncFixed();
     });
     syncFixed();
