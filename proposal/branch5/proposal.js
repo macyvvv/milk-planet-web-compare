@@ -13,8 +13,9 @@
     var nav = document.getElementById('global-nav');
     var gotop = document.getElementById('gotop');
     var titles = Array.prototype.slice.call(
-      document.querySelectorAll('article h1, h1.title, h1.seo_h1')
+      document.querySelectorAll('h1.title, h1.seo_h1')
     );
+    var titlePositions = [];
 
     if (!header || !toggle || !nav) return;
 
@@ -93,21 +94,39 @@
       }
     });
 
+    function measureTitlePositions() {
+      titlePositions = titles.map(function (node) {
+        var top = 0;
+        var current = node;
+        while (current) {
+          top += current.offsetTop || 0;
+          current = current.offsetParent;
+        }
+        return top;
+      });
+    }
+
     function syncFixed() {
       var y = window.scrollY || window.pageYOffset || 0;
-      var headerProgress = Math.max(0, Math.min(1, (y - 220) / 180));
-      var titleProgress = Math.max(0, Math.min(1, (y - 40) / 140));
+      var titleProgress = 0;
 
-      header.style.setProperty('--header-progress', headerProgress.toFixed(3));
-      titles.forEach(function (node) {
-        node.style.setProperty('--h1-progress', titleProgress.toFixed(3));
-        if (titleProgress > 0.5) {
+      titles.forEach(function (node, index) {
+        var titleTop = titlePositions[index] || 0;
+        var shrinkStart = titleTop > 180 ? titleTop - 140 : 40;
+        var nodeProgress = Math.max(0, Math.min(1, (y - shrinkStart) / 140));
+        titleProgress = Math.max(titleProgress, nodeProgress);
+        node.style.setProperty('--h1-progress', nodeProgress.toFixed(3));
+        if (nodeProgress > 0.5) {
           node.classList.add('scrolled-title');
         } else {
           node.classList.remove('scrolled-title');
         }
       });
 
+      var headerProgress = titles.length
+        ? titleProgress
+        : Math.max(0, Math.min(1, (y - 220) / 180));
+      header.style.setProperty('--header-progress', headerProgress.toFixed(3));
       if (headerProgress > 0.5) {
         header.classList.add('fixed');
       } else {
@@ -118,7 +137,16 @@
       }
     }
 
+    measureTitlePositions();
     window.addEventListener('scroll', syncFixed, { passive: true });
+    window.addEventListener('resize', function () {
+      measureTitlePositions();
+      syncFixed();
+    });
+    window.addEventListener('load', function () {
+      measureTitlePositions();
+      syncFixed();
+    });
     syncFixed();
 
     function normalizeAnchor(href) {

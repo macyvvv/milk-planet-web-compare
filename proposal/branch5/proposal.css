@@ -31,7 +31,7 @@ html body #top-head .inner {
   width: auto !important;
   margin: 0 !important;
   position: absolute !important;
-  top: 24px !important;
+  top: 8px !important;
   right: 16px !important;
   display: inline-block !important;
   pointer-events: auto !important;
@@ -44,13 +44,13 @@ html body #nav-toggle {
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 10px !important;
-  border-radius: 44px !important;
-  background: rgba(255, 255, 255, 0.33) !important;
+  gap: 8px !important;
+  border-radius: 30px !important;
+  background: rgba(255, 255, 255, 0.82) !important;
   border: 1px solid rgba(80, 80, 80, 0.22) !important;
-  padding: 0 41px !important;
-  height: 68px !important;
-  line-height: 68px !important;
+  padding: 0 28px !important;
+  height: 48px !important;
+  line-height: 48px !important;
   width: auto !important;
   min-width: 0 !important;
   max-width: none !important;
@@ -59,7 +59,7 @@ html body #nav-toggle {
   cursor: pointer !important;
   user-select: none !important;
   box-shadow: none !important;
-  transition: background 0.2s ease !important;
+  transition: background 0.2s ease, padding 0.18s ease !important;
   top: auto !important;
   right: auto !important;
   z-index: 101 !important;
@@ -78,7 +78,7 @@ html body #nav-toggle:hover .nav-toggle-bars span {
 }
 
 html body #nav-toggle .nav-toggle-label {
-  font-size: 19px !important;
+  font-size: 14px !important;
   font-weight: bold !important;
   line-height: 1 !important;
   letter-spacing: 0.12em !important;
@@ -98,7 +98,7 @@ html body #nav-toggle .nav-toggle-label::before {
 html body #nav-toggle .nav-toggle-bars {
   display: flex !important;
   flex-direction: column !important;
-  gap: 5px !important;
+  gap: 4px !important;
   position: static !important;
   width: auto !important;
   height: auto !important;
@@ -107,7 +107,7 @@ html body #nav-toggle .nav-toggle-bars {
 html body #nav-toggle .nav-toggle-bars span {
   display: block !important;
   position: static !important;
-  width: 27px !important;
+  width: 18px !important;
   height: 2px !important;
   border-radius: 999px !important;
   background: #444 !important;
@@ -122,13 +122,13 @@ html body #global-nav {
   --nav-indent-sub: 24px;
   display: block !important;
   position: fixed !important;
-  top: 54px !important;
+  top: 64px !important;
   right: 16px !important;
   margin-top: 0 !important;
   width: 220px !important;
   box-sizing: border-box !important;
   height: auto !important;
-  max-height: calc(100vh - 68px) !important;
+  max-height: calc(100vh - 76px) !important;
   background: rgba(255, 255, 255, 0.85) !important;
   border: 1px solid rgba(80, 80, 80, 0.18) !important;
   border-radius: 26px !important;
@@ -964,7 +964,6 @@ html body .content {
 }
 
 /* --- h1 sticky/floating title --- */
-article h1,
 h1.title,
 h1.seo_h1 {
   position: sticky !important;
@@ -977,18 +976,19 @@ h1.seo_h1 {
   transition: padding 0.18s linear, font-size 0.18s linear, background 0.18s linear, box-shadow 0.18s linear;
   width: 100%;
   box-sizing: border-box;
-  background: var(--page-h1-bg, transparent) !important;
+  left: auto !important;
+  right: auto !important;
+  color: var(--title-bar-text, #334155) !important;
+  background: var(--page-h1-bg, rgba(255, 255, 255, 0.94)) !important;
   --h1-progress: 0;
 }
 
-article h1:not(.scrolled-title),
 h1.title:not(.scrolled-title),
 h1.seo_h1:not(.scrolled-title) {
-  /* 左右200pxはハンバーガーボタン(実測 約190px)との重なりを避けるセーフゾーン */
-  padding: calc(24px - (14px * var(--h1-progress))) 260px calc(129px - (129px * var(--h1-progress))) !important;
+  /* 左右220pxはメニューボタンと見出し中央位置を両立するセーフゾーン */
+  padding: calc(24px - (14px * var(--h1-progress))) 220px calc(129px - (129px * var(--h1-progress))) !important;
 }
 
-article h1:not(.scrolled-title)::after,
 h1.title:not(.scrolled-title)::after,
 h1.seo_h1:not(.scrolled-title)::after {
   content: '' !important;
@@ -1004,44 +1004,72 @@ h1.seo_h1:not(.scrolled-title)::after {
 }
 
 /* スクロール追従バー（scrolled-title） */
-article h1.scrolled-title,
 h1.title.scrolled-title,
 h1.seo_h1.scrolled-title {
-  padding: calc(24px - (14px * var(--h1-progress))) 260px calc(129px - (129px * var(--h1-progress))) !important;
-  background: var(--scrolled-bg, var(--page-h1-bg, transparent)) !important;
-  font-size: calc(36px - (12px * var(--h1-progress))) !important;
-  opacity: 0.66 !important;
+  height: 64px !important;
+  min-height: 64px !important;
+  padding: 0 220px !important;
+  line-height: 64px !important;
+  background: var(--scrolled-bg, var(--page-h1-bg, rgba(255, 255, 255, 0.94))) !important;
+  font-size: 24px !important;
+  opacity: 1 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 2px 10px rgba(0,0,0, calc(0.10 * var(--h1-progress)));
+  box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+}
+
+/* 濃色の店舗別タイトルバーでは白文字を維持する。 */
+h1[style*="#3f0f12"],
+h1[style*="#8f0100"],
+h1[style*="#aa00ff"],
+h1[style*="#d4295e"] {
+  --title-bar-text: #fff;
 }
 
 /* スクロール時: 装飾の::after を非表示 */
-article h1.scrolled-title::after,
 h1.title.scrolled-title::after,
 h1.seo_h1.scrolled-title::after {
   display: none !important;
 }
 
 @media screen and (max-width: 780px) {
-  article h1:not(.scrolled-title),
   h1.title:not(.scrolled-title),
   h1.seo_h1:not(.scrolled-title) {
-    /* 左右64pxはSPのハンバーガーボタン(実測60px)との重なりを避けるセーフゾーン */
-    padding: 18px 72px 60px !important;
+    /* 左右64pxはSPのメニューボタンと見出し中央位置を両立するセーフゾーン */
+    padding: 18px 64px 60px !important;
   }
-  article h1:not(.scrolled-title)::after,
   h1.title:not(.scrolled-title)::after,
   h1.seo_h1:not(.scrolled-title)::after {
     height: 60px !important;
     background: url("./images/cutline.png") 0 0 / 100% 60px no-repeat !important;
     background-color: transparent !important;
   }
-  article h1.scrolled-title,
   h1.title.scrolled-title,
   h1.seo_h1.scrolled-title {
-    padding: calc(18px - (8px * var(--h1-progress))) 72px calc(60px - (60px * var(--h1-progress))) !important;
-    font-size: calc(24px - (8px * var(--h1-progress))) !important;
+    height: 56px !important;
+    min-height: 56px !important;
+    padding: 0 64px !important;
+    line-height: 56px !important;
+    font-size: 16px !important;
+  }
+
+  html body #top-head.fixed #nav-toggle {
+    padding: 0 14px !important;
+  }
+
+  html body #top-head.fixed #nav-toggle .nav-toggle-label {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
   }
 }
 
