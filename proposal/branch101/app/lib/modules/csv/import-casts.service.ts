@@ -180,7 +180,7 @@ export async function applyCastsCsv(input: ApplyCastsCsvInput): Promise<ApplyCas
         purpose: TokenPurpose.INITIAL_SETUP,
         issuedById: input.actorUserId,
         ctx: input.ctx,
-      });
+      }, tx);
 
       results.push({ displayName: user.displayName, loginName: user.loginName, setupCode });
     }

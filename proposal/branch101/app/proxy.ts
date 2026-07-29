@@ -27,10 +27,6 @@ export default function proxy(req: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  if (isPublicRoute && hasSessionCookie) {
-    return NextResponse.redirect(new URL("/", req.nextUrl));
-  }
-
   return NextResponse.next();
 }
 

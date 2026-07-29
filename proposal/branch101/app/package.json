@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "npx prisma generate && next build",
     "start": "next start",
+    "bootstrap:su": "node scripts/bootstrap-super-user.mjs",
+    "migrate:libsql": "node scripts/migrate-libsql.mjs",
     "lint": "eslint",
     "test": "node --test \"lib/**/*.test.ts\""
   },

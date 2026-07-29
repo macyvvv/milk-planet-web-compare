@@ -7,25 +7,22 @@
 
 ```bash
 npm install
-cp .env.example .env   # DATABASE_URL を実際のPostgres接続文字列に置き換える
+cp .env.example .env   # DATABASE_URLを設定
 npx prisma generate
-npx prisma migrate dev --name init   # DBへ初回マイグレーションを適用
+npm run migrate:libsql
+npm run bootstrap:su   # 空DBに初期SUPER_USERを一度だけ作成
 npm run dev
 ```
 
-`DATABASE_URL` が無い状態でも `npm run dev` 自体は起動する(認証UIは表示される)が、ログイン・
-DB参照を伴う操作はすべて失敗する。ローカルDBを素早く用意したい場合は `npx prisma dev` でも良い。
+初期SUPER_USERは `admin` / `admin` / `あどみん` でPENDING_SETUPとして作成される。コマンドが一度だけ
+表示する72時間有効の初期設定コードを使い、`/initial-setup` で本人がパスワードを設定する。
+固定初期パスワードは存在しない。ユーザーが1件でも存在するDBではbootstrapは拒否される。
 
-初回マイグレーション適用後、`prisma/manual-constraints.sql` の内容を追加の空マイグレーションへ
-貼り付けて適用すること(部分一意インデックス・排他制約・CHECK制約はPrismaのスキーマDSLでは
-表現できないため。詳細はそのファイル冒頭のコメントと `basis/decision_log.md` D-002/D-004を参照)。
+本番ではVercelの一時ファイルDBを使用せず、永続libSQLの `DATABASE_URL` と
+`DATABASE_AUTH_TOKEN` を設定する。
 
-```bash
-npx prisma migrate dev --name manual_constraints --create-only
-# 生成された prisma/migrations/<timestamp>_manual_constraints/migration.sql の中身を
-# prisma/manual-constraints.sql の内容で置き換えてから:
-npx prisma migrate dev
-```
+`migrate:libsql` はmigrationディレクトリを名前順に適用し、`app_migrations`で適用履歴を管理する。
+同じDBへ再実行しても適用済みmigrationはスキップされる。
 
 ## よく使うコマンド
 
@@ -33,10 +30,9 @@ npx prisma migrate dev
 npm run dev          # 開発サーバー(Turbopack)
 npm run build         # 本番ビルド
 npm run lint           # ESLint
-npm run test            # 単体テスト(Vitest, 一回実行)
-npm run test:watch       # 単体テスト(watchモード)
+npm run test            # 単体テスト(Node.js test runner)
 npx prisma studio         # DBブラウザ
-npx prisma migrate dev     # スキーマ変更をマイグレーションとして適用(開発用)
+npm run migrate:libsql     # local/remote libSQLへmigration適用
 ```
 
 ## 既知の環境依存事項

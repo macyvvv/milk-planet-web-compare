@@ -1,6 +1,7 @@
 import { requireRole } from "@/lib/modules/auth/dal";
 import { Role } from "@/app/generated/prisma/client";
 import { LogoutButton } from "@/app/components/logout-button";
+import Link from "next/link";
 
 export default async function AdminDashboardPage() {
   const user = await requireRole(
@@ -20,9 +21,12 @@ export default async function AdminDashboardPage() {
         <LogoutButton />
       </header>
 
-      <p className="text-sm text-slate-600 dark:text-slate-400">
-        店舗・ピリオド別の進捗サマリーはPhase 2以降で実装予定です(WBS.md参照)。
-      </p>
+      <nav className="grid gap-2 sm:grid-cols-2">
+        <Link className="rounded-lg border p-3" href="/admin/users">アカウント管理</Link>
+        {user.roles.includes(Role.SUPER_USER) && (
+          <Link className="rounded-lg border p-3" href="/admin/roles">ロール・管理店舗</Link>
+        )}
+      </nav>
     </div>
   );
 }

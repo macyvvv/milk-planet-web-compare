@@ -222,3 +222,13 @@
 - Inspect: https://vercel.com/macyvvvs-projects/app/AqqVXPCkVny5MpaiVnBtDMv7f9kn
 - Production: https://app-f5q8htbzz-macyvvvs-projects.vercel.app
 - Alias: https://app-flax-psi-80.vercel.app
+
+## D-010: 初期SUPER_USER bootstrapとSQLiteアカウント制約
+
+- **決定**: 空DBに限り、専用CLIで `admin` / `admin` / `あどみん` のSUPER_USERを
+  PENDING_SETUPとして一度だけ作成する。固定初期パスワードは使わず、72時間有効の一回限りコードを表示する。
+- **理由**: 最初のロール付与者が存在しない循環依存を、安全な明示操作で解消するため。
+- **制約**: ユーザーが1件でも存在する場合は実行を拒否し、全SU喪失時の復旧手段として再利用しない。
+- **DB保証**: claim可能なログイン名、有効Role、管理店舗Scopeは部分一意INDEX、監査ログ不変性は
+  SQLite Triggerで保証する。
+- **運用条件**: 本番はVercel一時FSではなく永続libSQLを必須とする。

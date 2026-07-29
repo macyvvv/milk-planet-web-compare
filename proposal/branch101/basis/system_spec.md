@@ -6,7 +6,7 @@
 |---|---|---|
 | フロントエンド/バックエンド | Next.js(App Router, Server Components, Route Handlers) | 単一アプリ。バージョンは実装着手時点の安定版を固定し、`package.json` にpinする |
 | 言語 | TypeScript | strictモード |
-| DB | PostgreSQL | マネージドサービスを利用(D-001参照)。バージョンは実装着手時点の安定版 |
+| DB | SQLite/libSQL | ローカルはfile DB、本番は永続リモートlibSQL。Vercel一時FSは禁止 |
 | ORM/マイグレーション | Prisma ORM | スキーマは `data_model.md` を正本として生成 |
 | 認証 | ユーザー名(login_name)・パスワード + サーバーセッション | パスワードハッシュは Argon2id |
 | バリデーション | Zod | サーバー側(Route Handler / Server Function境界)で必須実行 |
@@ -23,14 +23,14 @@
 [実アプリ: Next.js on 別ホスティング(例: Vercel等 実装着手前に確定)]
    │
    ▼
-[マネージドPostgreSQL(例: Neon / Supabase等 実装着手前に確定)]
+[永続libSQL DB]
 ```
 
 - `proposal/branch101/` にはこれまでのbranchと同様、比較サイトから辿れる**静的エントリページ**(概要・
   スクリーンショット・実アプリへのリンク)を置く。GitHub Pagesはこの静的エントリページのみを配信する。
 - 実アプリ本体のソースコードは同リポジトリ内(例: `proposal/branch101/app/`)に置くが、**GitHub Pagesへは
   デプロイしない**。Next.jsのビルド・実行・DB接続が可能な別ホスティングへ独立してデプロイする。
-- ホスティング先・DBサービスの具体名はPhase 1着手前にユーザーと確定する(アカウント・課金が発生するため)。
+- DB接続先は `DATABASE_URL`、必要な認証情報は `DATABASE_AUTH_TOKEN` で設定する。
 - `proposal/index.html`(比較サイトのトップ)に branch101 のカードを追加し、動線を確保する。
 
 ## 3. アーキテクチャ制約
@@ -44,12 +44,10 @@
 
 アプリケーションコードだけに整合性を委ねず、DB制約でも保証する(`data_model.md` に詳細)。
 
-- `CREATE EXTENSION btree_gist` を利用し、確定シフトの時間重複・同日複数店舗配置を `EXCLUDE USING gist` で防止
-  (D-002)。
-- ピリオド期間の重複防止、同時点の有効ログイン名重複防止、同時点の通常所属重複防止は部分一意インデックス /
-  排他制約で実装。
-- 監査ログ(`audit_logs`)はアプリケーション層でUPDATE/DELETEを行う経路を作らない。DB権限としても、通常の
-  アプリケーションDBロールにはUPDATE/DELETE権限を付与しない運用とする。
+- 有効ログイン名、Role、管理店舗Scopeの重複はSQLite部分一意INDEXで防止する。
+- 監査ログ(`audit_logs`)はアプリケーションに更新・削除経路を作らず、SQLite Triggerでも拒否する。
+- PostgreSQLのGiST排他制約に依存していたシフト時間重複保証はSQLite移行後の未解決課題として扱い、
+  本番移行前に別途解消する。
 
 ## 5. 定期実行(ピリオド自動生成)
 
@@ -87,4 +85,5 @@ D-003のとおり、(a)参照時の冪等な不足分生成、(b)ホスティン
 ## 9. 環境・設定
 
 - 環境変数(DB接続文字列、セッション署名鍵等)はリポジトリへコミットしない。`.env.example` で必要変数一覧のみ共有。
+- 空DBの初期SUは `npm run bootstrap:su` で一度だけ作成する。固定初期パスワードを使用しない。
 - 開発環境と本番DBを分離し、本番データを無加工で開発環境へ複製しない(`operations.md` で手順化)。

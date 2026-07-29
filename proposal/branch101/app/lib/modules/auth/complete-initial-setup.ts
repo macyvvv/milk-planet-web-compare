@@ -53,7 +53,8 @@ export async function completeInitialSetup(
   const passwordHash = await hashPassword(newPassword);
   const tokenId = tokenCheck.tokenId;
 
-  await db.$transaction(async (tx: Prisma.TransactionClient) => {
+  const completed = await db.$transaction(async (tx: Prisma.TransactionClient) => {
+    if (!(await markTokenUsed(tokenId, tx))) return false;
     await tx.user.update({ where: { id: user.id }, data: { status: UserStatus.ACTIVE } });
     await tx.userCredential.update({
       where: { userId: user.id },
@@ -64,7 +65,6 @@ export async function completeInitialSetup(
         lockedUntil: null,
       },
     });
-    await markTokenUsed(tokenId, tx);
     await recordAuditLog(
       {
         actorUserId: user.id,
@@ -76,7 +76,10 @@ export async function completeInitialSetup(
       },
       tx,
     );
+    return true;
   });
+
+  if (!completed) return { ok: false, error: GENERIC_FAILURE };
 
   await createSession(user.id);
   return { ok: true };
