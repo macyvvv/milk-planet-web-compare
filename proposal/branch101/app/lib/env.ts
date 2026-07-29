@@ -6,6 +6,10 @@ import { z } from "zod";
 // is provisioned (basis/decision_log.md D-001). Prisma raises a clear error the moment a
 // query actually needs a connection, which is fail-fast enough without blocking `next dev`.
 const envSchema = z.object({
+  DATABASE_AUTH_TOKEN: z.preprocess(
+    (value) => (value === "" ? undefined : value),
+    z.string().min(1).optional(),
+  ),
   SESSION_COOKIE_NAME: z.string().default("mp_session"),
   NODE_ENV: z
     .enum(["development", "test", "production"])
@@ -13,6 +17,7 @@ const envSchema = z.object({
 });
 
 export const env = envSchema.parse({
+  DATABASE_AUTH_TOKEN: process.env.DATABASE_AUTH_TOKEN,
   SESSION_COOKIE_NAME: process.env.SESSION_COOKIE_NAME,
   NODE_ENV: process.env.NODE_ENV,
 });

@@ -59,16 +59,22 @@ export async function login(loginName: string, password: string): Promise<LoginR
   const passwordOk = await verifyPassword(user.credential.passwordHash, password);
 
   if (!passwordOk) {
-    const failedAttempts = user.credential.failedLoginAttempts + 1;
-    const shouldLock = failedAttempts >= MAX_FAILED_ATTEMPTS;
-
-    await db.userCredential.update({
+    const updatedCredential = await db.userCredential.update({
       where: { userId: user.id },
       data: {
-        failedLoginAttempts: shouldLock ? 0 : failedAttempts,
-        lockedUntil: shouldLock ? new Date(Date.now() + LOCK_DURATION_MS) : null,
+        failedLoginAttempts: { increment: 1 },
       },
     });
+    const shouldLock = updatedCredential.failedLoginAttempts >= MAX_FAILED_ATTEMPTS;
+    if (shouldLock) {
+      await db.userCredential.update({
+        where: { userId: user.id },
+        data: {
+          failedLoginAttempts: 0,
+          lockedUntil: new Date(Date.now() + LOCK_DURATION_MS),
+        },
+      });
+    }
 
     await recordAuditLog({
       actorUserId: user.id,

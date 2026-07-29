@@ -7,6 +7,8 @@ import { generateSetupCode, hashToken, tokensMatch } from "./tokens";
 import type { RequestContext } from "./session";
 
 const SETUP_TOKEN_TTL_MS = 72 * 60 * 60 * 1000; // 3 days: long enough for an admin to relay the code in person
+const MAX_TOKEN_FAILURES = 5;
+const TOKEN_LOCK_DURATION_MS = 15 * 60 * 1000;
 
 export interface IssueTokenInput {
   userId: string;
@@ -15,18 +17,23 @@ export interface IssueTokenInput {
   ctx: RequestContext;
 }
 
+type TokenClient = Pick<Prisma.TransactionClient, "passwordSetupToken" | "auditLog">;
+
 /**
  * REQ-AUTH-006: 初期設定コードは平文保存しない・有効期限あり・使用後は再利用不可。
  * 発行の都度、同ユーザー・同目的の未使用トークンを即時失効させる(D-006関連: コード発行は
  * 常にAREA_MANAGER以上のみが呼び出す前提。呼び出し側で requireRole 済みであること)。
  * 平文コードは戻り値としてのみ返し、DBにもログにも残さない(呼び出し元が画面へ一度だけ表示する)。
  */
-export async function issueSetupToken(input: IssueTokenInput): Promise<string> {
+export async function issueSetupToken(
+  input: IssueTokenInput,
+  client: TokenClient | typeof db = db,
+): Promise<string> {
   const code = generateSetupCode();
   const tokenHash = hashToken(code);
   const expiresAt = new Date(Date.now() + SETUP_TOKEN_TTL_MS);
 
-  await db.$transaction(async (tx: Prisma.TransactionClient) => {
+  const issue = async (tx: TokenClient) => {
     // Invalidate any still-usable prior token of the same purpose for this user.
     await tx.passwordSetupToken.updateMany({
       where: { userId: input.userId, purpose: input.purpose, usedAt: null },
@@ -55,7 +62,13 @@ export async function issueSetupToken(input: IssueTokenInput): Promise<string> {
       },
       tx,
     );
-  });
+  };
+
+  if (client === db) {
+    await db.$transaction(async (tx: Prisma.TransactionClient) => issue(tx));
+  } else {
+    await issue(client);
+  }
 
   return code;
 }
@@ -81,7 +94,23 @@ export async function findUsableToken(
     orderBy: { issuedAt: "desc" },
   });
 
-  if (!token || !tokensMatch(candidateHash, token.tokenHash)) {
+  if (!token || (token.lockedUntil && token.lockedUntil > new Date())) {
+    return { ok: false };
+  }
+  if (!tokensMatch(candidateHash, token.tokenHash)) {
+    const updated = await db.passwordSetupToken.update({
+      where: { id: token.id },
+      data: { failedAttempts: { increment: 1 } },
+    });
+    if (updated.failedAttempts >= MAX_TOKEN_FAILURES) {
+      await db.passwordSetupToken.update({
+        where: { id: token.id },
+        data: {
+          failedAttempts: 0,
+          lockedUntil: new Date(Date.now() + TOKEN_LOCK_DURATION_MS),
+        },
+      });
+    }
     return { ok: false };
   }
 
@@ -92,8 +121,9 @@ export async function markTokenUsed(
   tokenId: string,
   client: Pick<typeof db, "passwordSetupToken"> = db,
 ) {
-  await client.passwordSetupToken.update({
-    where: { id: tokenId },
+  const result = await client.passwordSetupToken.updateMany({
+    where: { id: tokenId, usedAt: null, expiresAt: { gt: new Date() } },
     data: { usedAt: new Date() },
   });
+  return result.count === 1;
 }

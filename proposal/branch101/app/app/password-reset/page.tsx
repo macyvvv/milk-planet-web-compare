@@ -56,6 +56,9 @@ export default function PasswordResetPage() {
             id="code"
             name="code"
             autoComplete="one-time-code"
+            inputMode="numeric"
+            pattern="[0-9]{4}"
+            maxLength={4}
             required
             className="w-full rounded-md border border-slate-300 px-3 py-3 text-base uppercase dark:border-slate-700 dark:bg-slate-900"
           />

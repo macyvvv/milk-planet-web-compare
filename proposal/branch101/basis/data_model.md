@@ -393,6 +393,8 @@
 | token_hash | TEXT | NOT NULL(平文非保存。REQ-AUTH-006) |
 | expires_at | TIMESTAMPTZ | NOT NULL |
 | used_at | TIMESTAMPTZ | NULL可 |
+| failed_attempts | INTEGER | NOT NULL DEFAULT 0 |
+| locked_until | TIMESTAMPTZ | NULL可(5回失敗後15分停止) |
 | issued_by, issued_at | | NOT NULL |
 
 **DB制約**: 部分一意 `UNIQUE (user_id, purpose) WHERE used_at IS NULL AND expires_at > now()`は式インデックス

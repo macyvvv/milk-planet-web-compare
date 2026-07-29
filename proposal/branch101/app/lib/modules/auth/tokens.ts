@@ -6,17 +6,9 @@ export function generateSessionToken(): string {
   return randomBytes(32).toString("base64url");
 }
 
-// Excludes visually ambiguous characters (0/O, 1/I/L) since a human relays this code verbally
-// or via chat (REQ-AUTH-005). 10 chars from a 31-symbol alphabet is ~49 bits of entropy, well
-// beyond what a rate-limited, one-time, expiring code needs.
-const SETUP_CODE_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
-
-export function generateSetupCode(length = 10): string {
-  let code = "";
-  for (let i = 0; i < length; i++) {
-    code += SETUP_CODE_ALPHABET[randomInt(SETUP_CODE_ALPHABET.length)];
-  }
-  return code;
+/** Four digits are a business requirement; token-level lockout limits online guessing. */
+export function generateSetupCode(): string {
+  return randomInt(10_000).toString().padStart(4, "0");
 }
 
 /**

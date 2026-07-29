@@ -19,39 +19,38 @@ export interface ApprovePasswordResetInput {
  * 返り値の平文コードはここでのみ生成され、DB/監査ログには残らない(呼び出し元画面で一度だけ表示)。
  */
 export async function approvePasswordReset(input: ApprovePasswordResetInput): Promise<string> {
-  const code = await issueSetupToken({
-    userId: input.userId,
-    purpose: TokenPurpose.PASSWORD_RESET,
-    issuedById: input.approvedById,
-    ctx: input.ctx,
-  });
-
-  const token = await db.passwordSetupToken.findFirst({
-    where: { userId: input.userId, purpose: TokenPurpose.PASSWORD_RESET, usedAt: null },
-    orderBy: { issuedAt: "desc" },
-  });
-  if (!token) {
-    throw new Error("Failed to issue password reset token");
-  }
-
-  await db.passwordResetRequest.create({
-    data: {
+  return db.$transaction(async (tx) => {
+    await tx.user.findFirstOrThrow({
+      where: { id: input.userId, status: "ACTIVE" },
+    });
+    const code = await issueSetupToken({
       userId: input.userId,
-      requestedNote: input.requestedNote,
-      approvedById: input.approvedById,
-      issuedTokenId: token.id,
-    },
-  });
+      purpose: TokenPurpose.PASSWORD_RESET,
+      issuedById: input.approvedById,
+      ctx: input.ctx,
+    }, tx);
 
-  await recordAuditLog({
-    actorUserId: input.approvedById,
-    action: AUDIT_ACTIONS.PASSWORD_RESET_APPROVED,
-    entityType: "User",
-    entityId: input.userId,
-    reason: input.requestedNote,
-    ipAddress: input.ctx.ipAddress,
-    userAgent: input.ctx.userAgent,
+    const token = await tx.passwordSetupToken.findFirstOrThrow({
+      where: { userId: input.userId, purpose: TokenPurpose.PASSWORD_RESET, usedAt: null },
+      orderBy: { issuedAt: "desc" },
+    });
+    await tx.passwordResetRequest.create({
+      data: {
+        userId: input.userId,
+        requestedNote: input.requestedNote,
+        approvedById: input.approvedById,
+        issuedTokenId: token.id,
+      },
+    });
+    await recordAuditLog({
+      actorUserId: input.approvedById,
+      action: AUDIT_ACTIONS.PASSWORD_RESET_APPROVED,
+      entityType: "User",
+      entityId: input.userId,
+      reason: input.requestedNote,
+      ipAddress: input.ctx.ipAddress,
+      userAgent: input.ctx.userAgent,
+    }, tx);
+    return code;
   });
-
-  return code;
 }

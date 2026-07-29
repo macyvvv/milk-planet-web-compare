@@ -1,9 +1,11 @@
 import "server-only";
 import { db } from "@/lib/db";
-import { UserStatus, type Prisma } from "@/app/generated/prisma/client";
+import { TokenPurpose, UserStatus, type Prisma } from "@/app/generated/prisma/client";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 import type { RequestContext } from "@/lib/modules/auth/session";
+import { revokeAllSessionsForUser } from "@/lib/modules/auth/session";
+import { issueSetupToken } from "@/lib/modules/auth/setup-tokens.service";
 
 /**
  * REQ-AUTH-004: ログイン処理は有効ユーザーのみを検索する。
@@ -73,7 +75,17 @@ export async function registerCast(input: RegisterCastInput) {
       tx,
     );
 
-    return user;
+    const setupCode = await issueSetupToken(
+      {
+        userId: user.id,
+        purpose: TokenPurpose.INITIAL_SETUP,
+        issuedById: input.actorUserId,
+        ctx: input.ctx,
+      },
+      tx,
+    );
+
+    return { user, setupCode };
   });
 }
 
@@ -88,11 +100,28 @@ export interface DeactivateUserInput {
 export async function deactivateUser(input: DeactivateUserInput) {
   return db.$transaction(async (tx: Prisma.TransactionClient) => {
     const before = await tx.user.findUniqueOrThrow({ where: { id: input.userId } });
+    if (before.status === UserStatus.INACTIVE) return before;
+
+    const superUserRole = await tx.userRole.findFirst({
+      where: { userId: input.userId, role: "SUPER_USER", revokedAt: null },
+    });
+    if (superUserRole) {
+      const activeSuperUsers = await tx.user.count({
+        where: {
+          status: UserStatus.ACTIVE,
+          rolesGranted: { some: { role: "SUPER_USER", revokedAt: null } },
+        },
+      });
+      if (activeSuperUsers <= 1) {
+        throw new Error("最後の有効なSUPER_USERは無効化できません。");
+      }
+    }
 
     const after = await tx.user.update({
       where: { id: input.userId },
       data: { status: UserStatus.INACTIVE },
     });
+    await revokeAllSessionsForUser(input.userId, tx);
 
     await recordAuditLog(
       {

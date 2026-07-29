@@ -6,7 +6,6 @@ import {
   CsvImportStatus,
   CsvRowStatus,
   TokenPurpose,
-  type Prisma,
 } from "@/app/generated/prisma/client";
 import { parseCsvText } from "./csv-utils";
 import { issueSetupToken } from "@/lib/modules/auth/setup-tokens.service";
@@ -101,8 +100,8 @@ export async function uploadCastsCsv(input: UploadCastsCsvInput) {
       data: {
         jobId: job.id,
         rowNo: i + 1,
-        rawData: raw as unknown as Prisma.InputJsonValue,
-        validationErrors: rowErrors.length > 0 ? rowErrors : undefined,
+        rawData: JSON.stringify(raw),
+        validationErrors: rowErrors.length > 0 ? JSON.stringify(rowErrors) : undefined,
         status,
       },
     });
@@ -181,7 +180,7 @@ export async function applyCastsCsv(input: ApplyCastsCsvInput): Promise<ApplyCas
         purpose: TokenPurpose.INITIAL_SETUP,
         issuedById: input.actorUserId,
         ctx: input.ctx,
-      });
+      }, tx);
 
       results.push({ displayName: user.displayName, loginName: user.loginName, setupCode });
     }

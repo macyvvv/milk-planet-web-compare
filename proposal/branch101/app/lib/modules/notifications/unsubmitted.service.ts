@@ -8,6 +8,7 @@ import {
   buildAllStoresUnsubmittedText,
   type StoreUnsubmittedGroup,
 } from "./notification-text";
+import { getTemplate } from "./templates.service";
 
 export interface UnsubmittedCast {
   userId: string;
@@ -71,11 +72,22 @@ export async function generateStoreUnsubmittedText(input: GenerateStoreTextInput
     db.store.findUniqueOrThrow({ where: { id: input.storeId } }),
   ]);
 
-  const text = buildStoreUnsubmittedText(formatPeriodLabel(period.startDate), {
-    storeName: store.name,
-    names: unsubmitted.map((u) => u.displayName),
-    deadlineLabel: formatDeadline(setting?.submissionDeadlineAt ?? null),
-  });
+  const dbTemplate = await getTemplate("STORE_UNSUBMITTED", input.storeId) ?? await getTemplate("STORE_UNSUBMITTED", null);
+
+  let text = "";
+  if (dbTemplate && dbTemplate.body.trim()) {
+    text = dbTemplate.body
+      .replace(/{{PERIOD_LABEL}}/g, formatPeriodLabel(period.startDate))
+      .replace(/{{STORE_NAME}}/g, store.name)
+      .replace(/{{CAST_NAMES}}/g, unsubmitted.map((u) => u.displayName).join("、"))
+      .replace(/{{DEADLINE_LABEL}}/g, formatDeadline(setting?.submissionDeadlineAt ?? null) ?? "案内を確認してください");
+  } else {
+    text = buildStoreUnsubmittedText(formatPeriodLabel(period.startDate), {
+      storeName: store.name,
+      names: unsubmitted.map((u) => u.displayName),
+      deadlineLabel: formatDeadline(setting?.submissionDeadlineAt ?? null),
+    });
+  }
 
   await db.generatedNotification.create({
     data: {
@@ -123,7 +135,25 @@ export async function generateAllStoresUnsubmittedText(input: GenerateAllStoresT
     }),
   );
 
-  const text = buildAllStoresUnsubmittedText(formatPeriodLabel(period.startDate), groups);
+  const dbTemplate = await getTemplate("ALL_STORES_UNSUBMITTED", null);
+  let text = "";
+  if (dbTemplate && dbTemplate.body.trim()) {
+    const nonEmpty = groups.filter((g) => g.names.length > 0);
+    const sameDeadline = nonEmpty.length > 0 && nonEmpty.every((g) => g.deadlineLabel === nonEmpty[0].deadlineLabel);
+
+    const sections = nonEmpty.map((g) => {
+      const lines = [`■ ${g.storeName}`, g.names.join("、")];
+      if (!sameDeadline && g.deadlineLabel) lines.push(`(締切: ${g.deadlineLabel})`);
+      return lines.join("\n");
+    });
+    const bodyContent = sections.join("\n\n");
+
+    text = dbTemplate.body
+      .replace(/{{PERIOD_LABEL}}/g, formatPeriodLabel(period.startDate))
+      .replace(/{{BODY}}/g, bodyContent);
+  } else {
+    text = buildAllStoresUnsubmittedText(formatPeriodLabel(period.startDate), groups);
+  }
 
   await db.generatedNotification.create({
     data: {

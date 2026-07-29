@@ -322,13 +322,13 @@ export async function submitAvailability(input: SubmitInput): Promise<void> {
         submissionId: submission.id,
         versionNo: newVersionNo,
         headerStatusAtSave: newStatus,
-        entriesSnapshot: entries.map((e) => ({
+        entriesSnapshot: JSON.stringify(entries.map((e) => ({
           targetDate: toDateKey(e.targetDate),
           availabilityStatus: e.availabilityStatus,
           startAt: e.startAt?.toISOString() ?? null,
           endAt: e.endAt?.toISOString() ?? null,
           note: e.note,
-        })),
+        }))),
         createdById: input.userId,
       },
     });

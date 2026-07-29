@@ -12,10 +12,10 @@ Phase 0(設計)承認後、Phase 1〜5のコード実装、およびPhase 6の�
 - **実DB未接続**: D-001(ホスティング先)が未確定のため、マイグレーション(`prisma migrate deploy` +
   `prisma/manual-constraints.sql`)を一度も実データベースに適用していない。DB制約(排他制約・部分一意
   索引)がPostgreSQL上で実際に機能するかは未検証。
-- **統合テスト・E2Eテスト未実装**: `test_strategy.md` の単体テスト区分(pure logicのみ、51件)は
-  自動化したが、DB統合テスト・Playwright E2E・セキュリティテストは未着手。
-- **D-006(権限範囲)がユーザー未確認のまま暫定実装**: STORE_MANAGER/DEPUTYはキャスト登録・
-  初期設定コード発行・パスワード再設定許可を行えない実装になっている(A案)。
+- **統合テスト・E2Eテストは一部のみ**: pure logic 51件に加え、bootstrap・SQLite制約・監査Triggerを
+  検証した。ブラウザE2Eと全権限境界の自動化は継続課題。
+- **アカウント管理**: `/admin/users` と `/admin/roles`、初期SU bootstrap、ロック解除、
+  コード再発行、パスワード再設定許可を実装済み。
 - **CSVインポートはCASTS/AVAILABILITYの2種のみ**: MEMBERSHIPS/EVENTS/CONFIRMED_SHIFTSのインポートは
   未実装(エクスポートは7種すべて実装済み)。
 - **LINE文章テンプレートは編集不可**: `notification_templates` テーブルは用意したが、文章フォーマットは

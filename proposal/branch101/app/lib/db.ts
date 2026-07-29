@@ -1,11 +1,12 @@
 import "server-only";
-import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/app/generated/prisma/client";
+import { PrismaLibSql } from "@prisma/adapter-libsql";
+import { env } from "@/lib/env";
 
-// Prisma 7's "prisma-client" generator requires an explicit driver adapter (no bundled query
-// engine binary). DATABASE_URL is read here, not in lib/env.ts, so pages that never touch the
-// database can still render before a real database is provisioned (basis/decision_log.md D-001).
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const adapter = new PrismaLibSql({
+  url: process.env.DATABASE_URL || "file:./dev.db",
+  ...(env.DATABASE_AUTH_TOKEN ? { authToken: env.DATABASE_AUTH_TOKEN } : {}),
+});
 
 // Next.js dev server hot-reloads modules, which would otherwise create a new PrismaClient
 // (and a new connection pool) on every edit. Cache the instance on globalThis in development.

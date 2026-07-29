@@ -11,7 +11,7 @@ import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 
 export const CompletePasswordResetSchema = z.object({
   loginName: z.string().min(1, "キャスト名を入力してください"),
-  code: z.string().min(1, "再設定コードを入力してください"),
+  code: z.string().regex(/^\d{4}$/, "再設定コードは数字4桁で入力してください"),
   newPassword: PasswordSchema,
 });
 
@@ -51,7 +51,8 @@ export async function completePasswordReset(
   const passwordHash = await hashPassword(newPassword);
   const tokenId = tokenCheck.tokenId;
 
-  await db.$transaction(async (tx: Prisma.TransactionClient) => {
+  const completed = await db.$transaction(async (tx: Prisma.TransactionClient) => {
+    if (!(await markTokenUsed(tokenId, tx))) return false;
     await tx.userCredential.update({
       where: { userId: user.id },
       data: {
@@ -61,7 +62,6 @@ export async function completePasswordReset(
         lockedUntil: null,
       },
     });
-    await markTokenUsed(tokenId, tx);
     await revokeAllSessionsForUser(user.id, tx);
     await recordAuditLog(
       {
@@ -74,7 +74,10 @@ export async function completePasswordReset(
       },
       tx,
     );
+    return true;
   });
+
+  if (!completed) return { ok: false, error: GENERIC_FAILURE };
 
   // Old sessions were just revoked; issue a brand new one for the freshly authenticated user.
   await createSession(user.id);
