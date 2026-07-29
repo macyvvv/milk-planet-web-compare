@@ -6,9 +6,15 @@ import {
   replaceManagerScopesAction,
   revokeRoleAction,
 } from "./actions";
+import { PERMISSION_LABELS, permissionLevelForRoles } from "@/lib/modules/auth/permission-level";
 
-export default async function AdminRolesPage() {
+export default async function AdminRolesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   await requireRole(Role.SUPER_USER);
+  const { error } = await searchParams;
   const [users, stores] = await Promise.all([
     db.user.findMany({
       where: { status: { in: ["PENDING_SETUP", "ACTIVE"] } },
@@ -27,6 +33,7 @@ export default async function AdminRolesPage() {
         <p className="text-sm text-slate-500">管理ダッシュボード</p>
         <h1 className="text-xl font-semibold">ロール・管理店舗</h1>
       </header>
+      {error && <p role="alert" className="rounded-md bg-red-950 p-3 text-sm text-red-300">{error}</p>}
 
       {users.map((user) => {
         const activeRoles = new Set(user.rolesGranted.map((grant) => grant.role));
@@ -35,7 +42,10 @@ export default async function AdminRolesPage() {
           <article key={user.id} className="space-y-4 rounded-lg border border-slate-200 p-4 dark:border-slate-800">
             <div>
               <h2 className="font-medium">{user.displayName} <span className="text-sm text-slate-500">({user.loginName})</span></h2>
-              <p className="text-sm text-slate-600">{[...activeRoles].join(", ") || "ロールなし"}</p>
+              <p className="text-sm text-slate-600">
+                権限: {PERMISSION_LABELS[permissionLevelForRoles(activeRoles)]}
+                {" / "}役職: {[...activeRoles].join(", ") || "一般ユーザー"}
+              </p>
             </div>
 
             <div className="flex flex-wrap gap-2">
