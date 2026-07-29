@@ -4,15 +4,10 @@ import { createClient } from "@libsql/client";
 const LOGIN_NAME = "admin";
 const DISPLAY_NAME = "admin";
 const DISPLAY_NAME_KANA = "あどみん";
-const CODE_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
 const TOKEN_TTL_MS = 72 * 60 * 60 * 1000;
 
-function generateSetupCode(length = 10) {
-  let code = "";
-  for (let index = 0; index < length; index += 1) {
-    code += CODE_ALPHABET[randomInt(CODE_ALPHABET.length)];
-  }
-  return code;
+function generateSetupCode() {
+  return randomInt(10_000).toString().padStart(4, "0");
 }
 
 function hashToken(token) {
@@ -65,8 +60,8 @@ try {
       },
       {
         sql: `INSERT INTO password_setup_tokens
-          (id, user_id, purpose, token_hash, expires_at, issued_by, issued_at)
-          VALUES (?, ?, 'INITIAL_SETUP', ?, ?, ?, ?)`,
+          (id, user_id, purpose, token_hash, expires_at, failed_attempts, issued_by, issued_at)
+          VALUES (?, ?, 'INITIAL_SETUP', ?, ?, 0, ?, ?)`,
         args: [
           tokenId,
           userId,

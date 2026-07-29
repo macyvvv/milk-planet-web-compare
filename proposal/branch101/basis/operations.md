@@ -67,7 +67,7 @@ DB障害等でアプリケーションが利用不能な間の緊急対応とし
 1. 永続libSQLへ全migrationを適用する。
 2. `DATABASE_URL` と必要なら `DATABASE_AUTH_TOKEN` を設定する。
 3. `npm run bootstrap:su` を一度だけ実行する。
-4. 一度だけ表示される初期設定コードをSU本人へ安全な経路で伝える。
+4. 一度だけ表示される数字4桁の初期設定コードをSU本人へ安全な経路で伝える。
 5. SU本人が72時間以内に `/initial-setup` で `admin` とコードを入力し、パスワードを設定する。
 6. `/admin/users` と `/admin/audit` でACTIVE化と監査記録を確認する。
 

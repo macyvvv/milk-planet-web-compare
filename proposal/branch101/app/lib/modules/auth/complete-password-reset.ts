@@ -11,7 +11,7 @@ import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 
 export const CompletePasswordResetSchema = z.object({
   loginName: z.string().min(1, "キャスト名を入力してください"),
-  code: z.string().min(1, "再設定コードを入力してください"),
+  code: z.string().regex(/^\d{4}$/, "再設定コードは数字4桁で入力してください"),
   newPassword: PasswordSchema,
 });
 

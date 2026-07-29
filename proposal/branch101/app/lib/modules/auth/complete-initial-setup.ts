@@ -11,7 +11,7 @@ import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 
 export const CompleteInitialSetupSchema = z.object({
   loginName: z.string().min(1, "キャスト名を入力してください"),
-  code: z.string().min(1, "初期設定コードを入力してください"),
+  code: z.string().regex(/^\d{4}$/, "初期設定コードは数字4桁で入力してください"),
   newPassword: PasswordSchema,
 });
 

@@ -7,6 +7,8 @@ import { generateSetupCode, hashToken, tokensMatch } from "./tokens";
 import type { RequestContext } from "./session";
 
 const SETUP_TOKEN_TTL_MS = 72 * 60 * 60 * 1000; // 3 days: long enough for an admin to relay the code in person
+const MAX_TOKEN_FAILURES = 5;
+const TOKEN_LOCK_DURATION_MS = 15 * 60 * 1000;
 
 export interface IssueTokenInput {
   userId: string;
@@ -92,7 +94,23 @@ export async function findUsableToken(
     orderBy: { issuedAt: "desc" },
   });
 
-  if (!token || !tokensMatch(candidateHash, token.tokenHash)) {
+  if (!token || (token.lockedUntil && token.lockedUntil > new Date())) {
+    return { ok: false };
+  }
+  if (!tokensMatch(candidateHash, token.tokenHash)) {
+    const updated = await db.passwordSetupToken.update({
+      where: { id: token.id },
+      data: { failedAttempts: { increment: 1 } },
+    });
+    if (updated.failedAttempts >= MAX_TOKEN_FAILURES) {
+      await db.passwordSetupToken.update({
+        where: { id: token.id },
+        data: {
+          failedAttempts: 0,
+          lockedUntil: new Date(Date.now() + TOKEN_LOCK_DURATION_MS),
+        },
+      });
+    }
     return { ok: false };
   }
 
