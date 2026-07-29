@@ -5,7 +5,7 @@ import {
   CsvImportStatus,
   CsvRowStatus,
 } from "@/app/generated/prisma/client";
-import { parseCsvText } from "./csv-utils";
+import { csvRowData, parseCsvText } from "./csv-utils";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 import type { RequestContext } from "@/lib/modules/auth/session";
@@ -119,19 +119,31 @@ export async function applyEventsCsv(input: ApplyEventsCsvInput): Promise<number
 
   await db.$transaction(async (tx) => {
     for (const row of job.rows) {
-      const raw = row.rawData as unknown as EventImportRowData;
+      const raw = csvRowData<EventImportRowData>(row.rawData);
       const isAllStores = raw.is_all_stores.trim().toLowerCase() === "true";
 
-      const event = await tx.event.create({
-        data: {
+      const eventDate = new Date(raw.event_date.trim());
+      const existing = await tx.event.findFirst({ where: { name: raw.name.trim(), eventDate } });
+      const eventData = {
           name: raw.name.trim(),
-          eventDate: new Date(raw.event_date.trim()),
+          eventDate,
           isAllStores,
           castNote: raw.cast_note?.trim() || null,
           adminNote: raw.admin_note?.trim() || null,
           createdById: input.actorUserId,
-        },
-      });
+      };
+      const event = existing
+        ? await tx.event.update({
+            where: { id: existing.id },
+            data: {
+              isAllStores,
+              castNote: eventData.castNote,
+              adminNote: eventData.adminNote,
+              currentVersionNo: { increment: 1 },
+            },
+          })
+        : await tx.event.create({ data: eventData });
+      await tx.eventStore.deleteMany({ where: { eventId: event.id } });
 
       if (!isAllStores && raw.store_names?.trim()) {
         const names = raw.store_names.split(",").map(n => n.trim()).filter(Boolean);

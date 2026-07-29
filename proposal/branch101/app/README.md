@@ -18,6 +18,10 @@ npm run dev
 表示する英数字10文字・72時間有効の初期設定コードを使い、`/initial-setup` で本人が数字4桁のPINを設定する。
 固定初期PINは存在しない。ユーザーが1件でも存在するDBではbootstrapは拒否される。
 
+200人規模の初期導入は、個別の初期設定コードを発行せず `/admin/csv` のアカウントCSVを使う。
+CSVで4桁PINを指定するか、空欄にして自動生成すると、アカウントは即時ACTIVEになる。反映直後に
+表示される資格情報CSVは再表示できないため、その場で保存する。
+
 本番ではVercelの一時ファイルDBを使用せず、永続libSQLの `DATABASE_URL` と
 `DATABASE_AUTH_TOKEN` を設定する。
 

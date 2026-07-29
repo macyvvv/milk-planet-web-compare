@@ -37,3 +37,8 @@ export function parseCsvText(text: string): ParsedCsv {
     errors: result.errors.map((e) => `行${(e.row ?? 0) + 2}: ${e.message}`),
   };
 }
+
+/** Decodes JSON stored in SQLite TEXT while also tolerating already-decoded values. */
+export function csvRowData<T>(value: unknown): T {
+  return (typeof value === "string" ? JSON.parse(value) : value) as T;
+}

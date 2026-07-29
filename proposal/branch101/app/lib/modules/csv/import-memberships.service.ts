@@ -6,7 +6,7 @@ import {
   CsvRowStatus,
   MembershipType,
 } from "@/app/generated/prisma/client";
-import { parseCsvText } from "./csv-utils";
+import { csvRowData, parseCsvText } from "./csv-utils";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 import type { RequestContext } from "@/lib/modules/auth/session";
@@ -128,20 +128,32 @@ export async function applyMembershipsCsv(input: ApplyMembershipsCsvInput): Prom
 
   await db.$transaction(async (tx) => {
     for (const row of job.rows) {
-      const raw = row.rawData as unknown as MembershipImportRowData;
+      const raw = csvRowData<MembershipImportRowData>(row.rawData);
       const store = storeByName.get(raw.store_name.trim())!;
       const user = userByLoginName.get(raw.login_name.trim())!;
 
-      await tx.castStoreMembership.create({
-        data: {
+      const validFrom = new Date(raw.valid_from.trim());
+      const existing = await tx.castStoreMembership.findFirst({
+        where: {
           userId: user.id,
           storeId: store.id,
-          validFrom: new Date(raw.valid_from.trim()),
+          validFrom,
+          membershipType: raw.membership_type.trim() as MembershipType,
+        },
+      });
+      const data = {
+          userId: user.id,
+          storeId: store.id,
+          validFrom,
           validTo: raw.valid_to?.trim() ? new Date(raw.valid_to.trim()) : null,
           membershipType: raw.membership_type.trim() as MembershipType,
           createdById: input.actorUserId,
-        },
-      });
+      };
+      if (existing) {
+        await tx.castStoreMembership.update({ where: { id: existing.id }, data: { validTo: data.validTo } });
+      } else {
+        await tx.castStoreMembership.create({ data });
+      }
       count++;
     }
 

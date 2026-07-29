@@ -7,6 +7,18 @@ import { Role } from "@/app/generated/prisma/client";
 import { getRequestContext } from "@/lib/modules/auth/session";
 import { uploadCastsCsv, applyCastsCsv } from "@/lib/modules/csv/import-casts.service";
 import { uploadAvailabilityCsv, applyAvailabilityCsv } from "@/lib/modules/csv/import-availability.service";
+import { uploadMembershipsCsv, applyMembershipsCsv } from "@/lib/modules/csv/import-memberships.service";
+import { uploadEventsCsv, applyEventsCsv } from "@/lib/modules/csv/import-events.service";
+import {
+  uploadConfirmedShiftsCsv,
+  applyConfirmedShiftsCsv,
+} from "@/lib/modules/csv/import-confirmed-shifts.service";
+import { db } from "@/lib/db";
+import {
+  uploadMasterCsv,
+  applyMasterCsv,
+  type MasterCsvKind,
+} from "@/lib/modules/csv/import-master-data.service";
 
 export interface CsvActionState {
   error?: string;
@@ -14,7 +26,13 @@ export interface CsvActionState {
 
 export interface ApplyCastsState {
   error?: string;
-  results?: { displayName: string; loginName: string; setupCode: string }[];
+  results?: {
+    displayName: string;
+    loginName: string;
+    pin: string;
+    generated: boolean;
+    operation: "CREATED" | "UPDATED";
+  }[];
 }
 
 export async function uploadCastsCsvAction(
@@ -24,7 +42,7 @@ export async function uploadCastsCsvAction(
   const file = formData.get("file");
   if (!(file instanceof File) || file.size === 0) return { error: "CSVファイルを選択してください。" };
 
-  const user = await requireRole(Role.AREA_MANAGER, Role.SUPER_USER);
+  const user = await requireRole(Role.SUPER_USER);
   const csvText = await file.text();
   const jobId = await uploadCastsCsv({ csvText, uploadedById: user.id });
   redirect(`/admin/csv/preview/${jobId}`);
@@ -88,5 +106,49 @@ export async function applyAvailabilityCsvActionForm(formData: FormData): Promis
   const user = await requireRole(Role.SUPER_USER);
   const ctx = await getRequestContext();
   await applyAvailabilityCsv({ jobId, actorUserId: user.id, ctx });
+  redirect(`/admin/csv/preview/${jobId}`);
+}
+
+const OperationalCsvKind = z.enum([
+  "STORES",
+  "MEMBERSHIPS",
+  "STANDARD_SHIFTS",
+  "PERIOD_SETTINGS",
+  "EVENTS",
+  "CONFIRMED_SHIFTS",
+]);
+
+export async function uploadOperationalCsvAction(
+  _prevState: CsvActionState | undefined,
+  formData: FormData,
+): Promise<CsvActionState> {
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) return { error: "CSVファイルを選択してください。" };
+  const parsedKind = OperationalCsvKind.safeParse(formData.get("kind"));
+  if (!parsedKind.success) return { error: "CSV種別が不正です。" };
+  const user = await requireRole(Role.SUPER_USER);
+  const input = { csvText: await file.text(), uploadedById: user.id };
+  const jobId = ["STORES", "STANDARD_SHIFTS", "PERIOD_SETTINGS"].includes(parsedKind.data)
+    ? await uploadMasterCsv({ ...input, kind: parsedKind.data as MasterCsvKind })
+    : parsedKind.data === "MEMBERSHIPS"
+      ? await uploadMembershipsCsv(input)
+      : parsedKind.data === "EVENTS"
+        ? await uploadEventsCsv(input)
+        : await uploadConfirmedShiftsCsv(input);
+  redirect(`/admin/csv/preview/${jobId}`);
+}
+
+export async function applyOperationalCsvAction(formData: FormData): Promise<void> {
+  const jobId = z.string().uuid().parse(formData.get("jobId"));
+  const user = await requireRole(Role.SUPER_USER);
+  const job = await db.csvImportJob.findUniqueOrThrow({ where: { id: jobId } });
+  const input = { jobId, actorUserId: user.id, ctx: await getRequestContext() };
+  if (job.jobType === "MEMBERSHIPS") await applyMembershipsCsv(input);
+  else if (job.jobType === "EVENTS") await applyEventsCsv(input);
+  else if (job.jobType === "CONFIRMED_SHIFTS") await applyConfirmedShiftsCsv(input);
+  else if (["STORES", "STANDARD_SHIFTS", "PERIOD_SETTINGS"].includes(job.jobType)) {
+    await applyMasterCsv(input);
+  }
+  else return;
   redirect(`/admin/csv/preview/${jobId}`);
 }

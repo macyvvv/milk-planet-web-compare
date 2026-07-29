@@ -6,7 +6,7 @@ import {
   CsvRowStatus,
   ConfirmedShiftStatus,
 } from "@/app/generated/prisma/client";
-import { parseCsvText } from "./csv-utils";
+import { csvRowData, parseCsvText } from "./csv-utils";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 import type { RequestContext } from "@/lib/modules/auth/session";
@@ -136,7 +136,7 @@ export async function applyConfirmedShiftsCsv(input: ApplyConfirmedShiftsCsvInpu
 
   await db.$transaction(async (tx) => {
     for (const row of job.rows) {
-      const raw = row.rawData as unknown as ConfirmedShiftImportRowData;
+      const raw = csvRowData<ConfirmedShiftImportRowData>(row.rawData);
       const store = storeByName.get(raw.store_name.trim())!;
       const user = userByLoginName.get(raw.login_name.trim())!;
       const periodKey = new Date(raw.period_start_date.trim()).toISOString().split("T")[0];
@@ -151,8 +151,10 @@ export async function applyConfirmedShiftsCsv(input: ApplyConfirmedShiftsCsvInpu
       const endAt = new Date(workDate);
       endAt.setUTCHours(parseInt(endParts[0]), parseInt(endParts[1]), 0, 0);
 
-      await tx.confirmedShift.create({
-        data: {
+      const existing = await tx.confirmedShift.findFirst({
+        where: { periodId: period.id, userId: user.id, workDate },
+      });
+      const shiftData = {
           periodId: period.id,
           storeId: store.id,
           userId: user.id,
@@ -164,8 +166,25 @@ export async function applyConfirmedShiftsCsv(input: ApplyConfirmedShiftsCsvInpu
           adminNote: raw.admin_note?.trim() || null,
           createdById: input.actorUserId,
           updatedById: input.actorUserId,
-        },
-      });
+      };
+      if (existing) {
+        await tx.confirmedShift.update({
+          where: { id: existing.id },
+          data: {
+            storeId: shiftData.storeId,
+            startAt,
+            endAt,
+            status: ConfirmedShiftStatus.CONFIRMED,
+            castNote: shiftData.castNote,
+            adminNote: shiftData.adminNote,
+            updatedById: input.actorUserId,
+            version: { increment: 1 },
+            currentVersionNo: { increment: 1 },
+          },
+        });
+      } else {
+        await tx.confirmedShift.create({ data: shiftData });
+      }
       count++;
     }
 

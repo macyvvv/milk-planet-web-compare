@@ -11,8 +11,15 @@ export function UploadCastsForm() {
   return (
     <form action={formAction} className="flex flex-col gap-2 text-sm">
       <p className="text-slate-600 dark:text-slate-400">
-        列: login_name, display_name, display_name_kana, store_name
+        列: operation, login_name, display_name, display_name_kana, store_name, pin,
+        permission_level, job_title
       </p>
+      <p className="text-slate-600 dark:text-slate-400">
+        operationはUPSERT。pinを空欄にすると数字4桁を自動生成します。
+      </p>
+      <a href="/admin/csv/templates/casts" className="self-start text-sky-600 underline">
+        アカウントCSVテンプレートをダウンロード
+      </a>
       <input type="file" name="file" accept=".csv,text/csv" required className="text-sm" />
       {state?.error && <p className="text-red-600 dark:text-red-400">{state.error}</p>}
       <button

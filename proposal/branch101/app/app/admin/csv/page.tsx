@@ -6,6 +6,7 @@ import { listPeriods } from "@/lib/modules/periods/periods.service";
 import { toDateKey } from "@/lib/modules/periods/period-dates.ts";
 import { UploadCastsForm } from "./upload-casts-form";
 import { UploadAvailabilityForm } from "./upload-availability-form";
+import { UploadOperationalForm } from "./upload-operational-form";
 
 const EXPORT_TYPES = [
   { type: "CASTS", label: "キャスト一覧", scoped: false },
@@ -83,8 +84,15 @@ export default async function AdminCsvPage({
 
       {hasRole(user, Role.AREA_MANAGER, Role.SUPER_USER) && (
         <section>
-          <h2 className="mb-2 font-medium">キャスト一括登録(インポート)</h2>
+          <h2 className="mb-2 font-medium">アカウント一括登録・更新</h2>
           <UploadCastsForm />
+        </section>
+      )}
+
+      {hasRole(user, Role.SUPER_USER) && (
+        <section>
+          <h2 className="mb-2 font-medium">管理データ一括登録・更新</h2>
+          <UploadOperationalForm />
         </section>
       )}
 

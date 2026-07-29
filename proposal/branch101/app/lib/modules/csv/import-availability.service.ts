@@ -6,7 +6,7 @@ import {
   CsvImportStatus,
   CsvRowStatus,
 } from "@/app/generated/prisma/client";
-import { parseCsvText } from "./csv-utils";
+import { csvRowData, parseCsvText } from "./csv-utils";
 import { businessTimeToDate, parseBusinessTime } from "@/lib/modules/availability/business-time";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
@@ -143,7 +143,7 @@ export async function applyAvailabilityCsv(input: ApplyAvailabilityCsvInput): Pr
 
   await db.$transaction(async (tx) => {
     for (const row of job.rows) {
-      const raw = row.rawData as unknown as AvailabilityImportRowData;
+      const raw = csvRowData<AvailabilityImportRowData>(row.rawData);
       const userId = userByLoginName.get(raw.login_name.trim())!;
       const targetDate = new Date(`${raw.target_date.trim()}T00:00:00.000Z`);
       const status = raw.availability_status.trim() as AvailabilityStatus;

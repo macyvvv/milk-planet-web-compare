@@ -1,26 +1,40 @@
 import "server-only";
 import { db } from "@/lib/db";
 import {
+  Role,
   UserStatus,
   CsvJobType,
   CsvImportStatus,
   CsvRowStatus,
-  TokenPurpose,
 } from "@/app/generated/prisma/client";
-import { parseCsvText } from "./csv-utils";
-import { issueSetupToken } from "@/lib/modules/auth/setup-tokens.service";
+import { csvRowData, parseCsvText } from "./csv-utils";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 import type { RequestContext } from "@/lib/modules/auth/session";
+import { hashPassword } from "@/lib/modules/auth/password";
+import { randomInt } from "node:crypto";
+import { DomainError } from "@/lib/errors/domain-error";
 
-// REQ-CSV-002,003: キャスト一括登録CSVのスキーマ。
-export const CAST_IMPORT_COLUMNS = ["login_name", "display_name", "display_name_kana", "store_name"] as const;
+export const CAST_IMPORT_COLUMNS = [
+  "operation",
+  "login_name",
+  "display_name",
+  "display_name_kana",
+  "store_name",
+  "pin",
+  "permission_level",
+  "job_title",
+] as const;
 
 interface CastImportRowData {
+  operation: string;
   login_name: string;
   display_name: string;
   display_name_kana: string;
   store_name: string;
+  pin: string;
+  permission_level: string;
+  job_title: string;
 }
 
 export interface UploadCastsCsvInput {
@@ -61,15 +75,6 @@ export async function uploadCastsCsv(input: UploadCastsCsvInput) {
 
   const stores = await db.store.findMany();
   const storeByName = new Map(stores.map((s) => [s.name, s]));
-  const existingActiveLoginNames = new Set(
-    (
-      await db.user.findMany({
-        where: { status: { in: [UserStatus.PENDING_SETUP, UserStatus.ACTIVE] } },
-        select: { loginName: true },
-      })
-    ).map((u) => u.loginName),
-  );
-
   const seenInFile = new Set<string>();
   let anyInvalid = false;
 
@@ -77,16 +82,30 @@ export async function uploadCastsCsv(input: UploadCastsCsvInput) {
     const raw = data[i] as unknown as CastImportRowData;
     const rowErrors: string[] = [];
 
+    if (raw.operation?.trim().toUpperCase() !== "UPSERT") rowErrors.push("operationはUPSERTを指定してください。");
     if (!raw.login_name?.trim()) rowErrors.push("login_nameが空です。");
     if (!raw.display_name?.trim()) rowErrors.push("display_nameが空です。");
     if (!raw.display_name_kana?.trim()) rowErrors.push("display_name_kanaが空です。");
     if (!raw.store_name?.trim()) rowErrors.push("store_nameが空です。");
     else if (!storeByName.has(raw.store_name.trim())) rowErrors.push(`店舗「${raw.store_name}」が存在しません。`);
 
+    if (raw.pin?.trim() && !/^\d{4}$/.test(raw.pin.trim())) rowErrors.push("pinは数字4桁または空欄です。");
+    const permission = raw.permission_level?.trim() || "GENERAL_USER";
+    const title = raw.job_title?.trim() || "CAST";
+    if (!["GENERAL_USER", "STORE_ADMIN", "AREA_MANAGER", "SUPER_USER"].includes(permission)) {
+      rowErrors.push("permission_levelが不正です。");
+    }
+    if (!["CAST", "STORE_MANAGER", "STORE_DEPUTY_MANAGER", "AREA_MANAGER", "SUPER_USER"].includes(title)) {
+      rowErrors.push("job_titleが不正です。");
+    }
+    const validPair =
+      (permission === "GENERAL_USER" && title === "CAST") ||
+      (permission === "STORE_ADMIN" && ["STORE_MANAGER", "STORE_DEPUTY_MANAGER"].includes(title)) ||
+      (permission === "AREA_MANAGER" && title === "AREA_MANAGER") ||
+      (permission === "SUPER_USER" && title === "SUPER_USER");
+    if (!validPair) rowErrors.push("permission_levelとjob_titleの組み合わせが不正です。");
+
     if (raw.login_name?.trim()) {
-      if (existingActiveLoginNames.has(raw.login_name.trim())) {
-        rowErrors.push("このキャスト名は既に使用されています。");
-      }
       if (seenInFile.has(raw.login_name.trim())) {
         rowErrors.push("CSV内でキャスト名が重複しています。");
       }
@@ -129,7 +148,37 @@ export interface ApplyCastsCsvInput {
 export interface ApplyCastsCsvResult {
   displayName: string;
   loginName: string;
-  setupCode: string;
+  pin: string;
+  generated: boolean;
+  operation: "CREATED" | "UPDATED";
+}
+
+async function prepareCredentials(rows: { rawData: string }[]) {
+  const prepared: {
+    row: { rawData: string };
+    raw: CastImportRowData;
+    pin: string;
+    passwordHash: string;
+    generated: boolean;
+  }[] = new Array(rows.length);
+  let nextIndex = 0;
+  const worker = async () => {
+    while (nextIndex < rows.length) {
+      const index = nextIndex++;
+      const row = rows[index];
+      const raw = csvRowData<CastImportRowData>(row.rawData);
+      const pin = raw.pin?.trim() || randomInt(10_000).toString().padStart(4, "0");
+      prepared[index] = {
+        row,
+        raw,
+        pin,
+        passwordHash: await hashPassword(pin),
+        generated: !raw.pin?.trim(),
+      };
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(4, rows.length) }, worker));
+  return prepared;
 }
 
 /**
@@ -149,40 +198,96 @@ export async function applyCastsCsv(input: ApplyCastsCsvInput): Promise<ApplyCas
   const stores = await db.store.findMany();
   const storeByName = new Map(stores.map((s) => [s.name, s]));
   const results: ApplyCastsCsvResult[] = [];
+  const prepared = await prepareCredentials(job.rows);
 
   await db.$transaction(async (tx) => {
-    for (const row of job.rows) {
-      const raw = row.rawData as unknown as CastImportRowData;
+    for (const item of prepared) {
+      const { raw, pin, passwordHash, generated } = item;
       const store = storeByName.get(raw.store_name.trim())!;
-
-      const user = await tx.user.create({
-        data: {
+      const existing = await tx.user.findFirst({ where: { loginName: raw.login_name.trim() } });
+      const nextRole = (raw.job_title?.trim() || "CAST") as Role;
+      if (existing && nextRole !== Role.SUPER_USER) {
+        const targetIsSuperUser = await tx.userRole.findFirst({
+          where: { userId: existing.id, role: Role.SUPER_USER, revokedAt: null },
+        });
+        if (targetIsSuperUser) {
+          const activeSuperUsers = await tx.user.count({
+            where: {
+              status: UserStatus.ACTIVE,
+              rolesGranted: { some: { role: Role.SUPER_USER, revokedAt: null } },
+            },
+          });
+          if (activeSuperUsers <= 1) {
+            throw new DomainError(
+              "最後の有効なスーパーユーザーはCSVで降格できません。",
+              "LAST_SUPER_USER",
+            );
+          }
+        }
+      }
+      const user = existing
+        ? await tx.user.update({
+            where: { id: existing.id },
+            data: {
+              displayName: raw.display_name.trim(),
+              displayNameKana: raw.display_name_kana.trim(),
+              status: UserStatus.ACTIVE,
+            },
+          })
+        : await tx.user.create({ data: {
           loginName: raw.login_name.trim(),
           displayName: raw.display_name.trim(),
           displayNameKana: raw.display_name_kana.trim(),
-          status: UserStatus.PENDING_SETUP,
-        },
+          status: UserStatus.ACTIVE,
+        } });
+      await tx.userCredential.upsert({
+        where: { userId: user.id },
+        create: { userId: user.id, passwordHash, passwordUpdatedAt: new Date() },
+        update: { passwordHash, passwordUpdatedAt: new Date(), failedLoginAttempts: 0, lockedUntil: null },
       });
-      await tx.userCredential.create({ data: { userId: user.id } });
-      await tx.userRole.create({ data: { userId: user.id, role: "CAST", grantedById: input.actorUserId } });
-      await tx.castStoreMembership.create({
-        data: {
-          userId: user.id,
-          storeId: store.id,
-          validFrom: new Date(),
-          membershipType: "PRIMARY",
-          createdById: input.actorUserId,
-        },
+      await tx.session.updateMany({
+        where: { userId: user.id, revokedAt: null },
+        data: { revokedAt: new Date() },
       });
-
-      const setupCode = await issueSetupToken({
-        userId: user.id,
-        purpose: TokenPurpose.INITIAL_SETUP,
-        issuedById: input.actorUserId,
-        ctx: input.ctx,
-      }, tx);
-
-      results.push({ displayName: user.displayName, loginName: user.loginName, setupCode });
+      await tx.userRole.updateMany({
+        where: { userId: user.id, revokedAt: null },
+        data: { revokedAt: new Date(), revokedById: input.actorUserId },
+      });
+      await tx.userRole.create({ data: { userId: user.id, role: nextRole, grantedById: input.actorUserId } });
+      await tx.managerStoreScope.updateMany({
+        where: { userId: user.id, revokedAt: null },
+        data: { revokedAt: new Date() },
+      });
+      if (nextRole === Role.STORE_MANAGER || nextRole === Role.STORE_DEPUTY_MANAGER) {
+        await tx.managerStoreScope.create({
+          data: { userId: user.id, storeId: store.id, grantedById: input.actorUserId },
+        });
+      }
+      const currentMembership = await tx.castStoreMembership.findFirst({
+        where: { userId: user.id, validTo: null, membershipType: "PRIMARY" },
+      });
+      if (!currentMembership || currentMembership.storeId !== store.id) {
+        await tx.castStoreMembership.updateMany({
+          where: { userId: user.id, validTo: null, membershipType: "PRIMARY" },
+          data: { validTo: new Date() },
+        });
+        await tx.castStoreMembership.create({
+          data: {
+            userId: user.id,
+            storeId: store.id,
+            validFrom: new Date(),
+            membershipType: "PRIMARY",
+            createdById: input.actorUserId,
+          },
+        });
+      }
+      results.push({
+        displayName: user.displayName,
+        loginName: user.loginName,
+        pin,
+        generated,
+        operation: existing ? "UPDATED" : "CREATED",
+      });
     }
 
     await tx.csvImportJob.update({
