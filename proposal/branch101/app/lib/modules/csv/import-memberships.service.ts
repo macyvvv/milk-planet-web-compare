@@ -76,7 +76,7 @@ export async function uploadMembershipsCsv(input: UploadMembershipsCsvInput) {
     if (!raw.valid_from?.trim() || isNaN(Date.parse(raw.valid_from.trim()))) {
       rowErrors.push("valid_fromが不正です（YYYY-MM-DD形式）。");
     }
-    
+
     if (raw.valid_to?.trim() && isNaN(Date.parse(raw.valid_to.trim()))) {
       rowErrors.push("valid_toが不正です（空欄またはYYYY-MM-DD形式）。");
     }

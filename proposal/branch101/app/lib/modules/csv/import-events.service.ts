@@ -62,7 +62,7 @@ export async function uploadEventsCsv(input: UploadEventsCsvInput) {
     if (!raw.event_date?.trim() || isNaN(Date.parse(raw.event_date.trim()))) {
       rowErrors.push("event_dateが不正です（YYYY-MM-DD形式）。");
     }
-    
+
     const isAllStoresStr = raw.is_all_stores?.trim().toLowerCase();
     if (!["true", "false"].includes(isAllStoresStr)) {
       rowErrors.push("is_all_storesは true または false を指定してください。");
@@ -121,7 +121,7 @@ export async function applyEventsCsv(input: ApplyEventsCsvInput): Promise<number
     for (const row of job.rows) {
       const raw = row.rawData as unknown as EventImportRowData;
       const isAllStores = raw.is_all_stores.trim().toLowerCase() === "true";
-      
+
       const event = await tx.event.create({
         data: {
           name: raw.name.trim(),
@@ -136,7 +136,7 @@ export async function applyEventsCsv(input: ApplyEventsCsvInput): Promise<number
       if (!isAllStores && raw.store_names?.trim()) {
         const names = raw.store_names.split(",").map(n => n.trim()).filter(Boolean);
         const storeIds = names.map(n => storeByName.get(n)!.id);
-        
+
         await tx.eventStore.createMany({
           data: storeIds.map(storeId => ({ eventId: event.id, storeId }))
         });

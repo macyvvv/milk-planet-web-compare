@@ -58,7 +58,7 @@ export async function uploadConfirmedShiftsCsv(input: UploadConfirmedShiftsCsvIn
   const users = await db.user.findMany({ select: { id: true, loginName: true } });
   const userByLoginName = new Map(users.map((u) => [u.loginName, u]));
   const periods = await db.period.findMany();
-  
+
   // Format dates for map key comparison
   const periodMap = new Map(periods.map((p) => [p.startDate.toISOString().split("T")[0], p]));
 

@@ -213,3 +213,12 @@
   (LOCKED相当)として扱う。
 - **影響範囲**: 新規テーブルではなく既存テーブルへの追加列のみ。
 - **残存リスク**: なし。D-007と同様、業務フロー・権限・履歴方式の変更は伴わない補完。
+
+
+## 2026-07-29 proposal/branch101 Vercelデプロイ
+
+`proposal/branch101` をVercelへデプロイした。
+
+- Inspect: https://vercel.com/macyvvvs-projects/app/AqqVXPCkVny5MpaiVnBtDMv7f9kn
+- Production: https://app-f5q8htbzz-macyvvvs-projects.vercel.app
+- Alias: https://app-flax-psi-80.vercel.app
