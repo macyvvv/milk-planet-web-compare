@@ -5,7 +5,6 @@ import {
   CsvJobType,
   CsvImportStatus,
   CsvRowStatus,
-  type Prisma,
 } from "@/app/generated/prisma/client";
 import { parseCsvText } from "./csv-utils";
 import { businessTimeToDate, parseBusinessTime } from "@/lib/modules/availability/business-time";
@@ -102,8 +101,8 @@ export async function uploadAvailabilityCsv(input: UploadAvailabilityCsvInput): 
       data: {
         jobId: job.id,
         rowNo: i + 1,
-        rawData: raw as unknown as Prisma.InputJsonValue,
-        validationErrors: rowErrors.length > 0 ? rowErrors : undefined,
+        rawData: JSON.stringify(raw),
+        validationErrors: rowErrors.length > 0 ? JSON.stringify(rowErrors) : undefined,
         status,
       },
     });

@@ -1,5 +1,4 @@
 import "server-only";
-import type { Prisma } from "@/app/generated/prisma/client";
 import { db } from "@/lib/db";
 import type { AuditAction } from "./actions";
 
@@ -50,7 +49,7 @@ export async function recordAuditLog(
   });
 }
 
-function toJsonInput(value: unknown): Prisma.InputJsonValue | undefined {
-  if (value === undefined) return undefined;
-  return value as Prisma.InputJsonValue;
+function toJsonInput(value: unknown): string | undefined {
+  if (value === undefined || value === null) return undefined;
+  return JSON.stringify(value);
 }
