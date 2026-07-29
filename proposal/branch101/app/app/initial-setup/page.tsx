@@ -18,7 +18,7 @@ export default function InitialSetupPage() {
         <div>
           <h1 className="text-lg font-semibold">初期設定</h1>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-            店長から伝えられたキャスト名と初期設定コードを入力し、パスワードを設定してください。
+            店長から伝えられたキャスト名と初期設定コードを入力し、数字4桁のPINを設定してください。
           </p>
         </div>
 
@@ -55,9 +55,7 @@ export default function InitialSetupPage() {
             id="code"
             name="code"
             autoComplete="one-time-code"
-            inputMode="numeric"
-            pattern="[0-9]{4}"
-            maxLength={4}
+            maxLength={10}
             required
             className="w-full rounded-md border border-slate-300 px-3 py-3 text-base uppercase dark:border-slate-700 dark:bg-slate-900"
           />
@@ -68,13 +66,17 @@ export default function InitialSetupPage() {
 
         <div className="space-y-1">
           <label htmlFor="newPassword" className="block text-sm font-medium">
-            新しいパスワード(10文字以上、英字と数字を含む)
+            新しいPIN（数字4桁）
           </label>
           <input
             id="newPassword"
             name="newPassword"
             type="password"
             autoComplete="new-password"
+            inputMode="numeric"
+            pattern="[0-9]{4}"
+            minLength={4}
+            maxLength={4}
             required
             className="w-full rounded-md border border-slate-300 px-3 py-3 text-base dark:border-slate-700 dark:bg-slate-900"
           />
@@ -90,7 +92,7 @@ export default function InitialSetupPage() {
           disabled={pending}
           className="w-full rounded-md bg-sky-600 px-4 py-3 text-base font-medium text-white disabled:opacity-60"
         >
-          {pending ? "設定中…" : "パスワードを設定してログイン"}
+          {pending ? "設定中…" : "PINを設定してログイン"}
         </button>
 
         <Link href="/login" className="block text-center text-sm text-sky-600 dark:text-sky-400">

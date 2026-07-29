@@ -7,8 +7,14 @@ export function generateSessionToken(): string {
 }
 
 /** Four digits are a business requirement; token-level lockout limits online guessing. */
-export function generateSetupCode(): string {
-  return randomInt(10_000).toString().padStart(4, "0");
+const SETUP_CODE_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
+
+export function generateSetupCode(length = 10): string {
+  let code = "";
+  for (let index = 0; index < length; index += 1) {
+    code += SETUP_CODE_ALPHABET[randomInt(SETUP_CODE_ALPHABET.length)];
+  }
+  return code;
 }
 
 /**

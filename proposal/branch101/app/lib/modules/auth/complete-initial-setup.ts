@@ -5,14 +5,16 @@ import { UserStatus, TokenPurpose, type Prisma } from "@/app/generated/prisma/cl
 import { findUsableToken, markTokenUsed } from "./setup-tokens.service";
 import { hashPassword } from "./password";
 import { createSession, getRequestContext } from "./session";
-import { PasswordSchema } from "./password-policy";
+import { PinSchema } from "./password-policy";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 
 export const CompleteInitialSetupSchema = z.object({
   loginName: z.string().min(1, "キャスト名を入力してください"),
-  code: z.string().regex(/^\d{4}$/, "初期設定コードは数字4桁で入力してください"),
-  newPassword: PasswordSchema,
+  code: z
+    .string()
+    .regex(/^[23456789ABCDEFGHJKMNPQRSTUVWXYZ]{10}$/, "初期設定コードは英数字10文字で入力してください"),
+  newPassword: PinSchema,
 });
 
 export type CompleteInitialSetupResult = { ok: true } | { ok: false; error: string };

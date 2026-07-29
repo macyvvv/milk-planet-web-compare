@@ -15,8 +15,8 @@ npm run dev
 ```
 
 初期SUPER_USERは `admin` / `admin` / `あどみん` でPENDING_SETUPとして作成される。コマンドが一度だけ
-表示する数字4桁・72時間有効の初期設定コードを使い、`/initial-setup` で本人がパスワードを設定する。
-固定初期パスワードは存在しない。ユーザーが1件でも存在するDBではbootstrapは拒否される。
+表示する英数字10文字・72時間有効の初期設定コードを使い、`/initial-setup` で本人が数字4桁のPINを設定する。
+固定初期PINは存在しない。ユーザーが1件でも存在するDBではbootstrapは拒否される。
 
 本番ではVercelの一時ファイルDBを使用せず、永続libSQLの `DATABASE_URL` と
 `DATABASE_AUTH_TOKEN` を設定する。

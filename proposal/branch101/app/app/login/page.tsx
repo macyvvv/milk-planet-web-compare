@@ -41,13 +41,17 @@ export default function LoginPage() {
 
         <div className="space-y-1">
           <label htmlFor="password" className="block text-sm font-medium">
-            パスワード
+            PIN（数字4桁）
           </label>
           <input
             id="password"
             name="password"
             type="password"
             autoComplete="current-password"
+            inputMode="numeric"
+            pattern="[0-9]{4}"
+            minLength={4}
+            maxLength={4}
             required
             className="w-full rounded-md border border-slate-300 px-3 py-3 text-base dark:border-slate-700 dark:bg-slate-900"
           />
@@ -66,7 +70,7 @@ export default function LoginPage() {
             初めての方はこちら
           </Link>
           <Link href="/password-reset" className="text-sky-600 dark:text-sky-400">
-            パスワードをお忘れの方
+            PINをお忘れの方
           </Link>
         </div>
       </form>
