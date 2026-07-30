@@ -17,6 +17,20 @@ test.describe('Login & Basic Navigation', () => {
     await page.waitForURL('/admin');
     await expect(page.getByRole('heading', { name: 'admin さん' })).toBeVisible();
     await expect(page.getByRole('link', { name: /初回導入・一括更新/ })).toBeVisible();
+
+    await page.getByRole('link', { name: /初回導入・一括更新/ }).click();
+    await page.waitForURL('/admin/csv');
+    await expect(page.getByRole('heading', { name: 'CSV入出力' })).toBeVisible();
+
+    await page.goto('/admin');
+    await page.getByRole('link', { name: 'アカウント管理' }).click();
+    await page.waitForURL('/admin/users');
+    await expect(page).not.toHaveURL(/\/login/);
+
+    await page.goto('/admin');
+    await page.getByRole('link', { name: 'ロール・管理店舗' }).click();
+    await page.waitForURL('/admin/roles');
+    await expect(page).not.toHaveURL(/\/login/);
   });
 
   test('should complete initial SU setup and login again', async ({ page }) => {

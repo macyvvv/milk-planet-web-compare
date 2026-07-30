@@ -33,10 +33,12 @@ CSVで4桁PINを指定するか、空欄にして自動生成すると、アカ�
 DATABASE_URL="file:/tmp/branch101-demo.db"
 EPHEMERAL_SQLITE_DEMO="1"
 DEMO_ADMIN_PIN="<数字4桁>"
+DEMO_SESSION_SECRET="<32文字以上のランダム値>"
 ```
 
-各サーバーインスタンスでmigrationとデモ用SU (`admin`) を冪等に初期化する。再デプロイ、
-コールドスタート、インスタンス切替でデータが消失・分離し得るため、実運用には使用しない。
+各サーバーインスタンスでmigrationとデモ用SU (`admin`) を冪等に初期化する。認証だけは
+署名付きCookieでインスタンスを跨げるが、業務データは再デプロイ、コールドスタート、
+インスタンス切替で消失・分離し得るため、実運用には使用しない。
 
 `migrate:libsql` はmigrationディレクトリを名前順に適用し、`app_migrations`で適用履歴を管理する。
 同じDBへ再実行しても適用済みmigrationはスキップされる。

@@ -10,6 +10,7 @@ const ARGON2_OPTIONS = {
   timeCost: 2,
   parallelism: 1,
 };
+export const DEMO_SUPER_USER_ID = "00000000-0000-4000-8000-000000000101";
 
 let initialization: Promise<void> | undefined;
 
@@ -64,7 +65,7 @@ async function migrateAndSeed(): Promise<void> {
     if (Number(existing.rows[0]?.count ?? 0) > 0) return;
 
     const now = new Date().toISOString();
-    const userId = randomUUID();
+    const userId = DEMO_SUPER_USER_ID;
     const roleId = randomUUID();
     const auditId = randomUUID();
     const passwordHash = await hash(requireDemoPin(), ARGON2_OPTIONS);
