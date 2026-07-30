@@ -10,6 +10,11 @@ import { approvePasswordReset } from "@/lib/modules/auth/password-reset-requests
 import { issueSetupToken } from "@/lib/modules/auth/setup-tokens.service";
 import { registerCast } from "@/lib/modules/users/users.service";
 import { deactivateAccount, unlockAccount } from "@/lib/modules/users/account-admin.service";
+import {
+  canAssignRegistrationRole,
+  type RegistrationRole,
+} from "@/lib/modules/users/registration-policy";
+import { userFacingError } from "@/lib/errors/domain-error";
 
 export interface UserActionState {
   error?: string;
@@ -22,6 +27,8 @@ const RegisterSchema = z.object({
   displayName: z.string().trim().min(1),
   displayNameKana: z.string().trim().min(1),
   storeId: z.string().uuid(),
+  role: z.enum(Role),
+  managedStoreIds: z.array(z.string().uuid()).default([]),
 });
 
 async function requireAccountOperator() {
@@ -48,13 +55,27 @@ export async function registerCastAction(
   _state: UserActionState | undefined,
   formData: FormData,
 ): Promise<UserActionState> {
-  const parsed = RegisterSchema.safeParse(Object.fromEntries(formData));
+  const parsed = RegisterSchema.safeParse({
+    loginName: formData.get("loginName"),
+    displayName: formData.get("displayName"),
+    displayNameKana: formData.get("displayNameKana"),
+    storeId: formData.get("storeId"),
+    role: formData.get("role") || Role.CAST,
+    managedStoreIds: formData.getAll("managedStoreIds"),
+  });
   if (!parsed.success) return { error: "登録内容を確認してください。" };
   const actor = await requireAccountOperator();
   if (!canAccessStore(actor, parsed.data.storeId)) return { error: "対象店舗を操作できません。" };
+  if (!canAssignRegistrationRole(hasRole(actor, Role.SUPER_USER), parsed.data.role as RegistrationRole)) {
+    return { error: "一般ユーザー以外の権限はスーパーユーザーだけが割り当てられます。" };
+  }
+  for (const storeId of parsed.data.managedStoreIds) {
+    if (!canAccessStore(actor, storeId)) return { error: "管理対象に指定できない店舗が含まれています。" };
+  }
   try {
     const result = await registerCast({
       ...parsed.data,
+      role: parsed.data.role as RegistrationRole,
       actorUserId: actor.id,
       ctx: await getRequestContext(),
     });
@@ -63,8 +84,8 @@ export async function registerCastAction(
       message: `${result.user.displayName}を登録しました。`,
       setupCode: result.setupCode,
     };
-  } catch {
-    return { error: "登録に失敗しました。ログイン名の重複を確認してください。" };
+  } catch (error) {
+    return { error: userFacingError(error, "登録に失敗しました。ログイン名の重複を確認してください。") };
   }
 }
 

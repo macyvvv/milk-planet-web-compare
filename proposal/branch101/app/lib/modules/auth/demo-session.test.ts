@@ -15,8 +15,10 @@ test("demo session verifies an untampered unexpired token", () => {
 
 test("demo session rejects tampering", () => {
   const token = createDemoSessionToken(userId, new Date("2030-01-02T00:00:00Z"), secret);
+  const [payload, signature] = token.split(".");
+  const tamperedSignature = `${signature[0] === "A" ? "B" : "A"}${signature.slice(1)}`;
   assert.equal(
-    verifyDemoSessionToken(`${token.slice(0, -1)}x`, secret, new Date("2030-01-01T00:00:00Z")),
+    verifyDemoSessionToken(`${payload}.${tamperedSignature}`, secret, new Date("2030-01-01T00:00:00Z")),
     null,
   );
 });

@@ -11,6 +11,7 @@ const ARGON2_OPTIONS = {
   parallelism: 1,
 };
 export const DEMO_SUPER_USER_ID = "00000000-0000-4000-8000-000000000101";
+const DEMO_STORE_ID = "00000000-0000-4000-8000-000000000201";
 
 let initialization: Promise<void> | undefined;
 
@@ -88,6 +89,12 @@ async function migrateAndSeed(): Promise<void> {
             (id, user_id, role, granted_by, granted_at)
             VALUES (?, ?, 'SUPER_USER', ?, ?)`,
           args: [roleId, userId, userId, now],
+        },
+        {
+          sql: `INSERT INTO stores
+            (id, code, name, status, created_at, updated_at)
+            VALUES (?, 'DEMO', 'デモ店舗', 'ACTIVE', ?, ?)`,
+          args: [DEMO_STORE_ID, now, now],
         },
         {
           sql: `INSERT INTO audit_logs

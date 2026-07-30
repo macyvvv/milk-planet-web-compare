@@ -6,12 +6,14 @@ import type { UserActionState } from "./actions";
 export function UserActionForm({
   action,
   children,
+  submitLabel = "実行",
 }: {
   action: (
     state: UserActionState | undefined,
     formData: FormData,
   ) => Promise<UserActionState>;
   children: React.ReactNode;
+  submitLabel?: string;
 }) {
   const [state, formAction, pending] = useActionState(action, {});
   return (
@@ -22,7 +24,7 @@ export function UserActionForm({
         disabled={pending}
         className="rounded-md bg-sky-700 px-3 py-2 text-sm text-white disabled:opacity-60"
       >
-        {pending ? "処理中…" : "実行"}
+        {pending ? "処理中…" : submitLabel}
       </button>
       {state?.error && <p className="text-sm text-red-700">{state.error}</p>}
       {state?.message && <p className="text-sm text-emerald-700">{state.message}</p>}
