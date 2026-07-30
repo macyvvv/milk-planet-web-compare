@@ -1,0 +1,13 @@
+/* Final override for the remote-shopping submenu trigger. */
+html body #top-head #global-nav .nav-submenu-item > .nav-submenu-toggle {
+  font-family: inherit !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+
+@media (max-width: 780px) {
+  html body #top-head #global-nav .nav-submenu-item > .nav-submenu-toggle {
+    font-size: 16px !important;
+    font-weight: 400 !important;
+  }
+}
