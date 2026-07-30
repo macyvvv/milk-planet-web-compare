@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Safely centralize root-level branch5 navigation rules with tinycss2."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -43,7 +44,6 @@ def filter_rules(rules: list[object]) -> list[object]:
                 nested = tinycss2.parse_rule_list(rule.content, skip_whitespace=False, skip_comments=False)
                 filtered = filter_rules(nested)
                 if not any(getattr(item, "type", None) == "qualified-rule" for item in filtered):
-                    # Keep the container when it still has another meaningful at-rule.
                     if not any(getattr(item, "type", None) == "at-rule" for item in filtered):
                         continue
                 rule.content = tinycss2.parse_component_value_list(tinycss2.serialize(filtered))
