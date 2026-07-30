@@ -130,9 +130,14 @@ async function migrateAndSeedUnlocked(url: string): Promise<void> {
           args: [DEMO_SUPER_USER_ROLE_ID, DEMO_SUPER_USER_ID, DEMO_SUPER_USER_ID, now],
         },
         {
-          sql: `INSERT OR IGNORE INTO stores
+          sql: `INSERT INTO stores
             (id, code, name, status, created_at, updated_at)
-            VALUES (?, 'STORE_00000001', 'デモ店舗', 'ACTIVE', ?, ?)`,
+            VALUES (?, 'STORE_00000001', 'デモ店舗', 'ACTIVE', ?, ?)
+            ON CONFLICT(id) DO UPDATE SET
+              code = excluded.code,
+              name = excluded.name,
+              status = excluded.status,
+              updated_at = excluded.updated_at`,
           args: [DEMO_STORE_ID, now, now],
         },
         {
