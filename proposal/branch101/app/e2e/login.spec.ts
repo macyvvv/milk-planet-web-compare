@@ -6,6 +6,43 @@ test.describe('Login & Basic Navigation', () => {
     await expect(page.getByRole('heading', { name: 'ログイン' })).toBeVisible();
   });
 
+  test('should login with an active demo SU PIN', async ({ page }) => {
+    const pin = process.env.E2E_ADMIN_PIN;
+    test.skip(!pin, 'E2E_ADMIN_PIN is required');
+
+    await page.goto('/login');
+    await page.getByLabel('キャスト名').fill('admin');
+    await page.getByLabel(/PIN/).fill(pin!);
+    await page.getByRole('button', { name: 'ログイン' }).click();
+    await page.waitForURL('/admin');
+    await expect(page.getByRole('heading', { name: 'admin さん' })).toBeVisible();
+    await expect(page.getByRole('link', { name: /初回導入・一括更新/ })).toBeVisible();
+
+    await page.getByRole('link', { name: /初回導入・一括更新/ }).click();
+    await page.waitForURL('/admin/csv');
+    await expect(page.getByRole('heading', { name: 'CSV入出力' })).toBeVisible();
+    await page.getByRole('link', { name: '管理トップへ戻る' }).click();
+    await page.waitForURL('/admin');
+
+    await page.getByRole('link', { name: 'アカウント管理' }).click();
+    await page.waitForURL('/admin/users');
+    await expect(page).not.toHaveURL(/\/login/);
+    await expect(page.getByRole('heading', { name: 'アカウント事前登録' })).toBeVisible();
+    await page.getByLabel('ログイン名').fill(`manager-${Date.now()}`);
+    await page.getByLabel('表示名').fill('テスト店長');
+    await page.getByLabel('読み仮名').fill('てすとてんちょう');
+    await page.getByLabel('所属店舗').selectOption({ label: 'デモ店舗' });
+    await page.getByLabel('権限・役職').selectOption('STORE_MANAGER');
+    await page.getByRole('button', { name: '事前登録する' }).click();
+    await expect(page.getByText('テスト店長を登録しました。')).toBeVisible();
+
+    await page.getByRole('link', { name: '管理トップへ戻る' }).click();
+    await page.waitForURL('/admin');
+    await page.getByRole('link', { name: 'ロール・管理店舗' }).click();
+    await page.waitForURL('/admin/roles');
+    await expect(page).not.toHaveURL(/\/login/);
+  });
+
   test('should complete initial SU setup and login again', async ({ page }) => {
     const setupCode = process.env.E2E_SETUP_CODE;
     test.skip(!setupCode || process.env.E2E_LOCKOUT_TEST === '1', 'Successful setup scenario is not selected');

@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
+  // Proposal-only ephemeral SQLite initialization reads migrations at function startup.
+  outputFileTracingIncludes: {
+    "/*": ["./prisma/migrations/**/*.sql"],
+  },
 };
 
 export default nextConfig;

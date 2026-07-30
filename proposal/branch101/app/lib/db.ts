@@ -2,6 +2,9 @@ import "server-only";
 import { PrismaClient } from "@/app/generated/prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 import { env } from "@/lib/env";
+import { ensureEphemeralSqlite } from "@/lib/ephemeral-sqlite";
+
+await ensureEphemeralSqlite();
 
 const adapter = new PrismaLibSql({
   url: process.env.DATABASE_URL || "file:./dev.db",

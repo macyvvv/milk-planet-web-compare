@@ -9,6 +9,7 @@ import {
   unlockAccountAction,
 } from "./actions";
 import { UserActionForm } from "./user-action-form";
+import { RegistrationFields } from "./registration-fields";
 
 export default async function AdminUsersPage() {
   const actor = await requireRole(
@@ -47,17 +48,12 @@ export default async function AdminUsersPage() {
       </header>
 
       <section className="rounded-lg border border-slate-200 p-4 dark:border-slate-800">
-        <h2 className="mb-3 font-medium">キャスト事前登録</h2>
-        <UserActionForm action={registerCastAction}>
-          <div className="grid gap-2 sm:grid-cols-2">
-            <input name="loginName" required placeholder="ログイン名" className="rounded-md border p-2 dark:bg-slate-900" />
-            <input name="displayName" required placeholder="表示名" className="rounded-md border p-2 dark:bg-slate-900" />
-            <input name="displayNameKana" required placeholder="読み仮名" className="rounded-md border p-2 dark:bg-slate-900" />
-            <select name="storeId" required className="rounded-md border p-2 dark:bg-slate-900">
-              <option value="">所属店舗を選択</option>
-              {stores.map((store) => <option key={store.id} value={store.id}>{store.name}</option>)}
-            </select>
-          </div>
+        <h2 className="mb-1 font-medium">アカウント事前登録</h2>
+        <p className="mb-3 text-sm text-slate-500">
+          所属店舗と権限・役職をまとめて設定します。登録後に初期設定コードを本人へ渡してください。
+        </p>
+        <UserActionForm action={registerCastAction} submitLabel="事前登録する">
+          <RegistrationFields stores={stores} canAssignElevatedRoles={isSuperUser} />
         </UserActionForm>
       </section>
 

@@ -1,11 +1,15 @@
 import "server-only";
 import { db } from "@/lib/db";
-import { TokenPurpose, UserStatus, type Prisma } from "@/app/generated/prisma/client";
+import { Role, TokenPurpose, UserStatus, type Prisma } from "@/app/generated/prisma/client";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 import type { RequestContext } from "@/lib/modules/auth/session";
 import { revokeAllSessionsForUser } from "@/lib/modules/auth/session";
 import { issueSetupToken } from "@/lib/modules/auth/setup-tokens.service";
+import {
+  normalizeRegistrationStoreScopes,
+  type RegistrationRole,
+} from "./registration-policy";
 
 /**
  * REQ-AUTH-004: ログイン処理は有効ユーザーのみを検索する。
@@ -25,17 +29,31 @@ export interface RegisterCastInput {
   displayName: string;
   displayNameKana: string;
   storeId: string;
+  role: RegistrationRole;
+  managedStoreIds: string[];
   actorUserId: string;
   ctx: RequestContext;
 }
 
 /**
- * REQ-AUTH-005: 管理者事前登録。CASTロール付与とPRIMARY所属登録までを1トランザクションで行う。
+ * REQ-AUTH-005: 管理者事前登録。ロール、PRIMARY所属、管理店舗までを1トランザクションで行う。
  * パスワードはこの時点では存在しない(status=PENDING_SETUP、初期設定コード入力後に本人が設定)。
  * 呼び出し側(Server Action)が事前に requireRole(...) で権限検証済みであることを前提とする。
  */
 export async function registerCast(input: RegisterCastInput) {
   return db.$transaction(async (tx: Prisma.TransactionClient) => {
+    const managedStoreIds = normalizeRegistrationStoreScopes(
+      input.role,
+      input.storeId,
+      input.managedStoreIds,
+    );
+    const existingStoreCount = await tx.store.count({
+      where: { id: { in: [input.storeId, ...managedStoreIds] }, status: "ACTIVE" },
+    });
+    if (existingStoreCount !== new Set([input.storeId, ...managedStoreIds]).size) {
+      throw new Error("指定された有効店舗が存在しません。");
+    }
+
     const user = await tx.user.create({
       data: {
         loginName: input.loginName,
@@ -48,7 +66,7 @@ export async function registerCast(input: RegisterCastInput) {
     await tx.userCredential.create({ data: { userId: user.id } });
 
     await tx.userRole.create({
-      data: { userId: user.id, role: "CAST", grantedById: input.actorUserId },
+      data: { userId: user.id, role: input.role as Role, grantedById: input.actorUserId },
     });
 
     await tx.castStoreMembership.create({
@@ -61,6 +79,16 @@ export async function registerCast(input: RegisterCastInput) {
       },
     });
 
+    if (managedStoreIds.length) {
+      await tx.managerStoreScope.createMany({
+        data: managedStoreIds.map((storeId) => ({
+          userId: user.id,
+          storeId,
+          grantedById: input.actorUserId,
+        })),
+      });
+    }
+
     await recordAuditLog(
       {
         actorUserId: input.actorUserId,
@@ -68,7 +96,12 @@ export async function registerCast(input: RegisterCastInput) {
         entityType: "User",
         entityId: user.id,
         storeId: input.storeId,
-        afterData: { loginName: input.loginName, displayName: input.displayName },
+        afterData: {
+          loginName: input.loginName,
+          displayName: input.displayName,
+          role: input.role,
+          managedStoreIds,
+        },
         ipAddress: input.ctx.ipAddress,
         userAgent: input.ctx.userAgent,
       },

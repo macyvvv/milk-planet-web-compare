@@ -3,8 +3,18 @@ import { cookies, headers } from "next/headers";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 import { generateSessionToken, hashToken } from "./tokens";
+import { createDemoSessionToken, verifyDemoSessionToken } from "./demo-session";
 
 const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+const isEphemeralDemo = () => process.env.EPHEMERAL_SQLITE_DEMO === "1";
+
+function demoSessionSecret(): string {
+  const secret = process.env.DEMO_SESSION_SECRET;
+  if (!secret || secret.length < 32) {
+    throw new Error("EPHEMERAL_SQLITE_DEMO requires DEMO_SESSION_SECRET with at least 32 characters.");
+  }
+  return secret;
+}
 
 export interface RequestContext {
   ipAddress: string | null;
@@ -26,14 +36,18 @@ export async function getRequestContext(): Promise<RequestContext> {
  * required by system_spec.md 6章 (a new session identifier per login, mitigating fixation).
  */
 export async function createSession(userId: string): Promise<void> {
-  const token = generateSessionToken();
-  const tokenHash = hashToken(token);
   const expiresAt = new Date(Date.now() + SESSION_TTL_MS);
+  const token = isEphemeralDemo()
+    ? createDemoSessionToken(userId, expiresAt, demoSessionSecret())
+    : generateSessionToken();
+  const tokenHash = hashToken(token);
   const { ipAddress, userAgent } = await getRequestContext();
 
-  await db.session.create({
-    data: { userId, tokenHash, expiresAt, ipAddress, userAgent },
-  });
+  if (!isEphemeralDemo()) {
+    await db.session.create({
+      data: { userId, tokenHash, expiresAt, ipAddress, userAgent },
+    });
+  }
 
   const cookieStore = await cookies();
   cookieStore.set(env.SESSION_COOKIE_NAME, token, {
@@ -60,6 +74,11 @@ export async function readSession(): Promise<CurrentSession | null> {
   const token = cookieStore.get(env.SESSION_COOKIE_NAME)?.value;
   if (!token) return null;
 
+  if (isEphemeralDemo()) {
+    const verified = verifyDemoSessionToken(token, demoSessionSecret());
+    return verified ? { sessionId: "ephemeral-demo", userId: verified.userId } : null;
+  }
+
   const tokenHash = hashToken(token);
   const session = await db.session.findUnique({ where: { tokenHash } });
 
@@ -78,7 +97,7 @@ export async function readSession(): Promise<CurrentSession | null> {
 export async function destroyCurrentSession(): Promise<void> {
   const cookieStore = await cookies();
   const token = cookieStore.get(env.SESSION_COOKIE_NAME)?.value;
-  if (token) {
+  if (token && !isEphemeralDemo()) {
     await db.session.updateMany({
       where: { tokenHash: hashToken(token), revokedAt: null },
       data: { revokedAt: new Date() },
@@ -95,6 +114,7 @@ export async function revokeAllSessionsForUser(
   userId: string,
   client: { session: typeof db.session } = db,
 ): Promise<void> {
+  if (isEphemeralDemo()) return;
   await client.session.updateMany({
     where: { userId, revokedAt: null },
     data: { revokedAt: new Date() },
