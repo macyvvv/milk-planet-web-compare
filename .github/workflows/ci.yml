@@ -49,5 +49,7 @@ jobs:
           DEMO_ADMIN_PIN: "1234"
           E2E_ADMIN_PIN: "1234"
           DEMO_SESSION_SECRET: "00000000000000000000000000000000"
-          NEXT_PRIVATE_BUILD_WORKER: "1"
-        run: npm run build && npx playwright test
+        run: |
+          rm -f /tmp/milk-planet-ci.db /tmp/milk-planet-ci.db-wal /tmp/milk-planet-ci.db-shm /tmp/milk-planet-ci.db.init.lock
+          npm run build
+          npx playwright test
