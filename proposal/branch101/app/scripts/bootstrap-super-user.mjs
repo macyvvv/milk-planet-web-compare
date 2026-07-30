@@ -4,10 +4,15 @@ import { createClient } from "@libsql/client";
 const LOGIN_NAME = "admin";
 const DISPLAY_NAME = "admin";
 const DISPLAY_NAME_KANA = "あどみん";
+const CODE_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
 const TOKEN_TTL_MS = 72 * 60 * 60 * 1000;
 
-function generateSetupCode() {
-  return randomInt(10_000).toString().padStart(4, "0");
+function generateSetupCode(length = 10) {
+  let code = "";
+  for (let index = 0; index < length; index += 1) {
+    code += CODE_ALPHABET[randomInt(CODE_ALPHABET.length)];
+  }
+  return code;
 }
 
 function hashToken(token) {
@@ -90,7 +95,7 @@ try {
   console.log("SUPER_USER bootstrap completed.");
   console.log(`Login name: ${LOGIN_NAME}`);
   console.log(`Initial setup code (shown once, expires in 72 hours): ${setupCode}`);
-  console.log("Open /initial-setup and set the permanent password.");
+  console.log("Open /initial-setup and set the four-digit PIN.");
 } finally {
   db.close();
 }

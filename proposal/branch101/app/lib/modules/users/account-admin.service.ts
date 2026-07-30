@@ -4,6 +4,7 @@ import { Role, UserStatus, type Prisma } from "@/app/generated/prisma/client";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 import { revokeAllSessionsForUser, type RequestContext } from "@/lib/modules/auth/session";
+import { DomainError } from "@/lib/errors/domain-error";
 
 interface AdminContext {
   actorUserId: string;
@@ -29,7 +30,9 @@ async function assertNotLastSuperUser(
       rolesGranted: { some: { role: Role.SUPER_USER, revokedAt: null } },
     },
   });
-  if (count <= 1) throw new Error("最後の有効なSUPER_USERは変更できません。");
+  if (count <= 1) {
+    throw new DomainError("最後の有効なスーパーユーザーは変更できません。", "LAST_SUPER_USER");
+  }
 }
 
 export async function unlockAccount(userId: string, admin: AdminContext) {

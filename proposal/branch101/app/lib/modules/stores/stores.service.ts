@@ -14,10 +14,11 @@ export async function getStore(storeId: string) {
 }
 
 export interface CreateStoreInput {
+  code: string;
   name: string;
 }
 
 /** Store master data is small and rarely changes (8 stores, requirements.md 3.2) — no history table. */
 export async function createStore(input: CreateStoreInput) {
-  return db.store.create({ data: { name: input.name } });
+  return db.store.create({ data: { code: input.code, name: input.name } });
 }

@@ -13,12 +13,12 @@ const LOCK_DURATION_MS = 15 * 60 * 1000;
 
 export const LoginSchema = z.object({
   loginName: z.string().min(1, "キャスト名を入力してください"),
-  password: z.string().min(1, "パスワードを入力してください"),
+  password: z.string().regex(/^\d{4}$/, "PINは数字4桁で入力してください"),
 });
 
 export type LoginResult = { ok: true } | { ok: false; error: string };
 
-const INVALID_CREDENTIALS = "キャスト名またはパスワードが正しくありません。";
+const INVALID_CREDENTIALS = "キャスト名またはPINが正しくありません。";
 const LOCKED_MESSAGE =
   "ログイン試行回数が上限に達しました。しばらくしてから再度お試しください。";
 

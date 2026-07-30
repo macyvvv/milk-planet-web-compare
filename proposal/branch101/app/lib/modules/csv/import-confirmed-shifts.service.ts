@@ -6,22 +6,24 @@ import {
   CsvRowStatus,
   ConfirmedShiftStatus,
 } from "@/app/generated/prisma/client";
-import { parseCsvText } from "./csv-utils";
+import { csvRowData, parseCsvText } from "./csv-utils";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 import type { RequestContext } from "@/lib/modules/auth/session";
 
-export const CONFIRMED_SHIFT_IMPORT_COLUMNS = ["login_name", "store_name", "period_start_date", "work_date", "start_time", "end_time", "cast_note", "admin_note"] as const;
+export const CONFIRMED_SHIFT_IMPORT_COLUMNS = ["operation", "login_name", "store_code", "period_start_date", "work_date", "start_time", "end_time", "cast_note", "admin_note", "change_reason"] as const;
 
 interface ConfirmedShiftImportRowData {
+  operation: string;
   login_name: string;
-  store_name: string;
+  store_code: string;
   period_start_date: string; // YYYY-MM-DD
   work_date: string; // YYYY-MM-DD
   start_time: string; // HH:MM
   end_time: string; // HH:MM
   cast_note: string;
   admin_note: string;
+  change_reason: string;
 }
 
 export interface UploadConfirmedShiftsCsvInput {
@@ -54,7 +56,7 @@ export async function uploadConfirmedShiftsCsv(input: UploadConfirmedShiftsCsvIn
   }
 
   const stores = await db.store.findMany();
-  const storeByName = new Map(stores.map((s) => [s.name, s]));
+  const storeByCode = new Map(stores.map((s) => [s.code, s]));
   const users = await db.user.findMany({ select: { id: true, loginName: true } });
   const userByLoginName = new Map(users.map((u) => [u.loginName, u]));
   const periods = await db.period.findMany();
@@ -67,12 +69,13 @@ export async function uploadConfirmedShiftsCsv(input: UploadConfirmedShiftsCsvIn
   for (let i = 0; i < data.length; i++) {
     const raw = data[i] as unknown as ConfirmedShiftImportRowData;
     const rowErrors: string[] = [];
+    if (raw.operation?.trim().toUpperCase() !== "UPSERT") rowErrors.push("operationはUPSERTです。");
 
     if (!raw.login_name?.trim()) rowErrors.push("login_nameが空です。");
     else if (!userByLoginName.has(raw.login_name.trim())) rowErrors.push(`ユーザー「${raw.login_name}」が存在しません。`);
 
-    if (!raw.store_name?.trim()) rowErrors.push("store_nameが空です。");
-    else if (!storeByName.has(raw.store_name.trim())) rowErrors.push(`店舗「${raw.store_name}」が存在しません。`);
+    if (!raw.store_code?.trim()) rowErrors.push("store_codeが空です。");
+    else if (!storeByCode.has(raw.store_code.trim())) rowErrors.push(`店舗コード「${raw.store_code}」が存在しません。`);
 
     if (!raw.period_start_date?.trim() || isNaN(Date.parse(raw.period_start_date.trim()))) {
       rowErrors.push("period_start_dateが不正です（YYYY-MM-DD形式）。");
@@ -126,7 +129,7 @@ export async function applyConfirmedShiftsCsv(input: ApplyConfirmedShiftsCsvInpu
   if (job.rows.some((r) => r.status === CsvRowStatus.INVALID)) throw new Error("無効な行が含まれています。");
 
   const stores = await db.store.findMany();
-  const storeByName = new Map(stores.map((s) => [s.name, s]));
+  const storeByCode = new Map(stores.map((s) => [s.code, s]));
   const users = await db.user.findMany({ select: { id: true, loginName: true } });
   const userByLoginName = new Map(users.map((u) => [u.loginName, u]));
   const periods = await db.period.findMany();
@@ -136,8 +139,8 @@ export async function applyConfirmedShiftsCsv(input: ApplyConfirmedShiftsCsvInpu
 
   await db.$transaction(async (tx) => {
     for (const row of job.rows) {
-      const raw = row.rawData as unknown as ConfirmedShiftImportRowData;
-      const store = storeByName.get(raw.store_name.trim())!;
+      const raw = csvRowData<ConfirmedShiftImportRowData>(row.rawData);
+      const store = storeByCode.get(raw.store_code.trim())!;
       const user = userByLoginName.get(raw.login_name.trim())!;
       const periodKey = new Date(raw.period_start_date.trim()).toISOString().split("T")[0];
       const period = periodMap.get(periodKey)!;
@@ -151,8 +154,10 @@ export async function applyConfirmedShiftsCsv(input: ApplyConfirmedShiftsCsvInpu
       const endAt = new Date(workDate);
       endAt.setUTCHours(parseInt(endParts[0]), parseInt(endParts[1]), 0, 0);
 
-      await tx.confirmedShift.create({
-        data: {
+      const existing = await tx.confirmedShift.findFirst({
+        where: { periodId: period.id, userId: user.id, workDate },
+      });
+      const shiftData = {
           periodId: period.id,
           storeId: store.id,
           userId: user.id,
@@ -164,6 +169,45 @@ export async function applyConfirmedShiftsCsv(input: ApplyConfirmedShiftsCsvInpu
           adminNote: raw.admin_note?.trim() || null,
           createdById: input.actorUserId,
           updatedById: input.actorUserId,
+      };
+      const isPostPublication = existing?.status === ConfirmedShiftStatus.PUBLISHED;
+      if (isPostPublication && !raw.change_reason?.trim()) {
+        throw new Error("公開済みシフトの変更にはchange_reasonが必要です。");
+      }
+      const saved = existing
+        ? await tx.confirmedShift.update({
+          where: { id: existing.id },
+          data: {
+            storeId: shiftData.storeId,
+            startAt,
+            endAt,
+            status: ConfirmedShiftStatus.CONFIRMED,
+            castNote: shiftData.castNote,
+            adminNote: shiftData.adminNote,
+            changeReason: raw.change_reason?.trim() || null,
+            updatedById: input.actorUserId,
+            version: { increment: 1 },
+            currentVersionNo: { increment: 1 },
+          },
+        })
+        : await tx.confirmedShift.create({
+            data: { ...shiftData, changeReason: raw.change_reason?.trim() || null },
+          });
+      await tx.confirmedShiftVersion.create({
+        data: {
+          confirmedShiftId: saved.id,
+          versionNo: saved.currentVersionNo,
+          storeId: saved.storeId,
+          workDate: saved.workDate,
+          startAt: saved.startAt,
+          endAt: saved.endAt,
+          status: saved.status,
+          adminNote: saved.adminNote,
+          castNote: saved.castNote,
+          changeReason: saved.changeReason,
+          isPostPublicationChange: isPostPublication,
+          castNotifiedStatus: isPostPublication ? "NOT_NOTIFIED" : null,
+          changedById: input.actorUserId,
         },
       });
       count++;

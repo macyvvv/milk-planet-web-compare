@@ -5,20 +5,24 @@ import {
   CsvImportStatus,
   CsvRowStatus,
 } from "@/app/generated/prisma/client";
-import { parseCsvText } from "./csv-utils";
+import { csvRowData, parseCsvText } from "./csv-utils";
 import { recordAuditLog } from "@/lib/modules/audit/audit.service";
 import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 import type { RequestContext } from "@/lib/modules/auth/session";
+import { markSubmittedCastsNeedAck } from "@/lib/modules/events/events.service";
 
-export const EVENT_IMPORT_COLUMNS = ["name", "event_date", "is_all_stores", "store_names", "cast_note", "admin_note"] as const;
+export const EVENT_IMPORT_COLUMNS = ["operation", "event_id", "name", "event_date", "is_all_stores", "store_codes", "cast_note", "admin_note", "change_reason"] as const;
 
 interface EventImportRowData {
+  operation: string;
+  event_id: string;
   name: string;
   event_date: string; // YYYY-MM-DD
   is_all_stores: string; // true or false
-  store_names: string; // comma separated if not all stores
+  store_codes: string; // pipe separated if not all stores
   cast_note: string;
   admin_note: string;
+  change_reason: string;
 }
 
 export interface UploadEventsCsvInput {
@@ -51,12 +55,15 @@ export async function uploadEventsCsv(input: UploadEventsCsvInput) {
   }
 
   const stores = await db.store.findMany();
-  const storeByName = new Map(stores.map((s) => [s.name, s]));
+  const storeByCode = new Map(stores.map((s) => [s.code, s]));
+  const eventIds = new Set((await db.event.findMany({ select: { id: true } })).map((event) => event.id));
   let anyInvalid = false;
 
   for (let i = 0; i < data.length; i++) {
     const raw = data[i] as unknown as EventImportRowData;
     const rowErrors: string[] = [];
+    if (raw.operation?.trim().toUpperCase() !== "UPSERT") rowErrors.push("operationはUPSERTです。");
+    if (raw.event_id?.trim() && !eventIds.has(raw.event_id.trim())) rowErrors.push("event_idが存在しません。");
 
     if (!raw.name?.trim()) rowErrors.push("nameが空です。");
     if (!raw.event_date?.trim() || isNaN(Date.parse(raw.event_date.trim()))) {
@@ -69,12 +76,12 @@ export async function uploadEventsCsv(input: UploadEventsCsvInput) {
     }
 
     if (isAllStoresStr === "false") {
-      if (!raw.store_names?.trim()) {
-        rowErrors.push("is_all_storesがfalseの場合、store_namesを指定してください。");
+      if (!raw.store_codes?.trim()) {
+        rowErrors.push("is_all_storesがfalseの場合、store_codesを指定してください。");
       } else {
-        const names = raw.store_names.split(",").map(n => n.trim()).filter(Boolean);
-        for (const n of names) {
-          if (!storeByName.has(n)) rowErrors.push(`店舗「${n}」が存在しません。`);
+        const codes = raw.store_codes.split("|").map(n => n.trim()).filter(Boolean);
+        for (const code of codes) {
+          if (!storeByCode.has(code)) rowErrors.push(`店舗コード「${code}」が存在しません。`);
         }
       }
     }
@@ -114,32 +121,67 @@ export async function applyEventsCsv(input: ApplyEventsCsvInput): Promise<number
   if (job.rows.some((r) => r.status === CsvRowStatus.INVALID)) throw new Error("無効な行が含まれています。");
 
   const stores = await db.store.findMany();
-  const storeByName = new Map(stores.map((s) => [s.name, s]));
+  const storeByCode = new Map(stores.map((s) => [s.code, s]));
   let count = 0;
 
   await db.$transaction(async (tx) => {
     for (const row of job.rows) {
-      const raw = row.rawData as unknown as EventImportRowData;
+      const raw = csvRowData<EventImportRowData>(row.rawData);
       const isAllStores = raw.is_all_stores.trim().toLowerCase() === "true";
 
-      const event = await tx.event.create({
-        data: {
+      const eventDate = new Date(raw.event_date.trim());
+      const existing = raw.event_id.trim()
+        ? await tx.event.findUniqueOrThrow({ where: { id: raw.event_id.trim() } })
+        : await tx.event.findFirst({ where: { name: raw.name.trim(), eventDate } });
+      const eventData = {
           name: raw.name.trim(),
-          eventDate: new Date(raw.event_date.trim()),
+          eventDate,
           isAllStores,
           castNote: raw.cast_note?.trim() || null,
           adminNote: raw.admin_note?.trim() || null,
           createdById: input.actorUserId,
-        },
-      });
+      };
+      const event = existing
+        ? await tx.event.update({
+            where: { id: existing.id },
+            data: {
+              name: eventData.name,
+              eventDate: eventData.eventDate,
+              isAllStores,
+              castNote: eventData.castNote,
+              adminNote: eventData.adminNote,
+              currentVersionNo: { increment: 1 },
+            },
+          })
+        : await tx.event.create({ data: eventData });
+      await tx.eventStore.deleteMany({ where: { eventId: event.id } });
 
-      if (!isAllStores && raw.store_names?.trim()) {
-        const names = raw.store_names.split(",").map(n => n.trim()).filter(Boolean);
-        const storeIds = names.map(n => storeByName.get(n)!.id);
+      let storeIds: string[] = [];
+      if (!isAllStores && raw.store_codes?.trim()) {
+        const codes = raw.store_codes.split("|").map(n => n.trim()).filter(Boolean);
+        storeIds = codes.map(n => storeByCode.get(n)!.id);
 
         await tx.eventStore.createMany({
           data: storeIds.map(storeId => ({ eventId: event.id, storeId }))
         });
+      }
+      await tx.eventVersion.create({
+        data: {
+          eventId: event.id,
+          versionNo: event.currentVersionNo,
+          name: event.name,
+          eventDate: event.eventDate,
+          isAllStores: event.isAllStores,
+          storeIdsSnapshot: JSON.stringify(storeIds),
+          castNote: event.castNote,
+          adminNote: event.adminNote,
+          status: event.status,
+          changeReason: raw.change_reason?.trim() || null,
+          changedById: input.actorUserId,
+        },
+      });
+      if (existing) {
+        await markSubmittedCastsNeedAck(tx, event.id, event.eventDate, isAllStores, storeIds);
       }
 
       count++;

@@ -96,7 +96,7 @@ export async function approvePasswordResetAction(
     requestedNote: String(formData.get("reason") ?? "").trim() || undefined,
     ctx: await getRequestContext(),
   });
-  return { message: "パスワード再設定を許可しました。", setupCode: code };
+  return { message: "PIN再設定を許可しました。", setupCode: code };
 }
 
 export async function unlockAccountAction(formData: FormData) {

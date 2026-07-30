@@ -430,7 +430,7 @@ REQ-AUTH-007。承認の都度1行追加(追記専用)。
 | 列 | 型 | 制約 |
 |---|---|---|
 | id | UUID | PK |
-| job_type | ENUM(CASTS, MEMBERSHIPS, AVAILABILITY, EVENTS, CONFIRMED_SHIFTS) | NOT NULL |
+| job_type | ENUM(CASTS, STORES, MEMBERSHIPS, STANDARD_SHIFTS, PERIOD_SETTINGS, AVAILABILITY, EVENTS, CONFIRMED_SHIFTS) | NOT NULL |
 | store_id, period_id | UUID | NULL可(対象範囲) |
 | status | ENUM(UPLOADED, VALIDATING, PREVIEW_READY, VALIDATION_FAILED, CONFIRMED, APPLIED, FAILED, CANCELLED) | NOT NULL |
 | reason | TEXT | `job_type=AVAILABILITY` の場合NOT NULL(REQ-CSV-004) |
@@ -445,8 +445,8 @@ REQ-AUTH-007。承認の都度1行追加(追記専用)。
 | id | UUID | PK |
 | job_id | UUID | FK→csv_import_jobs.id |
 | row_no | INT | NOT NULL |
-| raw_data | JSONB | NOT NULL |
-| validation_errors | JSONB | NULL可 |
+| raw_data | TEXT(JSON) | NOT NULL |
+| validation_errors | TEXT(JSON配列) | NULL可 |
 | status | ENUM(VALID, INVALID) | NOT NULL |
 
 **DB制約**: `UNIQUE (job_id, row_no)`。

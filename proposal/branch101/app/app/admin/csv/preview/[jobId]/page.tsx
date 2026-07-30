@@ -2,8 +2,9 @@ import { notFound } from "next/navigation";
 import { requireRole } from "@/lib/modules/auth/dal";
 import { Role } from "@/app/generated/prisma/client";
 import { db } from "@/lib/db";
-import { applyAvailabilityCsvActionForm } from "../../import-actions";
+import { applyAvailabilityCsvActionForm, applyOperationalCsvAction } from "../../import-actions";
 import { ApplyCastsButton } from "../apply-casts-button";
+import { csvRowData } from "@/lib/modules/csv/csv-utils";
 
 export default async function CsvPreviewPage({ params }: { params: Promise<{ jobId: string }> }) {
   await requireRole(
@@ -49,9 +50,11 @@ export default async function CsvPreviewPage({ params }: { params: Promise<{ job
               <tr key={row.id} className="border-b border-slate-100 dark:border-slate-900">
                 <td className="p-1">{row.rowNo}</td>
                 <td className="p-1">{row.status}</td>
-                <td className="p-1">{JSON.stringify(row.rawData)}</td>
+                <td className="p-1">{JSON.stringify(csvRowData(row.rawData))}</td>
                 <td className="p-1 text-red-600 dark:text-red-400">
-                  {Array.isArray(row.validationErrors) ? row.validationErrors.join(" / ") : ""}
+                  {row.validationErrors
+                    ? csvRowData<string[]>(row.validationErrors).join(" / ")
+                    : ""}
                 </td>
               </tr>
             ))}
@@ -69,6 +72,25 @@ export default async function CsvPreviewPage({ params }: { params: Promise<{ job
           </button>
         </form>
       )}
+
+      {job.status === "PREVIEW_READY" &&
+        [
+          "STORES",
+          "MEMBERSHIPS",
+          "STANDARD_SHIFTS",
+          "PERIOD_SETTINGS",
+          "PERIOD_CAST_TARGETS",
+          "NOTIFICATION_TEMPLATES",
+          "EVENTS",
+          "CONFIRMED_SHIFTS",
+        ].includes(job.jobType) && (
+          <form action={applyOperationalCsvAction}>
+            <input type="hidden" name="jobId" value={job.id} />
+            <button type="submit" className="rounded-md bg-sky-600 px-4 py-2 text-sm font-medium text-white">
+              この内容で反映する
+            </button>
+          </form>
+        )}
 
       {job.status === "APPLIED" && (
         <p className="text-sm text-emerald-700 dark:text-emerald-400">
