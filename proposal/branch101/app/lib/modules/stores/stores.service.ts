@@ -22,3 +22,17 @@ export interface CreateStoreInput {
 export async function createStore(input: CreateStoreInput) {
   return db.store.create({ data: { code: input.code, name: input.name } });
 }
+
+export interface UpdateStoreInput {
+  storeId: string;
+  code: string;
+  name: string;
+  status: "ACTIVE" | "INACTIVE";
+}
+
+export async function updateStore(input: UpdateStoreInput) {
+  return db.store.update({
+    where: { id: input.storeId },
+    data: { code: input.code, name: input.name, status: input.status }
+  });
+}

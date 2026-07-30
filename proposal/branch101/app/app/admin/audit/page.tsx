@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireRole } from "@/lib/modules/auth/dal";
 import { Role } from "@/app/generated/prisma/client";
 import { db } from "@/lib/db";
@@ -7,19 +8,31 @@ import { AUDIT_ACTIONS } from "@/lib/modules/audit/actions";
 export default async function AdminAuditPage({
   searchParams,
 }: {
-  searchParams: Promise<{ action?: string; entityType?: string }>;
+  searchParams: Promise<{ action?: string; entityType?: string; page?: string }>;
 }) {
   await requireRole(Role.SUPER_USER);
-  const { action, entityType } = await searchParams;
+  const { action, entityType, page } = await searchParams;
 
-  const logs = await db.auditLog.findMany({
-    where: {
-      ...(action ? { action } : {}),
-      ...(entityType ? { entityType } : {}),
-    },
-    orderBy: { createdAt: "desc" },
-    take: 200,
-  });
+  const currentPage = Math.max(1, parseInt(page || "1", 10));
+  const take = 50;
+  const skip = (currentPage - 1) * take;
+
+  const where = {
+    ...(action ? { action } : {}),
+    ...(entityType ? { entityType } : {}),
+  };
+
+  const [logs, totalCount] = await Promise.all([
+    db.auditLog.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      take,
+      skip,
+    }),
+    db.auditLog.count({ where }),
+  ]);
+  
+  const totalPages = Math.ceil(totalCount / take);
 
   const entityTypes = await db.auditLog.findMany({
     distinct: ["entityType"],
@@ -86,6 +99,35 @@ export default async function AdminAuditPage({
           </tbody>
         </table>
       </div>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between mt-4 border-t pt-4">
+          <p className="text-sm text-muted-foreground">
+            {totalCount} 件中 {(currentPage - 1) * take + 1} - {Math.min(currentPage * take, totalCount)} 件を表示
+          </p>
+          <div className="flex gap-2">
+            <Link 
+              href={`/admin/audit?action=${action ?? ""}&entityType=${entityType ?? ""}&page=${currentPage - 1}`}
+              className={`px-3 py-1 text-sm rounded border ${currentPage <= 1 ? 'pointer-events-none opacity-50' : 'hover:bg-muted'}`}
+            >
+              前へ
+            </Link>
+            <span className="px-3 py-1 text-sm">
+              {currentPage} / {totalPages}
+            </span>
+            <Link 
+              href={`/admin/audit?action=${action ?? ""}&entityType=${entityType ?? ""}&page=${currentPage + 1}`}
+              className={`px-3 py-1 text-sm rounded border ${currentPage >= totalPages ? 'pointer-events-none opacity-50' : 'hover:bg-muted'}`}
+            >
+              次へ
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+export const metadata = {
+  title: "監査ログ | Milk Planet",
+};

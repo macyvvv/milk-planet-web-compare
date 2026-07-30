@@ -1,14 +1,10 @@
 version: '3.8'
 services:
   db:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: milk_planet_shift
+    image: ghcr.io/tursodatabase/libsql-server:latest
     ports:
-      - "5432:5432"
+      - "8080:8080"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - libsql_data:/var/lib/sqld
 volumes:
-  postgres_data:
+  libsql_data:

@@ -123,3 +123,7 @@ export default async function AdminCsvPage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "CSV入出力 | Milk Planet",
+};

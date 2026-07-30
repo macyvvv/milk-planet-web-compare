@@ -29,7 +29,13 @@ export default async function AdminEventsPage() {
       scope === "ALL"
         ? {}
         : { OR: [{ isAllStores: true }, { stores: { some: { storeId: { in: storeIds } } } }] },
-    include: { stores: { include: { store: true } } },
+    include: { 
+      stores: { include: { store: true } },
+      acknowledgements: {
+        where: { status: "NEEDS_ACK" },
+        include: { user: true }
+      }
+    },
     orderBy: { eventDate: "asc" },
   });
 
@@ -57,19 +63,34 @@ export default async function AdminEventsPage() {
               className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200 p-3 dark:border-slate-800"
             >
               <div>
-                <p className="font-medium">
-                  {event.name}{" "}
+                <p className="font-medium flex items-center gap-2">
+                  {event.name}
                   {event.status === "DISABLED" && (
-                    <span className="text-xs text-slate-400">(無効化済み)</span>
+                    <span className="text-xs text-muted-foreground">(無効化済み)</span>
+                  )}
+                  {event.acknowledgements.length > 0 && (
+                    <span className="rounded-full bg-destructive/10 text-destructive px-2 py-0.5 text-[10px] font-bold">
+                      未確認 {event.acknowledgements.length}名
+                    </span>
                   )}
                 </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-muted-foreground">
                   {fmt(event.eventDate)} ・{" "}
                   {event.isAllStores
                     ? "全店舗"
                     : event.stores.map((s) => s.store.name).join("、")}{" "}
                   ・ v{event.currentVersionNo}
                 </p>
+                
+                {event.acknowledgements.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {event.acknowledgements.map(ack => (
+                      <span key={ack.id} className="text-[10px] bg-muted px-1.5 py-0.5 rounded border">
+                        {ack.user.displayName}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="flex gap-2">
                 <Link
@@ -97,3 +118,7 @@ export default async function AdminEventsPage() {
     </div>
   );
 }
+
+export const metadata = {
+  title: "イベント管理 | Milk Planet",
+};

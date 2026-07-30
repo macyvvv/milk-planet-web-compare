@@ -139,3 +139,48 @@ export async function deactivateAccountAction(formData: FormData) {
   });
   revalidatePath("/admin/users");
 }
+
+export async function updateResignationAction(
+  _state: UserActionState | undefined,
+  formData: FormData
+): Promise<UserActionState> {
+  const actor = await requireAccountOperator();
+  const userId = z.string().uuid().parse(formData.get("userId"));
+  const dateStr = formData.get("resignationDate") as string;
+  await requireTargetAccess(actor, userId);
+
+  try {
+    const { updateResignationDate } = await import("@/lib/modules/users/users.service");
+    const resignationDate = dateStr ? new Date(dateStr) : null;
+    await updateResignationDate(userId, resignationDate, {
+      actorUserId: actor.id,
+      ctx: await getRequestContext(),
+    });
+    revalidatePath("/admin/users");
+    return { message: "退店予定日を更新しました。" };
+  } catch {
+    return { error: "更新に失敗しました。" };
+  }
+}
+
+export async function updateMembershipsAction(
+  _state: UserActionState | undefined,
+  formData: FormData
+): Promise<UserActionState> {
+  const actor = await requireAccountOperator();
+  const userId = z.string().uuid().parse(formData.get("userId"));
+  const storeIds = formData.getAll("storeIds") as string[];
+  await requireTargetAccess(actor, userId);
+
+  try {
+    const { updateMemberships } = await import("@/lib/modules/users/users.service");
+    await updateMemberships(userId, storeIds, {
+      actorUserId: actor.id,
+      ctx: await getRequestContext(),
+    });
+    revalidatePath("/admin/users");
+    return { message: "所属店舗を更新しました。" };
+  } catch {
+    return { error: "更新に失敗しました。" };
+  }
+}

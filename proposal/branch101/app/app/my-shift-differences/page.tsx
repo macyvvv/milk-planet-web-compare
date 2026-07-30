@@ -40,3 +40,7 @@ export default async function MyShiftDifferencesPage() {
     </div>
   );
 }
+
+export const metadata = {
+  title: "希望と確定の差分 (キャスト) | Milk Planet",
+};

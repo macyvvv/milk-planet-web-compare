@@ -124,7 +124,13 @@ export interface SaveDraftInput {
   ctx: RequestContext;
 }
 
-/** REQ-AVAIL-001,003,005,006: 下書き保存。OFF以外は時刻必須で、業務日基準を絶対日時へ正規化する。 */
+/** 
+ * REQ-AVAIL-001,003,005,006: 下書き保存。OFF以外は時刻必須で、業務日基準を絶対日時へ正規化する。
+ * 【時刻変換の仕様 (DO-06)】
+ * 画面から渡される業務日 (UTC 0:00 の Date) と時刻文字列 (例: "09:00") は、
+ * businessTimeToDate() によって内部的に日本時間(JST)を前提としたオフセット計算が行われ、
+ * DBの \`start_at\` / \`end_at\` には UTC の絶対日時 (Date) として保存されます。
+ */
 export async function saveDraftEntries(input: SaveDraftInput): Promise<void> {
   const submission = await getOrCreateSubmission(input.periodId, input.storeId, input.userId);
   await assertEditable(input.periodId, input.storeId, submission.id);

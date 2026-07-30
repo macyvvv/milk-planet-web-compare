@@ -173,3 +173,7 @@ export default async function AdminPeriodsPage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "シフト受付期間管理 | Milk Planet",
+};

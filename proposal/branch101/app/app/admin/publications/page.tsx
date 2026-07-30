@@ -119,3 +119,7 @@ export default async function AdminPublicationsPage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "シフト公開 | Milk Planet",
+};

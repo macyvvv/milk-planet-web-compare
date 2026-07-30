@@ -69,3 +69,42 @@ export async function ensureSubmissionsAction(formData: FormData): Promise<void>
   }
   revalidatePath("/admin/submissions");
 }
+
+const ExclusionSchema = z.object({
+  targetId: z.string().uuid(),
+  storeId: z.string().uuid(),
+  status: z.enum(["ACTIVE", "EXCLUDED_RESIGNED", "EXCLUDED_LONG_ABSENCE", "EXCLUDED_OTHER"]),
+  reason: z.string().optional(),
+});
+
+type ExclusionState = { error?: string; message?: string };
+
+export async function updateTargetStatusAction(
+  _prevState: ExclusionState,
+  formData: FormData
+): Promise<ExclusionState> {
+  const parsed = ExclusionSchema.safeParse({
+    targetId: formData.get("targetId"),
+    storeId: formData.get("storeId"),
+    status: formData.get("status"),
+    reason: formData.get("reason"),
+  });
+
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "入力内容を確認してください。" };
+  }
+
+  const user = await requireStoreAccess(parsed.data.storeId);
+  // Need to update PeriodCastTarget
+  await db.periodCastTarget.update({
+    where: { id: parsed.data.targetId },
+    data: {
+      targetStatus: parsed.data.status,
+      exclusionReason: parsed.data.status === "ACTIVE" ? null : parsed.data.reason,
+      updatedById: user.id,
+    }
+  });
+
+  revalidatePath("/admin/submissions");
+  return { message: "対象ステータスを更新しました。" };
+}

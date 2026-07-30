@@ -15,10 +15,8 @@ const SaveShiftSchema = z.object({
   storeId: z.string().uuid(),
   userId: z.string().uuid(),
   workDate: z.string().min(1),
-  startHour: z.coerce.number().min(0).max(30),
-  startMinute: z.coerce.number(),
-  endHour: z.coerce.number().min(0).max(30),
-  endMinute: z.coerce.number(),
+  startTime: z.string().regex(/^\d{2}:\d{2}$/, "時刻はHH:MM形式で入力してください"),
+  endTime: z.string().regex(/^\d{2}:\d{2}$/, "時刻はHH:MM形式で入力してください"),
   adminNote: z.string().optional(),
   castNote: z.string().optional(),
   changeReason: z.string().optional(),
@@ -36,6 +34,16 @@ export async function saveConfirmedShiftAction(
   const user = await requireStoreAccess(parsed.data.storeId);
   const ctx = await getRequestContext();
   const [y, m, d] = parsed.data.workDate.split("-").map(Number);
+  
+  const [startHour, startMinute] = parsed.data.startTime.split(":").map(Number);
+  const endTimeParts = parsed.data.endTime.split(":").map(Number);
+  let endHour = endTimeParts[0]!;
+  const endMinute = endTimeParts[1]!;
+
+  // もし終了時刻が開始時刻より前の場合、翌日扱い（+24時間）とする
+  if (endHour < startHour || (endHour === startHour && endMinute < startMinute)) {
+    endHour += 24;
+  }
 
   try {
     await saveConfirmedShift({
@@ -43,8 +51,8 @@ export async function saveConfirmedShiftAction(
       storeId: parsed.data.storeId,
       userId: parsed.data.userId,
       workDate: new Date(Date.UTC(y, m - 1, d)),
-      start: { hour: parsed.data.startHour, minute: parsed.data.startMinute },
-      end: { hour: parsed.data.endHour, minute: parsed.data.endMinute },
+      start: { hour: startHour, minute: startMinute },
+      end: { hour: endHour, minute: endMinute },
       adminNote: parsed.data.adminNote,
       castNote: parsed.data.castNote,
       changeReason: parsed.data.changeReason,

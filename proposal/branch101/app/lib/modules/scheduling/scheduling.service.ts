@@ -84,6 +84,23 @@ export async function saveConfirmedShift(input: SaveConfirmedShiftInput) {
       throw new OptimisticLockError(existing.version);
     }
 
+    // SQLite (libSQL) では GiST 制約による時間帯重複チェックができないため、アプリケーション層で検知する
+    const overlaps = await tx.confirmedShift.findFirst({
+      where: {
+        userId: input.userId,
+        status: { not: "CANCELLED" },
+        id: existing ? { not: existing.id } : undefined,
+        AND: [
+          { startAt: { lt: endAt } },
+          { endAt: { gt: startAt } },
+        ],
+      },
+    });
+
+    if (overlaps) {
+      throw new Error("指定された時間帯は、他日・別店舗のシフトと重複しています。");
+    }
+
     const isPostPublication = existing?.status === "PUBLISHED";
     const newVersionNo = (existing?.currentVersionNo ?? 0) + 1;
 

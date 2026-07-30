@@ -97,3 +97,7 @@ export default async function AvailabilityPage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "シフト希望入力 | Milk Planet",
+};

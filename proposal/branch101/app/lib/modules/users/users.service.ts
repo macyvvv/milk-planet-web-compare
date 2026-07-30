@@ -11,6 +11,11 @@ import {
   type RegistrationRole,
 } from "./registration-policy";
 
+interface AdminContext {
+  actorUserId: string;
+  ctx: RequestContext;
+}
+
 /**
  * REQ-AUTH-004: ログイン処理は有効ユーザーのみを検索する。
  * REQ-AUTH-003 / D-004: 一意性は PENDING_SETUP と ACTIVE の間でのみ判定するため、ログイン検索
@@ -172,5 +177,84 @@ export async function deactivateUser(input: DeactivateUserInput) {
     );
 
     return after;
+  });
+}
+
+export async function updateResignationDate(
+  userId: string,
+  resignationScheduledOn: Date | null,
+  admin: AdminContext
+) {
+  await db.$transaction(async (tx) => {
+    const before = await tx.user.findUniqueOrThrow({ where: { id: userId } });
+    if (before.resignationScheduledOn?.getTime() === resignationScheduledOn?.getTime()) return;
+
+    await tx.user.update({
+      where: { id: userId },
+      data: { resignationScheduledOn },
+    });
+
+    await recordAuditLog(
+      {
+        actorUserId: admin.actorUserId,
+        action: "USER_RESIGNATION_DATE_UPDATED",
+        entityType: "User",
+        entityId: userId,
+        beforeData: { resignationScheduledOn: before.resignationScheduledOn },
+        afterData: { resignationScheduledOn },
+        ipAddress: admin.ctx.ipAddress,
+        userAgent: admin.ctx.userAgent,
+      },
+      tx
+    );
+  });
+}
+
+export async function updateMemberships(
+  userId: string,
+  storeIds: string[],
+  admin: AdminContext
+) {
+  await db.$transaction(async (tx) => {
+    const uniqueStoreIds = [...new Set(storeIds)];
+    const active = await tx.castStoreMembership.findMany({
+      where: { userId, validTo: null },
+    });
+    const activeIds = new Set(active.map((m) => m.storeId));
+
+    // End memberships not in the new list
+    await tx.castStoreMembership.updateMany({
+      where: { userId, validTo: null, storeId: { notIn: uniqueStoreIds } },
+      data: { validTo: new Date() },
+    });
+
+    // Add new memberships
+    for (const storeId of uniqueStoreIds) {
+      if (!activeIds.has(storeId)) {
+        await tx.castStoreMembership.create({
+          data: {
+            userId,
+            storeId,
+            validFrom: new Date(),
+            membershipType: "PRIMARY",
+            createdById: admin.actorUserId,
+          },
+        });
+      }
+    }
+
+    await recordAuditLog(
+      {
+        actorUserId: admin.actorUserId,
+        action: "USER_MEMBERSHIPS_UPDATED",
+        entityType: "CastStoreMembership",
+        entityId: userId,
+        beforeData: { storeIds: [...activeIds] },
+        afterData: { storeIds: uniqueStoreIds },
+        ipAddress: admin.ctx.ipAddress,
+        userAgent: admin.ctx.userAgent,
+      },
+      tx
+    );
   });
 }
