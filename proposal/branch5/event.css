@@ -114,3 +114,8 @@
 .modaal-video .modaal-inner-wrapper{
     padding:0;
 }
+
+/* 遠隔通販トグルを通常メニューと同じ文字サイズに揃える */
+html body #top-head #global-nav .nav-submenu-item > .nav-submenu-toggle {
+    font-size: 16px !important;
+}
