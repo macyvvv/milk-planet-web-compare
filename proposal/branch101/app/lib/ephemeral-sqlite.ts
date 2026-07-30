@@ -1,5 +1,5 @@
 import "server-only";
-import { readdir, readFile } from "node:fs/promises";
+import { open, readdir, readFile, stat, unlink } from "node:fs/promises";
 import path from "node:path";
 import { hash } from "@node-rs/argon2";
 import { createClient } from "@libsql/client";
@@ -9,6 +9,10 @@ const ARGON2_OPTIONS = {
   timeCost: 2,
   parallelism: 1,
 };
+const LOCK_RETRY_MS = 100;
+const LOCK_TIMEOUT_MS = 30_000;
+const STALE_LOCK_MS = 60_000;
+
 export const DEMO_SUPER_USER_ID = "00000000-0000-4000-8000-000000000101";
 const DEMO_SUPER_USER_ROLE_ID = "00000000-0000-4000-8000-000000000102";
 const DEMO_STORE_ID = "00000000-0000-4000-8000-000000000201";
@@ -24,12 +28,52 @@ function requireDemoPin(): string {
   return pin;
 }
 
-async function migrateAndSeed(): Promise<void> {
-  const url = process.env.DATABASE_URL;
-  if (!url?.startsWith("file:/tmp/")) {
-    throw new Error("EPHEMERAL_SQLITE_DEMO requires DATABASE_URL under file:/tmp/.");
-  }
+function databasePathFromUrl(url: string): string {
+  return url.slice("file:".length);
+}
 
+async function sleep(ms: number): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function withInitializationLock(url: string, action: () => Promise<void>): Promise<void> {
+  const lockPath = `${databasePathFromUrl(url)}.init.lock`;
+  const deadline = Date.now() + LOCK_TIMEOUT_MS;
+
+  while (true) {
+    try {
+      const handle = await open(lockPath, "wx");
+      try {
+        await action();
+      } finally {
+        await handle.close();
+        await unlink(lockPath).catch(() => undefined);
+      }
+      return;
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code !== "EEXIST") throw error;
+
+      try {
+        const lockStat = await stat(lockPath);
+        if (Date.now() - lockStat.mtimeMs > STALE_LOCK_MS) {
+          await unlink(lockPath).catch(() => undefined);
+          continue;
+        }
+      } catch (statError) {
+        if ((statError as NodeJS.ErrnoException).code === "ENOENT") continue;
+        throw statError;
+      }
+
+      if (Date.now() >= deadline) {
+        throw new Error(`Timed out waiting for ephemeral SQLite initialization lock: ${lockPath}`);
+      }
+      await sleep(LOCK_RETRY_MS);
+    }
+  }
+}
+
+async function migrateAndSeedUnlocked(url: string): Promise<void> {
   const db = createClient({ url });
   try {
     await db.execute(`
@@ -109,6 +153,14 @@ async function migrateAndSeed(): Promise<void> {
   } finally {
     db.close();
   }
+}
+
+async function migrateAndSeed(): Promise<void> {
+  const url = process.env.DATABASE_URL;
+  if (!url?.startsWith("file:/tmp/")) {
+    throw new Error("EPHEMERAL_SQLITE_DEMO requires DATABASE_URL under file:/tmp/.");
+  }
+  await withInitializationLock(url, () => migrateAndSeedUnlocked(url));
 }
 
 /** Proposal-only Vercel mode: every server instance owns a disposable SQLite database. */
