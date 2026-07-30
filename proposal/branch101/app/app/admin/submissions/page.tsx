@@ -5,6 +5,7 @@ import { listActiveStores } from "@/lib/modules/stores/stores.service";
 import { listPeriods } from "@/lib/modules/periods/periods.service";
 import { ensureSubmissionsAction } from "./actions";
 import { ReopenForm } from "./reopen-form";
+import { ExclusionForm } from "./exclusion-form";
 
 const STATUS_LABELS: Record<string, string> = {
   NOT_STARTED: "未着手",
@@ -40,7 +41,7 @@ export default async function AdminSubmissionsPage({
   const targets =
     selectedStoreId && selectedPeriodId
       ? await db.periodCastTarget.findMany({
-          where: { periodId: selectedPeriodId, storeId: selectedStoreId, targetStatus: "ACTIVE" },
+          where: { periodId: selectedPeriodId, storeId: selectedStoreId },
           include: { user: true },
           orderBy: [{ user: { displayNameKana: "asc" } }, { user: { displayName: "asc" } }],
         })
@@ -117,12 +118,25 @@ export default async function AdminSubmissionsPage({
                 <span className="rounded bg-slate-100 px-2 py-1 text-xs dark:bg-slate-800">
                   {STATUS_LABELS[status] ?? status}
                 </span>
+                {target.targetStatus !== "ACTIVE" && (
+                  <span className="rounded bg-destructive/10 text-destructive px-2 py-1 text-xs">
+                    {target.targetStatus}
+                  </span>
+                )}
                 {submission?.submittedAt && (
                   <span className="text-xs text-slate-500 dark:text-slate-400">
                     提出日時: {submission.submittedAt.toISOString().slice(0, 16).replace("T", " ")}
                   </span>
                 )}
               </div>
+              
+              <ExclusionForm 
+                targetId={target.id}
+                storeId={selectedStoreId}
+                currentStatus={target.targetStatus}
+                currentReason={target.exclusionReason}
+              />
+              
               {status === "LOCKED" && submission && (
                 <ReopenForm submissionId={submission.id} storeId={selectedStoreId} />
               )}
@@ -133,3 +147,7 @@ export default async function AdminSubmissionsPage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "シフト提出状況 | Milk Planet",
+};

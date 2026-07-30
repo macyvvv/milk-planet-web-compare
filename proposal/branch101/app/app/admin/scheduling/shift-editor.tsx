@@ -3,9 +3,6 @@
 import { useActionState, useState } from "react";
 import { saveConfirmedShiftAction, cancelConfirmedShiftAction, type ShiftFormState } from "./actions";
 
-const HOURS = Array.from({ length: 31 }, (_, h) => h);
-const MINUTES = [0, 30];
-
 const STATUS_LABELS: Record<string, string> = {
   OFF: "休み希望",
   AVAILABLE: "出勤可能",
@@ -70,70 +67,48 @@ export function ShiftEditor(props: ShiftEditorProps) {
               <input type="hidden" name="expectedVersion" value={props.confirmed.version} />
             )}
 
-            <div className="flex flex-wrap items-center gap-1">
-              <select
-                name="startHour"
-                defaultValue={props.confirmed ? props.confirmed.startAt.getUTCHours() : 19}
-                className="rounded border border-slate-300 px-1 py-1 dark:border-slate-700 dark:bg-slate-900"
-              >
-                {HOURS.map((h) => (
-                  <option key={h} value={h}>
-                    {String(h).padStart(2, "0")}
-                  </option>
-                ))}
-              </select>
-              <select
-                name="startMinute"
-                defaultValue={props.confirmed ? props.confirmed.startAt.getUTCMinutes() : 0}
-                className="rounded border border-slate-300 px-1 py-1 dark:border-slate-700 dark:bg-slate-900"
-              >
-                {MINUTES.map((m) => (
-                  <option key={m} value={m}>
-                    {String(m).padStart(2, "0")}
-                  </option>
-                ))}
-              </select>
+            <div className="flex flex-wrap items-center gap-2">
+              <input
+                type="time"
+                name="startTime"
+                required
+                defaultValue={
+                  props.confirmed
+                    ? `${String(props.confirmed.startAt.getUTCHours()).padStart(2, "0")}:${String(props.confirmed.startAt.getUTCMinutes()).padStart(2, "0")}`
+                    : "19:00"
+                }
+                className="rounded-md border border-input px-2 py-1 bg-background"
+              />
               <span>〜</span>
-              <select
-                name="endHour"
-                defaultValue={props.confirmed ? props.confirmed.endAt.getUTCHours() : 25}
-                className="rounded border border-slate-300 px-1 py-1 dark:border-slate-700 dark:bg-slate-900"
-              >
-                {HOURS.map((h) => (
-                  <option key={h} value={h}>
-                    {String(h).padStart(2, "0")}
-                  </option>
-                ))}
-              </select>
-              <select
-                name="endMinute"
-                defaultValue={props.confirmed ? props.confirmed.endAt.getUTCMinutes() : 0}
-                className="rounded border border-slate-300 px-1 py-1 dark:border-slate-700 dark:bg-slate-900"
-              >
-                {MINUTES.map((m) => (
-                  <option key={m} value={m}>
-                    {String(m).padStart(2, "0")}
-                  </option>
-                ))}
-              </select>
+              <input
+                type="time"
+                name="endTime"
+                required
+                defaultValue={
+                  props.confirmed
+                    ? `${String(props.confirmed.endAt.getUTCHours() % 24).padStart(2, "0")}:${String(props.confirmed.endAt.getUTCMinutes()).padStart(2, "0")}`
+                    : "00:00"
+                }
+                className="rounded-md border border-input px-2 py-1 bg-background"
+              />
             </div>
 
             <input
               name="adminNote"
               placeholder="管理者向け備考"
               defaultValue={props.confirmed?.adminNote ?? ""}
-              className="rounded border border-slate-300 px-2 py-1 dark:border-slate-700 dark:bg-slate-900"
+              className="rounded-md border border-input px-2 py-1 bg-background"
             />
             <input
               name="castNote"
               placeholder="キャスト向け備考"
               defaultValue={props.confirmed?.castNote ?? ""}
-              className="rounded border border-slate-300 px-2 py-1 dark:border-slate-700 dark:bg-slate-900"
+              className="rounded-md border border-input px-2 py-1 bg-background"
             />
             <input
               name="changeReason"
               placeholder="変更理由(希望外配置・大幅変更時は必須)"
-              className="rounded border border-slate-300 px-2 py-1 dark:border-slate-700 dark:bg-slate-900"
+              className="rounded-md border border-input px-2 py-1 bg-background"
             />
 
             {saveState?.error && <p className="text-red-600 dark:text-red-400">{saveState.error}</p>}
@@ -141,7 +116,7 @@ export function ShiftEditor(props: ShiftEditorProps) {
             <button
               type="submit"
               disabled={savePending}
-              className="self-start rounded bg-sky-600 px-3 py-1 text-white disabled:opacity-60"
+              className="self-start rounded-md bg-primary px-4 py-1.5 text-primary-foreground font-medium disabled:opacity-60"
             >
               {savePending ? "保存中…" : "保存"}
             </button>

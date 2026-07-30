@@ -86,3 +86,7 @@ export default async function AdminRolesPage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "権限管理 | Milk Planet",
+};

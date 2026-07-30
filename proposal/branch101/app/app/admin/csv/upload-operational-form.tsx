@@ -1,7 +1,9 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useId } from "react";
 import { uploadOperationalCsvAction, type CsvActionState } from "./import-actions";
+import { Button } from "@/app/components/ui/button";
+import { Alert, AlertDescription } from "@/app/components/ui/alert";
 
 const initialState: CsvActionState = {};
 
@@ -54,14 +56,16 @@ const OPTIONS = [
 export function UploadOperationalForm() {
   const [state, formAction, pending] = useActionState(uploadOperationalCsvAction, initialState);
   const [kind, setKind] = useState<(typeof OPTIONS)[number]["value"]>("STORES");
+  const errorId = useId();
+
   return (
-    <form action={formAction} className="space-y-2 text-sm">
+    <form action={formAction} className="flex flex-col gap-3 text-sm">
       <select
         name="kind"
         required
         value={kind}
         onChange={(event) => setKind(event.target.value as typeof kind)}
-        className="rounded-md border p-2 dark:bg-slate-900"
+        className="rounded-md border border-input p-2 bg-background max-w-full"
       >
         {OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>
@@ -71,15 +75,35 @@ export function UploadOperationalForm() {
       </select>
       <a
         href={`/admin/csv/templates/${kind.toLowerCase()}`}
-        className="block w-fit text-sky-600 underline"
+        className="block w-fit text-primary underline-offset-4 hover:underline"
       >
         選択中のCSVテンプレートをダウンロード
       </a>
-      <input type="file" name="file" accept=".csv,text/csv" required className="block" />
-      {state?.error && <p className="text-red-600">{state.error}</p>}
-      <button disabled={pending} className="rounded-md bg-sky-600 px-4 py-2 text-white disabled:opacity-60">
-        {pending ? "検証中…" : "アップロードして検証"}
-      </button>
+      <input 
+        type="file" 
+        name="file" 
+        accept=".csv,text/csv" 
+        required 
+        className="text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 block" 
+        aria-describedby={state?.error ? errorId : undefined}
+      />
+      
+      <div aria-live="polite" aria-atomic="true">
+        {state?.error && (
+          <Alert variant="destructive" id={errorId}>
+            <AlertDescription>{state.error}</AlertDescription>
+          </Alert>
+        )}
+      </div>
+
+      <Button 
+        type="submit" 
+        loading={pending}
+        disabled={pending} 
+        className="self-start"
+      >
+        {pending ? "アップロード・検証中…" : "アップロードして検証"}
+      </Button>
     </form>
   );
 }

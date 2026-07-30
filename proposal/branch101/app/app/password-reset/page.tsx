@@ -103,3 +103,7 @@ export default function PasswordResetPage() {
     </div>
   );
 }
+
+export const metadata = {
+  title: "パスワードリセット | Milk Planet",
+};

@@ -113,3 +113,7 @@ export default async function AdminUnsubmittedPage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "未提出者 | Milk Planet",
+};

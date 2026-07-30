@@ -20,3 +20,7 @@ export default async function HomePage() {
     </div>
   );
 }
+
+export const metadata = {
+  title: "ホーム | Milk Planet",
+};

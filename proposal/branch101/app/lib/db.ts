@@ -6,6 +6,9 @@ import { ensureEphemeralSqlite } from "@/lib/ephemeral-sqlite";
 
 await ensureEphemeralSqlite();
 
+if (process.env.EPHEMERAL_SQLITE_DEMO === "1" && process.env.NODE_ENV === "production") {
+  throw new Error("CRITICAL: Cannot run ephemeral sqlite in production.");
+}
 const adapter = new PrismaLibSql({
   url: process.env.DATABASE_URL || "file:./dev.db",
   ...(env.DATABASE_AUTH_TOKEN ? { authToken: env.DATABASE_AUTH_TOKEN } : {}),

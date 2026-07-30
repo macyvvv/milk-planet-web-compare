@@ -20,3 +20,7 @@ export default async function StandardShiftPage() {
     </div>
   );
 }
+
+export const metadata = {
+  title: "標準シフト | Milk Planet",
+};

@@ -101,3 +101,7 @@ export default async function AdminDifferencesPage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "希望と確定の差分 | Milk Planet",
+};

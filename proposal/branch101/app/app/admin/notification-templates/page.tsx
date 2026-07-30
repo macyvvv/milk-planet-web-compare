@@ -1,7 +1,7 @@
 import { requireRole } from "@/lib/modules/auth/dal";
 import { Role, NotificationTemplateType } from "@/app/generated/prisma/client";
 import { listTemplates } from "@/lib/modules/notifications/templates.service";
-import { saveTemplateAction } from "./actions";
+import { TemplateEditor } from "./template-editor";
 
 export default async function NotificationTemplatesPage() {
   await requireRole(Role.AREA_MANAGER, Role.SUPER_USER);
@@ -12,8 +12,14 @@ export default async function NotificationTemplatesPage() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">LINE通知テンプレート編集</h1>
+    <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-6 p-4">
+      <header className="border-b pb-4 flex justify-between items-end">
+        <div>
+          <p className="text-sm text-muted-foreground">管理ダッシュボード</p>
+          <h1 className="text-2xl font-bold">通知テンプレート編集</h1>
+        </div>
+      </header>
+
       <div className="space-y-8">
         <TemplateEditor
           title="【全店舗】シフト未提出通知"
@@ -38,37 +44,6 @@ export default async function NotificationTemplatesPage() {
   );
 }
 
-function TemplateEditor({
-  title,
-  templateType,
-  initialBody,
-  description,
-}: {
-  title: string;
-  templateType: NotificationTemplateType;
-  initialBody: string;
-  description: string;
-}) {
-  return (
-    <div className="border p-4 rounded bg-white shadow-sm">
-      <h2 className="text-lg font-semibold mb-2">{title}</h2>
-      <p className="text-sm text-gray-600 mb-4">{description}</p>
-      <form action={saveTemplateAction} className="space-y-4">
-        <input type="hidden" name="templateType" value={templateType} />
-        <textarea
-          name="body"
-          defaultValue={initialBody}
-          rows={6}
-          className="w-full border rounded p-2 text-sm"
-          placeholder="テンプレートが未設定の場合は、デフォルトのメッセージが送信されます。"
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium"
-        >
-          保存
-        </button>
-      </form>
-    </div>
-  );
-}
+export const metadata = {
+  title: "通知テンプレート | Milk Planet",
+};

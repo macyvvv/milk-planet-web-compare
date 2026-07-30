@@ -34,3 +34,7 @@ export default async function MySubmissionsPage() {
     </div>
   );
 }
+
+export const metadata = {
+  title: "自分のシフト提出状況 | Milk Planet",
+};

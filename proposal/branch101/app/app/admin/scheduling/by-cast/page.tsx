@@ -111,3 +111,7 @@ export default async function SchedulingByCastPage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "シフト作成 (キャスト別) | Milk Planet",
+};

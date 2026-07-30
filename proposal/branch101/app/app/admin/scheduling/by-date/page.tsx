@@ -111,3 +111,7 @@ export default async function SchedulingByDatePage({
     </div>
   );
 }
+
+export const metadata = {
+  title: "シフト作成 (日付別) | Milk Planet",
+};

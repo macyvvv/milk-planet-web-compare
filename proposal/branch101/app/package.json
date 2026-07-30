@@ -9,7 +9,7 @@
     "bootstrap:su": "node --env-file-if-exists=.env scripts/bootstrap-super-user.mjs",
     "migrate:libsql": "node --env-file-if-exists=.env scripts/migrate-libsql.mjs",
     "lint": "eslint",
-    "test": "node --test \"lib/**/*.test.ts\""
+    "test": "node --experimental-strip-types --no-warnings --test \"lib/**/*.test.ts\""
   },
   "dependencies": {
     "@libsql/client": "^0.17.4",
