@@ -12,10 +12,10 @@ export function ApplyCastsButton({ jobId }: { jobId: string }) {
     const escape = (value: string) => `"${value.replaceAll('"', '""')}"`;
     const rows = [
       ["login_name", "display_name", "pin", "operation"],
-      ...state.results.map((result) => [
+      ...state.results.filter((result) => result.pin).map((result) => [
         result.loginName,
         result.displayName,
-        result.pin,
+        result.pin ?? "",
         result.operation,
       ]),
     ];
@@ -70,7 +70,7 @@ export function ApplyCastsButton({ jobId }: { jobId: string }) {
                   <td className="p-1">{r.displayName}</td>
                   <td className="p-1">{r.loginName}</td>
                   <td className="p-1">{r.operation}</td>
-                  <td className="p-1 font-mono">{r.pin}</td>
+                  <td className="p-1 font-mono">{r.pin ?? "変更なし"}</td>
                 </tr>
               ))}
             </tbody>

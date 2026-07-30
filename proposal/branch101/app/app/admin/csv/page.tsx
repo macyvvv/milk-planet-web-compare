@@ -10,6 +10,9 @@ import { UploadOperationalForm } from "./upload-operational-form";
 
 const EXPORT_TYPES = [
   { type: "CASTS", label: "キャスト一覧", scoped: false },
+  { type: "STORES", label: "店舗", scoped: false },
+  { type: "PERIOD_CAST_TARGETS", label: "対象者・除外", scoped: false },
+  { type: "NOTIFICATION_TEMPLATES", label: "通知テンプレート", scoped: false },
   { type: "AVAILABILITY", label: "出勤希望", scoped: true },
   { type: "SUBMISSIONS", label: "提出状況", scoped: true },
   { type: "CONFIRMED_SHIFTS", label: "確定シフト", scoped: true },

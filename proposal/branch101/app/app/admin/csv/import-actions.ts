@@ -19,6 +19,11 @@ import {
   applyMasterCsv,
   type MasterCsvKind,
 } from "@/lib/modules/csv/import-master-data.service";
+import {
+  applyConfigurationCsv,
+  uploadConfigurationCsv,
+  type ConfigurationCsvKind,
+} from "@/lib/modules/csv/import-configuration.service";
 
 export interface CsvActionState {
   error?: string;
@@ -29,9 +34,9 @@ export interface ApplyCastsState {
   results?: {
     displayName: string;
     loginName: string;
-    pin: string;
+    pin?: string;
     generated: boolean;
-    operation: "CREATED" | "UPDATED";
+    operation: "CREATED" | "UPDATED" | "PIN_RESET" | "DEACTIVATED" | "REACTIVATED";
   }[];
 }
 
@@ -114,6 +119,8 @@ const OperationalCsvKind = z.enum([
   "MEMBERSHIPS",
   "STANDARD_SHIFTS",
   "PERIOD_SETTINGS",
+  "PERIOD_CAST_TARGETS",
+  "NOTIFICATION_TEMPLATES",
   "EVENTS",
   "CONFIRMED_SHIFTS",
 ]);
@@ -130,6 +137,8 @@ export async function uploadOperationalCsvAction(
   const input = { csvText: await file.text(), uploadedById: user.id };
   const jobId = ["STORES", "STANDARD_SHIFTS", "PERIOD_SETTINGS"].includes(parsedKind.data)
     ? await uploadMasterCsv({ ...input, kind: parsedKind.data as MasterCsvKind })
+    : ["PERIOD_CAST_TARGETS", "NOTIFICATION_TEMPLATES"].includes(parsedKind.data)
+      ? await uploadConfigurationCsv({ ...input, kind: parsedKind.data as ConfigurationCsvKind })
     : parsedKind.data === "MEMBERSHIPS"
       ? await uploadMembershipsCsv(input)
       : parsedKind.data === "EVENTS"
@@ -146,6 +155,9 @@ export async function applyOperationalCsvAction(formData: FormData): Promise<voi
   if (job.jobType === "MEMBERSHIPS") await applyMembershipsCsv(input);
   else if (job.jobType === "EVENTS") await applyEventsCsv(input);
   else if (job.jobType === "CONFIRMED_SHIFTS") await applyConfirmedShiftsCsv(input);
+  else if (["PERIOD_CAST_TARGETS", "NOTIFICATION_TEMPLATES"].includes(job.jobType)) {
+    await applyConfigurationCsv(input);
+  }
   else if (["STORES", "STANDARD_SHIFTS", "PERIOD_SETTINGS"].includes(job.jobType)) {
     await applyMasterCsv(input);
   }

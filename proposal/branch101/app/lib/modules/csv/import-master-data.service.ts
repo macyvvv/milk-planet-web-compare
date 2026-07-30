@@ -14,7 +14,7 @@ import type { RequestContext } from "@/lib/modules/auth/session";
 export type MasterCsvKind = "STORES" | "STANDARD_SHIFTS" | "PERIOD_SETTINGS";
 
 const COLUMNS: Record<MasterCsvKind, readonly string[]> = {
-  STORES: ["operation", "name", "status"],
+  STORES: ["operation", "store_code", "name", "status"],
   STANDARD_SHIFTS: [
     "operation",
     "login_name",
@@ -27,7 +27,7 @@ const COLUMNS: Record<MasterCsvKind, readonly string[]> = {
   PERIOD_SETTINGS: [
     "operation",
     "period_start_date",
-    "store_name",
+    "store_code",
     "submission_open_at",
     "submission_deadline_at",
   ],
@@ -76,17 +76,20 @@ export async function uploadMasterCsv(input: {
   }
   const [users, stores, periods] = await Promise.all([
     db.user.findMany({ select: { loginName: true } }),
-    db.store.findMany({ select: { name: true } }),
+    db.store.findMany({ select: { code: true } }),
     db.period.findMany({ select: { startDate: true } }),
   ]);
   const loginNames = new Set(users.map((user) => user.loginName));
-  const storeNames = new Set(stores.map((store) => store.name));
+  const storeCodes = new Set(stores.map((store) => store.code));
   const periodStarts = new Set(periods.map((period) => period.startDate.toISOString().slice(0, 10)));
   let invalid = false;
   for (const [index, raw] of parsed.data.entries()) {
     const errors: string[] = [];
     if (String(raw.operation ?? "").toUpperCase() !== "UPSERT") errors.push("operationはUPSERTです。");
     if (input.kind === "STORES") {
+      if (!/^[A-Za-z0-9_-]+$/.test(String(raw.store_code ?? "").trim())) {
+        errors.push("store_codeは半角英数字・_・-で指定してください。");
+      }
       if (!String(raw.name ?? "").trim()) errors.push("nameが空です。");
       if (!["ACTIVE", "INACTIVE"].includes(String(raw.status ?? ""))) errors.push("statusが不正です。");
     } else if (input.kind === "STANDARD_SHIFTS") {
@@ -99,7 +102,7 @@ export async function uploadMasterCsv(input: {
       }
     } else {
       if (!periodStarts.has(String(raw.period_start_date ?? ""))) errors.push("period_start_dateが存在しません。");
-      if (!storeNames.has(String(raw.store_name ?? "").trim())) errors.push("store_nameが存在しません。");
+      if (!storeCodes.has(String(raw.store_code ?? "").trim())) errors.push("store_codeが存在しません。");
       const open = new Date(String(raw.submission_open_at));
       const deadline = new Date(String(raw.submission_deadline_at));
       if (Number.isNaN(open.getTime()) || Number.isNaN(deadline.getTime()) || deadline <= open) {
@@ -138,14 +141,16 @@ export async function applyMasterCsv(input: {
     for (const row of job.rows) {
       const raw = csvRowData<Record<string, string>>(row.rawData);
       if (job.jobType === CsvJobType.STORES) {
-        const existing = await tx.store.findFirst({ where: { name: raw.name.trim() } });
+        const existing = await tx.store.findUnique({ where: { code: raw.store_code.trim() } });
         if (existing) {
           await tx.store.update({
             where: { id: existing.id },
             data: { status: raw.status as StoreStatus },
           });
         } else {
-          await tx.store.create({ data: { name: raw.name.trim(), status: raw.status as StoreStatus } });
+          await tx.store.create({
+            data: { code: raw.store_code.trim(), name: raw.name.trim(), status: raw.status as StoreStatus },
+          });
         }
       } else if (job.jobType === CsvJobType.STANDARD_SHIFTS) {
         const user = await tx.user.findFirstOrThrow({ where: { loginName: raw.login_name.trim() } });
@@ -171,7 +176,7 @@ export async function applyMasterCsv(input: {
         const period = await tx.period.findFirstOrThrow({
           where: { startDate: new Date(raw.period_start_date) },
         });
-        const store = await tx.store.findFirstOrThrow({ where: { name: raw.store_name.trim() } });
+        const store = await tx.store.findUniqueOrThrow({ where: { code: raw.store_code.trim() } });
         await tx.periodStoreSetting.upsert({
           where: { periodId_storeId: { periodId: period.id, storeId: store.id } },
           create: {

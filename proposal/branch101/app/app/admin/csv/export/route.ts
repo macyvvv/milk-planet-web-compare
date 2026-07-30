@@ -9,6 +9,9 @@ import {
   exportDifferences,
   exportEvents,
   exportMemberships,
+  exportStores,
+  exportPeriodCastTargets,
+  exportNotificationTemplates,
 } from "@/lib/modules/csv/export.service";
 
 /** REQ-CSV-001: 各種CSVエクスポート。Route HandlerでBOM付きCSVを都度生成して返す(永続化しない)。 */
@@ -28,6 +31,21 @@ export async function GET(req: NextRequest) {
   let filename: string;
 
   switch (type) {
+    case "STORES":
+      await requireRole(Role.SUPER_USER);
+      bytes = await exportStores(user.id);
+      filename = "stores.csv";
+      break;
+    case "PERIOD_CAST_TARGETS":
+      await requireRole(Role.SUPER_USER);
+      bytes = await exportPeriodCastTargets(user.id);
+      filename = "period_cast_targets.csv";
+      break;
+    case "NOTIFICATION_TEMPLATES":
+      await requireRole(Role.SUPER_USER);
+      bytes = await exportNotificationTemplates(user.id);
+      filename = "notification_templates.csv";
+      break;
     case "CASTS": {
       const scope = resolveStoreScope(user);
       bytes = await exportCasts(scope, user.id);

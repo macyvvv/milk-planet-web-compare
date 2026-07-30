@@ -145,7 +145,7 @@ export async function updateEvent(input: UpdateEventInput) {
   });
 }
 
-async function markSubmittedCastsNeedAck(
+export async function markSubmittedCastsNeedAck(
   tx: Prisma.TransactionClient,
   eventId: string,
   eventDate: Date,

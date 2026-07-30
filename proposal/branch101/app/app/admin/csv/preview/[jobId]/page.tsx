@@ -79,6 +79,8 @@ export default async function CsvPreviewPage({ params }: { params: Promise<{ job
           "MEMBERSHIPS",
           "STANDARD_SHIFTS",
           "PERIOD_SETTINGS",
+          "PERIOD_CAST_TARGETS",
+          "NOTIFICATION_TEMPLATES",
           "EVENTS",
           "CONFIRMED_SHIFTS",
         ].includes(job.jobType) && (

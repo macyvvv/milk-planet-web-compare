@@ -99,6 +99,7 @@ enum StoreStatus {
 
 model Store {
   id        String      @id @default(uuid())
+  code      String      @unique
   name      String
   status    StoreStatus @default(ACTIVE)
   createdAt DateTime    @default(now()) @map("created_at")
@@ -618,6 +619,8 @@ enum CsvJobType {
   MEMBERSHIPS
   STANDARD_SHIFTS
   PERIOD_SETTINGS
+  PERIOD_CAST_TARGETS
+  NOTIFICATION_TEMPLATES
   AVAILABILITY
   EVENTS
   CONFIRMED_SHIFTS
@@ -673,6 +676,11 @@ model CsvImportRow {
 
 enum CsvExportType {
   CASTS
+  STORES
+  STANDARD_SHIFTS
+  PERIOD_SETTINGS
+  PERIOD_CAST_TARGETS
+  NOTIFICATION_TEMPLATES
   AVAILABILITY
   SUBMISSIONS
   CONFIRMED_SHIFTS

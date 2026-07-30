@@ -11,11 +11,11 @@ export function UploadCastsForm() {
   return (
     <form action={formAction} className="flex flex-col gap-2 text-sm">
       <p className="text-slate-600 dark:text-slate-400">
-        列: operation, login_name, display_name, display_name_kana, store_name, pin,
-        permission_level, job_title
+        列: operation, user_id, login_name, display_name, display_name_kana, store_code, pin,
+        permission_level, job_title, managed_store_codes, resignation_scheduled_on
       </p>
       <p className="text-slate-600 dark:text-slate-400">
-        operationはUPSERT。pinを空欄にすると数字4桁を自動生成します。
+        新規UPSERTのpin空欄は数字4桁を自動生成します。既存ユーザーの空欄は変更しません。
       </p>
       <a href="/admin/csv/templates/casts" className="self-start text-sky-600 underline">
         アカウントCSVテンプレートをダウンロード
