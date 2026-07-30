@@ -47,6 +47,18 @@ export default async function AdminCsvPage({
         <h1 className="text-lg font-semibold">CSV入出力</h1>
       </header>
 
+      {hasRole(user, Role.SUPER_USER) && (
+        <section className="rounded-lg border border-sky-700 bg-sky-950/20 p-4">
+          <h2 className="font-medium text-sky-300">初回導入</h2>
+          <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-slate-300">
+            <li>下の「管理データ一括登録・更新」で店舗CSVを登録</li>
+            <li>「アカウント一括登録・更新」で利用者と4桁PINを登録</li>
+            <li>必要に応じて所属、標準シフト、締切、イベント、確定シフトを登録</li>
+            <li>アカウント反映直後に資格情報CSVをダウンロードして配布</li>
+          </ol>
+        </section>
+      )}
+
       <section>
         <h2 className="mb-2 font-medium">エクスポート</h2>
         <form className="mb-2 flex flex-wrap items-center gap-2 text-sm" method="get">

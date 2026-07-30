@@ -13,6 +13,13 @@ test.describe("CSV onboarding and account safety", () => {
     await page.waitForURL("/admin");
   });
 
+  test("exposes CSV onboarding from the admin dashboard", async ({ page }) => {
+    await expect(page.getByRole("link", { name: /初回導入・一括更新/ })).toBeVisible();
+    await page.getByRole("link", { name: /初回導入・一括更新/ }).click();
+    await page.waitForURL("/admin/csv");
+    await expect(page.getByRole("heading", { name: "初回導入" })).toBeVisible();
+  });
+
   test("upserts active accounts with four-digit PINs and downloads credentials", async ({ page }) => {
     await page.goto("/admin/csv");
     const csv = [
