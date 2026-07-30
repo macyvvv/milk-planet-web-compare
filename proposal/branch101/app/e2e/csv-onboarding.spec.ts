@@ -23,9 +23,9 @@ test.describe("CSV onboarding and account safety", () => {
   test("upserts active accounts with four-digit PINs and downloads credentials", async ({ page }) => {
     await page.goto("/admin/csv");
     const csv = [
-      "operation,login_name,display_name,display_name_kana,store_name,pin,permission_level,job_title",
-      "UPSERT,cast001,キャスト一号,きゃすといちごう,本店,2345,GENERAL_USER,CAST",
-      "UPSERT,deputy001,副店長一号,ふくてんちょういちごう,本店,,STORE_ADMIN,STORE_DEPUTY_MANAGER",
+      "operation,user_id,login_name,display_name,display_name_kana,store_code,pin,permission_level,job_title,managed_store_codes,resignation_scheduled_on",
+      "UPSERT,,cast001,キャスト一号,きゃすといちごう,STORE_00000001,2345,GENERAL_USER,CAST,,",
+      "UPSERT,,deputy001,副店長一号,ふくてんちょういちごう,STORE_00000001,,STORE_ADMIN,STORE_DEPUTY_MANAGER,STORE_00000001,",
     ].join("\r\n");
     await page
       .getByRole("heading", { name: /アカウント/ })
@@ -52,10 +52,10 @@ test.describe("CSV onboarding and account safety", () => {
     test.skip(process.env.E2E_BULK_200 !== "1", "bulk verification is opt-in");
     await page.goto("/admin/csv");
     const header =
-      "operation,login_name,display_name,display_name_kana,store_name,pin,permission_level,job_title";
+      "operation,user_id,login_name,display_name,display_name_kana,store_code,pin,permission_level,job_title,managed_store_codes,resignation_scheduled_on";
     const rows = Array.from({ length: 200 }, (_, index) => {
       const suffix = String(index + 1).padStart(3, "0");
-      return `UPSERT,bulk${suffix},一括${suffix},いっかつ${suffix},本店,,GENERAL_USER,CAST`;
+      return `UPSERT,,bulk${suffix},一括${suffix},いっかつ${suffix},STORE_00000001,,GENERAL_USER,CAST,,`;
     });
     const section = page.getByRole("heading", { name: /アカウント/ }).locator("..");
     await section.locator('input[type="file"]').setInputFiles({
