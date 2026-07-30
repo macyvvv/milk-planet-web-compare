@@ -132,7 +132,7 @@ async function migrateAndSeedUnlocked(url: string): Promise<void> {
         {
           sql: `INSERT OR IGNORE INTO stores
             (id, code, name, status, created_at, updated_at)
-            VALUES (?, 'DEMO', 'デモ店舗', 'ACTIVE', ?, ?)`,
+            VALUES (?, 'STORE_00000001', 'デモ店舗', 'ACTIVE', ?, ?)`,
           args: [DEMO_STORE_ID, now, now],
         },
         {
