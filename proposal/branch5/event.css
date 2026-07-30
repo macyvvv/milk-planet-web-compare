@@ -115,37 +115,6 @@
 }
 
 /* 遠隔通販トグルを通常メニューと同じ文字スタイル・背景へ揃える */
-html body #top-head #global-nav .nav-submenu-item > .nav-submenu-toggle,
-html body #top-head #global-nav .nav-submenu-item.open > .nav-submenu-toggle {
-    font-family: inherit !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    color: #444 !important;
-    background: transparent !important;
-    border-color: transparent !important;
-    box-shadow: none !important;
-}
+
 
 /* 開閉中もハンバーガー3本線を維持する */
-html body #top-head.open #nav-toggle .nav-toggle-bars span:nth-child(1),
-html body #top-head.open #nav-toggle .nav-toggle-bars span:nth-child(2),
-html body #top-head.open #nav-toggle .nav-toggle-bars span:nth-child(3) {
-    transform: none !important;
-    opacity: 1 !important;
-}
-
-@media screen and (max-width: 780px) {
-    /* SP版ではハンバーガー横の「めにゅう」を表示しない */
-    html body #top-head #nav-toggle .nav-toggle-label {
-        display: none !important;
-    }
-
-    html body #top-head #global-nav .nav-submenu-item > .nav-submenu-toggle,
-    html body #top-head #global-nav .nav-submenu-item.open > .nav-submenu-toggle {
-        font-size: 16px !important;
-        font-weight: 400 !important;
-        background: transparent !important;
-        border-color: transparent !important;
-        box-shadow: none !important;
-    }
-}
