@@ -78,6 +78,4 @@ export default function LoginPage() {
   );
 }
 
-export const metadata = {
-  title: "ログイン | Milk Planet",
-};
+

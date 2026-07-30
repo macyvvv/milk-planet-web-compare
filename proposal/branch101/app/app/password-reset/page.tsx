@@ -104,6 +104,4 @@ export default function PasswordResetPage() {
   );
 }
 
-export const metadata = {
-  title: "パスワードリセット | Milk Planet",
-};
+

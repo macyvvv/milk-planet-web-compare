@@ -103,6 +103,4 @@ export default function InitialSetupPage() {
   );
 }
 
-export const metadata = {
-  title: "初期セットアップ | Milk Planet",
-};
+
