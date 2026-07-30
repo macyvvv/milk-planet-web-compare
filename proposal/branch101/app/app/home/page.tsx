@@ -23,9 +23,38 @@ export default async function HomePage() {
         <LogoutButton />
       </header>
 
-      <p className="text-sm text-slate-600 dark:text-slate-400">
-        出勤希望入力・確定シフト閲覧などの画面はPhase 3以降で実装予定です(WBS.md参照)。
-      </p>
+      <nav className="flex flex-col gap-3">
+        <a
+          href="/availability"
+          className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-4 shadow-sm hover:border-sky-300 dark:border-slate-800 dark:bg-slate-900"
+        >
+          <div>
+            <div className="font-medium">出勤希望入力</div>
+            <div className="text-sm text-slate-500">次回のシフト希望を提出します</div>
+          </div>
+          <span className="text-slate-400">→</span>
+        </a>
+        <a
+          href="/my-shifts"
+          className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-4 shadow-sm hover:border-sky-300 dark:border-slate-800 dark:bg-slate-900"
+        >
+          <div>
+            <div className="font-medium">確定シフト閲覧</div>
+            <div className="text-sm text-slate-500">確定した自分のシフトを確認します</div>
+          </div>
+          <span className="text-slate-400">→</span>
+        </a>
+        <a
+          href="/my-submissions"
+          className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-4 shadow-sm hover:border-sky-300 dark:border-slate-800 dark:bg-slate-900"
+        >
+          <div>
+            <div className="font-medium">提出履歴</div>
+            <div className="text-sm text-slate-500">過去のシフト提出履歴を確認します</div>
+          </div>
+          <span className="text-slate-400">→</span>
+        </a>
+      </nav>
 
       {isAdmin && (
         <div className="mt-8">
