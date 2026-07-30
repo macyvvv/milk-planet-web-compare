@@ -90,7 +90,7 @@ export default async function AdminDashboardPage() {
                 <Link className="rounded-md border p-3 hover:bg-muted transition-colors" href="/admin/roles">ロール・管理店舗</Link>
               </>
             )}
-            <Link className="rounded-md border p-3 hover:bg-muted transition-colors" href="/admin/csv">CSV入出力</Link>
+            <Link className="rounded-md border p-3 hover:bg-muted transition-colors" href="/admin/csv">初回導入・一括更新（CSV）</Link>
             {user.roles.includes(Role.SUPER_USER) && (
               <Link className="rounded-md border p-3 hover:bg-muted transition-colors" href="/admin/audit">監査ログ</Link>
             )}
