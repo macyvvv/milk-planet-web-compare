@@ -7,7 +7,7 @@ export default async function HomePage() {
 
   const isAdmin = hasRole(
     user,
-    Role.SYSTEM_ADMIN,
+    Role.SUPER_USER,
     Role.AREA_MANAGER,
     Role.STORE_MANAGER,
     Role.STORE_DEPUTY_MANAGER
