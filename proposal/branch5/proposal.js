@@ -19,6 +19,11 @@
 
     if (!header || !toggle || !nav) return;
 
+    var systemMenuLink = nav.querySelector('a[href="#sys-title-wrapper"]');
+    if (systemMenuLink) {
+      systemMenuLink.textContent = 'しすてむ＆めにゅう';
+    }
+
     var navList = nav.querySelector('ul');
     if (navList && !navList.querySelector('.nav-submenu-toggle')) {
       var submenuItems = [
