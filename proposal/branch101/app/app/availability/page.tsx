@@ -33,7 +33,12 @@ export default async function AvailabilityPage({
   if (!periodId) {
     return (
       <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 p-4">
-        <p className="text-sm text-slate-600 dark:text-slate-400">対象のピリオドがありません。</p>
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-slate-600 dark:text-slate-400">対象のピリオドがありません。</p>
+          <Link href="/home" className="text-sm text-sky-600 underline dark:text-sky-400">
+            ホームに戻る
+          </Link>
+        </div>
       </div>
     );
   }
@@ -59,7 +64,12 @@ export default async function AvailabilityPage({
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 p-4">
       <header className="flex flex-col gap-1">
-        <p className="text-sm text-slate-500 dark:text-slate-400">{membership.store.name}</p>
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-slate-500 dark:text-slate-400">{membership.store.name}</p>
+          <Link href="/home" className="text-sm text-sky-600 underline dark:text-sky-400">
+            ホームに戻る
+          </Link>
+        </div>
         <h1 className="text-lg font-semibold">出勤希望入力</h1>
         <p className="text-sm text-slate-600 dark:text-slate-400">
           {toDateKey(data.dates[0])} 〜 {toDateKey(data.dates[data.dates.length - 1])} ・ 提出状況:{" "}
