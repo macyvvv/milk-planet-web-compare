@@ -1,5 +1,4 @@
 import "server-only";
-import { randomUUID } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { hash } from "@node-rs/argon2";
@@ -11,7 +10,9 @@ const ARGON2_OPTIONS = {
   parallelism: 1,
 };
 export const DEMO_SUPER_USER_ID = "00000000-0000-4000-8000-000000000101";
+const DEMO_SUPER_USER_ROLE_ID = "00000000-0000-4000-8000-000000000102";
 const DEMO_STORE_ID = "00000000-0000-4000-8000-000000000201";
+const DEMO_AUDIT_ID = "00000000-0000-4000-8000-000000000301";
 
 let initialization: Promise<void> | undefined;
 
@@ -52,7 +53,7 @@ async function migrateAndSeed(): Promise<void> {
       try {
         await transaction.executeMultiple(sql);
         await transaction.execute({
-          sql: "INSERT INTO app_migrations (name) VALUES (?)",
+          sql: "INSERT OR IGNORE INTO app_migrations (name) VALUES (?)",
           args: [name],
         });
         await transaction.commit();
@@ -62,48 +63,42 @@ async function migrateAndSeed(): Promise<void> {
       }
     }
 
-    const existing = await db.execute("SELECT COUNT(*) AS count FROM users");
-    if (Number(existing.rows[0]?.count ?? 0) > 0) return;
-
     const now = new Date().toISOString();
-    const userId = DEMO_SUPER_USER_ID;
-    const roleId = randomUUID();
-    const auditId = randomUUID();
     const passwordHash = await hash(requireDemoPin(), ARGON2_OPTIONS);
     await db.batch(
       [
         {
-          sql: `INSERT INTO users
+          sql: `INSERT OR IGNORE INTO users
             (id, login_name, display_name, display_name_kana, status, version, created_at, updated_at)
             VALUES (?, 'admin', 'admin', 'あどみん', 'ACTIVE', 1, ?, ?)`,
-          args: [userId, now, now],
+          args: [DEMO_SUPER_USER_ID, now, now],
         },
         {
-          sql: `INSERT INTO user_credentials
+          sql: `INSERT OR IGNORE INTO user_credentials
             (user_id, password_hash, password_algo, failed_login_attempts, password_updated_at)
             VALUES (?, ?, 'argon2id', 0, ?)`,
-          args: [userId, passwordHash, now],
+          args: [DEMO_SUPER_USER_ID, passwordHash, now],
         },
         {
-          sql: `INSERT INTO user_roles
+          sql: `INSERT OR IGNORE INTO user_roles
             (id, user_id, role, granted_by, granted_at)
             VALUES (?, ?, 'SUPER_USER', ?, ?)`,
-          args: [roleId, userId, userId, now],
+          args: [DEMO_SUPER_USER_ROLE_ID, DEMO_SUPER_USER_ID, DEMO_SUPER_USER_ID, now],
         },
         {
-          sql: `INSERT INTO stores
+          sql: `INSERT OR IGNORE INTO stores
             (id, code, name, status, created_at, updated_at)
             VALUES (?, 'DEMO', 'デモ店舗', 'ACTIVE', ?, ?)`,
           args: [DEMO_STORE_ID, now, now],
         },
         {
-          sql: `INSERT INTO audit_logs
+          sql: `INSERT OR IGNORE INTO audit_logs
             (id, actor_user_id, action, entity_type, entity_id, after_data, created_at)
             VALUES (?, ?, 'DEMO_SUPER_USER_INITIALIZED', 'User', ?, ?, ?)`,
           args: [
-            auditId,
-            userId,
-            userId,
+            DEMO_AUDIT_ID,
+            DEMO_SUPER_USER_ID,
+            DEMO_SUPER_USER_ID,
             JSON.stringify({ loginName: "admin", role: "SUPER_USER", ephemeral: true }),
             now,
           ],
