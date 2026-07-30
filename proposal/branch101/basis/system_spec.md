@@ -88,6 +88,9 @@ D-003のとおり、(a)参照時の冪等な不足分生成、(b)ホスティン
 - 環境変数(DB接続文字列、セッション署名鍵等)はリポジトリへコミットしない。`.env.example` で必要変数一覧のみ共有。
 - 空DBの初期SUは `npm run bootstrap:su` で一度だけ作成する。固定初期PINを使用しない。
 - 開発環境と本番DBを分離し、本番データを無加工で開発環境へ複製しない(`operations.md` で手順化)。
+- プロポーザルのVercelプレビューに限り、`EPHEMERAL_SQLITE_DEMO=1` で `/tmp` 上の
+  instance-local SQLiteを許可する。migrationとデモSUを起動時に冪等生成するが、データの
+  永続性・インスタンス間共有は保証しない。本番移行時は必ず永続libSQLへ戻す。
 
 ## 10. CSV運用
 

@@ -6,6 +6,19 @@ test.describe('Login & Basic Navigation', () => {
     await expect(page.getByRole('heading', { name: 'ログイン' })).toBeVisible();
   });
 
+  test('should login with an active demo SU PIN', async ({ page }) => {
+    const pin = process.env.E2E_ADMIN_PIN;
+    test.skip(!pin, 'E2E_ADMIN_PIN is required');
+
+    await page.goto('/login');
+    await page.getByLabel('キャスト名').fill('admin');
+    await page.getByLabel(/PIN/).fill(pin!);
+    await page.getByRole('button', { name: 'ログイン' }).click();
+    await page.waitForURL('/admin');
+    await expect(page.getByRole('heading', { name: 'admin さん' })).toBeVisible();
+    await expect(page.getByRole('link', { name: /初回導入・一括更新/ })).toBeVisible();
+  });
+
   test('should complete initial SU setup and login again', async ({ page }) => {
     const setupCode = process.env.E2E_SETUP_CODE;
     test.skip(!setupCode || process.env.E2E_LOCKOUT_TEST === '1', 'Successful setup scenario is not selected');

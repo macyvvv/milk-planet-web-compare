@@ -25,6 +25,19 @@ CSVで4桁PINを指定するか、空欄にして自動生成すると、アカ�
 本番ではVercelの一時ファイルDBを使用せず、永続libSQLの `DATABASE_URL` と
 `DATABASE_AUTH_TOKEN` を設定する。
 
+### プロポーザル用Vercelプレビュー
+
+本番運用前の画面・操作確認に限り、Vercelの `/tmp` に一時SQLiteを自動生成できる。
+
+```env
+DATABASE_URL="file:/tmp/branch101-demo.db"
+EPHEMERAL_SQLITE_DEMO="1"
+DEMO_ADMIN_PIN="<数字4桁>"
+```
+
+各サーバーインスタンスでmigrationとデモ用SU (`admin`) を冪等に初期化する。再デプロイ、
+コールドスタート、インスタンス切替でデータが消失・分離し得るため、実運用には使用しない。
+
 `migrate:libsql` はmigrationディレクトリを名前順に適用し、`app_migrations`で適用履歴を管理する。
 同じDBへ再実行しても適用済みmigrationはスキップされる。
 

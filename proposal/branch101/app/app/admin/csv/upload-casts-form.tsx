@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import Link from "next/link";
 import { uploadCastsCsvAction, type CsvActionState } from "./import-actions";
 
 const initialState: CsvActionState = {};
@@ -17,9 +18,9 @@ export function UploadCastsForm() {
       <p className="text-slate-600 dark:text-slate-400">
         新規UPSERTのpin空欄は数字4桁を自動生成します。既存ユーザーの空欄は変更しません。
       </p>
-      <a href="/admin/csv/templates/casts" className="self-start text-sky-600 underline">
+      <Link href="/admin/csv/templates/casts" className="self-start text-sky-600 underline">
         アカウントCSVテンプレートをダウンロード
-      </a>
+      </Link>
       <input type="file" name="file" accept=".csv,text/csv" required className="text-sm" />
       {state?.error && <p className="text-red-600 dark:text-red-400">{state.error}</p>}
       <button
