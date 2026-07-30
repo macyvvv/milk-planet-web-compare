@@ -4,9 +4,11 @@ import { PrismaLibSql } from "@prisma/adapter-libsql";
 import { env } from "@/lib/env";
 import { ensureEphemeralSqlite } from "@/lib/ephemeral-sqlite";
 
-await ensureEphemeralSqlite();
+if (process.env.EPHEMERAL_SQLITE_DEMO === "1") {
+  await ensureEphemeralSqlite();
+}
 
-if (process.env.EPHEMERAL_SQLITE_DEMO === "1" && process.env.NODE_ENV === "production") {
+if (process.env.EPHEMERAL_SQLITE_DEMO !== "1" && process.env.NODE_ENV === "production" && (!process.env.DATABASE_URL || process.env.DATABASE_URL.includes("file:"))) {
   throw new Error("CRITICAL: Cannot run ephemeral sqlite in production.");
 }
 const adapter = new PrismaLibSql({
