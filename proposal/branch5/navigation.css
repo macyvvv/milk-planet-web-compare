@@ -57,31 +57,57 @@
   outline-offset: 2px;
 }
 
-.nav-toggle-label {
+/*
+ * Legacy page styles define broad selectors such as `#nav-toggle span` and
+ * `#nav-toggle div`. Keep every internal element in normal flex flow here so
+ * those page-local rules cannot collapse the canonical pill button.
+ */
+#nav-toggle .nav-toggle-label {
+  position: static;
+  inset: auto;
   display: block;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  background: transparent;
   color: #444;
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.12em;
   white-space: nowrap;
+  transform: none;
 }
 
-.nav-toggle-bars {
+#nav-toggle .nav-toggle-bars {
+  position: static;
+  inset: auto;
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   gap: 4px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
 }
 
-.nav-toggle-bars span,
-#top-head.open .nav-toggle-bars span {
+#nav-toggle .nav-toggle-bars span,
+#top-head.open #nav-toggle .nav-toggle-bars span {
+  position: static;
+  inset: auto;
   display: block;
+  flex: 0 0 auto;
   width: 18px;
   height: 2px;
+  margin: 0;
+  padding: 0;
   border-radius: 999px;
   background: #444;
   opacity: 1;
   transform: none;
+  transition: none;
 }
 
 #global-nav {
@@ -236,16 +262,21 @@
     background: transparent;
   }
 
-  .nav-toggle-label {
+  #nav-toggle .nav-toggle-label {
     display: none;
   }
 
-  .nav-toggle-bars {
+  #nav-toggle .nav-toggle-bars {
     gap: 5px;
   }
 
-  .nav-toggle-bars span {
+  #nav-toggle .nav-toggle-bars span,
+  #top-head.open #nav-toggle .nav-toggle-bars span {
+    position: static;
+    inset: auto;
     width: 20px;
+    height: 2px;
+    transform: none;
   }
 
   #global-nav {
