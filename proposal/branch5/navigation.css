@@ -1,39 +1,73 @@
 /* Canonical owner of branch5 header and navigation presentation. */
 
-#top-head {
+#top-head,
+#top-head.fixed {
   position: fixed;
   inset: 0 0 auto;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: 0;
   z-index: 9999;
+  box-sizing: border-box;
   width: 100%;
   height: 0;
   margin: 0;
   padding: 0;
   overflow: visible;
   background: transparent;
+  color: inherit;
+  line-height: normal;
   pointer-events: auto;
+  transition: none;
+  transform: none;
 }
 
-#top-head .inner {
+#top-head .inner,
+#top-head.fixed .inner {
   position: absolute;
+  inset: 8px 16px auto auto;
   top: 8px;
   right: 16px;
+  bottom: auto;
+  left: auto;
   display: inline-block;
+  float: none;
+  box-sizing: border-box;
   width: auto;
+  height: auto;
   margin: 0;
+  padding: 0;
   pointer-events: auto;
+  transform: none;
 }
 
-#nav-toggle {
+#top-head .inner::before,
+#top-head .inner::after {
+  content: none;
+  display: none;
+}
+
+#nav-toggle,
+#top-head.fixed #nav-toggle {
   position: relative;
   inset: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
   z-index: 101;
   display: inline-flex;
+  float: none;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  box-sizing: border-box;
   width: auto;
   min-width: 0;
+  max-width: none;
   height: 48px;
+  min-height: 48px;
   margin: 0;
   padding: 0 28px;
   overflow: visible;
@@ -44,6 +78,10 @@
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
+  line-height: 1;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
 }
 
 #nav-toggle:hover,
@@ -58,26 +96,25 @@
   outline-offset: 2px;
 }
 
-/*
- * Legacy page styles define broad selectors such as `#nav-toggle span` and
- * `#nav-toggle div`. Keep every internal element in normal flex flow here so
- * those page-local rules cannot collapse the canonical pill button.
- */
 #nav-toggle .nav-toggle-label {
   position: static;
   inset: auto;
   display: block;
+  float: none;
+  flex: 0 0 auto;
   width: auto;
   height: auto;
   margin: 0;
   padding: 0;
   background: transparent;
   color: #444;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.12em;
   white-space: nowrap;
+  opacity: 1;
   transform: none;
 }
 
@@ -85,25 +122,30 @@
   position: static;
   inset: auto;
   display: flex;
-  flex-direction: column;
+  float: none;
   flex: 0 0 auto;
+  flex-direction: column;
   gap: 4px;
   width: auto;
   height: auto;
   margin: 0;
   padding: 0;
+  transform: none;
 }
 
 #nav-toggle .nav-toggle-bars span,
-#top-head.open #nav-toggle .nav-toggle-bars span {
+#top-head.open #nav-toggle .nav-toggle-bars span,
+#top-head.fixed #nav-toggle .nav-toggle-bars span {
   position: static;
   inset: auto;
   display: block;
+  float: none;
   flex: 0 0 auto;
   width: 18px;
   height: 2px;
   margin: 0;
   padding: 0;
+  border: 0;
   border-radius: 999px;
   background: #444;
   opacity: 1;
@@ -111,15 +153,22 @@
   transition: none;
 }
 
-#global-nav {
+#global-nav,
+#top-head.fixed #global-nav {
   --nav-indent: 18px;
   --nav-indent-sub: 24px;
   position: fixed;
+  inset: 64px 16px auto auto;
   top: 64px;
   right: 16px;
+  bottom: auto;
+  left: auto;
   z-index: 10000;
   box-sizing: border-box;
   width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  height: auto;
   max-height: calc(100vh - 76px);
   margin: 0;
   padding: 12px 8px;
@@ -129,6 +178,8 @@
   border-radius: 26px;
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  color: #444;
+  text-align: left;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -136,57 +187,72 @@
   transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
 }
 
-#top-head.open #global-nav {
+#top-head.open #global-nav,
+#top-head.fixed.open #global-nav {
+  top: 64px;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
 }
 
-/*
- * Page-local legacy CSS uses more specific selectors such as
- * `#global-nav ul li a`. The canonical rules therefore use at least the same
- * specificity so load order and refactoring cannot alter the component.
- */
-#top-head #global-nav ul {
+#top-head #global-nav ul,
+#top-head.fixed #global-nav ul {
   position: static;
-  right: auto;
-  bottom: auto;
+  inset: auto;
   display: flex;
+  float: none;
   flex-direction: column;
   align-items: stretch;
   gap: 4px;
+  box-sizing: border-box;
   width: 100%;
+  height: auto;
   margin: 0;
   padding: 0;
   list-style: none;
   text-align: left;
   font-family: inherit;
   font-size: inherit;
+  transform: none;
 }
 
-#top-head #global-nav ul li {
+#top-head #global-nav ul li,
+#top-head.fixed #global-nav ul li {
   position: relative;
+  inset: auto;
   display: block;
   float: none;
+  box-sizing: border-box;
   width: 100%;
+  height: auto;
   margin: 0;
   padding: 0;
+  text-align: left;
+  transform: none;
 }
 
+#top-head #global-nav ul li::before,
 #top-head #global-nav ul li::after {
   content: none;
   display: none;
 }
 
 #top-head #global-nav ul li > a,
-#top-head #global-nav .nav-submenu-toggle {
+#top-head.fixed #global-nav ul li > a,
+#top-head #global-nav .nav-submenu-toggle,
+#top-head.fixed #global-nav .nav-submenu-toggle {
   position: relative;
+  inset: auto;
   display: flex;
+  float: none;
   align-items: center;
   box-sizing: border-box;
   width: 100%;
+  min-width: 0;
+  max-width: none;
   min-height: 40px;
+  height: auto;
   margin: 0;
   padding: 8px var(--nav-indent);
   border: 0;
@@ -202,6 +268,8 @@
   text-align: left;
   text-decoration: none;
   white-space: nowrap;
+  opacity: 1;
+  transform: none;
 }
 
 #top-head #global-nav ul li > a:hover,
@@ -214,8 +282,9 @@
   cursor: pointer;
 }
 
-.nav-submenu-toggle::after {
+#top-head #global-nav .nav-submenu-toggle::after {
   content: "▾";
+  display: block;
   margin-left: auto;
   font-size: 16px;
   opacity: 0.8;
@@ -223,14 +292,20 @@
   transition: transform 0.16s ease;
 }
 
-.nav-submenu-item.open .nav-submenu-toggle::after {
+#top-head #global-nav .nav-submenu-item.open .nav-submenu-toggle::after {
   transform: rotate(180deg);
 }
 
-#top-head #global-nav .nav-submenu {
+#top-head #global-nav .nav-submenu,
+#top-head.fixed #global-nav .nav-submenu {
   position: static;
+  inset: auto;
   display: block;
+  float: none;
+  box-sizing: border-box;
   width: calc(100% - 12px);
+  min-width: 0;
+  max-width: none;
   max-height: 0;
   margin: 0 6px;
   padding: 0;
@@ -255,7 +330,8 @@
   transform: translateY(0);
 }
 
-#top-head #global-nav .nav-submenu li > a {
+#top-head #global-nav .nav-submenu li > a,
+#top-head.fixed #global-nav .nav-submenu li > a {
   padding: 7px var(--nav-indent-sub);
   border-radius: 10px;
   color: #333;
@@ -264,19 +340,27 @@
 }
 
 @media (max-width: 780px) {
-  #top-head .inner {
+  #top-head .inner,
+  #top-head.fixed .inner {
+    inset: 10px 12px auto auto;
     top: 10px;
     right: 12px;
+    bottom: auto;
+    left: auto;
   }
 
-  #nav-toggle {
+  #nav-toggle,
+  #top-head.fixed #nav-toggle {
     inset: auto;
     gap: 0;
     width: 48px;
     min-width: 48px;
+    max-width: 48px;
     height: 48px;
+    min-height: 48px;
     padding: 0;
     border: 0;
+    border-radius: 50%;
     background: transparent;
   }
 
@@ -289,7 +373,8 @@
   }
 
   #nav-toggle .nav-toggle-bars span,
-  #top-head.open #nav-toggle .nav-toggle-bars span {
+  #top-head.open #nav-toggle .nav-toggle-bars span,
+  #top-head.fixed #nav-toggle .nav-toggle-bars span {
     position: static;
     inset: auto;
     width: 20px;
@@ -297,18 +382,32 @@
     transform: none;
   }
 
-  #global-nav {
+  #global-nav,
+  #top-head.fixed #global-nav {
     --nav-indent: 14px;
     --nav-indent-sub: 22px;
+    inset: 52px 10px auto auto;
     top: 52px;
     right: 10px;
+    bottom: auto;
+    left: auto;
     width: min(280px, calc(100vw - 20px));
+    min-width: 0;
+    max-width: calc(100vw - 20px);
+    height: auto;
     max-height: calc(100vh - 60px);
     padding: 10px 0;
   }
 
+  #top-head.open #global-nav,
+  #top-head.fixed.open #global-nav {
+    top: 52px;
+  }
+
   #top-head #global-nav ul li > a,
-  #top-head #global-nav .nav-submenu-toggle {
+  #top-head.fixed #global-nav ul li > a,
+  #top-head #global-nav .nav-submenu-toggle,
+  #top-head.fixed #global-nav .nav-submenu-toggle {
     min-height: 46px;
     padding: 8px var(--nav-indent);
     font-size: 16px;
@@ -317,7 +416,8 @@
     white-space: normal;
   }
 
-  #top-head #global-nav .nav-submenu li > a {
+  #top-head #global-nav .nav-submenu li > a,
+  #top-head.fixed #global-nav .nav-submenu li > a {
     padding: 7px 12px 7px var(--nav-indent-sub);
     font-size: 16px;
     line-height: 1.45;
