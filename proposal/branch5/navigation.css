@@ -142,7 +142,15 @@
   transform: translateY(0);
 }
 
-#global-nav ul {
+/*
+ * Page-local legacy CSS uses more specific selectors such as
+ * `#global-nav ul li a`. The canonical rules therefore use at least the same
+ * specificity so load order and refactoring cannot alter the component.
+ */
+#top-head #global-nav ul {
+  position: static;
+  right: auto;
+  bottom: auto;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -151,21 +159,27 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  text-align: left;
+  font-family: inherit;
+  font-size: inherit;
 }
 
-#global-nav li {
+#top-head #global-nav ul li {
   position: relative;
   display: block;
+  float: none;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-#global-nav li::after {
+#top-head #global-nav ul li::after {
   content: none;
   display: none;
 }
 
-#global-nav a,
-.nav-submenu-toggle {
+#top-head #global-nav ul li > a,
+#top-head #global-nav .nav-submenu-toggle {
   position: relative;
   display: flex;
   align-items: center;
@@ -186,14 +200,15 @@
   letter-spacing: 0.1em;
   text-align: left;
   text-decoration: none;
+  white-space: nowrap;
 }
 
-#global-nav a:hover,
-#global-nav a:focus-visible {
+#top-head #global-nav ul li > a:hover,
+#top-head #global-nav ul li > a:focus-visible {
   background: rgba(255, 255, 255, 0.8);
 }
 
-.nav-submenu-toggle {
+#top-head #global-nav .nav-submenu-toggle {
   justify-content: flex-start;
   cursor: pointer;
 }
@@ -211,7 +226,7 @@
   transform: rotate(180deg);
 }
 
-.nav-submenu {
+#top-head #global-nav .nav-submenu {
   position: static;
   display: block;
   width: calc(100% - 12px);
@@ -229,7 +244,7 @@
   transform: translateY(-4px);
 }
 
-.nav-submenu-item.open .nav-submenu {
+#top-head #global-nav .nav-submenu-item.open .nav-submenu {
   max-height: 560px;
   margin: 8px 6px 4px;
   padding: 8px 0;
@@ -239,11 +254,12 @@
   transform: translateY(0);
 }
 
-#global-nav .nav-submenu a {
-  padding-left: var(--nav-indent-sub);
+#top-head #global-nav .nav-submenu li > a {
+  padding: 7px var(--nav-indent-sub);
   border-radius: 10px;
   color: #333;
   font-size: 14px;
+  white-space: normal;
 }
 
 @media (max-width: 780px) {
@@ -289,16 +305,17 @@
     padding: 10px 0;
   }
 
-  #global-nav a,
-  .nav-submenu-toggle {
+  #top-head #global-nav ul li > a,
+  #top-head #global-nav .nav-submenu-toggle {
     min-height: 46px;
     padding: 8px var(--nav-indent);
     font-size: 16px;
     line-height: 1.45;
     letter-spacing: 0.06em;
+    white-space: normal;
   }
 
-  #global-nav .nav-submenu a {
+  #top-head #global-nav .nav-submenu li > a {
     padding: 7px 12px 7px var(--nav-indent-sub);
     font-size: 16px;
     line-height: 1.45;
