@@ -64,7 +64,7 @@
 .newcomer-grid p { margin:0 0 12px; }
 .newcomer-grid p:last-child { margin-bottom:0; }
 
-.item-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px 18px; width:min(880px,100%); margin:0 auto; padding:0; list-style:none; text-align:left; }
+.item-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px 18px; width:min(880px,100%); margin:0 auto; padding:0; list-style:none; text-align:left; }
 .item-grid li { padding:7px 8px; border-bottom:1px dotted #ccc; }
 .champagne-columns, .food-columns { gap:48px; }
 .champagne-columns h3:first-child, .food-columns h3:first-child { margin-top:0; }
@@ -93,6 +93,7 @@
   .information-columns, .system-grid, .champagne-columns, .food-columns, .newcomer-grid, .special-grid { grid-template-columns:1fr; gap:16px; }
   .wide-list { grid-template-columns:1fr; }
   .item-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .item-grid .long-drink { grid-column:1 / -1; }
   .hours { flex-direction:column; align-items:center; gap:2px; }
   .hours strong { font-size:27px; }
   .price-list > div { gap:12px; text-align:left; }
