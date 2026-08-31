@@ -73,11 +73,7 @@
 .food-subheading { margin:0 0 8px; color:#555; text-align:left; font-size:16px; font-weight:bold; }
 
 .special-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; align-items:start; }
-.special-card { position:relative; overflow:hidden; padding:0 18px 24px; border:1px solid var(--line); border-radius:10px; background:#fff; }
-.special-card img { display:block; width:calc(100% + 36px); height:280px; margin:0 -18px 18px; object-fit:cover; object-position:center 58%; }
-.special-card:nth-child(2) img, .special-card:nth-child(3) img { object-position:center top; }
-.special-card h3 { margin:12px 0; }
-.badge { position:absolute; top:12px; left:12px; margin:0; padding:5px 12px; color:#fff; background:var(--shandy-red); border-radius:999px; font-size:12px; font-weight:bold; }
+.special-image { display:block; width:100%; height:auto; border-radius:10px; }
 
 .contact-box { padding:36px 20px 70px; color:#555; }
 .contact-box p { margin:0; font-size:20px; font-weight:bold; }
@@ -98,7 +94,6 @@
   .hours strong { font-size:27px; }
   .price-list > div { gap:12px; text-align:left; }
   .champagne-columns, .food-columns { text-align:left; }
-  .special-card img { height:240px; }
 }
 
 @media screen and (max-width:420px) {
