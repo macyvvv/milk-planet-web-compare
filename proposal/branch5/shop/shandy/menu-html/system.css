@@ -12,8 +12,11 @@
 .html-menu { width:100%; color:var(--text); background:#fff; text-align:center; font-family:'Lato','Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; line-break:strict; }
 .html-menu p, .html-menu li, .html-menu dt { word-break:auto-phrase; text-wrap:pretty; }
 .phrase { white-space:nowrap; }
-.menu-intro { padding:72px 20px 26px; }
-.shop-logo { display:block; width:min(360px,76vw); height:auto; margin:0 auto 16px; }
+html body h1.menu-page-title { display:flex !important; align-items:center !important; justify-content:center !important; gap:18px !important; }
+html body h1.menu-page-title > span { position:relative; z-index:100; line-height:1.4 !important; white-space:nowrap; }
+html body h1.menu-page-title .title-shop-logo { position:relative; z-index:100; display:block; flex:0 0 auto; width:190px !important; height:auto !important; max-height:none !important; margin:0; transition:width .18s linear; }
+html body h1.menu-page-title.scrolled-title .title-shop-logo { width:106px !important; }
+.menu-intro { padding:54px 20px 26px; }
 .menu-intro p { margin:0 auto 14px; }
 
 .local-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; width:min(920px,calc(100% - 32px)); margin:0 auto 40px; }
@@ -81,7 +84,11 @@
 .site-footer { display:block; border:0; }
 
 @media screen and (max-width:780px) {
-  .menu-intro { padding-top:44px; }
+  html body h1.menu-page-title:not(.scrolled-title) { padding:18px 64px 60px 8px !important; gap:8px !important; font-size:18px !important; }
+  html body h1.menu-page-title.scrolled-title { padding:0 56px 0 8px !important; gap:8px !important; }
+  html body h1.menu-page-title .title-shop-logo { width:76px !important; }
+  html body h1.menu-page-title.scrolled-title .title-shop-logo { width:64px !important; }
+  .menu-intro { padding-top:36px; }
   .local-nav { margin-bottom:20px; }
   .menu-section { width:calc(100% - 28px); padding:40px 0; }
   .html-menu .menu-section h2 { margin-bottom:28px; padding:8px 10px; font-size:20px; letter-spacing:.12em; }
