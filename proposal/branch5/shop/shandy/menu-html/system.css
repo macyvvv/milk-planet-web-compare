@@ -1,0 +1,90 @@
+:root { --shandy-red:#8f0100; --shandy-pale:#f8ecea; --text:#444; --line:#e6d4d2; }
+
+.skip-link { position:fixed; top:8px; left:8px; z-index:10001; padding:8px 12px; color:#fff; background:#222; transform:translateY(-150%); }
+.skip-link:focus { transform:translateY(0); }
+
+.html-menu { width:100%; color:var(--text); background:#fff; text-align:center; font-family:'Lato','Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; }
+.menu-intro { padding:72px 20px 26px; }
+.shop-logo { display:block; width:min(360px,76vw); height:auto; margin:0 auto 16px; }
+.menu-intro p { margin:0 auto 14px; }
+.compare-link { display:inline-block; padding:8px 20px; color:var(--shandy-red); border:1px solid var(--shandy-red); border-radius:999px; text-decoration:none; }
+.compare-link:hover, .compare-link:focus-visible { color:#fff; background:var(--shandy-red); }
+
+.local-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; width:min(920px,calc(100% - 32px)); margin:0 auto 40px; }
+.local-nav a { padding:7px 15px; color:#555; background:#fff; border:1px solid #ccc; border-radius:999px; text-decoration:none; font-size:13px; }
+.local-nav a:hover, .local-nav a:focus-visible { color:#fff; background:var(--shandy-red); border-color:var(--shandy-red); }
+
+.menu-section { width:min(1040px,calc(100% - 40px)); margin:0 auto; padding:54px 0; scroll-margin-top:80px; }
+.menu-section + .menu-section { border-top:1px solid #eee; }
+.html-menu .menu-section h2 { width:min(800px,100%); margin:0 auto 42px; padding:8px 16px; color:#fff; background:var(--shandy-red); border-radius:8px; letter-spacing:.18em; font-family:'Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; font-size:32px; line-height:1.5; }
+.html-menu h3 { margin:42px 0 18px; color:var(--shandy-red); font-size:22px; letter-spacing:.08em; }
+.html-menu h4 { margin:0 0 12px; font-size:18px; }
+.heading-price { margin-left:10px; color:#777; font-size:15px; white-space:nowrap; }
+.annotation { margin:18px auto; color:#777; font-size:13px; }
+.notice { color:var(--shandy-red); font-weight:bold; }
+
+.information-columns, .system-grid, .champagne-columns, .food-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; text-align:left; }
+.information-columns > div, .system-card, .newcomer-grid > div { padding:26px; background:var(--shandy-pale); border:1px solid var(--line); border-radius:10px; }
+.information-columns h3, .system-card h3 { margin-top:0; }
+.text-list { margin:0; padding-left:1.5em; }
+.text-list li + li { margin-top:8px; }
+.hours { display:flex; justify-content:center; align-items:baseline; gap:18px; margin:0 0 30px; }
+.hours span { font-weight:bold; }
+.hours strong { color:var(--shandy-red); font-size:32px; }
+.subheading { font-weight:bold; }
+.large-price { margin:10px 0; color:var(--shandy-red); font-size:30px; font-weight:bold; }
+.large-price small { margin-left:5px; font-size:13px; }
+.bring-in { width:min(620px,100%); margin:24px auto 0; padding:12px; border:1px solid var(--line); border-radius:8px; }
+
+.price-list { margin:0; }
+.price-list > div { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; padding:9px 0; border-bottom:1px dotted #cbb9b7; }
+.price-list dt { min-width:0; }
+.price-list dd { margin:0; color:#333; font-weight:bold; white-space:nowrap; }
+.wide-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 34px; width:min(850px,100%); margin:0 auto; text-align:left; }
+.newcomer-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; text-align:left; }
+.newcomer-grid h4 { color:var(--shandy-red); }
+.newcomer-grid h4 strong { display:block; margin-top:4px; font-size:24px; }
+
+.item-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px 18px; width:min(880px,100%); margin:0 auto; padding:0; list-style:none; text-align:left; }
+.item-grid li { padding:7px 8px; border-bottom:1px dotted #ccc; }
+.champagne-columns, .food-columns { gap:48px; }
+.champagne-columns h3:first-child, .food-columns h3:first-child { margin-top:0; }
+.food-hours { margin:-18px 0 34px; }
+.food-hours strong { color:var(--shandy-red); }
+.food-subheading { margin:0 0 8px; color:#555; text-align:left; }
+
+.special-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; align-items:start; }
+.special-card { position:relative; overflow:hidden; padding:0 18px 24px; border:1px solid var(--line); border-radius:10px; background:#fff; }
+.special-card img { display:block; width:calc(100% + 36px); height:280px; margin:0 -18px 18px; object-fit:cover; object-position:center 58%; }
+.special-card:nth-child(2) img, .special-card:nth-child(3) img { object-position:center top; }
+.special-card h3 { margin:12px 0; }
+.badge { position:absolute; top:12px; left:12px; margin:0; padding:5px 12px; color:#fff; background:var(--shandy-red); border-radius:999px; font-size:12px; font-weight:bold; }
+
+.contact-box { padding:36px 20px 70px; color:#555; }
+.contact-box p { margin:0; font-size:20px; font-weight:bold; }
+.contact-box a { color:var(--shandy-red); font-size:18px; }
+.site-footer { display:block; border:0; }
+
+@media screen and (max-width:780px) {
+  .menu-intro { padding-top:44px; }
+  .local-nav { margin-bottom:20px; }
+  .menu-section { width:calc(100% - 28px); padding:40px 0; }
+  .html-menu .menu-section h2 { margin-bottom:28px; padding:8px 10px; font-size:20px; letter-spacing:.12em; }
+  .html-menu h3 { margin-top:32px; font-size:18px; }
+  .information-columns, .system-grid, .champagne-columns, .food-columns, .newcomer-grid, .special-grid { grid-template-columns:1fr; gap:16px; }
+  .wide-list { grid-template-columns:1fr; }
+  .item-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .hours { flex-direction:column; align-items:center; gap:2px; }
+  .hours strong { font-size:27px; }
+  .price-list > div { gap:12px; text-align:left; }
+  .champagne-columns, .food-columns { text-align:left; }
+  .special-card img { height:240px; }
+}
+
+@media screen and (max-width:420px) {
+  .price-list > div { grid-template-columns:minmax(0,1fr) auto; font-size:12px; }
+  .item-grid { grid-template-columns:1fr 1fr; font-size:13px; }
+  .information-columns > div, .system-card, .newcomer-grid > div { padding:20px; }
+}
+
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }

@@ -33,6 +33,7 @@
 | chocolat メニュー | `currently/shop/chocolat/menu/index.html` | `proposal/branch1/shop/chocolat/menu/index.html` |
 | shandy | `currently/shop/shandy/index.html` | `proposal/branch1/shop/shandy/index.html` |
 | shandy メニュー | `currently/shop/shandy/menu/index.html` | `proposal/branch1/shop/shandy/menu/index.html` |
+| shandy HTML版メニュー（正規比較） | - | `proposal/branch5/shop/shandy/menu-html/index.html` |
 | melty | `currently/shop/melty/index.html` | `proposal/branch1/shop/melty/index.html` |
 | melty メニュー | `currently/shop/melty/menu/index.html` | `proposal/branch1/shop/melty/menu/index.html` |
 | bloody | `currently/shop/bloody/index.html` | `proposal/branch1/shop/bloody/index.html` |
