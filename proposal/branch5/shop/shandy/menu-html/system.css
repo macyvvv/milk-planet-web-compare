@@ -3,12 +3,16 @@
 .skip-link { position:fixed; top:8px; left:8px; z-index:10001; padding:8px 12px; color:#fff; background:#222; transform:translateY(-150%); }
 .skip-link:focus { transform:translateY(0); }
 
+.html-menu a:focus-visible,
+#nav-toggle:focus-visible {
+  outline:3px solid #005fcc;
+  outline-offset:3px;
+}
+
 .html-menu { width:100%; color:var(--text); background:#fff; text-align:center; font-family:'Lato','Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; }
 .menu-intro { padding:72px 20px 26px; }
 .shop-logo { display:block; width:min(360px,76vw); height:auto; margin:0 auto 16px; }
 .menu-intro p { margin:0 auto 14px; }
-.compare-link { display:inline-block; padding:8px 20px; color:var(--shandy-red); border:1px solid var(--shandy-red); border-radius:999px; text-decoration:none; }
-.compare-link:hover, .compare-link:focus-visible { color:#fff; background:var(--shandy-red); }
 
 .local-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; width:min(920px,calc(100% - 32px)); margin:0 auto 40px; }
 .local-nav a { padding:7px 15px; color:#555; background:#fff; border:1px solid #ccc; border-radius:999px; text-decoration:none; font-size:13px; }
@@ -19,8 +23,8 @@
 .html-menu .menu-section h2 { width:min(800px,100%); margin:0 auto 42px; padding:8px 16px; color:#fff; background:var(--shandy-red); border-radius:8px; letter-spacing:.18em; font-family:'Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; font-size:32px; line-height:1.5; }
 .html-menu h3 { margin:42px 0 18px; color:var(--shandy-red); font-size:22px; letter-spacing:.08em; }
 .html-menu h4 { margin:0 0 12px; font-size:18px; }
-.heading-price { margin-left:10px; color:#777; font-size:15px; white-space:nowrap; }
-.annotation { margin:18px auto; color:#777; font-size:13px; }
+.heading-price { margin-left:10px; color:#666; font-size:15px; white-space:nowrap; }
+.annotation { margin:18px auto; color:#666; font-size:13px; }
 .notice { color:var(--shandy-red); font-weight:bold; }
 
 .information-columns, .system-grid, .champagne-columns, .food-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; text-align:left; }
@@ -38,11 +42,21 @@
 
 .price-list { margin:0; }
 .price-list > div { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; padding:9px 0; border-bottom:1px dotted #cbb9b7; }
-.price-list dt { min-width:0; }
+.price-list dt { min-width:0; overflow-wrap:anywhere; line-break:strict; }
 .price-list dd { margin:0; color:#333; font-weight:bold; white-space:nowrap; }
 .wide-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 34px; width:min(850px,100%); margin:0 auto; text-align:left; }
 .newcomer-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; text-align:left; }
-.newcomer-grid h4 { color:var(--shandy-red); }
+.newcomer-grid h4 {
+  width:auto;
+  margin:0 0 12px;
+  padding:0;
+  color:var(--shandy-red);
+  background:none;
+  border:0;
+  border-radius:0;
+  text-align:left;
+  line-height:1.5;
+}
 .newcomer-grid h4 strong { display:block; margin-top:4px; font-size:24px; }
 
 .item-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px 18px; width:min(880px,100%); margin:0 auto; padding:0; list-style:none; text-align:left; }
@@ -51,7 +65,7 @@
 .champagne-columns h3:first-child, .food-columns h3:first-child { margin-top:0; }
 .food-hours { margin:-18px 0 34px; }
 .food-hours strong { color:var(--shandy-red); }
-.food-subheading { margin:0 0 8px; color:#555; text-align:left; }
+.food-subheading { margin:0 0 8px; color:#555; text-align:left; font-size:16px; font-weight:bold; }
 
 .special-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; align-items:start; }
 .special-card { position:relative; overflow:hidden; padding:0 18px 24px; border:1px solid var(--line); border-radius:10px; background:#fff; }
@@ -83,6 +97,8 @@
 
 @media screen and (max-width:420px) {
   .price-list > div { grid-template-columns:minmax(0,1fr) auto; font-size:12px; }
+  .price-list > .long-label { grid-template-columns:1fr; gap:3px; }
+  .price-list > .long-label dd { text-align:right; }
   .item-grid { grid-template-columns:1fr 1fr; font-size:13px; }
   .information-columns > div, .system-card, .newcomer-grid > div { padding:20px; }
 }
