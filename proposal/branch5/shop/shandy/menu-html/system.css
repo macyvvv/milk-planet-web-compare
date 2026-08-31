@@ -22,7 +22,8 @@
 
 .menu-section { width:min(1040px,calc(100% - 40px)); margin:0 auto; padding:54px 0; scroll-margin-top:80px; }
 .menu-section + .menu-section { border-top:1px solid #eee; }
-.html-menu .menu-section h2 { width:min(800px,100%); margin:0 auto 42px; padding:8px 16px; color:#fff; background:var(--shandy-red); border-radius:8px; letter-spacing:.18em; font-family:'Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; font-size:32px; line-height:1.5; }
+.html-menu .menu-section h2 { box-sizing:border-box; width:min(800px,100%); margin:0 auto 42px; padding:8px 16px; color:#fff; background:var(--shandy-red); border-radius:8px; letter-spacing:.18em; font-family:'Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; font-size:32px; line-height:1.5; word-break:keep-all; overflow-wrap:normal; }
+.heading-phrase { white-space:nowrap; }
 .html-menu h3 { margin:42px 0 18px; color:var(--shandy-red); font-size:22px; letter-spacing:.08em; }
 .html-menu h4 { margin:0 0 12px; font-size:18px; }
 .heading-price { margin-left:10px; color:#666; font-size:15px; white-space:nowrap; }
