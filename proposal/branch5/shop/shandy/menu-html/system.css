@@ -9,7 +9,9 @@
   outline-offset:3px;
 }
 
-.html-menu { width:100%; color:var(--text); background:#fff; text-align:center; font-family:'Lato','Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; }
+.html-menu { width:100%; color:var(--text); background:#fff; text-align:center; font-family:'Lato','Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; line-break:strict; }
+.html-menu p, .html-menu li, .html-menu dt { word-break:auto-phrase; text-wrap:pretty; }
+.phrase { white-space:nowrap; }
 .menu-intro { padding:72px 20px 26px; }
 .shop-logo { display:block; width:min(360px,76vw); height:auto; margin:0 auto 16px; }
 .menu-intro p { margin:0 auto 14px; }
@@ -42,7 +44,7 @@
 
 .price-list { margin:0; }
 .price-list > div { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; padding:9px 0; border-bottom:1px dotted #cbb9b7; }
-.price-list dt { min-width:0; overflow-wrap:anywhere; line-break:strict; }
+.price-list dt { min-width:0; overflow-wrap:break-word; }
 .price-list dd { margin:0; color:#333; font-weight:bold; white-space:nowrap; }
 .wide-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 34px; width:min(850px,100%); margin:0 auto; text-align:left; }
 .newcomer-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; text-align:left; }
@@ -58,6 +60,8 @@
   line-height:1.5;
 }
 .newcomer-grid h4 strong { display:block; margin-top:4px; font-size:24px; }
+.newcomer-grid p { margin:0 0 12px; }
+.newcomer-grid p:last-child { margin-bottom:0; }
 
 .item-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px 18px; width:min(880px,100%); margin:0 auto; padding:0; list-style:none; text-align:left; }
 .item-grid li { padding:7px 8px; border-bottom:1px dotted #ccc; }
