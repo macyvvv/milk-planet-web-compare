@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HTML版 システム&amp;メニュー | ShandyLove</title>
-  <meta name="description" content="ShandyLoveの料金システム、ドリンク、シャンパン、フードメニューをHTMLでご案内します。">
+  <title>システム&amp;メニュー | ShandyLove</title>
+  <meta name="description" content="ShandyLoveの料金システム、ドリンク、シャンパン、フードメニューをご案内します。">
   <meta name="keywords" content="ShandyLove,シャンディラブ,シャンラブ,コンカフェ,新宿,歌舞伎町,メニュー">
   <meta name="robots" content="noindex,follow">
   <meta name="viewport" content="width=device-width, maximum-scale=5.0">
@@ -26,15 +26,18 @@
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZ394556"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZ394556"
+      height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe>
+  </noscript>
   <!-- End Google Tag Manager (noscript) -->
 
   <a class="skip-link" href="#menu-content">メニュー本文へ移動</a>
 
   <header id="top-head">
     <div class="inner">
-      <div id="nav-toggle">
+      <div id="nav-toggle" role="button" tabindex="0" aria-controls="global-nav"
+        aria-expanded="false" aria-label="めにゅうを開く">
         <div class="nav-toggle-bars"><span></span><span></span><span></span></div>
         <span class="nav-toggle-label">めにゅう</span>
       </div>
@@ -57,9 +60,7 @@
   <article id="menu-content" class="html-menu">
     <div class="menu-intro">
       <img src="../images/shop_Shandy_logo.png" width="360" height="180" alt="ShandyLove" class="shop-logo">
-      <p>店内掲示メニューの情報を、Webでも読みやすい形で掲載しています。</p>
       <p>ShandyLoveでは美味しいお食事とお酒をご用意して、皆様のご来店を心よりお待ちしております。かわいいキャストたちと素敵な時間をお過ごしください。</p>
-      <a class="compare-link" href="../menu/index.html">画像版メニューを見る</a>
     </div>
 
     <nav class="local-nav" aria-label="メニュー内目次">
@@ -110,8 +111,14 @@
         <div class="system-card">
           <h3>飲み放題制</h3>
           <dl class="price-list">
-            <div><dt>カウンター席</dt><dd>3,000円 / 1時間</dd></div>
-            <div><dt>ボックス席</dt><dd>4,000円 / 1時間</dd></div>
+            <div>
+              <dt>カウンター席</dt>
+              <dd>3,000円 / 1時間</dd>
+            </div>
+            <div>
+              <dt>ボックス席</dt>
+              <dd>4,000円 / 1時間</dd>
+            </div>
           </dl>
           <p>3名様以上でご来店の場合は、ボックス料金1,000円引き。</p>
           <p class="annotation">ビール、焼酎、カクテル飲み放題。シャンパン、ショットは別料金です。</p>
@@ -137,9 +144,21 @@
 
       <h3>ご新規セット</h3>
       <div class="newcomer-grid">
-        <div><h4>ご新規セットA <strong>2,000円</strong></h4><p>1時間＋1ドリンク＋キャストドリンク1杯</p><p>カウンター席のみ／500円ガチャ</p></div>
-        <div><h4>ご新規セットB <strong>5,000円</strong></h4><p>1時間飲み放題＋フード1品（何でも）＋キャストドリンク1杯または写メ</p><p>ソファー席／500円ガチャ</p></div>
-        <div><h4>ご新規セットC <strong>10,000円</strong></h4><p>1時間飲み放題＋フード1品＋シャンパン（ノンアルまたはアルコール）＋500円ガチャ</p><p>ソファー席</p></div>
+        <div>
+          <h4>ご新規セットA <strong>2,000円</strong></h4>
+          <p>1時間＋1ドリンク＋キャストドリンク1杯</p>
+          <p>カウンター席のみ／500円ガチャ</p>
+        </div>
+        <div>
+          <h4>ご新規セットB <strong>5,000円</strong></h4>
+          <p>1時間飲み放題＋フード1品（何でも）＋キャストドリンク1杯または写メ</p>
+          <p>ソファー席／500円ガチャ</p>
+        </div>
+        <div>
+          <h4>ご新規セットC <strong>10,000円</strong></h4>
+          <p>1時間飲み放題＋フード1品＋シャンパン（ノンアルまたはアルコール）＋500円ガチャ</p>
+          <p>ソファー席</p>
+        </div>
       </div>
     </section>
 
@@ -147,13 +166,41 @@
       <h2>DRINK MENU</h2>
       <h3>アルコール・カクテル <span class="heading-price">各1,100円</span></h3>
       <ul class="item-grid">
-        <li>ビール</li><li>ハイボール</li><li>お茶割り各種</li><li>レッドアイ</li><li>レモンサワー</li><li>ジン</li><li>ウォッカ</li><li>ラム</li><li>カシス</li><li>ピーチ</li><li>マンゴー</li><li>テキーラ</li><li>ライチ</li><li>マリブ</li><li>ミスティア</li><li>ヨーグリート</li><li>カルーア</li><li>アマレット</li>
+        <li>ビール</li>
+        <li>ハイボール</li>
+        <li>お茶割り各種</li>
+        <li>レッドアイ</li>
+        <li>レモンサワー</li>
+        <li>ジン</li>
+        <li>ウォッカ</li>
+        <li>ラム</li>
+        <li>カシス</li>
+        <li>ピーチ</li>
+        <li>マンゴー</li>
+        <li>テキーラ</li>
+        <li>ライチ</li>
+        <li>マリブ</li>
+        <li>ミスティア</li>
+        <li>ヨーグリート</li>
+        <li>カルーア</li>
+        <li>アマレット</li>
       </ul>
       <p class="annotation">レッドブル割りのカクテルは＋550円です。</p>
 
       <h3>ソフトドリンク <span class="heading-price">各880円</span></h3>
       <ul class="item-grid">
-        <li>コーラ</li><li>ジンジャーエール（甘口）</li><li>トニックウォーター</li><li>カルピスウォーター</li><li>アップルジュース</li><li>グレープフルーツ</li><li>オレンジジュース</li><li>午後ティー（ミルク／レモン／無糖）</li><li>緑茶</li><li>ジャスミン茶</li><li>ウーロン茶</li><li>コーヒー</li>
+        <li>コーラ</li>
+        <li>ジンジャーエール（甘口）</li>
+        <li>トニックウォーター</li>
+        <li>カルピスウォーター</li>
+        <li>アップルジュース</li>
+        <li>グレープフルーツ</li>
+        <li>オレンジジュース</li>
+        <li>午後ティー（ミルク／レモン／無糖）</li>
+        <li>緑茶</li>
+        <li>ジャスミン茶</li>
+        <li>ウーロン茶</li>
+        <li>コーヒー</li>
       </ul>
 
       <h3>単品ドリンク <span class="heading-price">飲み放題対象外</span></h3>
@@ -179,8 +226,14 @@
           </dl>
           <h3>オリジナルシャンパン</h3>
           <dl class="price-list">
-            <div><dt>アルコール（パープル）／ノンアルコール（ピンク）</dt><dd>各33,000円</dd></div>
-            <div><dt>アルコール（ブラック）／ノンアルコール（ピンク）</dt><dd>各55,000円</dd></div>
+            <div class="long-label">
+              <dt>アルコール（パープル）／ノンアルコール（ピンク）</dt>
+              <dd>各33,000円</dd>
+            </div>
+            <div class="long-label">
+              <dt>アルコール（ブラック）／ノンアルコール（ピンク）</dt>
+              <dd>各55,000円</dd>
+            </div>
           </dl>
         </div>
       </div>
@@ -205,8 +258,17 @@
           <h3>SIDE MENU</h3>
           <dl class="price-list"><div><dt>ガーリックトースト</dt><dd>660円</dd></div><div><dt>トマトのブルスケッタ</dt><dd>1,100円</dd></div><div><dt>自家製レバーパテ＆バゲット</dt><dd>1,100円</dd></div><div><dt>生ハムとチーズの盛り合わせ</dt><dd>1,210円</dd></div><div><dt>トマトとモッツァレラのカプレーゼ</dt><dd>1,210円</dd></div><div><dt>ソーセージ盛り合わせ</dt><dd>1,100円</dd></div><div><dt>鴨スモーク</dt><dd>1,320円</dd></div><div><dt>サーモンの生春巻き</dt><dd>1,430円</dd></div><div><dt>サーモンのカルパッチョ</dt><dd>1,430円</dd></div></dl>
           <h3>SALAD</h3>
-          <h4 class="food-subheading">シーザーサラダ</h4>
-          <dl class="price-list"><div><dt>カリカリベーコンとごぼうのサラダ S</dt><dd>990円</dd></div><div><dt>ヤリイカとトマトのサラダ L</dt><dd>1,320円</dd></div></dl>
+          <p class="food-subheading">シーザーサラダ</p>
+          <dl class="price-list">
+            <div>
+              <dt>カリカリベーコンとごぼうのサラダ S</dt>
+              <dd>990円</dd>
+            </div>
+            <div>
+              <dt>ヤリイカとトマトのサラダ L</dt>
+              <dd>1,320円</dd>
+            </div>
+          </dl>
           <h3>PASTA</h3>
           <dl class="price-list"><div><dt>大葉ジェノベーゼパスタ</dt><dd>1,100円</dd></div><div><dt>明太クリームパスタ</dt><dd>1,100円</dd></div><div><dt>かにクリームパスタ</dt><dd>1,210円</dd></div><div><dt>チーズチキントマトパスタ</dt><dd>1,210円</dd></div></dl>
           <h3>DESSERT</h3>
