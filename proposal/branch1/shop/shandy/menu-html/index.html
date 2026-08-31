@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta name="description" content="Shandy Loveのシステムとメニューを、読みやすいHTMLで案内します。">
+  <title>HTML版 システム&amp;メニュー | Shandy Love</title>
+  <link rel="stylesheet" href="system.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">メニュー本文へ移動</a>
+
+  <header class="site-header">
+    <a class="home-link" href="../index.html" aria-label="Shandy Love 店舗ページへ戻る">
+      <span class="brand-small">concept cafe &amp; dining bar</span>
+      <span class="brand-name">Shandy Love</span>
+    </a>
+    <nav aria-label="ページ内メニュー">
+      <a href="#system">システム</a>
+      <a href="#drink">ドリンク</a>
+      <a href="#limited">限定メニュー</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">SHANDY LOVE</p>
+      <h1 id="page-title">SYSTEM <span>&amp;</span> MENU</h1>
+      <p>料金・ご利用案内を、スマートフォンでも読みやすく。</p>
+      <div class="mock-label" aria-label="比較検証用モックアップ">HTML MOCKUP</div>
+    </section>
+
+    <section class="notice section" aria-labelledby="notice-title">
+      <div class="section-heading">
+        <p class="eyebrow">INFORMATION</p>
+        <h2 id="notice-title">ご来店の皆様へ</h2>
+      </div>
+      <div class="notice-grid">
+        <div class="panel">
+          <h3>ご利用について</h3>
+          <ul>
+            <li>価格はすべて税込価格です。</li>
+            <li>お時間の管理はお客様ご自身でお願いします。</li>
+            <li>各種クレジットカード・QR決済が可能です。</li>
+            <li>店内での撮影は、キャストや他のお客様が写らないようご配慮ください。</li>
+            <li>店内での金品の盗難や物品の破損などについて、当店では責任を負いかねます。</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>禁止事項</h3>
+          <ul>
+            <li>キャストに触れる行為</li>
+            <li>出入り待ちや、業務外のキャストとの会話・つきまとい行為</li>
+            <li>キャストのプライベートを聞き出す行為</li>
+            <li>キャストや他のお客様への暴言・嫌がらせ行為（店内・SNSを含む）</li>
+          </ul>
+          <p class="panel-note">皆様が心地よく過ごせるよう、ご協力をお願いします。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="system" aria-labelledby="system-title">
+      <div class="section-heading">
+        <p class="eyebrow">SYSTEM</p>
+        <h2 id="system-title">料金システム</h2>
+      </div>
+      <p class="business-hours"><span>営業時間</span><strong>19:00–25:00</strong></p>
+
+      <div class="price-grid">
+        <article class="price-card featured">
+          <p class="plan">1ドリンク・オーダー制</p>
+          <h3>カウンター席</h3>
+          <p class="price"><strong>1,100</strong><span>円 / 1時間</span></p>
+          <p>1時間につき1オーダーをお願いします。</p>
+        </article>
+        <article class="price-card">
+          <p class="plan">飲み放題制</p>
+          <h3>カウンター席</h3>
+          <p class="price"><strong>3,000</strong><span>円 / 1時間</span></p>
+        </article>
+        <article class="price-card">
+          <p class="plan">飲み放題制</p>
+          <h3>ボックス席</h3>
+          <p class="price"><strong>4,000</strong><span>円 / 1時間</span></p>
+          <p>3名様以上でご来店の場合は、ボックス料金1,000円引き。</p>
+        </article>
+      </div>
+      <p class="fine-print">ビール、焼酎、カクテル飲み放題。シャンパン、ショットは別料金です。フード持ち込み料金は2,000円です。</p>
+
+      <div class="menu-table-wrap">
+        <h3>キャストメニュー</h3>
+        <dl class="menu-list">
+          <div><dt>キャストドリンク</dt><dd>1,100円</dd></div>
+          <div><dt>キャストショット</dt><dd>1,650円〜</dd></div>
+          <div><dt>キャスト缶もの</dt><dd>2,200円</dd></div>
+          <div><dt>当日写メ</dt><dd>1,100円</dd></div>
+          <div><dt>当日チェキ</dt><dd>1,650円</dd></div>
+          <div><dt>アイドルキャストチェキ</dt><dd>2,200円</dd></div>
+          <div><dt>カラオケリクエスト</dt><dd>1,100円</dd></div>
+          <div><dt>オリジナルパーカー</dt><dd>8,800円</dd></div>
+          <div><dt>オリジナルライター</dt><dd>330円</dd></div>
+          <div><dt>ノーマルガチャ</dt><dd>500円</dd></div>
+          <div><dt>スペシャルガチャ</dt><dd>5,000円</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section dark-section" id="drink" aria-labelledby="drink-title">
+      <div class="section-heading">
+        <p class="eyebrow">DRINK MENU</p>
+        <h2 id="drink-title">ドリンクメニュー</h2>
+      </div>
+      <div class="drink-grid">
+        <article>
+          <h3>アルコール / カクテル <span>1,100円</span></h3>
+          <p>ビール、ハイボール、お茶割り各種、レッドアイ、レモンサワー、ジン、ウォッカ、ラム、カシス、ピーチ、マンゴー、テキーラ、ライチ、マリブ、ミスティア、ヨーグリート、カルーア、アマレット</p>
+          <p class="fine-print">レッドブル割りのカクテルは＋550円です。</p>
+        </article>
+        <article>
+          <h3>ソフトドリンク <span>880円</span></h3>
+          <p>コーラ、ジンジャーエール（甘口）、トニックウォーター、カルピスウォーター、アップルジュース、グレープフルーツ、オレンジジュース、午後ティー、緑茶、ジャスミン茶、ウーロン茶、コーヒー</p>
+        </article>
+        <article>
+          <h3>単品ドリンク <span>飲み放題対象外</span></h3>
+          <dl class="compact-list">
+            <div><dt>テキーラ</dt><dd>880円</dd></div>
+            <div><dt>イエガー</dt><dd>880円</dd></div>
+            <div><dt>コカレロ</dt><dd>1,100円</dd></div>
+            <div><dt>クライナー</dt><dd>1,100円</dd></div>
+            <div><dt>缶もの</dt><dd>1,100円</dd></div>
+            <div><dt>コカボム</dt><dd>2,200円</dd></div>
+            <div><dt>1800</dt><dd>2,200円</dd></div>
+          </dl>
+        </article>
+      </div>
+      <p class="fine-print">その他、メニューにないものもございます。スタッフまでお声かけください。品切れの場合はご容赦願います。</p>
+    </section>
+
+    <section class="section" id="limited" aria-labelledby="limited-title">
+      <div class="section-heading">
+        <p class="eyebrow">LIMITED FOOD</p>
+        <h2 id="limited-title">期間限定メニュー</h2>
+      </div>
+      <article class="food-card">
+        <div class="food-photo" role="img" aria-label="鶏軟骨のキーマカレー"></div>
+        <div class="food-copy">
+          <p class="badge">期間限定</p>
+          <h3>鶏軟骨のキーマカレー</h3>
+          <p class="price"><strong>1,320</strong><span>円（税込）</span></p>
+          <p>店内掲示用画像の写真を活かし、商品名と価格をHTMLとして分離した表示例です。</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>© milk planet / Shandy Love</p>
+    <a href="../menu/index.html">従来の画像版メニューを見る</a>
+  </footer>
+</body>
+</html>
