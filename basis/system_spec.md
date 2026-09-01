@@ -49,3 +49,13 @@
 - 投稿画像は提案作成時点の静的スナップショットとし、実運用時は公式APIによる取得へ置き換える。
 - スナップショット再取得コマンド:
   `node proposal/branch5/scripts/scrape-instagram-snapshot.mjs`
+## Branch5 HTML menu variant
+
+The canonical image menu remains at `shop/<store>/menu/`. The comparison implementation is
+served from `shop/<store>/menu-html/` and uses `shop/menu-html-common.css` plus a minimal
+store-local `system.css`. Product and policy information is semantic HTML; imagery is retained
+only where the photograph or promotional composition is itself meaningful. Local navigation
+orders products before the usage guide. Store identity is integrated into the sticky `h1`.
+The supported store slugs are `bloody`, `chocolat`, `cybarbkk`, `cybarbkk2`, `cybarlaos`,
+`cybarshinjuku`, `melty`, `roysuga`, `shandy`, `shinjuku`, and `tweeny`. Each variant is
+available at `shop/<store>/menu-html/index.html`; the original `menu/` route remains unchanged.

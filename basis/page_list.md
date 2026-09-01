@@ -53,3 +53,16 @@
 ## 補足
 - `currently/images/instagram/instagram_gallery/index.html` と `proposal/branch1/images/instagram/instagram_gallery/index.html` は、画像ギャラリーの補助ページとして扱う。
 - この一覧は、現状再現と提案版の差分確認の基準に使う。
+### Branch5 HTML menu comparison pages
+
+- `/proposal/branch5/shop/shandy/menu-html/`
+- `/proposal/branch5/shop/bloody/menu-html/`
+- `/proposal/branch5/shop/chocolat/menu-html/`
+- `/proposal/branch5/shop/cybarbkk/menu-html/`
+- `/proposal/branch5/shop/cybarbkk2/menu-html/`
+- `/proposal/branch5/shop/cybarlaos/menu-html/`
+- `/proposal/branch5/shop/cybarshinjuku/menu-html/`
+- `/proposal/branch5/shop/melty/menu-html/`
+- `/proposal/branch5/shop/roysuga/menu-html/`
+- `/proposal/branch5/shop/shinjuku/menu-html/`
+- `/proposal/branch5/shop/tweeny/menu-html/`

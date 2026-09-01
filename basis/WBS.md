@@ -125,3 +125,13 @@
   - モック・比較用の表記や導線を表示せず、本番ページとして自然に閲覧できる。
   - 長い商品名を含め、PC / SPで不自然な改行や不要な装飾がない。
   - branch5の既存メニューページと `currently/` に変更がない。
+## Branch5 system menu HTML conversion (2026-09-01)
+
+- [x] ShandyLove reference implementation
+- [x] Shared accessible menu presentation layer
+- [x] Bloody Sugar transcription and responsive HTML
+- [x] chocolat planet transcription and responsive HTML
+- [x] CyBAR Bangkok / 2 / Laos transcription
+- [x] CyBAR Shinjuku / Melty / Royal Sugar / milkplanet / Tweeny Heart transcription
+- [x] 1440px, 390px and 320px responsive structure verification for all stores
+- [ ] Publish separate comparison URLs and verify GitHub Pages
