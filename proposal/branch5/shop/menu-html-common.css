@@ -46,3 +46,21 @@ html body .visual-grid > :only-child{
     mask-size:100% 60px;
   }
 }
+
+/* Keep the shop mark legible in the compact sticky title. The logo may use
+   the full available height; width is capped only to protect the title and
+   menu control from colliding. */
+html body h1.menu-page-title.scrolled-title .title-shop-logo{
+  width:auto !important;
+  height:52px !important;
+  max-width:260px !important;
+  max-height:52px !important;
+}
+
+@media(max-width:780px){
+  html body h1.menu-page-title.scrolled-title .title-shop-logo{
+    height:44px !important;
+    max-width:150px !important;
+    max-height:44px !important;
+  }
+}
