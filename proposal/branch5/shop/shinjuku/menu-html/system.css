@@ -1,14 +1,1 @@
 :root{--shop-color:#4777c7;--shop-pale:#edf6ff;--shop-bg:#cae3f5;--shop-line:#9fc4e7;--shop-section-line:#c5dced;--shop-radius:14px}
-
-/* Shinjuku's source menu uses a white cutline beneath the blue title. */
-html body h1.menu-page-title:not(.scrolled-title)::after{
-  background:url("../../../images/cutline.png") 0 0 / 100% 129px no-repeat !important;
-  -webkit-mask:none !important;
-  mask:none !important;
-}
-
-@media(max-width:780px){
-  html body h1.menu-page-title:not(.scrolled-title)::after{
-    background-size:100% 60px !important;
-  }
-}
