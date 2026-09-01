@@ -65,3 +65,10 @@
 - Result: all 11 branch5 shop menu variants now use the shared semantic layout. Store-specific
   pricing, products, policies, source language and identity remain local; only promotional or
   product imagery whose visual appearance carries information is retained.
+
+## 2026-09-01 店舗別トンマナと折返しの再調整
+
+- 論点: 共通カード表現が既存サイトおよび元画像版の店舗固有性を薄め、狭幅画面で語中分断や価格列による縦並びが発生していた。
+- 採用案: 共通CSSは構造・アクセシビリティに限定し、各店舗のページ固有CSSで背景、主要色、罫線、角形、見出し境界を定義する。モバイル価格行は価格列を45%以内に制限し、通常の日本語・単語折返しへ戻す。
+- 理由: サイト全体の共通UIと各店舗の原稿画像の視覚言語を両立しつつ、320px幅でも横スクロールと1文字縦並びを防ぐため。
+- 影響: 既存の画像版メニュー、公開URL、商品・価格情報は変更しない。HTML版の表示テーマと折返し挙動のみ改善する。
