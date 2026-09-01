@@ -56,3 +56,12 @@
 - 採用案: ロゴを `h1` 内へ移し、通常時・スクロール後ともタイトルと併記する。`guide`は`special`の後へ移し、ページ内目次も表示順へ揃える。
 - 理由: 店舗識別を常時維持しつつ、料金・商品情報を先に提示してから利用案内へ到達する情報順序にするため。
 - 影響: このページ固有のHTML/CSSだけを変更し、共有タイトル変形処理には手を加えない。
+## 2026-09-01 — Extend the ShandyLove HTML menu pattern to all shops
+
+- Decision: preserve each existing image menu and add a separately addressable `menu-html/` variant.
+- Decision: share layout and accessibility rules while keeping store color and logo treatment local.
+- Decision: transcribe source language without speculative translation; retain photographs only when visually meaningful.
+- Rationale: improves first-load cost, searchability, accessibility and maintainability without removing the production comparison target.
+- Result: all 11 branch5 shop menu variants now use the shared semantic layout. Store-specific
+  pricing, products, policies, source language and identity remain local; only promotional or
+  product imagery whose visual appearance carries information is retained.
