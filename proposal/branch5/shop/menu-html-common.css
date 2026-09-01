@@ -9,3 +9,40 @@ html body h1.menu-page-title{display:flex!important;align-items:center!important
 @media(max-width:780px){html body h1.menu-page-title:not(.scrolled-title){padding:18px 64px 60px 8px!important;gap:8px!important;font-size:18px!important}html body h1.menu-page-title.scrolled-title{padding:0 56px 0 8px!important;gap:8px!important}html body h1.menu-page-title .title-shop-logo{width:76px!important;max-height:54px!important}html body h1.menu-page-title.scrolled-title .title-shop-logo{width:64px!important;max-height:42px!important}.menu-intro{padding-top:36px}.local-nav{margin-bottom:20px}.menu-section{width:calc(100% - 28px);padding:40px 0}.html-menu .menu-section h2{margin-bottom:28px;padding:8px 10px;font-size:20px;letter-spacing:.12em}.html-menu h3{margin-top:32px;font-size:18px}.information-columns,.system-grid,.champagne-columns,.food-columns,.newcomer-grid,.visual-grid{grid-template-columns:1fr;gap:16px}.wide-list{grid-template-columns:1fr}.item-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.price-list>div{grid-template-columns:minmax(0,1fr) minmax(0,45%);gap:12px;text-align:left}.price-list dd{white-space:normal;text-align:right}}
 @media(max-width:420px){.price-list>div{font-size:12px}.item-grid{font-size:13px}.information-columns>div,.system-card,.newcomer-grid>div{padding:20px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Use the menu background for the shared scalloped edge so the title does
+   not leave a white strip between the header and menu content. */
+html body h1.menu-page-title:not(.scrolled-title)::after{
+  background:var(--shop-bg,#fff) !important;
+  -webkit-mask:url("../images/cutline.png") 0 0 / 100% 129px no-repeat;
+  mask:url("../images/cutline.png") 0 0 / 100% 129px no-repeat;
+}
+
+/* Prevent legacy store h4 rules (fixed width and decorative frame) from
+   leaking into structured newcomer cards. */
+html body .newcomer-grid h4{
+  width:auto;
+  margin:0 0 12px;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:none;
+  text-align:left;
+  letter-spacing:normal;
+  line-height:1.5;
+}
+
+/* A single promotional image should be centered instead of occupying only
+   the first column of the two-column grid. */
+html body .visual-grid > :only-child{
+  grid-column:1 / -1;
+  justify-self:center;
+  width:min(100%,600px);
+}
+
+@media(max-width:780px){
+  html body h1.menu-page-title:not(.scrolled-title)::after{
+    -webkit-mask-size:100% 60px;
+    mask-size:100% 60px;
+  }
+}
