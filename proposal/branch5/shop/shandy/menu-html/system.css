@@ -1,114 +1,81 @@
-:root { --shandy-red:#8f0100; --shandy-pale:#f8ecea; --text:#444; --line:#e6d4d2; }
-
-.skip-link { position:fixed; top:8px; left:8px; z-index:10001; padding:8px 12px; color:#fff; background:#222; transform:translateY(-150%); }
-.skip-link:focus { transform:translateY(0); }
-
-.html-menu a:focus-visible,
-#nav-toggle:focus-visible {
-  outline:3px solid #005fcc;
-  outline-offset:3px;
+:root {
+  --shop-color: #8f0100;
+  --shop-pale: #f8ecea;
+  --shop-bg: #fff;
+  --shop-line: #e6d4d2;
+  --shop-section-line: #eee;
+  --shop-radius: 8px;
+  --shop-muted: #666;
+  --shandy-red: #8f0100;
+  --shandy-pale: #f8ecea;
 }
 
-.html-menu { width:100%; color:var(--text); background:#fff; text-align:center; font-family:'Lato','Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; line-break:strict; }
-.html-menu p, .html-menu li, .html-menu dt { word-break:auto-phrase; text-wrap:pretty; }
-.phrase { white-space:nowrap; }
-html body h1.menu-page-title { display:flex !important; align-items:center !important; justify-content:center !important; gap:18px !important; }
-html body h1.menu-page-title > span { position:relative; z-index:100; line-height:1.4 !important; white-space:nowrap; }
-html body h1.menu-page-title .title-shop-logo { position:relative; z-index:100; display:block; flex:0 0 auto; width:190px !important; height:auto !important; max-height:none !important; margin:0; transition:width .18s linear; }
-html body h1.menu-page-title.scrolled-title .title-shop-logo { width:106px !important; }
-.menu-intro { padding:54px 20px 26px; }
-.menu-intro p { margin:0 auto 14px; }
+/* Shandy-specific content blocks; shared structure lives in menu-html-common.css. */
+.phrase,
+.heading-phrase { white-space: nowrap; }
 
-.local-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; width:min(920px,calc(100% - 32px)); margin:0 auto 40px; }
-.local-nav a { padding:7px 15px; color:#555; background:#fff; border:1px solid #ccc; border-radius:999px; text-decoration:none; font-size:13px; }
-.local-nav a:hover, .local-nav a:focus-visible { color:#fff; background:var(--shandy-red); border-color:var(--shandy-red); }
-
-.menu-section { width:min(1040px,calc(100% - 40px)); margin:0 auto; padding:54px 0; scroll-margin-top:80px; }
-.menu-section + .menu-section { border-top:1px solid #eee; }
-.html-menu .menu-section h2 { box-sizing:border-box; width:min(800px,100%); margin:0 auto 42px; padding:8px 16px; color:#fff; background:var(--shandy-red); border-radius:8px; letter-spacing:.18em; font-family:'Hiragino Maru Gothic Pro','Meiryo UI',sans-serif; font-size:32px; line-height:1.5; word-break:keep-all; overflow-wrap:normal; }
-.heading-phrase { white-space:nowrap; }
-.html-menu h3 { margin:42px 0 18px; color:var(--shandy-red); font-size:22px; letter-spacing:.08em; }
-.html-menu h4 { margin:0 0 12px; font-size:18px; }
-.heading-price { margin-left:10px; color:#666; font-size:15px; white-space:nowrap; }
-.annotation { margin:18px auto; color:#666; font-size:13px; }
-.notice { color:var(--shandy-red); font-weight:bold; }
-
-.information-columns, .system-grid, .champagne-columns, .food-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; text-align:left; }
-.information-columns > div, .system-card, .newcomer-grid > div { padding:26px; background:var(--shandy-pale); border:1px solid var(--line); border-radius:10px; }
-.information-columns h3, .system-card h3 { margin-top:0; }
-.text-list { margin:0; padding-left:1.5em; }
-.text-list li + li { margin-top:8px; }
-.hours { display:flex; justify-content:center; align-items:baseline; gap:18px; margin:0 0 30px; }
-.hours span { font-weight:bold; }
-.hours strong { color:var(--shandy-red); font-size:32px; }
-.subheading { font-weight:bold; }
-.large-price { margin:10px 0; color:var(--shandy-red); font-size:30px; font-weight:bold; }
-.large-price small { margin-left:5px; font-size:13px; }
-.bring-in { width:min(620px,100%); margin:24px auto 0; padding:12px; border:1px solid var(--line); border-radius:8px; }
-
-.price-list { margin:0; }
-.price-list > div { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; padding:9px 0; border-bottom:1px dotted #cbb9b7; }
-.price-list dt { min-width:0; overflow-wrap:break-word; }
-.price-list dd { margin:0; color:#333; font-weight:bold; white-space:nowrap; }
-.wide-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 34px; width:min(850px,100%); margin:0 auto; text-align:left; }
-.newcomer-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; text-align:left; }
+.hours {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 18px;
+  margin: 0 0 30px;
+}
+.hours span { font-weight: bold; }
+.hours strong { color: var(--shop-color); font-size: 32px; }
+.subheading { font-weight: bold; }
+.large-price small { margin-left: 5px; font-size: 13px; }
+.bring-in {
+  width: min(620px, 100%);
+  margin: 24px auto 0;
+  padding: 12px;
+  border: 1px solid var(--shop-line);
+  border-radius: var(--shop-radius);
+}
 .newcomer-grid h4 {
-  width:auto;
-  margin:0 0 12px;
-  padding:0;
-  color:var(--shandy-red);
-  background:none;
-  border:0;
-  border-radius:0;
-  text-align:left;
-  line-height:1.5;
+  width: auto;
+  margin: 0 0 12px;
+  padding: 0;
+  color: var(--shop-color);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  text-align: left;
+  line-height: 1.5;
 }
-.newcomer-grid h4 strong { display:block; margin-top:4px; font-size:24px; }
-.newcomer-grid p { margin:0 0 12px; }
-.newcomer-grid p:last-child { margin-bottom:0; }
-
-.item-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px 18px; width:min(880px,100%); margin:0 auto; padding:0; list-style:none; text-align:left; }
-.item-grid li { padding:7px 8px; border-bottom:1px dotted #ccc; }
-.champagne-columns, .food-columns { gap:48px; }
-.champagne-columns h3:first-child, .food-columns h3:first-child { margin-top:0; }
-.food-hours { margin:-18px 0 34px; }
-.food-hours strong { color:var(--shandy-red); }
-.food-subheading { margin:0 0 8px; color:#555; text-align:left; font-size:16px; font-weight:bold; }
-
-.special-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; align-items:start; }
-.special-image { display:block; width:100%; height:auto; border-radius:10px; }
-
-.contact-box { padding:36px 20px 70px; color:#555; }
-.contact-box p { margin:0; font-size:20px; font-weight:bold; }
-.contact-box a { color:var(--shandy-red); font-size:18px; }
-.site-footer { display:block; border:0; }
-
-@media screen and (max-width:780px) {
-  html body h1.menu-page-title:not(.scrolled-title) { padding:18px 64px 60px 8px !important; gap:8px !important; font-size:18px !important; }
-  html body h1.menu-page-title.scrolled-title { padding:0 56px 0 8px !important; gap:8px !important; }
-  html body h1.menu-page-title .title-shop-logo { width:76px !important; }
-  html body h1.menu-page-title.scrolled-title .title-shop-logo { width:64px !important; }
-  .menu-intro { padding-top:36px; }
-  .local-nav { margin-bottom:20px; }
-  .menu-section { width:calc(100% - 28px); padding:40px 0; }
-  .html-menu .menu-section h2 { margin-bottom:28px; padding:8px 10px; font-size:20px; letter-spacing:.12em; }
-  .html-menu h3 { margin-top:32px; font-size:18px; }
-  .information-columns, .system-grid, .champagne-columns, .food-columns, .newcomer-grid, .special-grid { grid-template-columns:1fr; gap:16px; }
-  .wide-list { grid-template-columns:1fr; }
-  .item-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .item-grid .long-drink { grid-column:1 / -1; }
-  .hours { flex-direction:column; align-items:center; gap:2px; }
-  .hours strong { font-size:27px; }
-  .price-list > div { gap:12px; text-align:left; }
-  .champagne-columns, .food-columns { text-align:left; }
+.newcomer-grid p { margin: 0 0 12px; }
+.newcomer-grid p:last-child { margin-bottom: 0; }
+.champagne-columns,
+.food-columns { gap: 48px; }
+.champagne-columns h3:first-child,
+.food-columns h3:first-child { margin-top: 0; }
+.food-hours { margin: -18px 0 34px; }
+.food-hours strong { color: var(--shop-color); }
+.food-subheading {
+  margin: 0 0 8px;
+  color: #555;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
 }
-
-@media screen and (max-width:420px) {
-  .price-list > div { grid-template-columns:minmax(0,1fr) auto; font-size:12px; }
-  .price-list > .long-label { grid-template-columns:1fr; gap:3px; }
-  .price-list > .long-label dd { text-align:right; }
-  .item-grid { grid-template-columns:1fr 1fr; font-size:13px; }
-  .information-columns > div, .system-card, .newcomer-grid > div { padding:20px; }
+.special-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
 }
+.special-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--shop-radius);
+}
+.contact-box { color: #555; }
+.contact-box p { margin: 0; font-size: 20px; font-weight: bold; }
+.contact-box a { color: var(--shop-color); font-size: 18px; }
 
-@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+@media (max-width: 780px) {
+  .special-grid { grid-template-columns: 1fr; }
+  .hours { flex-direction: column; align-items: center; gap: 2px; }
+  .hours strong { font-size: 27px; }
+}
