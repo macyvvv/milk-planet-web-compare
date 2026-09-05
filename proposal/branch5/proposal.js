@@ -53,8 +53,6 @@
       }
     }
 
-    toggle.setAttribute('role', 'button');
-    toggle.setAttribute('tabindex', '0');
     toggle.setAttribute('aria-label', 'めにゅうを開く');
 
     function openClose() {
@@ -69,12 +67,6 @@
     }
 
     toggle.addEventListener('click', openClose);
-    toggle.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openClose();
-      }
-    });
 
     nav.addEventListener('click', function (e) {
       var submenuToggle = e.target.closest && e.target.closest('.nav-submenu-toggle');

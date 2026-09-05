@@ -12,7 +12,6 @@
   <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet">
   <script src="../../../jquery-1.8.3.min.js"></script>
-  <link rel="stylesheet" href="../menu/system.css">
   <link rel="stylesheet" href="../../../proposal.css">
   <link rel="stylesheet" href="../../menu-html-common.css">
   <link rel="stylesheet" href="system.css">
@@ -37,11 +36,11 @@
 
   <header id="top-head">
     <div class="inner">
-      <div id="nav-toggle" role="button" tabindex="0" aria-controls="global-nav"
+      <button type="button" id="nav-toggle" aria-controls="global-nav"
         aria-expanded="false" aria-label="めにゅうを開く">
         <div class="nav-toggle-bars"><span></span><span></span><span></span></div>
         <span class="nav-toggle-label">めにゅう</span>
-      </div>
+      </button>
       <nav id="global-nav" aria-label="グローバルナビゲーション">
         <ul>
           <li><a href="../../../index.html">ほぉむ</a></li>
@@ -296,7 +295,24 @@
     </div>
   </article>
 
-  <iframe class="site-footer" width="100%" height="400" scrolling="no" frameborder="0" title="サイト共通フッター" src="../../../footer.html"></iframe>
+  <footer class="site-footer">
+    <nav aria-label="店舗一覧">
+      <ul id="shoplist">
+        <li><a href="../../../shop/shinjuku/index.html"><img src="../../../images/list_shinjuku.png" alt="新宿店"></a></li>
+        <li><a href="../../../shop/cybarshinjuku/index.html"><img src="../../../images/list_cybar.png" alt="CyBAR新宿店"></a></li>
+        <li><a href="../../../shop/chocolat/index.html"><img src="../../../images/list_cp.png" alt="Chocolat店"></a></li>
+        <li><a href="../../../shop/shandy/index.html"><img src="../../../images/list_shandy.png" alt="ShandyLove店"></a></li>
+        <li><a href="../../../shop/melty/index.html"><img src="../../../images/list_melty.png" alt="Melty Mousse店"></a></li>
+        <li><a href="../../../shop/roysuga/index.html"><img src="../../../images/list_roysuga.png" alt="Royal Sugar店"></a></li>
+        <li><a href="../../../shop/tweeny/index.html"><img src="../../../images/list_tweeny.png" alt="Tweeny Heart Cafe店"></a></li>
+        <li><a href="../../../shop/bloody/index.html"><img src="../../../images/list_bloody.png" alt="Bloody Sugar店"></a></li>
+        <li><a href="../../../shop/cybarbkk/index.html"><img src="../../../images/list_cybar_bkk.png" alt="CyBAR BKK店"></a></li>
+        <li><a href="../../../shop/cybarbkk2/index.html"><img src="../../../images/list_cybar_bkk2.png" alt="CyBAR BKK 2店"></a></li>
+        <li><a href="../../../shop/cybarlaos/index.html"><img src="../../../images/list_cybar_laos.png" alt="CyBAR Laos店"></a></li>
+      </ul>
+    </nav>
+    <p><a href="#">Copyright © 2018 milk planet All Rights Reserved.</a></p>
+  </footer>
   <script src="../../../analytics.js"></script>
   <script src="../../../proposal.js"></script>
 </body>
