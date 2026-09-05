@@ -1,1 +1,8 @@
 :root{--shop-color:#4777c7;--shop-pale:#edf6ff;--shop-bg:#cae3f5;--shop-line:#9fc4e7;--shop-section-line:#c5dced;--shop-radius:14px}
+
+.shinjuku-pricing-panel{box-sizing:border-box;width:min(1040px,100%);margin:0 auto;text-align:left}
+.shinjuku-pricing-panel>.pricing-note{margin:0 0 18px;text-align:center}
+.pricing-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.pricing-detail-grid h4{box-sizing:border-box;width:auto;margin:0 0 12px;padding:0;border:0;border-radius:0;background:none;color:var(--shop-color);font-size:18px;letter-spacing:normal;line-height:1.5}
+.shinjuku-pricing-panel>.notice{margin:22px 0 0;text-align:center}
+@media(max-width:780px){.pricing-detail-grid{grid-template-columns:1fr;gap:16px}}
