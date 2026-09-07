@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>システム&amp;メニュー | ShandyLove | Visual Variant 2</title>
+  <meta name="description" content="ShandyLoveの料金システム、ドリンク、シャンパン、フードメニューをご案内します。">
+  <meta name="keywords" content="ShandyLove,シャンディラブ,シャンラブ,コンカフェ,新宿,歌舞伎町,メニュー">
+  <meta name="robots" content="noindex,follow">
+  <meta name="viewport" content="width=device-width, maximum-scale=5.0">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet">
+  <script src="../../../jquery-1.8.3.min.js"></script>
+  <link rel="stylesheet" href="../../../proposal.css">
+  <link rel="stylesheet" href="../../menu-html-common.css">
+  <link rel="stylesheet" href="system.css">
+  <style id="visual-variant-2">
+/*
+ * Visual comparison variant 2.
+ * Content, semantic structure, routes and source imagery remain unchanged.
+ * The visual language is intentionally closer to ShandyLove's source posters:
+ * red/black contrast, white display type, pink rules and dense poster panels.
+ */
+body.visual-variant-2 {
+  background:
+    radial-gradient(circle at 18px 18px, rgba(0, 0, 0, .28) 0 3px, transparent 3.5px),
+    radial-gradient(circle at 52px 48px, rgba(0, 0, 0, .22) 0 2px, transparent 2.5px),
+    linear-gradient(45deg, transparent 46%, rgba(0, 0, 0, .18) 47% 52%, transparent 53%),
+    linear-gradient(-45deg, transparent 46%, rgba(0, 0, 0, .18) 47% 52%, transparent 53%),
+    #8f0100;
+  background-size: 72px 72px, 72px 72px, 52px 52px, 52px 52px;
+  color: #fff;
+}
+body.visual-variant-2 .html-menu {
+  color: #fff;
+  background: transparent;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
+}
+body.visual-variant-2 .menu-intro {
+  width: min(1040px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 58px 28px 34px;
+  background: rgba(0, 0, 0, .2);
+  border: 1px solid rgba(242, 190, 181, .72);
+  border-top: 0;
+  font-family: Georgia, "Yu Mincho", serif;
+  color: #fff;
+}
+body.visual-variant-2 .local-nav {
+  margin-bottom: 24px;
+}
+body.visual-variant-2 .local-nav a {
+  color: #fff;
+  border: 1px solid rgba(242, 190, 181, .86);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, .28);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+}
+body.visual-variant-2 .local-nav a:hover,
+body.visual-variant-2 .local-nav a:focus-visible {
+  color: #fff;
+  background: #5f0000;
+  border-color: #fff;
+}
+body.visual-variant-2 .menu-section {
+  width: min(1120px, calc(100% - 40px));
+  padding: 68px 0;
+  border-top: 0;
+}
+body.visual-variant-2 .menu-section + .menu-section {
+  border-top: 1px solid rgba(242, 190, 181, .7);
+}
+body.visual-variant-2 .html-menu .menu-section h2 {
+  width: min(900px, 100%);
+  max-width: 900px;
+  margin-bottom: 46px;
+  padding: 9px 18px;
+  color: #fff;
+  background: #8f0100;
+  border: 2px solid #f2beb5;
+  border-radius: 2px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, .38);
+  font-family: Georgia, "Yu Mincho", serif;
+  font-size: 34px;
+  letter-spacing: .22em;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .35);
+}
+body.visual-variant-2 .html-menu h3 {
+  color: #fff;
+  margin-top: 48px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, .25);
+  border-bottom: 2px solid rgba(242, 190, 181, .9);
+  font-family: Georgia, "Yu Mincho", serif;
+  letter-spacing: .12em;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .35);
+}
+body.visual-variant-2 .html-menu h4 {
+  color: #fff;
+}
+body.visual-variant-2 .system-card,
+body.visual-variant-2 .newcomer-grid > div,
+body.visual-variant-2 .information-columns > div {
+  background: rgba(16, 0, 0, .86);
+  color: #fff;
+  border: 2px solid #f2beb5;
+  border-radius: 2px;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, .28);
+}
+body.visual-variant-2 .system-card h3,
+body.visual-variant-2 .information-columns h3 {
+  background: transparent;
+  border-bottom: 1px solid rgba(242, 190, 181, .6);
+}
+body.visual-variant-2 .price-list > div,
+body.visual-variant-2 .item-grid li {
+  border-bottom-color: rgba(242, 190, 181, .5);
+}
+body.visual-variant-2 .price-list dd,
+body.visual-variant-2 .hours strong,
+body.visual-variant-2 .large-price,
+body.visual-variant-2 .food-hours strong {
+  color: #ffd9d2;
+}
+body.visual-variant-2 .heading-price,
+body.visual-variant-2 .annotation,
+body.visual-variant-2 .contact-box,
+body.visual-variant-2 .food-subheading {
+  color: #f2beb5;
+}
+body.visual-variant-2 .bring-in {
+  color: #fff;
+  background: rgba(0, 0, 0, .48);
+  border: 2px solid #f2beb5;
+  border-radius: 2px;
+}
+body.visual-variant-2 .special-grid {
+  padding: 20px;
+  background: rgba(0, 0, 0, .38);
+  border: 2px solid #f2beb5;
+}
+body.visual-variant-2 .special-image {
+  border: 2px solid #f2beb5;
+  border-radius: 2px;
+}
+body.visual-variant-2 .contact-box {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 46px 20px 72px;
+  color: #fff;
+  background: rgba(0, 0, 0, .38);
+  border-top: 1px solid rgba(242, 190, 181, .7);
+  border-bottom: 1px solid rgba(242, 190, 181, .7);
+}
+body.visual-variant-2 .contact-box a {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: #f2beb5;
+  text-underline-offset: 4px;
+}
+body.visual-variant-2 .site-footer {
+  background: #bfe0f7;
+  color: #fff;
+}
+body.visual-variant-2 .site-footer a {
+  color: #fff;
+}
+@media (max-width: 780px) {
+  body.visual-variant-2 .menu-intro {
+    width: calc(100% - 28px);
+    padding: 42px 16px 26px;
+  }
+  body.visual-variant-2 .menu-section {
+    width: calc(100% - 28px);
+    padding: 46px 0;
+  }
+  body.visual-variant-2 .html-menu .menu-section h2 {
+    margin-bottom: 32px;
+    padding: 8px 8px;
+    font-size: clamp(18px, 5.2vw, 24px);
+    letter-spacing: .1em;
+  }
+  body.visual-variant-2 .html-menu h3 {
+    margin-top: 36px;
+    padding: 7px 8px;
+    font-size: 18px;
+  }
+  body.visual-variant-2 .system-card,
+  body.visual-variant-2 .newcomer-grid > div,
+  body.visual-variant-2 .information-columns > div {
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, .28);
+  }
+  body.visual-variant-2 .special-grid {
+    padding: 10px;
+  }
+  body.visual-variant-2 .contact-box {
+    width: calc(100% - 28px);
+    padding: 36px 16px 56px;
+  }
+  body.visual-variant-2 h1.menu-page-title:not(.scrolled-title) {
+    padding-right: 52px !important;
+    gap: 6px !important;
+    font-size: 17px !important;
+  }
+  body.visual-variant-2 h1.menu-page-title:not(.scrolled-title) .title-shop-logo {
+    width: 88px !important;
+    max-height: 54px !important;
+  }
+}
+</style>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NZ394556');</script>
+  <!-- End Google Tag Manager -->
+</head>
+<body class="visual-variant-2">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZ394556"
+      height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <a class="skip-link" href="#menu-content">メニュー本文へ移動</a>
+
+  <header id="top-head">
+    <div class="inner">
+      <button type="button" id="nav-toggle" aria-controls="global-nav"
+        aria-expanded="false" aria-label="めにゅうを開く">
+        <div class="nav-toggle-bars"><span></span><span></span><span></span></div>
+        <span class="nav-toggle-label">めにゅう</span>
+      </button>
+      <nav id="global-nav" aria-label="グローバルナビゲーション">
+        <ul>
+          <li><a href="../../../index.html">ほぉむ</a></li>
+          <li><a href="../../../shop/index.html">わくせい｜店舗一覧</a></li>
+          <li><a href="../../../cast/index.html">きゃすと｜キャスト一覧</a></li>
+          <li><a href="../../../okyuji/index.html">おきゅうじ よてい</a></li>
+          <li><a href="../../../index.html#sys-title-wrapper">しすてむ＆めにゅう</a></li>
+          <li><a href="../../../index.html#event">いべんと</a></li>
+          <li><a href="../../../recruit/index.html">りくるうと</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <h1 class="title menu-page-title" style="--page-h1-bg:#8f0100; --scrolled-bg:rgba(143, 1, 0, 0.9);">
+    <img src="../images/shop_Shandy_logo.png" width="380" height="80" alt="ShandyLove" class="title-shop-logo">
+    <span>システム&amp;メニュー</span>
+  </h1>
+
+  <article id="menu-content" class="html-menu">
+    <div class="menu-intro">
+      <p>ShandyLoveでは美味しいお食事とお酒をご用意して、<wbr>皆様のご来店を心よりお待ちしております。<br>かわいいキャストたちと、<wbr>素敵な時間をお過ごしください。</p>
+    </div>
+
+    <nav class="local-nav" aria-label="メニュー内目次">
+      <a href="#pricing">料金</a>
+      <a href="#drink">ドリンク</a>
+      <a href="#champagne">シャンパン</a>
+      <a href="#food">フード</a>
+      <a href="#special">限定・その他</a>
+      <a href="#guide">ご利用案内</a>
+    </nav>
+
+    <section id="pricing" class="menu-section">
+      <h2>料金システム</h2>
+      <p class="hours"><span>営業時間</span><strong>19:00〜25:00</strong></p>
+      <div class="system-grid">
+        <div class="system-card">
+          <h3>1ドリンク・オーダー制</h3>
+          <p class="subheading">カウンター席のみ</p>
+          <p class="large-price">1,100円<small>/ 1時間</small></p>
+          <p>1時間につき1オーダーをお願いします。</p>
+        </div>
+        <div class="system-card">
+          <h3>飲み放題制</h3>
+          <dl class="price-list">
+            <div>
+              <dt>カウンター席</dt>
+              <dd>3,000円 / 1時間</dd>
+            </div>
+            <div>
+              <dt>ボックス席</dt>
+              <dd>4,000円 / 1時間</dd>
+            </div>
+          </dl>
+          <p>3名様以上でご来店の場合は、ボックス料金1,000円引き。</p>
+          <p class="annotation">ビール、焼酎、カクテル飲み放題。<br>シャンパン、ショットは別料金です。</p>
+        </div>
+      </div>
+      <p class="bring-in">フード持ち込み料金 <strong>2,000円</strong></p>
+
+      <h3>キャストメニュー</h3>
+      <dl class="price-list wide-list">
+        <div><dt>キャストドリンク</dt><dd>1,100円</dd></div>
+        <div><dt>キャストショット</dt><dd>1,650円〜</dd></div>
+        <div><dt>キャスト缶もの</dt><dd>2,200円</dd></div>
+        <div><dt>当日写メ</dt><dd>1,100円</dd></div>
+        <div><dt>当日チェキ</dt><dd>1,650円</dd></div>
+        <div><dt>アイドルキャストチェキ</dt><dd>2,200円</dd></div>
+        <div><dt>カラオケリクエスト</dt><dd>1,100円</dd></div>
+        <div><dt>オリジナルパーカー</dt><dd>8,800円</dd></div>
+        <div><dt>オリジナルライター</dt><dd>330円</dd></div>
+        <div><dt>ノーマルガチャ</dt><dd>500円</dd></div>
+        <div><dt>スペシャルガチャ</dt><dd>5,000円</dd></div>
+      </dl>
+      <p class="annotation">シャンラブオリジナルグッズ、割引券、<wbr>デート特典や貸切など豪華特典あり。</p>
+
+      <h3>ご新規セット</h3>
+      <div class="newcomer-grid">
+        <div>
+          <h4>ご新規セットA <strong>2,000円</strong></h4>
+          <p><span class="phrase">1時間</span><br><span class="phrase">＋1ドリンク</span><br><span class="phrase">＋キャストドリンク1杯</span><br><span class="phrase">＋500円ガチャ</span></p>
+          <p>カウンター席のみ</p>
+        </div>
+        <div>
+          <h4>ご新規セットB <strong>5,000円</strong></h4>
+          <p><span class="phrase">1時間飲み放題</span><br><span class="phrase">＋フード1品（何でも）</span><br><span class="phrase">＋キャストドリンク1杯または写メ</span><br><span class="phrase">＋500円ガチャ</span></p>
+          <p>ソファー席</p>
+        </div>
+        <div>
+          <h4>ご新規セットC <strong>10,000円</strong></h4>
+          <p><span class="phrase">1時間飲み放題</span><br><span class="phrase">＋フード1品</span><br><span class="phrase">＋シャンパン</span><wbr><span class="phrase">（ノンアルまたはアルコール）</span><br><span class="phrase">＋500円ガチャ</span></p>
+          <p>ソファー席</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="drink" class="menu-section">
+      <h2>ドリンクメニュー</h2>
+      <h3>アルコール・カクテル <span class="heading-price">各1,100円</span></h3>
+      <ul class="item-grid">
+        <li>ビール</li>
+        <li>ハイボール</li>
+        <li>お茶割り各種</li>
+        <li>レッドアイ</li>
+        <li>レモンサワー</li>
+        <li>ジン</li>
+        <li>ウォッカ</li>
+        <li>ラム</li>
+        <li>カシス</li>
+        <li>ピーチ</li>
+        <li>マンゴー</li>
+        <li>テキーラ</li>
+        <li>ライチ</li>
+        <li>マリブ</li>
+        <li>ミスティア</li>
+        <li>ヨーグリート</li>
+        <li>カルーア</li>
+        <li>アマレット</li>
+      </ul>
+      <p class="annotation">レッドブル割りのカクテルは＋550円です。</p>
+
+      <h3>ソフトドリンク <span class="heading-price">各880円</span></h3>
+      <ul class="item-grid">
+        <li>コーラ</li>
+        <li>ジンジャーエール（甘口）</li>
+        <li>トニックウォーター</li>
+        <li>カルピスウォーター</li>
+        <li>アップルジュース</li>
+        <li>グレープフルーツ</li>
+        <li>オレンジジュース</li>
+        <li>緑茶</li>
+        <li class="long-drink"><span class="phrase">午後ティー</span><wbr><span class="phrase">（ミルク／レモン／無糖）</span></li>
+        <li>ジャスミン茶</li>
+        <li>ウーロン茶</li>
+        <li>コーヒー</li>
+      </ul>
+
+      <h3>単品ドリンク <span class="heading-price">飲み放題対象外</span></h3>
+      <dl class="price-list wide-list">
+        <div><dt>テキーラ</dt><dd>880円</dd></div><div><dt>イエガー</dt><dd>880円</dd></div><div><dt>コカレロ</dt><dd>1,100円</dd></div><div><dt>クライナー</dt><dd>1,100円</dd></div><div><dt>缶もの</dt><dd>1,100円</dd></div><div><dt>コカボム</dt><dd>2,200円</dd></div><div><dt>1800</dt><dd>2,200円</dd></div>
+      </dl>
+      <p class="annotation">その他メニューにないものもございます。<br>スタッフまでお声かけください。<wbr>品切れの場合はご容赦願います。</p>
+    </section>
+
+    <section id="champagne" class="menu-section">
+      <h2><span class="heading-phrase">シャンパン</span><wbr><span class="heading-phrase">メニュー</span></h2>
+      <div class="champagne-columns">
+        <div>
+          <h3>アルコール</h3>
+          <dl class="price-list">
+            <div><dt>リステル</dt><dd>7,700円</dd></div><div><dt>カフェドパリ</dt><dd>11,000円</dd></div><div><dt>天使のアスティ</dt><dd>13,200円</dd></div><div><dt>マバム</dt><dd>22,000円</dd></div><div><dt>モエ白</dt><dd>38,500円</dd></div><div><dt>ヴーヴイエロー</dt><dd>44,000円</dd></div><div><dt>モエネクター</dt><dd>44,000円</dd></div><div><dt>モエNIR</dt><dd>55,000円</dd></div><div><dt>モエアイス</dt><dd>55,000円</dd></div><div><dt>モエアイスロゼ</dt><dd>60,500円</dd></div><div><dt>ベルエポック</dt><dd>165,000円</dd></div><div><dt>ドンペリホワイト</dt><dd>165,000円</dd></div><div><dt>ドンペリロゼ</dt><dd>198,000円</dd></div><div><dt>エンジェルブラック</dt><dd>220,000円</dd></div><div><dt>エンジェルヘイロー</dt><dd>242,000円</dd></div><div><dt>エンジェルホワイト</dt><dd>275,000円</dd></div><div><dt>エンジェルドゥミセック</dt><dd>308,000円</dd></div><div><dt>エンジェルドゥミセックロゼ</dt><dd>363,000円</dd></div><div><dt>エンジェルヴィンテージ</dt><dd>ASK</dd></div>
+          </dl>
+        </div>
+        <div>
+          <h3>ノンアルコールボトル</h3>
+          <dl class="price-list">
+            <div><dt>ピエールゼロ</dt><dd>6,600円</dd></div><div><dt>シャメイ</dt><dd>8,800円</dd></div><div><dt>ドネリロゼ</dt><dd>11,000円</dd></div><div><dt>パリ16ホワイト</dt><dd>16,500円</dd></div><div><dt>1688グランロゼ</dt><dd>22,000円</dd></div><div><dt>フィリコ各種</dt><dd>110,000円〜</dd></div>
+          </dl>
+          <h3>オリジナルシャンパン</h3>
+          <dl class="price-list">
+            <div class="long-label">
+              <dt><span class="phrase">アルコール（パープル）／</span><wbr><span class="phrase">ノンアルコール（ピンク）</span></dt>
+              <dd>各33,000円</dd>
+            </div>
+            <div class="long-label">
+              <dt><span class="phrase">アルコール（ブラック）／</span><wbr><span class="phrase">ノンアルコール（ピンク）</span></dt>
+              <dd>各55,000円</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <p class="annotation">その他限定商品などもございます。<br>価格はスタッフまでお尋ねください。</p>
+    </section>
+
+    <section id="food" class="menu-section">
+      <h2>フードメニュー</h2>
+      <p class="food-hours">フード注文可能時間 <strong>19:00〜L.O.24:00</strong></p>
+      <div class="food-columns">
+        <div>
+          <h3>MEAT</h3>
+          <dl class="price-list"><div><dt>牛サーロインステーキ</dt><dd>1,980円</dd></div><div><dt>牛サイコロステーキ鉄板</dt><dd>1,430円</dd></div><div><dt>牛バターライス鉄板</dt><dd>1,430円</dd></div><div><dt>ローストビーフ</dt><dd>1,760円</dd></div><div><dt>ローストビーフ丼</dt><dd>1,760円</dd></div></dl>
+          <h3>SHRIMP</h3>
+          <dl class="price-list"><div><dt>ガーリックシュリンプ</dt><dd>1,650円</dd></div><div><dt>海老マヨ</dt><dd>1,650円</dd></div><div><dt>エビチリ</dt><dd>1,650円</dd></div></dl>
+          <h3>RICE PLATE</h3>
+          <dl class="price-list"><div><dt>ジャークチキン</dt><dd>1,210円</dd></div><div><dt>タンドリーチキン</dt><dd>1,210円</dd></div><div><dt>チーズトマトハンバーグ</dt><dd>1,320円</dd></div><div><dt>デミグラスハンバーグ</dt><dd>1,320円</dd></div><div><dt>照り焼きハンバーグ</dt><dd>1,320円</dd></div><div><dt>お絵描きオムライス</dt><dd>1,320円</dd></div><div><dt>デミグラスソースオムライス</dt><dd>1,540円</dd></div><div><dt>自家製トマトソースのチキンドリア</dt><dd>1,320円</dd></div><div><dt>ライス</dt><dd>110円</dd></div><div><dt>バゲット</dt><dd>220円</dd></div></dl>
+          <h3>FRIED FOOD</h3>
+          <dl class="price-list"><div><dt>2種の山盛りポテト</dt><dd>990円</dd></div><div><dt>唐揚げ＆ポテト</dt><dd>1,100円</dd></div><div><dt>フィッシュ＆チップス</dt><dd>1,100円</dd></div><div><dt>チーズリゾットのライスコロッケ</dt><dd>1,210円</dd></div></dl>
+        </div>
+        <div>
+          <h3>SIDE MENU</h3>
+          <dl class="price-list"><div><dt>ガーリックトースト</dt><dd>660円</dd></div><div><dt>トマトのブルスケッタ</dt><dd>1,100円</dd></div><div><dt>自家製レバーパテ＆バゲット</dt><dd>1,100円</dd></div><div><dt>生ハムとチーズの盛り合わせ</dt><dd>1,210円</dd></div><div><dt>トマトとモッツァレラのカプレーゼ</dt><dd>1,210円</dd></div><div><dt>ソーセージ盛り合わせ</dt><dd>1,100円</dd></div><div><dt>鴨スモーク</dt><dd>1,320円</dd></div><div><dt>サーモンの生春巻き</dt><dd>1,430円</dd></div><div><dt>サーモンのカルパッチョ</dt><dd>1,430円</dd></div></dl>
+          <h3>SALAD</h3>
+          <p class="food-subheading">シーザーサラダ</p>
+          <dl class="price-list">
+            <div>
+              <dt>カリカリベーコンとごぼうのサラダ S</dt>
+              <dd>990円</dd>
+            </div>
+            <div>
+              <dt>ヤリイカとトマトのサラダ L</dt>
+              <dd>1,320円</dd>
+            </div>
+          </dl>
+          <h3>PASTA</h3>
+          <dl class="price-list"><div><dt>大葉ジェノベーゼパスタ</dt><dd>1,100円</dd></div><div><dt>明太クリームパスタ</dt><dd>1,100円</dd></div><div><dt>かにクリームパスタ</dt><dd>1,210円</dd></div><div><dt>チーズチキントマトパスタ</dt><dd>1,210円</dd></div></dl>
+          <h3>DESSERT</h3>
+          <dl class="price-list"><div><dt>アップルパイ<wbr>～バニラアイス添え～</dt><dd>1,210円</dd></div><div><dt><span class="phrase">N.Y.チーズケーキ＆</span><wbr><span class="phrase">レアチーズケーキ</span></dt><dd>1,210円</dd></div><div><dt><span class="phrase">和栗モンブラン＆</span><wbr><span class="phrase">抹茶モンブラン</span></dt><dd>1,210円</dd></div><div><dt><span class="phrase">ガトーショコラ＆</span><wbr><span class="phrase">苺とベリーのケーキ</span></dt><dd>1,210円</dd></div></dl>
+        </div>
+      </div>
+      <p class="annotation">表示価格は税込です。<br>混雑時は提供にお時間をいただく場合がございます。</p>
+    </section>
+
+    <section id="special" class="menu-section">
+      <h2><span class="heading-phrase">限定・その他</span><wbr><span class="heading-phrase">メニュー</span></h2>
+      <div class="special-grid">
+        <img class="special-image" src="../menu/images/menu8.5.jpg" loading="lazy" width="1200" height="1697" alt="期間限定 鶏軟骨のキーマカレー 1,320円（税込）">
+        <img class="special-image" src="../menu/images/menu11.jpg" loading="lazy" width="1200" height="1698" alt="Shandy Love パフェメニュー。いちごレアチーズパフェ、チョコバナナパフェ、各1,430円">
+        <img class="special-image" src="../menu/images/menu12.jpg" loading="lazy" width="1200" height="1703" alt="ガチャガチャ 500円。ポイント2倍券、ショット、囲み写メ、キャストの証明写真、ランダムシャンパン">
+      </div>
+    </section>
+
+    <section id="guide" class="menu-section">
+      <h2>ご利用案内</h2>
+      <div class="information-columns">
+        <div>
+          <h3>ご来店の皆様へ</h3>
+          <ul class="text-list">
+            <li>価格は全て税込価格です。</li>
+            <li>お時間の管理はお客様ご自身でお願いします。</li>
+            <li>各種クレジットカード・QR決済が可能です。</li>
+            <li>店内での撮影は、<wbr>キャストや他のお客様が写らないようご配慮ください。</li>
+            <li>店内での金品の盗難や物品の破損などについて、<wbr>当店では一切責任を負えません。</li>
+          </ul>
+        </div>
+        <div>
+          <h3>禁止事項</h3>
+          <ul class="text-list">
+            <li>キャストに触れる行為</li>
+            <li>出入り待ちや業務外のキャストとの会話、つきまとい行為</li>
+            <li>キャストのプライベートを聞き出す行為</li>
+            <li>キャストや他のお客様への暴言・嫌がらせ行為<wbr>（店内・SNSを含む）</li>
+          </ul>
+          <p class="notice">皆様が心地よく過ごせるよう、ご協力をお願いします。</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="contact-box">
+      <p>Shandy Love</p>
+      <a href="tel:0363881917">TEL 03-6388-1917</a>
+    </div>
+  </article>
+
+  <footer class="site-footer">
+    <nav aria-label="店舗一覧">
+      <ul id="shoplist">
+        <li><a href="../../../shop/shinjuku/index.html"><img src="../../../images/list_shinjuku.png" alt="新宿店"></a></li>
+        <li><a href="../../../shop/cybarshinjuku/index.html"><img src="../../../images/list_cybar.png" alt="CyBAR新宿店"></a></li>
+        <li><a href="../../../shop/chocolat/index.html"><img src="../../../images/list_cp.png" alt="Chocolat店"></a></li>
+        <li><a href="../../../shop/shandy/index.html"><img src="../../../images/list_shandy.png" alt="ShandyLove店"></a></li>
+        <li><a href="../../../shop/melty/index.html"><img src="../../../images/list_melty.png" alt="Melty Mousse店"></a></li>
+        <li><a href="../../../shop/roysuga/index.html"><img src="../../../images/list_roysuga.png" alt="Royal Sugar店"></a></li>
+        <li><a href="../../../shop/tweeny/index.html"><img src="../../../images/list_tweeny.png" alt="Tweeny Heart Cafe店"></a></li>
+        <li><a href="../../../shop/bloody/index.html"><img src="../../../images/list_bloody.png" alt="Bloody Sugar店"></a></li>
+        <li><a href="../../../shop/cybarbkk/index.html"><img src="../../../images/list_cybar_bkk.png" alt="CyBAR BKK店"></a></li>
+        <li><a href="../../../shop/cybarbkk2/index.html"><img src="../../../images/list_cybar_bkk2.png" alt="CyBAR BKK 2店"></a></li>
+        <li><a href="../../../shop/cybarlaos/index.html"><img src="../../../images/list_cybar_laos.png" alt="CyBAR Laos店"></a></li>
+      </ul>
+    </nav>
+    <p><a href="#">Copyright © 2018 milk planet All Rights Reserved.</a></p>
+  </footer>
+  <script src="../../../analytics.js"></script>
+  <script src="../../../proposal.js"></script>
+</body>
+</html>
