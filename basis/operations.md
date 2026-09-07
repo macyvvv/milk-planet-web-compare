@@ -31,3 +31,19 @@
 2. **定期的な削除**:
    - 法令およびプライバシーポリシーに従い、**送信から1年経過した古い通知ログは、定期バッチ処理等を用いて削除**する運用を検討してください。
    - `DELETE FROM generated_notifications WHERE created_at < datetime('now', '-1 year');` のようなクエリを定期実行することを推奨します。
+
+## 4. Repo contract の検証
+
+UI改修や文書整理の完了前には、repoの正本・作業境界・レビュー手順への参照が壊れていないことを確認する。
+
+```bash
+python3 tools/validate_repo_contract.py
+```
+
+この検証は読み取り専用で、以下を確認する。
+
+- 必須のbasis文書、`DESIGN.md`、レビュー手順、対象ディレクトリが存在すること
+- `AGENTS.md`が正本・作業境界・検証コマンドを案内していること
+- `currently/`、`proposal/branch1/`、`proposal/branch5/`が比較可能な状態であること
+
+検証失敗時は、ファイルを自動生成・移動・修正せず、欠落または参照不整合を確認してから個別に修正する。
