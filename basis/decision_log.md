@@ -135,3 +135,11 @@
 - 採用案: BRANCH5（`proposal/branch5/`）の同一店舗・同一ページ画像版を視覚・原稿の正本として、ルート`DESIGN.md`へ元画像・隣接ページ・旧実装の優先順位、店舗別デザイントークン、改行・画像・見出しの制約、AI一般化の禁止事項、表示幅別の確認項目を記録する。既存`agents/`へ参照ルールを追加し、`agents/22_VISUAL_FIDELITY_REVIEWER.md`と`skills/visual-fidelity/SKILL.md`を新設する。
 - 理由: 実装者の一般的なUI慣習ではなく、Branch5の観測可能な表現を継続的に参照できる状態を作り、同種のトンマナ逸脱を再発させないため。
 - 影響: 今後のHTML/CSS改修と視覚レビューの手順・判断基準。既存ページ、画像、商品情報、公開URLは変更しない。
+
+## 2026-09-07 Repo contract と非破壊検証の導入
+
+- 論点: `basis/`、`DESIGN.md`、`agents/`、`skills/`が既に存在するrepoへ、汎用Chassisを追加するか、既存資産を活かしてrepo固有の契約だけを整備するか。
+- 採用案: `AGENTS.md`で参照順・正本・作業境界を定義し、`basis/README.md`と`basis/system_spec.md`で責務と対象パスを明文化する。`tools/validate_repo_contract.py`で読み取り専用の構造検証を行う。
+- 理由: このrepoの価値は現状と改修案の比較にあり、汎用bootstrapや文書の移動を追加すると比較正本を壊すリスクがあるため。既存の`DESIGN.md`と視覚レビューSkillは、Design Intelligence Layerとして既に機能している。
+- 影響: Codexの参照経路と完了前検証が安定する。`currently/`、`proposal/branch1/`、`proposal/branch5/`、既存の視覚資産は変更しない。
+- 残存リスク: 検証スクリプトはファイル構造と参照契約を確認するもので、HTMLのリンク切れやブラウザ上の視覚崩れまでは判定しない。UI変更時は実表示レビューを別途実施する。
