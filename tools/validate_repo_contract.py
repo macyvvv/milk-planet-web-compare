@@ -18,6 +18,7 @@ REQUIRED_FILES = (
     "basis/decision_log.md",
     "basis/architecture.mmd",
     "agents/22_VISUAL_FIDELITY_REVIEWER.md",
+    "skills/design-intent/SKILL.md",
     "skills/visual-fidelity/SKILL.md",
 )
 
@@ -27,6 +28,7 @@ REQUIRED_DIRECTORIES = (
     "proposal/branch5",
     "basis",
     "agents",
+    "skills/design-intent",
     "skills/visual-fidelity",
 )
 
@@ -35,6 +37,7 @@ TEXT_ASSERTIONS = {
         "currently/",
         "proposal/branch1/",
         "proposal/branch5/",
+        "skills/design-intent",
         "tools/validate_repo_contract.py",
     ),
     "basis/README.md": (
@@ -46,6 +49,12 @@ TEXT_ASSERTIONS = {
     "basis/system_spec.md": (
         "Repository contract",
         "390px / 768px / 1440px",
+    ),
+    "DESIGN.md": ("Intent contract",),
+    "skills/design-intent/SKILL.md": (
+        "Viewing situation",
+        "Evidence ledger",
+        "根拠のない装飾",
     ),
     "basis/decision_log.md": ("Repo contract と非破壊検証の導入",),
 }

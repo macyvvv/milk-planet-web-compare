@@ -7,6 +7,8 @@ description: Reconstruct and review milk planet pages against Branch5 source pag
 
 このrepoの既存ページを改修するときは、ルートの`DESIGN.md`を視覚的な正本として扱い、`agents/22_VISUAL_FIDELITY_REVIEWER.md`のレビュー手順を実行する。
 
+新しいビジュアル方向や大幅な再構成では、実装前に`skills/design-intent/SKILL.md`を通す。`design-intent`が定義した意図・証拠・トレードオフを、実装後に都合よく書き換えない。このSkillは、意図を生成するのではなく、意図が画面に保持されたかを確認する。
+
 ## Routing
 
 - 既存ページの見た目を記録・抽出する場合: `DESIGN.md`と対象店舗の元画像版を先に読む。
@@ -25,13 +27,15 @@ description: Reconstruct and review milk planet pages against Branch5 source pag
 
 ## Implementation loop
 
-1. 変更対象と比較元を`DESIGN.md`に照合する。
-2. 情報量・文言・順序・改行を確認する。
-3. 店舗固有CSSを優先し、共通CSSへの変更は複数店舗に共通する欠陥だけに限定する。
-4. ブラウザ表示を確認し、白帯、枠外文字列、左寄せ、語中分断、ロゴ縮小を探す。
-5. アクセシビリティ（見出し、alt、フォーカス、コントラスト、キーボード）を確認する。
-6. `agents/99_DESIGN_REVIEWER.md`へ採用・保留・却下とDone条件を渡す。
-7. `basis/decision_log.md`へ、元ページを根拠にした店舗固有判断だけを記録する。
+1. `design-intent`のViewing situation、Hierarchy、Evidence Ledgerと変更対象を照合する。
+2. 比較元を`DESIGN.md`、元画像版、隣接ページ、必要に応じて`currently/`へ照合する。
+3. 情報量・文言・順序・改行を確認する。
+4. 店舗固有CSSを優先し、共通CSSへの変更は複数店舗に共通する欠陥だけに限定する。
+5. ブラウザ表示を確認し、白帯、枠外文字列、左寄せ、語中分断、ロゴ縮小を探す。
+6. アクセシビリティ（見出し、alt、フォーカス、コントラスト、キーボード）を確認する。
+7. 意図のないスキン変更、根拠のない装飾、共通部品による店舗固有性の消失を確認する。
+8. `agents/99_DESIGN_REVIEWER.md`へ採用・保留・却下とDone条件を渡す。
+9. `basis/decision_log.md`へ、元ページを根拠にした店舗固有判断だけを記録する。
 
 ## Completion gate
 
@@ -43,3 +47,6 @@ description: Reconstruct and review milk planet pages against Branch5 source pag
 - 見出しと改行が意味構造に一致している
 - ブラウザ確認を実施したか、できなかった理由を明記している
 - 自動テストだけで「デザインが正しい」と判断していない
+- 実装前の意図・証拠・トレードオフが実装後も追跡できる
+- CSSのスキン変更だけで方向性を成立させた場合、その制約と理由が明記されている
+- 根拠のない「人間らしさ」や手作り感を追加していない
