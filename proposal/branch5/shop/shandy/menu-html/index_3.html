@@ -18,14 +18,18 @@
   <style id="visual-variant-3">
 /*
  * Visual comparison variant 3.
- * Intent: turn the poster's red-and-white reading order into a quiet,
- * source-grounded editorial surface instead of adding a new visual theme.
- * Keep the actual poster imagery where the composition carries information.
+ * Intent: keep the poster's welcome/rules moment visible before the HTML
+ * lists, then use a quiet white reading surface for prices and products.
+ * The original poster is shown as a brand and operational anchor, not as
+ * an arbitrary texture strip.
  */
 body.visual-variant-3 {
   background: #fff;
-  border-top: 12px solid #8f0100;
+  border-top: 10px solid #8f0100;
   color: #332b2b;
+}
+html body h1.menu-page-title:not(.scrolled-title)::after {
+  background: #8f0100 !important;
 }
 body.visual-variant-3 .html-menu {
   color: #332b2b;
@@ -33,35 +37,37 @@ body.visual-variant-3 .html-menu {
   text-shadow: none;
 }
 body.visual-variant-3 .menu-intro {
-  position: relative;
-  width: min(960px, calc(100% - 40px));
-  margin: 0 auto;
-  padding: 48px 28px 36px;
-  background: #f8ecea;
-  border: 0;
-  border-bottom: 1px solid #e6d4d2;
-  color: #332b2b;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 30px;
+  background: #8f0100;
+  color: #fff;
 }
-body.visual-variant-3 .menu-intro::before {
-  content: "";
+body.visual-variant-3 .source-masthead {
+  box-sizing: border-box;
   display: block;
-  height: 32px;
-  margin: -48px -28px 32px;
-  background-color: #8f0100;
-  background-image: url("../menu/images/menu2.jpg");
-  background-position: center top;
-  background-repeat: repeat-x;
-  background-size: 640px auto;
+  width: min(960px, 100%);
+  height: clamp(160px, 18vw, 240px);
+  margin: 0 auto;
+  object-fit: cover;
+  object-position: center top;
 }
 body.visual-variant-3 .menu-intro p {
   max-width: 760px;
-  margin-inline: auto;
+  margin: 0 auto;
+  padding: 24px 28px 4px;
+  color: #fff;
+  font-family: Georgia, "Yu Mincho", serif;
+  font-size: 18px;
+  line-height: 1.9;
 }
 body.visual-variant-3 .local-nav {
   width: min(960px, calc(100% - 40px));
-  margin: 0 auto 18px;
+  margin: 0 auto 8px;
   gap: 4px 18px;
   justify-content: flex-start;
+  border-bottom: 1px solid #e6d4d2;
 }
 body.visual-variant-3 .local-nav a {
   padding: 7px 2px 5px;
@@ -79,21 +85,20 @@ body.visual-variant-3 .local-nav a:focus-visible {
 }
 body.visual-variant-3 .menu-section {
   width: min(960px, calc(100% - 40px));
-  padding: 54px 0;
+  padding: 48px 0;
 }
 body.visual-variant-3 .menu-section + .menu-section {
   border-top: 1px solid #e6d4d2;
 }
 body.visual-variant-3 .html-menu .menu-section h2 {
-  width: 100%;
-  max-width: none;
-  margin: 0 0 36px;
-  padding: 0 0 12px 16px;
-  color: #8f0100;
-  background: transparent;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 32px;
+  padding: 9px 18px 8px;
+  color: #fff;
+  background: #8f0100;
   border: 0;
-  border-left: 8px solid #8f0100;
-  border-bottom: 1px solid #8f0100;
+  border-left: 10px solid #24191b;
   border-radius: 0;
   box-shadow: none;
   text-align: left;
@@ -158,6 +163,38 @@ body.visual-variant-3 .bring-in {
   border-left: 6px solid #8f0100;
   border-radius: 0;
 }
+body.visual-variant-3 #guide {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 38px max(20px, calc((100% - 960px) / 2)) 42px;
+  color: #fff;
+  background: #8f0100;
+}
+body.visual-variant-3 #guide h2 {
+  margin-right: auto;
+  margin-left: auto;
+  color: #fff;
+  background: transparent;
+  border-left-color: #f2beb5;
+  border-bottom: 1px solid #f2beb5;
+}
+body.visual-variant-3 #guide .information-columns {
+  max-width: 960px;
+  margin: 0 auto;
+}
+body.visual-variant-3 #guide .information-columns > div {
+  color: #fff;
+  border-top-color: #f2beb5;
+}
+body.visual-variant-3 #guide .information-columns h3,
+body.visual-variant-3 #guide .notice {
+  color: #f8ecea;
+}
+body.visual-variant-3 #guide .text-list li::marker {
+  color: #f2beb5;
+}
 body.visual-variant-3 .newcomer-grid {
   gap: 28px;
 }
@@ -187,7 +224,7 @@ body.visual-variant-3 .contact-box a {
   text-underline-offset: 4px;
 }
 body.visual-variant-3 .site-footer {
-  background: #bfe0f7;
+  background: #24191b;
   color: #fff;
 }
 body.visual-variant-3 .site-footer a {
@@ -195,30 +232,31 @@ body.visual-variant-3 .site-footer a {
 }
 @media (max-width: 780px) {
   body.visual-variant-3 {
-    border-top-width: 8px;
+    border-top-width: 6px;
   }
   body.visual-variant-3 .menu-intro {
-    width: calc(100% - 28px);
-    padding: 36px 16px 28px;
+    padding-bottom: 22px;
   }
-  body.visual-variant-3 .menu-intro::before {
-    height: 24px;
-    margin: -36px -16px 24px;
-    background-size: 480px auto;
+  body.visual-variant-3 .source-masthead {
+    height: 160px;
+  }
+  body.visual-variant-3 .menu-intro p {
+    padding: 18px 16px 2px;
+    font-size: 16px;
   }
   body.visual-variant-3 .local-nav {
     width: calc(100% - 28px);
-    margin-bottom: 12px;
+    margin-bottom: 4px;
     gap: 2px 14px;
   }
   body.visual-variant-3 .menu-section {
     width: calc(100% - 28px);
-    padding: 42px 0;
+    padding: 38px 0;
   }
   body.visual-variant-3 .html-menu .menu-section h2 {
-    margin-bottom: 28px;
-    padding: 0 0 9px 10px;
-    border-left-width: 6px;
+    margin-bottom: 24px;
+    padding: 7px 12px 6px;
+    border-left-width: 7px;
     font-size: clamp(20px, 6vw, 27px);
     letter-spacing: .08em;
   }
@@ -241,6 +279,12 @@ body.visual-variant-3 .site-footer a {
   body.visual-variant-3 .contact-box {
     width: calc(100% - 28px);
     padding: 30px 16px 48px;
+  }
+  body.visual-variant-3 #guide {
+    padding: 30px 14px 34px;
+  }
+  body.visual-variant-3 #guide .information-columns {
+    gap: 24px;
   }
   body.visual-variant-3 h1.menu-page-title:not(.scrolled-title) {
     padding-right: 52px !important;
@@ -296,8 +340,35 @@ body.visual-variant-3 .site-footer a {
 
   <article id="menu-content" class="html-menu">
     <div class="menu-intro">
+      <img class="source-masthead" src="../menu/images/menu2.jpg" loading="eager" width="1200" height="1697" alt="ShandyLoveの赤黒のパターンとロゴが入った案内ポスター">
       <p>ShandyLoveでは美味しいお食事とお酒をご用意して、<wbr>皆様のご来店を心よりお待ちしております。<br>かわいいキャストたちと、<wbr>素敵な時間をお過ごしください。</p>
     </div>
+
+    <section id="guide" class="menu-section source-notice">
+      <h2>ご利用案内</h2>
+      <div class="information-columns">
+        <div>
+          <h3>ご来店の皆様へ</h3>
+          <ul class="text-list">
+            <li>価格は全て税込価格です。</li>
+            <li>お時間の管理はお客様ご自身でお願いします。</li>
+            <li>各種クレジットカード・QR決済が可能です。</li>
+            <li>店内での撮影は、<wbr>キャストや他のお客様が写らないようご配慮ください。</li>
+            <li>店内での金品の盗難や物品の破損などについて、<wbr>当店では一切責任を負えません。</li>
+          </ul>
+        </div>
+        <div>
+          <h3>禁止事項</h3>
+          <ul class="text-list">
+            <li>キャストに触れる行為</li>
+            <li>出入り待ちや業務外のキャストとの会話、つきまとい行為</li>
+            <li>キャストのプライベートを聞き出す行為</li>
+            <li>キャストや他のお客様への暴言・嫌がらせ行為<wbr>（店内・SNSを含む）</li>
+          </ul>
+          <p class="notice">皆様が心地よく過ごせるよう、ご協力をお願いします。</p>
+        </div>
+      </div>
+    </section>
 
     <nav class="local-nav" aria-label="メニュー内目次">
       <a href="#pricing">料金</a>
@@ -494,32 +565,6 @@ body.visual-variant-3 .site-footer a {
         <img class="special-image" src="../menu/images/menu8.5.jpg" loading="lazy" width="1200" height="1697" alt="期間限定 鶏軟骨のキーマカレー 1,320円（税込）">
         <img class="special-image" src="../menu/images/menu11.jpg" loading="lazy" width="1200" height="1698" alt="Shandy Love パフェメニュー。いちごレアチーズパフェ、チョコバナナパフェ、各1,430円">
         <img class="special-image" src="../menu/images/menu12.jpg" loading="lazy" width="1200" height="1703" alt="ガチャガチャ 500円。ポイント2倍券、ショット、囲み写メ、キャストの証明写真、ランダムシャンパン">
-      </div>
-    </section>
-
-    <section id="guide" class="menu-section">
-      <h2>ご利用案内</h2>
-      <div class="information-columns">
-        <div>
-          <h3>ご来店の皆様へ</h3>
-          <ul class="text-list">
-            <li>価格は全て税込価格です。</li>
-            <li>お時間の管理はお客様ご自身でお願いします。</li>
-            <li>各種クレジットカード・QR決済が可能です。</li>
-            <li>店内での撮影は、<wbr>キャストや他のお客様が写らないようご配慮ください。</li>
-            <li>店内での金品の盗難や物品の破損などについて、<wbr>当店では一切責任を負えません。</li>
-          </ul>
-        </div>
-        <div>
-          <h3>禁止事項</h3>
-          <ul class="text-list">
-            <li>キャストに触れる行為</li>
-            <li>出入り待ちや業務外のキャストとの会話、つきまとい行為</li>
-            <li>キャストのプライベートを聞き出す行為</li>
-            <li>キャストや他のお客様への暴言・嫌がらせ行為<wbr>（店内・SNSを含む）</li>
-          </ul>
-          <p class="notice">皆様が心地よく過ごせるよう、ご協力をお願いします。</p>
-        </div>
       </div>
     </section>
 
