@@ -30,6 +30,12 @@ body.visual-variant-3 {
 }
 html body h1.menu-page-title:not(.scrolled-title)::after {
   background: #8f0100 !important;
+  height: 32px !important;
+  -webkit-mask-size: 100% 32px !important;
+  mask-size: 100% 32px !important;
+}
+html body h1.menu-page-title:not(.scrolled-title) {
+  padding-bottom: 32px !important;
 }
 body.visual-variant-3 .html-menu {
   color: #332b2b;
@@ -48,19 +54,23 @@ body.visual-variant-3 .source-masthead {
   box-sizing: border-box;
   display: block;
   width: min(960px, 100%);
-  height: clamp(160px, 18vw, 240px);
+  height: clamp(260px, 27vw, 320px);
   margin: 0 auto;
   object-fit: cover;
   object-position: center top;
 }
 body.visual-variant-3 .menu-intro p {
-  max-width: 760px;
+  box-sizing: border-box;
+  max-width: 900px;
   margin: 0 auto;
   padding: 24px 28px 4px;
   color: #fff;
   font-family: Georgia, "Yu Mincho", serif;
   font-size: 18px;
   line-height: 1.9;
+}
+body.visual-variant-3 .welcome-sentence {
+  display: block;
 }
 body.visual-variant-3 .local-nav {
   width: min(960px, calc(100% - 40px));
@@ -238,7 +248,7 @@ body.visual-variant-3 .site-footer a {
     padding-bottom: 22px;
   }
   body.visual-variant-3 .source-masthead {
-    height: 160px;
+    height: 190px;
   }
   body.visual-variant-3 .menu-intro p {
     padding: 18px 16px 2px;
@@ -287,6 +297,7 @@ body.visual-variant-3 .site-footer a {
     gap: 24px;
   }
   body.visual-variant-3 h1.menu-page-title:not(.scrolled-title) {
+    padding-bottom: 28px !important;
     padding-right: 52px !important;
     gap: 6px !important;
     font-size: 17px !important;
@@ -341,7 +352,7 @@ body.visual-variant-3 .site-footer a {
   <article id="menu-content" class="html-menu">
     <div class="menu-intro">
       <img class="source-masthead" src="../menu/images/menu2.jpg" loading="eager" width="1200" height="1697" alt="ShandyLoveの赤黒のパターンとロゴが入った案内ポスター">
-      <p>ShandyLoveでは美味しいお食事とお酒をご用意して、<wbr>皆様のご来店を心よりお待ちしております。<br>かわいいキャストたちと、<wbr>素敵な時間をお過ごしください。</p>
+      <p><span class="welcome-sentence">ShandyLoveでは美味しいお食事とお酒をご用意して、皆様のご来店を心よりお待ちしております。</span><span class="welcome-sentence">かわいいキャストたちと、素敵な時間をお過ごしください。</span></p>
     </div>
 
     <section id="guide" class="menu-section source-notice">
