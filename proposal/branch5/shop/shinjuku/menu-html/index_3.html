@@ -57,8 +57,14 @@
     body.visual-variant-3 h1.menu-page-title:not(.scrolled-title)::after {
       height: 34px !important;
       background: var(--shinjuku-sky) !important;
-      -webkit-mask: url("../menu/images/cutline.png") 0 0 / 100% 34px no-repeat;
-      mask: url("../menu/images/cutline.png") 0 0 / 100% 34px no-repeat;
+      -webkit-mask-image: url("../menu/images/cutline.png");
+      -webkit-mask-position: 0 0;
+      -webkit-mask-size: 100% 34px;
+      -webkit-mask-repeat: no-repeat;
+      mask-image: url("../menu/images/cutline.png");
+      mask-position: 0 0;
+      mask-size: 100% 34px;
+      mask-repeat: no-repeat;
     }
 
     body.visual-variant-3 h1.menu-page-title .title-shop-logo {
@@ -361,7 +367,7 @@
   <header id="top-head">
     <div class="inner">
       <button type="button" id="nav-toggle" aria-controls="global-nav" aria-expanded="false" aria-label="めにゅうを開く">
-        <div class="nav-toggle-bars"><span></span><span></span><span></span></div>
+        <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
         <span class="nav-toggle-label">めにゅう</span>
       </button>
       <nav id="global-nav" aria-label="グローバルナビゲーション">
@@ -383,7 +389,7 @@
     <span>システム&amp;メニュー</span>
   </h1>
 
-  <article id="menu-content" class="html-menu">
+  <main id="menu-content" class="html-menu">
     <div class="menu-intro">
       <figure class="source-masthead">
         <img src="../menu/images/menu1.jpg" loading="eager" width="1414" height="2000" alt="milkplanetへようこそ。ご来店時の注意事項、禁止事項、ポイントカード特典を案内する新宿店の原版メニューポスター">
@@ -602,7 +608,7 @@
         <p class="annotation">再発行不可。端数は切り捨て。有効期限は最終入店日から1年です。</p>
       </div>
     </section>
-  </article>
+  </main>
 
   <footer class="site-footer">
     <nav aria-label="店舗一覧">
