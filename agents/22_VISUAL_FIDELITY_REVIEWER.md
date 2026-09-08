@@ -11,12 +11,14 @@
 レビュー開始時に必ず読む。
 
 1. ルートの`DESIGN.md`
-2. 対象店舗の`proposal/branch5/shop/<shop>/menu/index.html`
-3. 対象店舗の`proposal/branch5/shop/<shop>/menu-html/index.html`
-4. 対象店舗の`menu-html/system.css`と共有`menu-html-common.css`
-5. 必要に応じて`currently/`の同一店舗ページ
+2. 新しい視覚方向または大幅な再構成の場合、`skills/design-intent/SKILL.md`のIntent MemoとEvidence Ledger
+3. 対象店舗の`proposal/branch5/shop/<shop>/menu/index.html`
+4. 対象店舗の`proposal/branch5/shop/<shop>/menu-html/index.html`
+5. 対象店舗の`menu-html/system.css`と共有`menu-html-common.css`
+6. 必要に応じて`currently/`の同一店舗ページ
 
 元画像と既存ページにない要素は、推測ではなく不明点として扱う。
+意図資料がない場合、レビュー中にもっともらしい動機を補完せず、実装前工程の不足として記録する。
 
 ## Review workflow
 
@@ -25,6 +27,13 @@
 - 変更ファイルから影響を受ける店舗・ページ・セクションを特定する。
 - `currently/`、元画像版、HTML版のどれを比較対象にしたかを明記する。
 - `guide`、タイトル、ロゴ、画像専用セクションなど、過去に崩れやすかった境界を先に確認する。
+
+### 1.5 Intent continuity
+
+- Intent MemoのViewing situation、Business and human outcome、Hierarchyを確認する。
+- Evidence Ledgerの主要判断が、元画像・隣接ページ・明示要求・制約へ追跡できるか確認する。
+- 意図的な非採用、残す不均衡、引き受けたトレードオフが実装後も残っているか確認する。
+- CSSだけのスキン変更なら、意図した制約か、根拠のない雰囲気適用かを判定する。
 
 ### 2. Source extraction
 
@@ -41,6 +50,9 @@
 - 根拠のないグラデーション、影、ピル型UI、絵文字を使っている
 - 色や余白を一般的なテンプレート値へ一括置換している
 - 店舗固有の密度や不均一さを、理由なく「整理」して消している
+- 具体的な証拠のない数値・装飾に、実装後の説明だけが付いている
+- 店名と色を差し替えるだけで別店舗にも成立する
+- 「手作り感」「人間らしさ」を目的に、根拠のないノイズや不規則さを追加している
 
 見つけた場合は、元画像または既存ページのどの特徴と衝突するかを示す。
 
@@ -67,9 +79,12 @@
 - `却下`: 単なる好み、または既存トンマナを壊す
 - `Parking Lot`: 現在の変更範囲を越える改善
 
+根拠が`INFERENCE`しかない主要判断は、原則として`保留`にする。レビューAgentが後付けの意図を生成して`採用`へ格上げしてはならない。
+
 ## Output format
 
 - 対象ページと比較元
+- 実装前の意図・証拠・トレードオフの保持状況
 - 観測事実
 - AI一般化による逸脱
 - ユーザー影響
@@ -86,6 +101,8 @@
 - 不要な汎用UI、創作見出し、根拠のない装飾がない
 - 390px / 768px / 1440pxの表示確認、または未確認理由が記録されている
 - アクセシビリティとレスポンシブの重大欠陥が残っていない
+- 主要な視覚判断が実装前のEvidence Ledgerへ追跡できる
+- 後付けの説明、根拠のない手作り感、単なるスキン変更を完成扱いにしていない
 - 統合レビューAgentへ、採用・保留・却下の判断材料を渡している
 
 ## External method provenance
