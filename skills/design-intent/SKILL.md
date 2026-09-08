@@ -38,6 +38,24 @@ description: Define and test the situated purpose, business outcome, source evid
 
 `INFERENCE`だけで装飾を追加してはならない。根拠が足りない場合は`UNKNOWN`として保留し、確認なしで実装しない。
 
+## Asset and typography gate
+
+元画像と文章を実装へ移すときは、見た目の素材と意味の構造を分けずに判断する。
+
+- 画像ごとに、`content`（内容を読む）、`hero`（ブランドや場面を見せる）、`texture`（背景の質感）の役割をIntent Memoで決める。
+- ロゴ・文字・商品情報を含む画像を`texture`として使う場合は、何を見せず何を残すのか、転送量と情報損失をEvidence Ledgerへ記録する。根拠が弱ければ`hero`または`content`として扱う。
+- クロップや固定高さは、被写体の境界と閲覧幅を根拠に決める。`object-fit: cover`を先に選び、後から切れた被写体を説明してはならない。
+- 手動改行は文・句・項目の意味境界に限定する。偶然の折返しを防ぐためだけに`<wbr>`や`<br>`を追加しない。
+
+## Font and color gate
+
+フォントと色は、雰囲気の形容詞だけで決めず、役割・根拠・知覚負荷を分けて記録する。
+
+- フォントを、ブランド／感情、見出し、長文本文、料金・運用情報の役割に分類する。原版の書体を再現する場合も、長文の可読性と衝突しないか確認する。
+- 日本語グリフが指定フォントにない場合のフォールバック、未読込時、OS・ブラウザ差を`UNKNOWN`またはEvidence Ledgerへ記録する。`高級感`や`かわいさ`だけを採用理由にしない。
+- 実際に隣接する前景色・背景色の組み合わせを抽出し、文字はWCAG 1.4.3、操作部品や意味のある図形は1.4.11で評価する。装飾罫線は操作状態や理解に必要かを別途判定する。
+- コントラスト適合と、色の面積・彩度による圧迫感や疲労を別の評価項目にする。基準を満たすことだけで、色の強さを正当化してはならない。
+
 ## Anti-generic tests
 
 - **Swap test**: 店名と色だけを別店舗へ差し替えて成立するなら、店舗固有の判断が不足していないか再確認する。
@@ -60,6 +78,17 @@ description: Define and test the situated purpose, business outcome, source evid
 ## Handoff to visual-fidelity
 
 Intent MemoとEvidence Ledgerを確定した後、`visual-fidelity`へ渡す。`visual-fidelity`はその意図が実装で保たれたか、元資料との差分、表示品質、アクセシビリティを検証する。理由を実装後に作り直してはならない。
+
+## Mandatory implementation gates
+
+このSkillを使う案件では、次のゲートを順番に通過させる。ゲートはチェックリストの記録ではなく、失敗時に次工程へ進まないための境界である。
+
+1. **Source lock**: 原典画像・既存文言・店舗資産・共通CSSを棚卸しし、正本、画像の役割、情報順、主要な非採用をIntent Memoへ固定する。
+2. **Structure gate**: 見た目を整える前に、意味のあるDOM、見出し階層、リンク先、ID、`alt`、自然な改行単位を確定する。HTML/CSSの構文、参照パス、重複IDを作成途中から検証する。
+3. **Intent gate**: 実装の各主要ブロックをEvidence Ledgerへ戻し、根拠のない装飾、単なる色・カード・角丸のスキン交換、原典の情報順の消失がないことを確認する。
+4. **Independent post-build gate**: 完成後、実装者の説明を正解とみなさず、`visual-fidelity`とブラウザ表示で原典との差分を再監査する。W3C相当のHTML妥当性、CSS構文、WCAG上の問題もこのゲートで確認する。
+
+ゲート不通過時は、局所的な装飾パッチで出荷せず、原因の工程へ戻る。特に`Structure gate`を通過していても`Intent gate`または独立監査に失敗することがあるため、妥当なHTMLをデザイン正当性の代替にしてはならない。すべてのゲートと残存リスクを記録するまで、PR作成・リリース・マージへ進まない。
 
 ## Completion gate
 
