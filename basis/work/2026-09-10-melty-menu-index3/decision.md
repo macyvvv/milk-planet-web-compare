@@ -11,7 +11,7 @@ Create `proposal/branch5/shop/melty/menu-html/index_3.html` as a source-led, ima
 
 ## State
 
-State: LEARNED
+State: RELEASED
 
 ## Gate status
 
@@ -20,7 +20,7 @@ State: LEARNED
 - Structure: PASS — planned semantic sections, anchors, alt summaries, and responsive source paths.
 - Intent: PASS — image-led treatment follows the source's coupled typography, illustrations, and prices.
 - Independent audit: PASS — static checks and browser checks were completed after the page was implemented; the empty intro wrapper and late category index were corrected during the audit loop.
-- Release: NOT RUN — commit, push, PR, merge, and published URL verification are recorded separately in `release.md`.
+- Release: PASS — commit, push, PR, merge, Pages deployment, and published URL verification are recorded in `release.md`.
 
 ## Definition of done
 
