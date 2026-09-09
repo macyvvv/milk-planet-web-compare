@@ -6,48 +6,21 @@ on:
   pull_request:
     branches: [main, master]
 
+permissions:
+  contents: read
+
 jobs:
-  test:
+  validate:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: proposal/branch101/app
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: "npm"
-          cache-dependency-path: proposal/branch101/app/package-lock.json
+          fetch-depth: 0
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Validate repository contract
+        run: python3 tools/validate_repo_contract.py
 
-      - name: Generate Prisma Client
-        run: npx prisma generate
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Typecheck
-        run: npx tsc --noEmit
-
-      - name: Unit Tests
-        run: npm run test
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: E2E Tests
-        env:
-          EPHEMERAL_SQLITE_DEMO: "1"
-          DATABASE_URL: "file:/tmp/milk-planet-ci.db"
-          DEMO_ADMIN_PIN: "1234"
-          E2E_ADMIN_PIN: "1234"
-          DEMO_SESSION_SECRET: "00000000000000000000000000000000"
-          NEXT_PRIVATE_BUILD_WORKER: "1"
-        run: npm run build && npx playwright test
+      - name: Check committed whitespace
+        run: git diff --check HEAD^ HEAD
