@@ -14,16 +14,18 @@
   <script src="../../../jquery-1.8.3.min.js"></script>
   <link rel="stylesheet" href="../../../proposal.css">
   <link rel="stylesheet" href="../../menu-html-common.css">
-  <link rel="stylesheet" href="system.css">
+  <link rel="stylesheet" href="system.css?v=20260909-hero-split">
   <style id="visual-variant-3">
 /*
  * Visual comparison variant 3.
- * Intent: keep the poster's welcome/rules moment visible before the HTML
- * lists, then use a quiet white reading surface for prices and products.
- * The original poster is shown as a brand and operational anchor, not as
- * an arbitrary texture strip.
+ * Intent: keep the poster's brand mark visible before the HTML welcome and
+ * rules, then use a quiet white reading surface for prices and products.
+ * The hero is a source-derived brand crop; operational copy belongs to HTML
+ * so it is not duplicated between the image and the reading flow.
  */
 body.visual-variant-3 {
+  margin: 0;
+  box-sizing: border-box;
   background: #fff;
   border-top: 10px solid #8f0100;
   color: #332b2b;
@@ -54,10 +56,8 @@ body.visual-variant-3 .source-masthead {
   box-sizing: border-box;
   display: block;
   width: min(960px, 100%);
-  height: clamp(260px, 27vw, 320px);
+  height: auto;
   margin: 0 auto;
-  object-fit: cover;
-  object-position: center top;
 }
 body.visual-variant-3 .menu-intro p {
   box-sizing: border-box;
@@ -248,7 +248,7 @@ body.visual-variant-3 .site-footer a {
     padding-bottom: 22px;
   }
   body.visual-variant-3 .source-masthead {
-    height: 190px;
+    height: auto;
   }
   body.visual-variant-3 .menu-intro p {
     padding: 18px 16px 2px;
@@ -351,7 +351,7 @@ body.visual-variant-3 .site-footer a {
 
   <article id="menu-content" class="html-menu">
     <div class="menu-intro">
-      <img class="source-masthead" src="../menu/images/menu2.jpg" loading="eager" width="1200" height="1697" alt="ShandyLoveの赤黒のパターンとロゴが入った案内ポスター">
+      <img class="source-masthead" src="../menu/images/menu2-hero.jpg" loading="eager" width="1200" height="430" alt="Shandy Loveのロゴと赤黒の反復モチーフ">
       <p><span class="welcome-sentence">ShandyLoveでは美味しいお食事とお酒をご用意して、皆様のご来店を心よりお待ちしております。</span><span class="welcome-sentence">かわいいキャストたちと、素敵な時間をお過ごしください。</span></p>
     </div>
 

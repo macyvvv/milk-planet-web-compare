@@ -15,8 +15,9 @@
   <style>
     /*
      * Variant 3 intent: retain the sky-blue, rounded editorial surface and
-     * the source menu's welcome/rules moment before the editable lists.
-     * The source poster is shown at its natural ratio; no text is cropped.
+     * the source menu's welcome moment before the editable lists.
+     * The hero uses a source-derived crop ending before the operational
+     * notice and points blocks, which are represented once in HTML below.
      */
     :root {
       --shinjuku-blue: #4777c7;
@@ -392,7 +393,7 @@
   <main id="menu-content" class="html-menu">
     <div class="menu-intro">
       <figure class="source-masthead">
-        <img src="../menu/images/menu1.jpg" loading="eager" width="1414" height="2000" alt="milkplanetへようこそ。ご来店時の注意事項、禁止事項、ポイントカード特典を案内する新宿店の原版メニューポスター">
+        <img src="../menu/images/menu1-hero.jpg" loading="eager" width="1414" height="390" alt="milkplanet新宿の歓迎ビジュアル。惑星と星に囲まれた『milkplanetへようこそ！』のロゴ">
       </figure>
     </div>
 
@@ -599,12 +600,35 @@
     <section id="points" class="menu-section">
       <h2>ポイントカード特典</h2>
       <div class="source-panel">
-        <dl class="price-list wide-list">
-          <div><dt>会計3,000円ごと</dt><dd>1ポイント</dd></div>
-          <div><dt>6ポイント</dt><dd>缶もの1本無料</dd></div>
-          <div><dt>18ポイント</dt><dd>キャスト写メ無料</dd></div>
-          <div><dt>30ポイント</dt><dd>会計から1,000円引き</dd></div>
-        </dl>
+        <p class="pricing-note">会計3,000円ごとに1ポイント</p>
+        <div class="information-columns points-columns">
+          <div>
+            <h3>ポイント特典</h3>
+            <dl class="price-list">
+              <div><dt>3ポイント</dt><dd>キャスト写メまたはチェキ1枚（2ショット可）</dd></div>
+              <div><dt>6ポイント</dt><dd>缶もの1本無料</dd></div>
+              <div><dt>15ポイント</dt><dd>推しの実写アクスタ</dd></div>
+              <div><dt>18ポイント</dt><dd>キャスト写メ（ツーショットまたはソロ可能）</dd></div>
+              <div><dt>30ポイント</dt><dd>会計から1,000円引き</dd></div>
+            </dl>
+          </div>
+          <div>
+            <h3>カード特典</h3>
+            <dl class="price-list">
+              <div><dt>30枚</dt><dd>シルバー会員カードプレゼント</dd></div>
+              <div><dt>60枚</dt><dd>ゴールド会員カードプレゼント</dd></div>
+              <div><dt>100枚</dt><dd>プラチナ会員カードプレゼント</dd></div>
+            </dl>
+            <h3>その他の特典</h3>
+            <ul class="text-list">
+              <li>各店舗のポイントカードは系列全店で押印可能</li>
+              <li>お席の予約（イベント日を除く）</li>
+              <li>推しのオリジナル衣装制作</li>
+              <li>1時間貸切1回（キャスト複数指名可）</li>
+              <li>専用キラ伝作成</li>
+            </ul>
+          </div>
+        </div>
         <p class="annotation">再発行不可。端数は切り捨て。有効期限は最終入店日から1年です。</p>
       </div>
     </section>
