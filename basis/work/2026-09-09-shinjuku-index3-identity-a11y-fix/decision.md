@@ -20,7 +20,7 @@ State: LEARNED
 - Structure: PASS — 既存の見出し、ID、アンカー、画像参照を維持し、ポイントの意味単位だけCSSで保護
 - Intent: PASS — 視認性と読みやすさを改善し、店舗固有のロゴと淡色面を根拠として採用
 - Independent audit: PASS — 390 / 768 / 1440px、ポイントアンカー、画像、ナビ、コントラスト、横溢れを再確認
-- Release: NOT RUN — commit / push / PR / merge / publishは依頼範囲外
+- Release: NOT RUN — commit `8e4cea2`、push、PR #41、merge commit `e723526`は`release.md`へ記録。GitHub Pages公開URLのデプロイ確認が未実施のため、Releaseゲートは未完了。
 
 ## Definition of done
 
