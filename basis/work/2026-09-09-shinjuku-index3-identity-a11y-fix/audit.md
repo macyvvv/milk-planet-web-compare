@@ -54,5 +54,5 @@
 ## Residual risks
 
 - W3C正式検証と複数OSのフォントフォールバックは未実施。
-- 公開URLは外部操作を行っていないため、今回のローカル修正内容をまだ反映していない。
+- 公開URLはmerge後のGitHub Pagesデプロイ完了までは未確認。merge commit `e723526`でmainへの反映は確認済み。
 - 商品名・価格の一件単位content diffは今回の対象外。
