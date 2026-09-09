@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>システム&amp;メニュー | milkplanet新宿 | Visual Variant 3</title>
+  <title>システム&amp;メニュー | milkplanet新宿</title>
   <meta name="description" content="milkplanet新宿の料金、飲み放題、シャンパン、フードメニューをご案内します。">
   <meta name="robots" content="noindex,follow">
   <meta name="viewport" content="width=device-width, maximum-scale=5.0">
@@ -20,8 +20,9 @@
      * notice and points blocks, which are represented once in HTML below.
      */
     :root {
-      --shinjuku-blue: #4777c7;
+      --shinjuku-blue: #245a9f;
       --shinjuku-sky: #cae3f5;
+      --shinjuku-title-sky: #bfe0f7;
       --shinjuku-paper: #edf6ff;
       --shinjuku-ink: #45484d;
       --shinjuku-line: #82909b;
@@ -45,14 +46,14 @@
       box-sizing: border-box;
       min-height: 138px;
       padding: 22px 220px 42px !important;
-      color: #fff !important;
-      background: var(--shinjuku-blue) !important;
+      color: var(--shinjuku-blue) !important;
+      background: var(--shinjuku-title-sky) !important;
       font-size: 30px;
       letter-spacing: .1em;
     }
 
     body.visual-variant-3 h1.menu-page-title > span {
-      color: #fff !important;
+      color: var(--shinjuku-blue) !important;
     }
 
     body.visual-variant-3 h1.menu-page-title:not(.scrolled-title)::after {
@@ -75,8 +76,8 @@
     }
 
     body.visual-variant-3 h1.menu-page-title.scrolled-title {
-      color: #fff !important;
-      background: var(--shinjuku-blue) !important;
+      color: var(--shinjuku-blue) !important;
+      background: var(--shinjuku-title-sky) !important;
     }
 
     body.visual-variant-3 h1.menu-page-title.scrolled-title .title-shop-logo {
@@ -160,6 +161,20 @@
       line-height: 1.35;
     }
 
+    /* Keep point thresholds intact while allowing the benefit text to wrap. */
+    body.visual-variant-3 .points-columns .price-list > div {
+      grid-template-columns: max-content minmax(0, 1fr);
+    }
+
+    body.visual-variant-3 .points-columns .price-list dt {
+      white-space: nowrap;
+    }
+
+    body.visual-variant-3 .points-columns .price-list dd {
+      white-space: normal;
+      text-align: right;
+    }
+
     body.visual-variant-3 .html-menu h3 {
       margin: 30px 0 14px;
       padding: 0 0 7px;
@@ -218,7 +233,7 @@
     }
 
     body.visual-variant-3 .annotation {
-      color: #66747f;
+      color: #4f626f;
     }
 
     body.visual-variant-3 .newcomer-grid {
@@ -385,7 +400,7 @@
     </div>
   </header>
 
-  <h1 class="title menu-page-title" style="--page-h1-bg:#4777c7; --scrolled-bg:rgba(71,119,199,.95);">
+  <h1 class="title menu-page-title" style="--page-h1-bg:#bfe0f7; --scrolled-bg:rgba(191,224,247,.96);">
     <img src="../images/base_shinjuku.png" width="380" height="80" alt="milkplanet新宿" class="title-shop-logo">
     <span>システム&amp;メニュー</span>
   </h1>
