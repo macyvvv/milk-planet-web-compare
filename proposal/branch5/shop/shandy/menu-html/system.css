@@ -26,6 +26,7 @@
 .subheading { font-weight: bold; }
 .large-price small { margin-left: 5px; font-size: 13px; }
 .bring-in {
+  box-sizing: border-box;
   width: min(620px, 100%);
   margin: 24px auto 0;
   padding: 12px;
@@ -70,7 +71,10 @@
   height: auto;
   border-radius: var(--shop-radius);
 }
-.contact-box { color: #555; }
+.contact-box {
+  box-sizing: border-box;
+  color: #555;
+}
 .contact-box p { margin: 0; font-size: 20px; font-weight: bold; }
 .contact-box a { color: var(--shop-color); font-size: 18px; }
 
