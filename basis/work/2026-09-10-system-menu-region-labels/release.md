@@ -2,23 +2,23 @@
 
 ## Commit
 
-Status: NOT REQUESTED — implementation and verification only.
+Status: COMPLETE — `8a618cc` (`feat(nav): normalize shared store labels`).
 
 ## Push
 
-Status: NOT REQUESTED — external repository write is outside this approval.
+Status: COMPLETE — pushed to `origin/agent/branch5-shandy-menu-html`.
 
 ## Pull request
 
-Status: NOT REQUESTED — external repository write is outside this approval.
+Status: COMPLETE — PR [#53](https://github.com/macyvvv/milk-planet-web-compare/pull/53).
 
 ## Merge
 
-Status: NOT REQUESTED — external repository write is outside this approval.
+Status: COMPLETE — merged into `main` as `6449d5c7a6814f01ae4c1a4dbeb9bfcd8d62e988` on 2026-09-10.
 
 ## Published URL
 
-Status: NOT RUN — publication is outside this scope.
+Status: NOT RUN — GitHub Pages publication was not requested.
 
 ## Ownership and freshness
 
