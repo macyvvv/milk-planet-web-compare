@@ -2,19 +2,19 @@
 
 ## Commit
 
-Status: NOT REQUESTED — commitは依頼範囲外。
+Status: COMMITTED — `97a5f33` (`feat(nav): add system menu submenu`)。確認日時: 2026-09-10 Asia/Tokyo。
 
 ## Push
 
-Status: NOT REQUESTED — pushは依頼範囲外。
+Status: PUSHED — `origin/agent/branch5-shandy-menu-html`。確認日時: 2026-09-10 Asia/Tokyo。
 
 ## Pull request
 
-Status: NOT REQUESTED — PR作成は依頼範囲外。
+Status: OPENED — PR #52: https://github.com/macyvvv/milk-planet-web-compare/pull/52。確認日時: 2026-09-10 Asia/Tokyo。
 
 ## Merge
 
-Status: NOT REQUESTED — mergeは依頼範囲外。
+Status: NOT RUN — PR #52のCIはPASS。merge実行待ち。
 
 ## Published URL
 
