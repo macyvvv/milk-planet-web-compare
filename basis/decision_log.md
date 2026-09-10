@@ -241,3 +241,12 @@
 - 理由: 履歴と正本を混ぜず、次の担当者が「何を読むか」「どこへ更新するか」「何をもって検証済みとするか」を再現できる状態にするため。画像配信や視覚監査の個別ルールだけでなく、要件・判断・運用・releaseの接続を基盤化するため。
 - 影響: ページ、画像、`currently/`、`proposal/`は変更しない。文書・Skill・validatorの構造が変わり、既存work packetは保持される。`init`、`adopt`、`migrate`のchassis CLIは未実装のROADMAPとして明示する。
 - 残存リスク: 文書の内容が正しいか、更新担当やKPIが確定しているか、W3C正式検証やRUMが実施されているかは自動検証できない。registry、traceability、独立レビュー、実運用で継続確認する必要がある。
+
+## 2026-09-10 MECE coverage matrixによる基盤欠落の再検査
+
+- 論点: 文書registry、Skill routing、OODA / PDCA、NFR、risk registerを追加した後も、工程・品質領域・正本・担当・証跡・自動検証・Ownerを横断して確認しなければ、重複と未担当領域をMECEとして見落とす可能性がある。
+- 観測事実: `DESIGN.md`と将来の`design/`、branch1とbranch5の作業境界、Evidence Matrix・traceability・source-map・decision logの役割、公開後運用、SEO・security・legal・KPI、CI検査範囲、Chassis CLIに未確定または未実装の領域が残っている。
+- 採用案: `basis/mece_coverage_matrix.md`を、Planetページ制作とRepo Chassisの責務・検証範囲を横断する管理表として追加する。状態を`COVERED`、`PARTIAL`、`CONFLICT`、`GAP`、`ROADMAP`、`OUT OF SCOPE`に分類し、各行にPrimary owner、Canonical source、Required evidence、Automated check、Owner、完了条件を持たせる。
+- 理由: 文書をさらに増やす前に、どの工程・品質領域が誰の責任で、どの正本と証跡に接続し、何が自動検証されるかを一枚で反証可能にするため。これにより、未定義領域を「既存Skillのどこかが担当している」と誤認しにくくする。
+- 影響: ページ、画像、`currently/`、`proposal/`、既存Skillの本文は変更しない。`basis/README.md`のregistryと更新プロトコルを同期する。今回の表は不足解消そのものではなく、次のScopeを決める入力とする。
+- 残存リスク: Owner、SEO、security、legal、KPI、公開後運用、Chassis CLIは未解決のままであり、表を作っただけではMECE達成にならない。`CONFLICT`の解消と`GAP`の対象範囲決定を次の承認単位に分ける。

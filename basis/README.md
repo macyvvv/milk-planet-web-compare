@@ -55,7 +55,7 @@
 | 分類 | 正本・対象 | 責務 | 更新条件 |
 | --- | --- | --- | --- |
 | Canonical | `policy.md`、`system_spec.md`、`WBS.md`、`current_state.md` | 現行の方針、要件、作業対象、状態 | 要件・対象・制約が変わったとき |
-| Canonical | `decision_log.md`、`risk_register.md`、`non_functional_requirements.md`、`operations.md` | 判断、リスク、品質基準、運用 | 採用判断・リスク・検証・運用が変わったとき |
+| Canonical | `decision_log.md`、`risk_register.md`、`non_functional_requirements.md`、`operations.md`、`requirements_traceability.md`、`mece_coverage_matrix.md` | 判断、リスク、品質基準、運用、要件lineage、責務の抜け漏れ | 採用判断・リスク・検証・運用・責務境界が変わったとき |
 | Reference | `architecture.mmd`、`link_map.mmd`、`page_list.md`、`cast_photos.md` | 構造、導線、対象一覧、素材一覧 | 構造・URL・素材が変わったとき |
 | Evidence | `planet_page_evidence_matrix.md`、`work/<change-id>/` | 原典比較、学習、個別変更の証跡 | 観測・監査・releaseごと |
 | Historical | `branch1.md`、`clone_scope.md`、`implementation_instructions.md`、`shop_repair_wbs.md`、`final_changes_summary.md`、`user_requests_note.md` | 過去の方針・経緯・参考資料 | 現行仕様の根拠として更新しない |
@@ -68,6 +68,7 @@
 - 要件・品質基準の変更は、`system_spec.md`または`non_functional_requirements.md`と`decision_log.md`を同期する。
 - 作業対象・優先順位の変更は、`WBS.md`と対象のwork packetを同期する。
 - 正本・情報の処理結果は、`requirements_traceability.md`と対象work packetへ記録する。
+- 工程・品質領域・担当・検証方法の追加や境界変更は、`mece_coverage_matrix.md`と`decision_log.md`を同期する。
 - 再利用可能な方法論の変更は`skills/`へ、repo固有の状態や判断は`basis/`へ記録する。
 - 公開状態は`release.md`の事実を正本とし、ローカルcommitやPRの存在だけで公開済みと判定しない。
 - 文書の追加・変更後は`python3 tools/validate_repo_contract.py`を実行する。
