@@ -27,19 +27,13 @@
 
 ## visual deliverableの作業契約
 
-Web/UIを変更する場合は、次の順で判断する。
-
-`Viewing situation・事業/人間の成果・最初に見る情報`
-→ `根拠と意図的な非採用`
-→ `情報階層と視覚仮説`
-→ `実装`
-→ `390 / 768 / 1440pxで表示確認`
-→ `元画像・隣接ページとの比較レビュー`
-→ `basis/decision_log.mdへの記録`
+Web/UIの新規制作・大幅改修は`skills/planet-web-workflow/SKILL.md`を親手順として実施する。親Skillが作業パケット、承認境界、戻り条件、独立監査、レトロスペクティブ、release状態を管理し、`design-intent`と`visual-fidelity`が専門判断を担当する。
 
 `DESIGN.md`の禁止事項と正本順位を優先する。元資料にない装飾、見出し、価格、機能を一般的なUI慣習だけで追加しない。店舗固有の表現を共通テンプレートへ過度に正規化しない。
 
 新しい視覚方向を作る前は`skills/design-intent/SKILL.md`、実装後の忠実度確認は`agents/22_VISUAL_FIDELITY_REVIEWER.md`と`skills/visual-fidelity/SKILL.md`を参照する。根拠不足を装飾や捏造した人間の動機で埋めず、保留として扱う。
+
+Planet系のページ制作・大幅改修では、上記2つのSkillを`skills/planet-web-workflow/SKILL.md`のOODA / PDCA手順から呼び出す。作業パケット、独立監査、レトロスペクティブ、commit / push / PR / merge / publishの状態を混同しない。
 
 ## 完了前の確認
 

@@ -2,77 +2,16 @@
 
 /* Proposal override layer: intentionally isolated from legacy CSS */
 
-/* Shared header */
-
-
-
-
-
+/* Shared navigation and title rules intentionally override legacy CSS. */
 
 /* --- めにゅうボタン: .button スタイル統一 --- */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* --- コンテキストメニュー（ナビゲーション） --- */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Shop menu pages: image grid */
-html body #shopinfo {
+/* Legacy JPEG menu pages: image grid.
+   Shop-top pages use the same #shopinfo id for store details, so the direct
+   .menu marker is the page-family boundary for this shared rule. */
+html body #shopinfo:has(> .menu) {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   gap: 18px 18px !important;
@@ -82,35 +21,33 @@ html body #shopinfo {
   margin: 0 auto !important;
 }
 
-html body #shopinfo br {
+html body #shopinfo:has(> .menu) br {
   display: none !important;
 }
 
-html body #shopinfo .menu {
+html body #shopinfo:has(> .menu) .menu {
   width: 100% !important;
   max-width: 520px !important;
   height: auto !important;
   display: block !important;
 }
 
-html body #shopinfo iframe {
+html body #shopinfo:has(> .menu) iframe {
   grid-column: 1 / -1 !important;
   width: 100% !important;
 }
 
 @media (max-width: 780px) {
-  html body #shopinfo {
+  html body #shopinfo:has(> .menu) {
     grid-template-columns: minmax(0, 1fr) !important;
     width: calc(100% - 24px) !important;
     gap: 14px !important;
   }
 
-  html body #shopinfo .menu {
+  html body #shopinfo:has(> .menu) .menu {
     max-width: 100% !important;
   }
-}
 
-@media (max-width: 780px) {
   html body #top .swiper-container {
     padding: 0 !important;
   }
@@ -288,8 +225,7 @@ html body #shop {
   position: relative;
 }
 
-/* .title は shop/index.html の h1.title にも適用されるため削除 */
-/* (shop.css に h1 スタイルが定義されており、shop.css に任せる) */
+/* Legacy shop.css owns base title styles; this file owns the visible title transition layer below. */
 
 html body .content {
   scroll-margin-top: 120px;
@@ -327,8 +263,6 @@ html body .content {
   align-items: center !important;
   justify-content: center !important;
 }
-
-
 
 #sys .sys-shops {
   display: flex !important;
@@ -413,8 +347,6 @@ html body .content {
   box-shadow: 0 2px 4px rgba(0,0,0,0.4) !important;
   z-index: 10 !important;
 }
-
-
 
 /* --- shop: pullhead内のロゴ画像スタイル --- */
 /* h4の配置はオリジナルのshop.cssに任せつつ、位置を少し下へ調整 */
@@ -660,8 +592,7 @@ html body .content {
 }
 
 /* --- h1 sticky/floating title --- */
-h1.title,
-h1.seo_h1 {
+h1.title {
   position: sticky !important;
   top: 0 !important;
   z-index: 90 !important;
@@ -679,14 +610,12 @@ h1.seo_h1 {
   --h1-progress: 0;
 }
 
-h1.title:not(.scrolled-title),
-h1.seo_h1:not(.scrolled-title) {
+h1.title:not(.scrolled-title) {
   /* 左右220pxはメニューボタンと見出し中央位置を両立するセーフゾーン */
   padding: calc(24px - (14px * var(--h1-progress))) 220px calc(129px - (129px * var(--h1-progress))) !important;
 }
 
-h1.title:not(.scrolled-title)::after,
-h1.seo_h1:not(.scrolled-title)::after {
+h1.title:not(.scrolled-title)::after {
   content: "" !important;
   position: absolute !important;
   left: 0 !important;
@@ -700,8 +629,7 @@ h1.seo_h1:not(.scrolled-title)::after {
 }
 
 /* スクロール追従バー（scrolled-title） */
-h1.title.scrolled-title,
-h1.seo_h1.scrolled-title {
+h1.title.scrolled-title {
   height: 64px !important;
   min-height: 64px !important;
   padding: 0 220px !important;
@@ -727,35 +655,27 @@ h1[style*="#d4295e"] {
 }
 
 /* スクロール時: 装飾の::after を非表示 */
-h1.title.scrolled-title::after,
-h1.seo_h1.scrolled-title::after {
+h1.title.scrolled-title::after {
   display: none !important;
 }
 
 @media screen and (max-width: 780px) {
-  h1.title:not(.scrolled-title),
-  h1.seo_h1:not(.scrolled-title) {
+  h1.title:not(.scrolled-title) {
     /* 左右64pxはSPのメニューボタンと見出し中央位置を両立するセーフゾーン */
     padding: 18px 64px 60px !important;
   }
-  h1.title:not(.scrolled-title)::after,
-  h1.seo_h1:not(.scrolled-title)::after {
+  h1.title:not(.scrolled-title)::after {
     height: 60px !important;
     background: url("./images/cutline.png") 0 0 / 100% 60px no-repeat !important;
     background-color: transparent !important;
   }
-  h1.title.scrolled-title,
-  h1.seo_h1.scrolled-title {
+  h1.title.scrolled-title {
     height: 56px !important;
     min-height: 56px !important;
     padding: 0 64px !important;
     line-height: 56px !important;
     font-size: 16px !important;
   }
-
-  
-
-  
 }
 
 /* --- .top 画像下端カーテン形状 (planet-group等) --- */

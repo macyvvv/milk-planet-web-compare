@@ -20,6 +20,8 @@
 元画像と既存ページにない要素は、推測ではなく不明点として扱う。
 意図資料がない場合、レビュー中にもっともらしい動機を補完せず、実装前工程の不足として記録する。
 
+このファイルはレビュー役割と出力仕様を定義する。作業パケットの状態遷移、承認境界、ゲートの証跡、commit / push / PR / merge / publishの確認は、`skills/planet-web-workflow/SKILL.md`が担当する。画面固有の監査項目と判定は本Agentおよび`skills/visual-fidelity/SKILL.md`の責務とし、親Skillへライフサイクル手順を重複記載しない。
+
 ## Review workflow
 
 ### 1. Scope mapping

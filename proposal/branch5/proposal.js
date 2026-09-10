@@ -1,10 +1,74 @@
 (function () {
+  var SYSTEM_MENU_ITEMS = [
+    ['milk planet', './shop/shinjuku/menu/index.html'],
+    ['CyBAR planet', './shop/cybarshinjuku/menu/index.html'],
+    ['Shandy Love', './shop/shandy/menu/index.html'],
+    ['Melty Mousse', './shop/melty/menu/index.html'],
+    ['Bloody Sugar', './shop/bloody/menu/index.html'],
+    ['Royal♡Sugar', './shop/roysuga/menu/index.html'],
+    ['Tweeny Heart', './shop/tweeny/menu/index.html'],
+    ['CyBAR planet BKK', './shop/cybarbkk/menu/index.html'],
+    ['CyBAR planet BKK 2nd', './shop/cybarbkk2/menu/index.html'],
+    ['CyBAR planet LAOS', './shop/cybarlaos/menu/index.html']
+  ];
+
+  var REMOTE_MENU_ITEMS = [
+    ['MilkPlanet', 'https://milkplanet.thebase.in/'],
+    ['CyBARplanet', 'https://milkplaneta.base.shop/'],
+    ['Shandy Love', 'https://shandylove.base.shop/'],
+    ['Melty Mousse', 'https://meltymousse.base.shop/'],
+    ['Bloody Sugar', 'https://bloodysugar.base.shop/'],
+    ['Royal♡Sugar', 'https://milkhkt.base.shop/'],
+    ['Tweeny Heart Cafe', 'https://tweeny.base.shop/']
+  ];
+
   function ready(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn);
     } else {
       fn();
     }
+  }
+
+  function createSubmenuItem(kind, label, items, externalLinks) {
+    var submenuItem = document.createElement('li');
+    var submenuId = 'nav-submenu-' + kind;
+    submenuItem.className = 'nav-submenu-item';
+    submenuItem.dataset.submenuKind = kind;
+
+    var submenuToggle = document.createElement('button');
+    submenuToggle.type = 'button';
+    submenuToggle.className = 'nav-submenu-toggle';
+    submenuToggle.setAttribute('aria-expanded', 'false');
+    submenuToggle.setAttribute('aria-controls', submenuId);
+    submenuToggle.textContent = label;
+
+    var submenu = document.createElement('ul');
+    submenu.className = 'nav-submenu';
+    submenu.id = submenuId;
+
+    items.forEach(function (item) {
+      var submenuLinkItem = document.createElement('li');
+      var submenuLink = document.createElement('a');
+      submenuLink.href = item[1];
+      submenuLink.textContent = item[0];
+      if (externalLinks) {
+        submenuLink.target = '_blank';
+        submenuLink.rel = 'noopener noreferrer';
+      }
+      submenuLinkItem.appendChild(submenuLink);
+      submenu.appendChild(submenuLinkItem);
+    });
+
+    submenuItem.appendChild(submenuToggle);
+    submenuItem.appendChild(submenu);
+    return submenuItem;
+  }
+
+  function resolveRelativeLinks(items, baseUrl) {
+    return items.map(function (item) {
+      return [item[0], new URL(item[1], baseUrl).href];
+    });
   }
 
   function initializeNavigation() {
@@ -24,40 +88,6 @@
     toggle.setAttribute('aria-label', 'めにゅうを開く');
 
     var navList = nav.querySelector('ul');
-    function createSubmenuItem(kind, label, items, externalLinks) {
-      var submenuItem = document.createElement('li');
-      var submenuId = 'nav-submenu-' + kind;
-      submenuItem.className = 'nav-submenu-item';
-      submenuItem.dataset.submenuKind = kind;
-
-      var submenuToggle = document.createElement('button');
-      submenuToggle.type = 'button';
-      submenuToggle.className = 'nav-submenu-toggle';
-      submenuToggle.setAttribute('aria-expanded', 'false');
-      submenuToggle.setAttribute('aria-controls', submenuId);
-      submenuToggle.textContent = label;
-
-      var submenu = document.createElement('ul');
-      submenu.className = 'nav-submenu';
-      submenu.id = submenuId;
-
-      items.forEach(function (item) {
-        var submenuLinkItem = document.createElement('li');
-        var submenuLink = document.createElement('a');
-        submenuLink.href = item[1];
-        submenuLink.textContent = item[0];
-        if (externalLinks) {
-          submenuLink.target = '_blank';
-          submenuLink.rel = 'noopener noreferrer';
-        }
-        submenuLinkItem.appendChild(submenuLink);
-        submenu.appendChild(submenuLinkItem);
-      });
-
-      submenuItem.appendChild(submenuToggle);
-      submenuItem.appendChild(submenu);
-      return submenuItem;
-    }
 
     var systemMenuLink = nav.querySelector('a[href*="#sys-title-wrapper"]');
     if (navList && systemMenuLink) {
@@ -65,20 +95,7 @@
       if (systemMenuItem && !systemMenuItem.classList.contains('nav-submenu-item')) {
         var systemHomeUrl = new URL(systemMenuLink.getAttribute('href'), window.location.href);
         systemHomeUrl.hash = '';
-        var systemMenuItems = [
-          ['milk planet｜新宿', './shop/shinjuku/menu/index.html'],
-          ['CyBAR planet｜新宿', './shop/cybarshinjuku/menu/index.html'],
-          ['Shandy Love', './shop/shandy/menu/index.html'],
-          ['Melty Mousse', './shop/melty/menu/index.html'],
-          ['Bloody Sugar', './shop/bloody/menu/index.html'],
-          ['Royal♡Sugar', './shop/roysuga/menu/index.html'],
-          ['Tweeny Heart', './shop/tweeny/menu/index.html'],
-          ['CyBAR planet BKK', './shop/cybarbkk/menu/index.html'],
-          ['CyBAR planet BKK 2nd', './shop/cybarbkk2/menu/index.html'],
-          ['CyBAR planet LAOS', './shop/cybarlaos/menu/index.html']
-        ].map(function (item) {
-          return [item[0], new URL(item[1], systemHomeUrl.href).href];
-        });
+        var systemMenuItems = resolveRelativeLinks(SYSTEM_MENU_ITEMS, systemHomeUrl.href);
         var originalSystemLabel = systemMenuLink.textContent.trim();
         var systemMenuLabel = /[a-z]/i.test(originalSystemLabel)
           ? originalSystemLabel
@@ -88,16 +105,7 @@
     }
 
     if (navList && !navList.querySelector('[data-submenu-kind="remote"]')) {
-      var remoteMenuItems = [
-        ['MilkPlanet', 'https://milkplanet.thebase.in/'],
-        ['CyBARplanet', 'https://milkplaneta.base.shop/'],
-        ['Shandy Love', 'https://shandylove.base.shop/'],
-        ['Melty Mousse', 'https://meltymousse.base.shop/'],
-        ['Bloody Sugar', 'https://bloodysugar.base.shop/'],
-        ['Royal♡Sugar', 'https://milkhkt.base.shop/'],
-        ['Tweeny Heart Cafe', 'https://tweeny.base.shop/']
-      ];
-      var submenuItem = createSubmenuItem('remote', 'えんかく つうはん', remoteMenuItems, true);
+      var submenuItem = createSubmenuItem('remote', 'えんかく つうはん', REMOTE_MENU_ITEMS, true);
       var recruitLink = navList.querySelector('a[href*="recruit"]');
       var recruitItem = recruitLink && recruitLink.closest('li');
 
@@ -155,7 +163,10 @@
     });
 
     nav.addEventListener('click', function (event) {
-      var submenuToggle = event.target.closest('.nav-submenu-toggle');
+      var target = event.target;
+      if (!target || typeof target.closest !== 'function') return;
+
+      var submenuToggle = target.closest('.nav-submenu-toggle');
       if (submenuToggle) {
         event.preventDefault();
         event.stopPropagation();
@@ -168,7 +179,7 @@
         return;
       }
 
-      var link = event.target.closest('a');
+      var link = target.closest('a');
       if (link) setMenuOpen(false, false);
     });
 
@@ -187,10 +198,12 @@
 
   function initializeFixedHeader() {
     var header = document.getElementById('top-head');
-    if (!header) return;
+    if (!header || header.dataset.fixedHeaderInitialized === 'true') return;
+
+    header.dataset.fixedHeaderInitialized = 'true';
 
     var gotop = document.getElementById('gotop');
-    var titles = Array.prototype.slice.call(document.querySelectorAll('h1.title, h1.seo_h1'));
+    var titles = Array.prototype.slice.call(document.querySelectorAll('h1.title'));
     var titleShrinkDistance = 120;
 
     function measureTitleShrinkDistance() {
@@ -247,6 +260,9 @@
   }
 
   function initializeAnchors() {
+    if (document.documentElement.dataset.proposalAnchorsInitialized === 'true') return;
+
+    document.documentElement.dataset.proposalAnchorsInitialized = 'true';
     var header = document.getElementById('top-head');
 
     function normalizeAnchor(href) {
@@ -274,7 +290,10 @@
     }
 
     document.addEventListener('click', function (event) {
-      var anchor = event.target.closest('a[href*="#"]');
+      var target = event.target;
+      if (!target || typeof target.closest !== 'function') return;
+
+      var anchor = target.closest('a[href*="#"]');
       if (!anchor) return;
       var href = anchor.getAttribute('href');
       if (!href || href === '#' || (href.indexOf('#') > 0 && href.charAt(0) !== '#')) return;
@@ -292,10 +311,13 @@
   function initializeShopAccordions() {
     var toggles = Array.prototype.slice.call(document.querySelectorAll('.pullhead-toggle'));
     toggles.forEach(function (button) {
+      if (button.dataset.proposalAccordionInitialized === 'true') return;
+
       var pullhead = button.closest('.pullhead');
       var pullbody = document.getElementById(button.getAttribute('aria-controls'));
       if (!pullhead || !pullbody) return;
 
+      button.dataset.proposalAccordionInitialized = 'true';
       var initiallyOpen = window.getComputedStyle(pullbody).display !== 'none';
       pullhead.classList.toggle('open', initiallyOpen);
       pullhead.classList.toggle('close', !initiallyOpen);
