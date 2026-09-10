@@ -31,7 +31,7 @@
 - `AGENTS.md`: 常時適用するrepo contractとwayfinding。詳細な方法論は持たせない。
 - `basis/`: このrepo固有の目的、要件、状態、判断、運用、作業計画。
 - `basis/planet_page_evidence_matrix.md`: Shandy／新宿の原典アセット、意味情報、実装処理、AI一般化を追跡する学習用正本。
-- `DESIGN.md`: Branch5 HTML版を中心とした視覚的正本とデザイン判断。
+- `DESIGN.md`: 現行repoの視覚的正本とデザイン判断。Chassis引継ぎ資料にある`design/`は、このrepoでは未導入の将来構成であり、勝手に併設しない。
 - `agents/`、`skills/`: レビューや作業の再利用可能な手順。
 - `currently/`: 現行サイトの比較用正本。
 - `proposal/`: 改修案。各branchの役割は`basis/WBS.md`に従う。
@@ -42,9 +42,11 @@
 
 - `currently/`は読み取り専用の参照対象とする。
 - 現在の主な改修対象は`proposal/branch1/`である。
-- `proposal/branch5/`はHTMLメニューと店舗固有表現の比較正本であり、無断で改変しない。
+- `proposal/branch5/shop/<store>/menu/`は原典画像メニューの比較正本であり、変更しない。
+- `proposal/branch5/shop/<store>/menu-html/`はHTML化比較実装であり、変更する場合は承認済みwork packetの対象ファイルに限定する。元の`menu/`ルートは変更しない。
 - 既存ファイルの移動・削除・無条件上書きは行わない。
 - UI変更では、実装前の目的・情報階層の確認と、390px / 768px / 1440pxでの表示確認を必須とする。
+- `DESIGN.md`から`design/`へ移行する場合は、先にdecision logで正本・移行範囲・rollbackを決める。
 
 文書とディレクトリの最低限の整合性は`python3 tools/validate_repo_contract.py`で確認できる。これは読み取り専用であり、ファイルの生成・移動・修正を行わない。
 

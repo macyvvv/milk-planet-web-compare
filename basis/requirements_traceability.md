@@ -21,9 +21,13 @@
 | TR-06 | 判断と変更が再現・引継ぎ可能である | `basis/decision_log.md`、work packet schema | OODA / PDCA、retrospective | Intent、Decision、Audit、Release | packet validator | ACTIVE |
 | TR-07 | 公開状態を誤認しない | `release.md`、GitHub CI / Pages | commit、push、PR、merge、publishを分離 | release record | CI、Pages、公開URL | ACTIVE |
 | TR-08 | Chassis導入を将来安全に自動化する | `repo_chassis_codex_handoff.md`（参考） | 現時点はread-only inspect / validateを優先 | `tools/validate_repo_contract.py` | contract validation | ROADMAP |
+| TR-09 | 正本・比較元・改修対象を混同しない | `basis/README.md`、`basis/system_spec.md` | `DESIGN.md`、branch5の`menu/`と`menu-html/`を分離 | repo contract、work packet | scope audit | ACTIVE |
+| TR-10 | Web公開に必要な最小品質領域を明示する | `basis/non_functional_requirements.md`、MECE matrix | SEO、依存・権利・個人情報、鮮度を最小確認 | audit、release | CI baseline + human review | ACTIVE |
+| TR-11 | CIで基盤構造と証跡形式を再現可能に検証する | `.github/workflows/ci.yml`、validation scripts | 全branchのcontract、Skill、work packetを検証 | CI result | GitHub Actions | ACTIVE |
 
 ## Known gaps
 
 - `init`、`adopt`、`inspect`、`migrate`を一つのCLIとして提供する機能は未実装である。
 - 更新担当、更新期限、KPI、実利用者による検証は対象ごとに未確定の場合がある。
 - W3C正式検証、RUM、実ネットワークの性能計測はrepo contractだけでは保証しない。
+- KPI、実利用者テスト、公開後の実監視は事業・運用Ownerの決定が必要であり、文書基盤だけでは完結しない。

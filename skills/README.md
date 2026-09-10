@@ -31,13 +31,25 @@ Observe / Orient
 - `basis/work/<change-id>/`は個別変更の観測・判断・監査・releaseの証跡である。
 - Skillを更新した場合は、適用条件、責務境界、検証方法を変更理由とともに`basis/decision_log.md`へ記録する。
 
+## Document routing
+
+| Document | Primary responsibility | Do not use it for |
+| --- | --- | --- |
+| `DESIGN.md` | 現行repoの安定した視覚契約・共通ルール | 個別変更の監査証跡、最新価格の正本 |
+| `basis/mece_coverage_matrix.md` | 工程・品質領域・担当・検証の横断coverageと未解決境界 | ページ固有の実装判断 |
+| `basis/requirements_traceability.md` | 要件の根拠から実装・監査・公開までのlineage | 1変更の全ログ |
+| `basis/planet_page_evidence_matrix.md` | 複数ページから一般化する学習用Evidence | 個別リリースのsource map |
+| `basis/work/<change-id>/source-map.md` | 1変更における原典要素の処理結果 | repo全体の要件定義 |
+| `basis/decision_log.md` | 採用・却下・保留の理由と影響 | ブラウザ監査の詳細な観測表 |
+
+同じ事実を複数の正本へ複製しない。別文書へ載せる場合は、要約と正本への参照だけを残す。
+
 ## Validation
 
 ```bash
-python3 /Users/ariel/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/design-intent
-python3 /Users/ariel/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/visual-fidelity
-python3 /Users/ariel/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/planet-web-workflow
+python3 tools/validate_skill_packages.py
+python3 tools/validate_work_packets.py
 python3 tools/validate_repo_contract.py
 ```
 
-`quick_validate.py`はSkillの形式を検査し、repo contract validatorはこのrepoの存在・参照・境界を検査する。どちらも視覚品質や判断の正しさを自動判定するものではない。
+`validate_skill_packages.py`はCIと他環境で再現可能なSkill形式を検査する。Codex環境の`quick_validate.py`は補助的な詳細検査として使えるが、CIの完了条件にはしない。repo contract validatorはこのrepoの存在・参照・境界を検査し、いずれも視覚品質や判断の正しさを自動判定するものではない。

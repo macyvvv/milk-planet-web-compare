@@ -250,3 +250,11 @@
 - 理由: 文書をさらに増やす前に、どの工程・品質領域が誰の責任で、どの正本と証跡に接続し、何が自動検証されるかを一枚で反証可能にするため。これにより、未定義領域を「既存Skillのどこかが担当している」と誤認しにくくする。
 - 影響: ページ、画像、`currently/`、`proposal/`、既存Skillの本文は変更しない。`basis/README.md`のregistryと更新プロトコルを同期する。今回の表は不足解消そのものではなく、次のScopeを決める入力とする。
 - 残存リスク: Owner、SEO、security、legal、KPI、公開後運用、Chassis CLIは未解決のままであり、表を作っただけではMECE達成にならない。`CONFLICT`の解消と`GAP`の対象範囲決定を次の承認単位に分ける。
+
+## 2026-09-10 MECE conflict resolutionとCI baselineの導入
+
+- 論点: coverage matrixで検出したC-01〜C-06のうち、正本境界、作業範囲、文書責務、CI baseline、最小品質領域を現行repoへ反映する必要がある。
+- 採用案: 現行視覚正本を`DESIGN.md`へ固定し、`design/`は未導入の将来構成とする。branch5は`menu/`を原典画像のread-only、`menu-html/`を承認済みwork packet限定の比較実装と分類する。Matrix、traceability、Evidence Matrix、source-map、decision logの責務をskills READMEへ明文化する。CIは全branchのrepo contract、Skill形式、全work packetを検証する。SEO・外部依存・権利・個人情報は最小確認を必須化し、KPIはOwner不在のため現時点で対象外とする。
+- 理由: 文書上の正本と実際の作業対象の混同を止め、形式検証をローカルだけでなくPR・pushのbaselineへ接続し、未定義品質領域を「どこかで確認済み」と誤認しないため。
+- 影響: `basis/`、`.github/workflows/ci.yml`、`tools/validate_work_packets.py`、`tools/validate_skill_packages.py`、repo routing文書のみを変更する。ページ、画像、currently、既存work packetは変更しない。
+- 残存リスク: 公開後の実在Owner、SLA、監視基盤、W3C・RUM・実ネットワーク性能、専用SEO・securityスキャン、Chassis CLIは未完了である。C-05はPARTIAL、Q-12はOUT OF SCOPEとして次の承認単位へ残す。

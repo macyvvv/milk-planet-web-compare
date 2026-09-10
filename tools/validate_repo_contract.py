@@ -29,6 +29,8 @@ REQUIRED_FILES = (
     "skills/planet-web-workflow/agents/openai.yaml",
     "skills/planet-web-workflow/references/work-packet-schema.md",
     "skills/planet-web-workflow/scripts/validate_work_packet.py",
+    "tools/validate_work_packets.py",
+    "tools/validate_skill_packages.py",
 )
 
 REQUIRED_DIRECTORIES = (
@@ -86,6 +88,7 @@ TEXT_ASSERTIONS = {
         "Planet skills map",
         "## Routing",
         "## Shared boundaries",
+        "## Document routing",
     ),
     "skills/planet-web-workflow/SKILL.md": (
         "OODA / PDCA",
@@ -94,6 +97,12 @@ TEXT_ASSERTIONS = {
         "Release verification",
     ),
     "basis/decision_log.md": ("Repo contract と非破壊検証の導入",),
+    "basis/mece_coverage_matrix.md": (
+        "MECE coverage matrix",
+        "## A. Lifecycle coverage",
+        "## B. Quality and governance coverage",
+        "## C. Current conflicts and decisions required",
+    ),
 }
 
 MARKDOWN_LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)\s]+)(?:\s+[^)]*)?\)")

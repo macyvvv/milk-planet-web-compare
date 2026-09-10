@@ -63,7 +63,8 @@ python3 tools/validate_repo_contract.py
 ### 5.2 Local verification
 
 - 文書・構造: `python3 tools/validate_repo_contract.py`
-- Skill形式: `python3 /Users/ariel/.codex/skills/.system/skill-creator/scripts/quick_validate.py <skill-dir>`
+- Skill形式: `python3 tools/validate_skill_packages.py`
+- Codex環境での詳細Skill検査は、利用可能な場合のみ`quick_validate.py`を補助的に実行する。CIの完了条件にはしない。
 - 作業証跡: `python3 skills/planet-web-workflow/scripts/validate_work_packet.py <packet> --state <state>`
 - UI変更: 390px、768px、1440px前後のブラウザ確認
 - 完了前: `git diff --check`、対象ファイルだけの差分確認
@@ -74,3 +75,22 @@ python3 tools/validate_repo_contract.py
 - 外部releaseを依頼されていない場合は、commit後に停止する。
 - 公開後に問題が見つかった場合は、原因・影響・復旧方法を`decision_log.md`とwork packetへ記録し、原典・直前の公開コミット・fallback資産を使って復旧可能な変更を選ぶ。
 - 画像派生物は原典から再生成できる条件を記録し、原典を削除・上書きしない。
+
+### 5.4 Ownership and freshness
+
+個人名が未確定でも、work packetには次の役割を記録する。役割が未割当の場合は`UNKNOWN`とし、公開済み扱いにしない。
+
+| Role | Responsibility | Required record |
+| --- | --- | --- |
+| Content owner | 価格、特典、イベント、注意事項の正本と更新承認 | source-map、次回確認日 |
+| Visual reviewer | 店舗固有性、情報階層、表示品質、アクセシビリティ | audit、採用／保留／却下 |
+| Release owner | commitから公開URL確認、rollback判断 | release、公開確認日時 |
+| Maintainer | Skill、validator、basis、CIの整合 | decision log、CI結果 |
+
+最低限、各公開前に価格・特典・イベント・主要リンク・画像参照を再確認する。更新周期を事業側が決めていない場合、周期を推測せず`UNKNOWN`として次回確認の依頼を残す。
+
+### 5.5 Incident and deprecation
+
+- 公開後の不具合は、対象URL、影響、検出日時、直前の公開commit、復旧方法、再発防止をwork packetまたはdecision logへ記録する。
+- 店舗・イベント・ページを廃止する場合は、公開URL、代替URL、redirectまたは404方針、画像派生物、比較正本の扱いを決めてから変更する。
+- rollbackは、直前の公開commitと原典assetを保持した可逆変更を優先する。削除・上書きだけで復旧する手順を作らない。
