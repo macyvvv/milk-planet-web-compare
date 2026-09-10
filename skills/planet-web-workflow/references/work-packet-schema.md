@@ -84,3 +84,19 @@
 各節に`Status:`、識別子またはURL、確認日時、確認者を記録する。未依頼の外部操作は`NOT REQUESTED`とする。節の件数ではなく、各見出しの直下にStatusがあることを検証する。
 
 `RELEASED`へ進める場合は、`Merge`が`MERGED`、`Published URL`が`VERIFIED`であることを確認する。PRが作成されただけ、またはローカルcommitがあるだけでは`RELEASED`にしない。
+
+### Operational record for new packets
+
+新規packetでは、`release.md`に次の記録を追加する。
+
+```text
+## Ownership and freshness
+Content owner: <role or UNKNOWN>
+Visual reviewer: <role or UNKNOWN>
+Release owner: <role or UNKNOWN>
+Next freshness review: <date or UNKNOWN>
+Rollback target: <commit or asset reference>
+External dependency / rights review: PASS / NOT APPLICABLE / UNKNOWN
+```
+
+`UNKNOWN`を実在のOwnerや承認の代わりに使ってはならない。公開を伴う新規変更でOwner、次回確認、rollback対象が`UNKNOWN`の場合は、公開前に停止して再計画する。既存packetは導入前のlegacy証跡として保持し、過去の外部状態を改変しない。

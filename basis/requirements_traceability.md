@@ -24,6 +24,7 @@
 | TR-09 | 正本・比較元・改修対象を混同しない | `basis/README.md`、`basis/system_spec.md` | `DESIGN.md`、branch5の`menu/`と`menu-html/`を分離 | repo contract、work packet | scope audit | ACTIVE |
 | TR-10 | Web公開に必要な最小品質領域を明示する | `basis/non_functional_requirements.md`、MECE matrix | SEO、依存・権利・個人情報、鮮度を最小確認 | audit、release | CI baseline + human review | ACTIVE |
 | TR-11 | CIで基盤構造と証跡形式を再現可能に検証する | `.github/workflows/ci.yml`、validation scripts | 全branchのcontract、Skill、work packetを検証 | CI result | GitHub Actions | ACTIVE |
+| TR-12 | 新規公開変更の運用責任と鮮度確認を記録する | `basis/operations.md`、work-packet schema | Owner、次回確認、rollback、依存・権利確認をrelease recordへ追加 | 新規release.md | packet review | ACTIVE |
 
 ## Known gaps
 

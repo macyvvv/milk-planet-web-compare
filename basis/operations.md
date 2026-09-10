@@ -66,6 +66,7 @@ python3 tools/validate_repo_contract.py
 - Skill形式: `python3 tools/validate_skill_packages.py`
 - Codex環境での詳細Skill検査は、利用可能な場合のみ`quick_validate.py`を補助的に実行する。CIの完了条件にはしない。
 - 作業証跡: `python3 skills/planet-web-workflow/scripts/validate_work_packet.py <packet> --state <state>`
+- 静的HTML baseline: `python3 tools/validate_static_contract.py proposal/branch5/shop`
 - UI変更: 390px、768px、1440px前後のブラウザ確認
 - 完了前: `git diff --check`、対象ファイルだけの差分確認
 

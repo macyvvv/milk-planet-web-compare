@@ -49,6 +49,7 @@ Observe / Orient
 ```bash
 python3 tools/validate_skill_packages.py
 python3 tools/validate_work_packets.py
+python3 tools/validate_static_contract.py proposal/branch5/shop
 python3 tools/validate_repo_contract.py
 ```
 

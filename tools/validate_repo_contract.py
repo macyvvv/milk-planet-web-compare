@@ -31,6 +31,7 @@ REQUIRED_FILES = (
     "skills/planet-web-workflow/scripts/validate_work_packet.py",
     "tools/validate_work_packets.py",
     "tools/validate_skill_packages.py",
+    "tools/validate_static_contract.py",
 )
 
 REQUIRED_DIRECTORIES = (

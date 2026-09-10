@@ -26,7 +26,7 @@
 | L-07 | Check / independent audit | `visual-fidelity` | `agents/22_VISUAL_FIDELITY_REVIEWER.md`、audit.md | 390 / 768 / 1440、browser、static、a11y、findings | packet構造のみ | independent reviewer | PARTIAL | HTML/W3C、リンク、性能、実視覚の自動検査がCIにない |
 | L-08 | Learn / retrospective | `planet-web-workflow` | retrospective.md、decision_log.md | 検出工程、原因、一般化、反映先 | packet構造のみ | maintainer | COVERED | Skillへ昇格する基準の実績評価は人手 |
 | L-09 | Release verification | `planet-web-workflow` | release.md、operations.md | commit、push、PR、merge、公開URL | release記録の形式のみ | release owner unknown | PARTIAL | 外部状態の実在確認と対象branchのCI実行が未接続 |
-| L-10 | Operate / freshness / incident / deprecate | `planet-web-workflow` | `basis/operations.md`、release.md | role owner、次回確認、障害、復旧、廃止記録 | packet構造のみ | release/content owner | PARTIAL | 実在のOwner、SLA、監視基盤は未確定 |
+| L-10 | Operate / freshness / incident / deprecate | `planet-web-workflow` | `basis/operations.md`、release.md | role owner、次回確認、障害、復旧、廃止記録 | packet構造のみ | release/content owner | PARTIAL | 新規packetの記録欄は定義済みだが、実在のOwner、SLA、監視基盤は未確定 |
 
 ## B. Quality and governance coverage
 
@@ -35,13 +35,13 @@
 | Q-01 | 正本・店舗固有性・設計意図 | `design-intent` + `visual-fidelity` | `DESIGN.md`、Evidence Matrix | source lock、Evidence Ledger、Swap / Flattening test | packet構造のみ | design reviewer | PARTIAL | 実質判断は人手であり、視覚品質の自動判定はしない |
 | Q-02 | コンテンツ完全性・更新情報 | `visual-fidelity` | source-map、traceability | HTML化／画像保持／別導線／除外の対応表 | 形式検査のみ | content owner unknown | PARTIAL | 最新価格・特典・更新期限の責任系統がない |
 | Q-03 | 情報設計・タスク達成 | `design-intent` | intent.md、system_spec.md | hierarchy、主要タスク、到達距離 | 未定義 | product owner unknown | PARTIAL | 予約・来店・応募のタスク成功を測定していない |
-| Q-04 | HTML/CSS構造・機能 | `visual-fidelity` | DESIGN.md、対象HTML/CSS | heading、ID、リンク、画像、フォームの検査 | CIに未接続 | frontend reviewer | PARTIAL | HTML validator、リンク検査、機能E2Eがない |
+| Q-04 | HTML/CSS構造・機能 | `visual-fidelity` | DESIGN.md、対象HTML/CSS | heading、ID、リンク、画像、フォームの検査 | static HTML baselineはCI接続、意味・機能は人手 | frontend reviewer | PARTIAL | HTML validator、機能E2E、CSS構文検査がない |
 | Q-05 | 視覚品質・店舗固有性 | `visual-fidelity` | DESIGN.md、元画像版 | viewport観測、比較画像、採用／保留／却下 | 自動判定なし | visual reviewer | COVERED | 実質判断は人手。自動PASSで代替しない |
 | Q-06 | Responsive / interaction | `visual-fidelity` | NFR、対象CSS | 390 / 768 / 1440、anchor、keyboard、focus | `scrollWidth`以外は未定義 | frontend reviewer | PARTIAL | タッチ、zoom、reduced motion、実機差が未定義 |
 | Q-07 | Accessibility | `visual-fidelity` | NFR、DESIGN.md | alt、見出し、focus、keyboard、contrast、非テキスト | W3C相当検査をCIに未接続 | accessibility reviewer | PARTIAL | 自動検査手段、適合レベル、例外管理が未定義 |
-| Q-08 | Image delivery / performance | `visual-fidelity` | NFR、image delivery work packet | bytes、寸法、候補幅、fallback、currentSrc、可読性 | CIに未接続 | frontend reviewer | PARTIAL | HTML/CSS/JS、font、LCP/CLS、実ネットワークの予算がない |
+| Q-08 | Image delivery / performance | `visual-fidelity` | NFR、image delivery work packet | bytes、寸法、候補幅、fallback、currentSrc、可読性 | HTML参照・秘密情報baselineのみCI接続 | frontend reviewer | PARTIAL | currentSrc、HTML/CSS/JS、font、LCP/CLS、実ネットワークの予算がない |
 | Q-09 | SEO / discoverability | `visual-fidelity` | `basis/non_functional_requirements.md` | title、description、canonical、OGP、sitemap、robots、構造化データの要否 | 未定義 | frontend reviewer | PARTIAL | 最小確認は定義済みだが専用自動検査は未接続 |
-| Q-10 | Security / privacy / legal / license | `planet-web-workflow` | `basis/non_functional_requirements.md`、operations.md | 外部依存、秘密情報、権利、個人情報入力の確認 | 未定義 | maintainer + release owner | PARTIAL | 専用スキャンと実在の権利Ownerは未確定 |
+| Q-10 | Security / privacy / legal / license | `planet-web-workflow` | `basis/non_functional_requirements.md`、operations.md | 外部依存、秘密情報、権利、個人情報入力の確認 | local reference・secret baselineをCI接続 | maintainer + release owner | PARTIAL | 専用スキャンと実在の権利Ownerは未確定 |
 | Q-11 | Release / rollback / observability | `planet-web-workflow` | operations.md、release.md | rollback対象、公開確認、障害記録、監視結果 | contract、Skill、packet CI | release owner | PARTIAL | 公開後監視・通知・復旧演習がない |
 | Q-12 | Business outcome / measurement | 明示的対象外（現時点） | `basis/non_functional_requirements.md` | KPI未定義の事実、未計測の明示 | decision log | business owner not assigned | OUT OF SCOPE | Ownerと計測方法の承認なしに数値目標を捏造しない |
 | Q-13 | Chassis portability / migration | `planet-web-workflow`（現状） | `repo_chassis_codex_handoff.md` | inspect、collision、migration、rollback | contract validatorのみ | chassis maintainer | ROADMAP | `init`、`adopt`、`inspect`、`migrate` CLIが未実装 |

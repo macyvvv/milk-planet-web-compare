@@ -258,3 +258,11 @@
 - 理由: 文書上の正本と実際の作業対象の混同を止め、形式検証をローカルだけでなくPR・pushのbaselineへ接続し、未定義品質領域を「どこかで確認済み」と誤認しないため。
 - 影響: `basis/`、`.github/workflows/ci.yml`、`tools/validate_work_packets.py`、`tools/validate_skill_packages.py`、repo routing文書のみを変更する。ページ、画像、currently、既存work packetは変更しない。
 - 残存リスク: 公開後の実在Owner、SLA、監視基盤、W3C・RUM・実ネットワーク性能、専用SEO・securityスキャン、Chassis CLIは未完了である。C-05はPARTIAL、Q-12はOUT OF SCOPEとして次の承認単位へ残す。
+
+## 2026-09-10 operational readinessとstatic HTML baselineの追加
+
+- 論点: C-05およびQ-09〜Q-10の残存リスクを、推測したOwnerや外部サービスに依存せず、repo内で再現可能な記録・検査へ接続する必要がある。
+- 採用案: 新規work packetの`release.md`にOwner、次回鮮度確認、rollback対象、外部依存・権利確認を記録する。既存packetはlegacy証跡として改変しない。`tools/validate_static_contract.py`で指定HTML範囲の`lang`、title、ローカル参照、秘密情報パターンを検査し、CIへ接続する。
+- 理由: 公開後責任を捏造せず、少なくとも公開前に「誰が確認するか」「何を戻せるか」「静的ページの基本参照が壊れていないか」を反証可能にするため。
+- 影響: work-packet schema、operations、matrix、traceability、CI、repo内validatorを更新する。ページ、画像、既存packetの事実、外部公開状態は変更しない。
+- 残存リスク: 既存packetのOwner情報は遡及して補完していない。W3C、実ブラウザ、権利の実在確認、SEO専用検査、監視・SLA・KPI、Chassis CLIは未完了である。
