@@ -61,6 +61,16 @@
 - 視覚変更は、コードだけで完了扱いにせず、390px / 768px / 1440pxで実表示を確認する。
 - 変更により正本、対象範囲、重要な判断が変わった場合は、`basis/decision_log.md`を更新する。
 
+## 制作ワークフロー
+
+Planet系のページ制作・大幅改修は、`skills/planet-web-workflow/SKILL.md`の作業パケットを基準に、`Observe → Orient → Decide → Act → Check → Learn → Release verification`を通す。`design-intent`は意図固定、`visual-fidelity`は実装後監査を担当し、親Skillは両者の順序と証跡を管理する。
+
+この節はrepo固有の適用契約とroutingだけを定義する。実行手順、ゲートの詳細、work packetの形式、release状態の判定は`skills/planet-web-workflow/`を正本とし、ここへ重複記載しない。
+
+Shandy／新宿で蓄積した原典・意味情報・HTML処理・残存リスクは、`basis/planet_page_evidence_matrix.md`を学習用の正本として参照する。これは完成ページの模倣仕様ではなく、次回の判断を再現・反証するためのEvidence Matrixである。
+
+要件から実装・監査・公開確認までの対応は`basis/requirements_traceability.md`で確認する。個別変更の事実は`basis/work/<change-id>/`へ記録する。
+
 ## branch5 Instagramスナップショット
 - トップページは `instagram-snapshot.json` を読み込み、国内店舗を「わくせい」ページ順に最大9件表示する。
 - Instagramのない店舗は除外し、9件に満たない分は先行店舗の新しい投稿を追加する。

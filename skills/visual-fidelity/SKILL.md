@@ -5,6 +5,8 @@ description: Audit implemented Planet pages against Branch5 source pages for vis
 
 # milk planet visual fidelity
 
+責務の全体像とSkillの呼び出し順は[`skills/README.md`](../README.md)を参照する。このSkillは実装後の独立監査に限定する。
+
 このrepoの既存ページを改修するときは、ルートの`DESIGN.md`を視覚的な正本として扱い、`agents/22_VISUAL_FIDELITY_REVIEWER.md`のレビュー手順を実行する。大幅な変更では、先に`planet-web-workflow`で作業パケットと`design-intent`の意図を確定する。
 
 新しいビジュアル方向や大幅な再構成では、実装前に`skills/design-intent/SKILL.md`を通す。`design-intent`が定義した意図・証拠・トレードオフを、実装後に都合よく書き換えない。このSkillは、意図を生成するのではなく、意図が画面に保持されたかを確認する。作業パケットの状態遷移とPR・merge・publishの記録は親Skillの責務とする。

@@ -1,5 +1,9 @@
 # 運用手順書 (Operations Guide)
 
+> Status: MIXED LEGACY / CANONICAL
+>
+> このファイル冒頭のDB・個人情報運用は、この静的Web repoの現行運用正本ではない。過去資料として保持するが、Planetページ改修の手順として使用しない。静的WebのCanonical operationは後半の「5. Planet web repository operations」とする。
+
 本ドキュメントは、システム移行や日々の運用においてデータの一貫性と個人情報保護を維持するための運用手順・ルールを定めます。
 
 ## 1. データベース・マイグレーション時のロールバック手順 (D-06)
@@ -47,3 +51,26 @@ python3 tools/validate_repo_contract.py
 - `currently/`、`proposal/branch1/`、`proposal/branch5/`が比較可能な状態であること
 
 検証失敗時は、ファイルを自動生成・移動・修正せず、欠落または参照不整合を確認してから個別に修正する。
+
+## 5. Planet web repository operations
+
+### 5.1 Preflight
+
+1. `git status --short --branch`で既存変更を確認する。
+2. `AGENTS.md`、`basis/README.md`、対象work packet、対象Skillを読む。
+3. `currently/`を変更対象に含めず、対象ScopeとCanonical sourceを固定する。
+
+### 5.2 Local verification
+
+- 文書・構造: `python3 tools/validate_repo_contract.py`
+- Skill形式: `python3 /Users/ariel/.codex/skills/.system/skill-creator/scripts/quick_validate.py <skill-dir>`
+- 作業証跡: `python3 skills/planet-web-workflow/scripts/validate_work_packet.py <packet> --state <state>`
+- UI変更: 390px、768px、1440px前後のブラウザ確認
+- 完了前: `git diff --check`、対象ファイルだけの差分確認
+
+### 5.3 Release and rollback
+
+- `working tree → committed → pushed → PR created → PR merged → published URL verified`を別状態として記録する。
+- 外部releaseを依頼されていない場合は、commit後に停止する。
+- 公開後に問題が見つかった場合は、原因・影響・復旧方法を`decision_log.md`とwork packetへ記録し、原典・直前の公開コミット・fallback資産を使って復旧可能な変更を選ぶ。
+- 画像派生物は原典から再生成できる条件を記録し、原典を削除・上書きしない。

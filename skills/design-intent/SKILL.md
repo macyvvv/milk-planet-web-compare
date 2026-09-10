@@ -5,6 +5,8 @@ description: Define and lock situated purpose, source evidence, information hier
 
 # milk planet design intent
 
+責務の全体像とSkillの呼び出し順は[`skills/README.md`](../README.md)を参照する。このSkillは実装前の意図固定に限定する。
+
 このSkillは、AIが不足した文脈を「それらしいスタイル」で埋めることを防ぐための実装前工程である。AIらしさを隠すための装飾や、手作り感を演出するための不規則さを生成してはならない。人間の経験や動機を捏造せず、観測できる事実・ユーザーの明示的な意図・事業上の制約から、採用できる判断だけを作る。
 
 ## When to use
