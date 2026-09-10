@@ -23,14 +23,72 @@
     toggle.setAttribute('aria-controls', 'global-nav');
     toggle.setAttribute('aria-label', 'めにゅうを開く');
 
-    var systemMenuLink = nav.querySelector('a[href="#sys-title-wrapper"]');
-    if (systemMenuLink) {
-      systemMenuLink.textContent = 'しすてむ＆めにゅう';
+    var navList = nav.querySelector('ul');
+    function createSubmenuItem(kind, label, items, externalLinks) {
+      var submenuItem = document.createElement('li');
+      var submenuId = 'nav-submenu-' + kind;
+      submenuItem.className = 'nav-submenu-item';
+      submenuItem.dataset.submenuKind = kind;
+
+      var submenuToggle = document.createElement('button');
+      submenuToggle.type = 'button';
+      submenuToggle.className = 'nav-submenu-toggle';
+      submenuToggle.setAttribute('aria-expanded', 'false');
+      submenuToggle.setAttribute('aria-controls', submenuId);
+      submenuToggle.textContent = label;
+
+      var submenu = document.createElement('ul');
+      submenu.className = 'nav-submenu';
+      submenu.id = submenuId;
+
+      items.forEach(function (item) {
+        var submenuLinkItem = document.createElement('li');
+        var submenuLink = document.createElement('a');
+        submenuLink.href = item[1];
+        submenuLink.textContent = item[0];
+        if (externalLinks) {
+          submenuLink.target = '_blank';
+          submenuLink.rel = 'noopener noreferrer';
+        }
+        submenuLinkItem.appendChild(submenuLink);
+        submenu.appendChild(submenuLinkItem);
+      });
+
+      submenuItem.appendChild(submenuToggle);
+      submenuItem.appendChild(submenu);
+      return submenuItem;
     }
 
-    var navList = nav.querySelector('ul');
-    if (navList && !navList.querySelector('.nav-submenu-toggle')) {
-      var submenuItems = [
+    var systemMenuLink = nav.querySelector('a[href*="#sys-title-wrapper"]');
+    if (navList && systemMenuLink) {
+      var systemMenuItem = systemMenuLink.closest('li');
+      if (systemMenuItem && !systemMenuItem.classList.contains('nav-submenu-item')) {
+        var systemHomeUrl = new URL(systemMenuLink.getAttribute('href'), window.location.href);
+        systemHomeUrl.hash = '';
+        var systemMenuItems = [
+          ['milk planet｜新宿', './shop/shinjuku/menu/index.html'],
+          ['CyBAR planet｜新宿', './shop/cybarshinjuku/menu/index.html'],
+          ['Shandy Love', './shop/shandy/menu/index.html'],
+          ['Melty Mousse', './shop/melty/menu/index.html'],
+          ['Bloody Sugar', './shop/bloody/menu/index.html'],
+          ['Royal♡Sugar', './shop/roysuga/menu/index.html'],
+          ['Tweeny Heart', './shop/tweeny/menu/index.html'],
+          ['CyBAR planet BKK', './shop/cybarbkk/menu/index.html'],
+          ['CyBAR planet BKK 2nd', './shop/cybarbkk2/menu/index.html'],
+          ['CyBAR planet LAOS', './shop/cybarlaos/menu/index.html']
+        ].map(function (item) {
+          return [item[0], new URL(item[1], systemHomeUrl.href).href];
+        });
+        var originalSystemLabel = systemMenuLink.textContent.trim();
+        var systemMenuLabel = /[a-z]/i.test(originalSystemLabel)
+          ? originalSystemLabel
+          : 'しすてむ＆めにゅう';
+        systemMenuItem.replaceWith(createSubmenuItem('system', systemMenuLabel, systemMenuItems, false));
+      }
+    }
+
+    if (navList && !navList.querySelector('[data-submenu-kind="remote"]')) {
+      var remoteMenuItems = [
         ['MilkPlanet', 'https://milkplanet.thebase.in/'],
         ['CyBARplanet', 'https://milkplaneta.base.shop/'],
         ['Shandy Love', 'https://shandylove.base.shop/'],
@@ -39,22 +97,25 @@
         ['Royal♡Sugar', 'https://milkhkt.base.shop/'],
         ['Tweeny Heart Cafe', 'https://tweeny.base.shop/']
       ];
-      var submenuHtml = submenuItems.map(function (item) {
-        return '<li><a href="' + item[1] + '" target="_blank" rel="noopener noreferrer">' + item[0] + '</a></li>';
-      }).join('');
-      var submenuMarkup =
-        '<li class="nav-submenu-item">' +
-          '<button type="button" class="nav-submenu-toggle" aria-expanded="false">えんかく つうはん</button>' +
-          '<ul class="nav-submenu">' + submenuHtml + '</ul>' +
-        '</li>';
+      var submenuItem = createSubmenuItem('remote', 'えんかく つうはん', remoteMenuItems, true);
       var recruitLink = navList.querySelector('a[href*="recruit"]');
       var recruitItem = recruitLink && recruitLink.closest('li');
 
       if (recruitItem) {
-        recruitItem.insertAdjacentHTML('beforebegin', submenuMarkup);
+        recruitItem.before(submenuItem);
       } else {
-        navList.insertAdjacentHTML('beforeend', submenuMarkup);
+        navList.appendChild(submenuItem);
       }
+    }
+
+    function closeSubmenus(except) {
+      var openedSubmenus = nav.querySelectorAll('.nav-submenu-item.open');
+      Array.prototype.forEach.call(openedSubmenus, function (submenuItem) {
+        if (submenuItem === except) return;
+        submenuItem.classList.remove('open');
+        var submenuButton = submenuItem.querySelector('.nav-submenu-toggle');
+        if (submenuButton) submenuButton.setAttribute('aria-expanded', 'false');
+      });
     }
 
     function setMenuOpen(isOpen, returnFocus) {
@@ -62,14 +123,7 @@
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       toggle.setAttribute('aria-label', isOpen ? 'めにゅうを閉じる' : 'めにゅうを開く');
 
-      if (!isOpen) {
-        var openedSubmenu = nav.querySelector('.nav-submenu-item.open');
-        if (openedSubmenu) {
-          openedSubmenu.classList.remove('open');
-          var submenuButton = openedSubmenu.querySelector('.nav-submenu-toggle');
-          if (submenuButton) submenuButton.setAttribute('aria-expanded', 'false');
-        }
-      }
+      if (!isOpen) closeSubmenus();
 
       if (returnFocus) toggle.focus();
     }
@@ -107,6 +161,7 @@
         event.stopPropagation();
         var parent = submenuToggle.closest('.nav-submenu-item');
         var isOpen = parent ? !parent.classList.contains('open') : false;
+        closeSubmenus(parent);
         if (parent) parent.classList.toggle('open', isOpen);
         submenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         setMenuOpen(true, false);
