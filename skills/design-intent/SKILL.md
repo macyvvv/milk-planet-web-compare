@@ -1,9 +1,11 @@
 ---
 name: design-intent
-description: Define and test the situated purpose, business outcome, source evidence, deliberate exclusions, and tradeoffs for a visual deliverable before implementation. Use when a new visual direction or substantial redesign is being considered; do not use for post-render pixel review alone.
+description: Define and lock situated purpose, source evidence, information hierarchy, deliberate exclusions, and tradeoffs before Planet visual implementation. Use for new visual directions or substantial redesigns; do not use for post-build rendering or release verification.
 ---
 
 # milk planet design intent
+
+責務の全体像とSkillの呼び出し順は[`skills/README.md`](../README.md)を参照する。このSkillは実装前の意図固定に限定する。
 
 このSkillは、AIが不足した文脈を「それらしいスタイル」で埋めることを防ぐための実装前工程である。AIらしさを隠すための装飾や、手作り感を演出するための不規則さを生成してはならない。人間の経験や動機を捏造せず、観測できる事実・ユーザーの明示的な意図・事業上の制約から、採用できる判断だけを作る。
 
@@ -46,6 +48,13 @@ description: Define and test the situated purpose, business outcome, source evid
 - ロゴ・文字・商品情報を含む画像を`texture`として使う場合は、何を見せず何を残すのか、転送量と情報損失をEvidence Ledgerへ記録する。根拠が弱ければ`hero`または`content`として扱う。
 - クロップや固定高さは、被写体の境界と閲覧幅を根拠に決める。`object-fit: cover`を先に選び、後から切れた被写体を説明してはならない。
 - 手動改行は文・句・項目の意味境界に限定する。偶然の折返しを防ぐためだけに`<wbr>`や`<br>`を追加しない。
+
+画像配信を変更する場合は、視覚表現の判断と転送最適化の判断を混同しない。
+
+- 画像が`content`・`hero`として意味を持つ、または初期表示の転送量へ影響する場合だけ、原典のバイト数、寸法、実表示の最大幅を確認して最適化の要否を決める。単純なアイコンや意味を持たない装飾へ一律適用しない。
+- 派生画像の幅・形式・画質は、実表示幅と可読性を根拠にEvidence Ledgerへ記録する。容量削減率だけで採用を決めない。
+- 原典画像は正本として保持し、派生画像を新しい正本にしない。可能な限り既存形式をfallbackとして残し、`alt`、固有寸法、画像の意味、更新経路を維持する。原典の削除・上書きは別途Scopeを固定する。
+- 文字、価格、ロゴ、細かな意匠を含む画像は、派生後の実表示幅で判読性と欠落を確認できるまで採用しない。変換条件と使用したツールの再現性が不明なら`UNKNOWN`として扱う。
 
 ## Content and task hierarchy gate
 
@@ -90,7 +99,7 @@ description: Define and test the situated purpose, business outcome, source evid
 
 Intent MemoとEvidence Ledgerを確定した後、`visual-fidelity`へ渡す。`visual-fidelity`はその意図が実装で保たれたか、元資料との差分、表示品質、アクセシビリティを検証する。理由を実装後に作り直してはならない。
 
-## Mandatory implementation gates
+## Mandatory pre-build gates
 
 このSkillを使う案件では、次のゲートを順番に通過させる。ゲートはチェックリストの記録ではなく、失敗時に次工程へ進まないための境界である。
 
@@ -98,9 +107,7 @@ Intent MemoとEvidence Ledgerを確定した後、`visual-fidelity`へ渡す。`
 2. **Content and task gate**: 原典の意味のある項目に対する処理結果を一覧化し、未説明の欠落、更新情報の取りこぼし、画像とHTMLの過剰な重複、主要タスクへの到達遅延がないことを確認する。
 3. **Structure gate**: 見た目を整える前に、意味のあるDOM、見出し階層、リンク先、ID、`alt`、自然な改行単位を確定する。HTML/CSSの構文、参照パス、重複IDを作成途中から検証する。
 4. **Intent gate**: 実装の各主要ブロックをEvidence Ledgerへ戻し、根拠のない装飾、単なる色・カード・角丸のスキン交換、原典の情報順の消失、均一化による店舗固有性の減衰がないことを確認する。
-5. **Independent post-build gate**: 完成後、実装者の説明を正解とみなさず、`visual-fidelity`とブラウザ表示で原典との差分を再監査する。W3C相当のHTML妥当性、CSS構文、WCAG上の問題もこのゲートで確認する。
-
-ゲート不通過時は、局所的な装飾パッチで出荷せず、原因の工程へ戻る。特に`Structure gate`を通過していても`Intent gate`または独立監査に失敗することがあるため、妥当なHTMLをデザイン正当性の代替にしてはならない。すべてのゲートと残存リスクを記録するまで、PR作成・リリース・マージへ進まない。
+ゲート不通過時は実装へ進まず、原因の工程へ戻る。実装後のブラウザ、HTML/CSS、WCAG、画像欠落、アンカー、リリース状態は`visual-fidelity`と`planet-web-workflow`へ渡す。妥当なHTMLをデザイン意図の代替にしてはならない。
 
 ## Completion gate
 

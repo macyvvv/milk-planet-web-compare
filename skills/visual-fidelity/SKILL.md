@@ -1,13 +1,15 @@
 ---
 name: visual-fidelity
-description: Reconstruct and review milk planet pages against Branch5 source pages while preventing generic or AI-generated-looking UI. Use for menu HTML work, visual polish, tone-and-manner checks, and screenshot-based regression review.
+description: Audit implemented Planet pages against Branch5 source pages for visual fidelity, content completeness, responsive behavior, accessibility, and AI-generalization drift. Use after implementation or for existing-page defects; use design-intent before a new visual direction.
 ---
 
 # milk planet visual fidelity
 
-このrepoの既存ページを改修するときは、ルートの`DESIGN.md`を視覚的な正本として扱い、`agents/22_VISUAL_FIDELITY_REVIEWER.md`のレビュー手順を実行する。
+責務の全体像とSkillの呼び出し順は[`skills/README.md`](../README.md)を参照する。このSkillは実装後の独立監査に限定する。
 
-新しいビジュアル方向や大幅な再構成では、実装前に`skills/design-intent/SKILL.md`を通す。`design-intent`が定義した意図・証拠・トレードオフを、実装後に都合よく書き換えない。このSkillは、意図を生成するのではなく、意図が画面に保持されたかを確認する。
+このrepoの既存ページを改修するときは、ルートの`DESIGN.md`を視覚的な正本として扱い、`agents/22_VISUAL_FIDELITY_REVIEWER.md`のレビュー手順を実行する。大幅な変更では、先に`planet-web-workflow`で作業パケットと`design-intent`の意図を確定する。
+
+新しいビジュアル方向や大幅な再構成では、実装前に`skills/design-intent/SKILL.md`を通す。`design-intent`が定義した意図・証拠・トレードオフを、実装後に都合よく書き換えない。このSkillは、意図を生成するのではなく、意図が画面に保持されたかを確認する。作業パケットの状態遷移とPR・merge・publishの記録は親Skillの責務とする。
 
 ## Routing
 
@@ -33,6 +35,7 @@ description: Reconstruct and review milk planet pages against Branch5 source pag
 13. 原版に含まれる意味のあるアセットと情報を棚卸しし、HTML化・画像保持・別導線・意図的除外の対応を確認する。更新告知、特典、イベント、注意事項などを未説明のまま落とさない。
 14. 画像とHTMLの二重提示を確認し、情報の代替として必要な重複か、認知負荷を増やすだけの重複かを判定する。主要タスクが大型画像や装飾の後ろへ押し下げられていないか確認する。
 15. 同一の見出し下線、角丸カード、余白、列構成を反復していないか確認する。反復が原版の証拠ではなく共通テンプレート由来なら、AIらしい均一化リスクとして記録する。
+16. 画像配信を変更した場合、容量削減を視覚的同等性の根拠にしない。原典の正本・fallback、候補幅、実表示幅での文字・価格・ロゴの可読性、クロップの有無、ブラウザの`currentSrc`を別々に確認する。
 
 ## Implementation loop
 
@@ -43,17 +46,18 @@ description: Reconstruct and review milk planet pages against Branch5 source pag
 5. 店舗固有CSSを優先し、共通CSSへの変更は複数店舗に共通する欠陥だけに限定する。
 6. 背景・幅・高さ・余白を変更した場合、共通CSSの継承値と疑似要素が残した空白・境界・重なりを監査する。
 7. クロップ画像は対象幅ごとに被写体の欠落、ロゴ・文字の切断、意図しない焦点移動を確認する。背景利用なら転送量とアクセシビリティ上の役割も確認する。
-8. 改行は文意を壊していないか確認し、長文は意味単位の要素分割と自然な折返しを使い分ける。
-9. フォントの役割、原版根拠、日本語フォールバック、長文での可読性を確認する。
-10. 実際の色ペアを計算し、文字と非テキストのWCAG基準、装飾と操作状態の違いを記録する。
-11. 色面積・彩度・明滅・境界の強さによる視覚的圧迫感を、適合性とは別に評価する。
-12. ブラウザ表示を確認し、白帯、枠外文字列、左寄せ、語中分断、ロゴ縮小を探す。
-13. 主要アンカーを直接開き、固定ヘッダー、折返しナビ、スクロール位置による見出し隠れを確認する。
-14. lazy画像や遅延フォントを直接リンク・低速読込に近い条件で確認し、空枠、レイアウトシフト、代替表示の不足を記録する。
-15. アクセシビリティ（見出し、alt、フォーカス、コントラスト、キーボード）を確認する。
-16. 同じUI構文の過剰反復、意図のないスキン変更、根拠のない装飾、共通部品による店舗固有性の消失を確認する。
-17. `agents/99_DESIGN_REVIEWER.md`へ採用・保留・却下とDone条件を渡す。
-18. `basis/decision_log.md`へ、元ページを根拠にした店舗固有判断だけを記録する。
+8. 画像配信を変更した場合、原典のバイト数と実表示の最大幅を基準に候補幅の妥当性を確認し、変換後の文字・価格・ロゴ・細部を実表示幅で読む。原典画像を削除・上書きしていないか、既存形式fallbackと固有寸法が残っているかも確認する。
+9. ブラウザで`currentSrc`、画像の完了状態、lazy loadingの到達後挙動、空枠、レイアウトシフト、失敗時fallbackを確認する。ファイル参照が存在するだけでは配信成功とみなさない。
+10. 改行は文意を壊していないか確認し、長文は意味単位の要素分割と自然な折返しを使い分ける。
+11. フォントの役割、原版根拠、日本語フォールバック、長文での可読性を確認する。
+12. 実際の色ペアを計算し、文字と非テキストのWCAG基準、装飾と操作状態の違いを記録する。
+13. 色面積・彩度・明滅・境界の強さによる視覚的圧迫感を、適合性とは別に評価する。
+14. ブラウザ表示を確認し、白帯、枠外文字列、左寄せ、語中分断、ロゴ縮小を探す。
+15. 主要アンカーを直接開き、固定ヘッダー、折返しナビ、スクロール位置による見出し隠れを確認する。
+16. アクセシビリティ（見出し、alt、フォーカス、コントラスト、キーボード）を確認する。
+17. 同じUI構文の過剰反復、意図のないスキン変更、根拠のない装飾、共通部品による店舗固有性の消失を確認する。
+18. `agents/99_DESIGN_REVIEWER.md`へ採用・保留・却下とDone条件を渡す。
+19. `basis/decision_log.md`へ、元ページを根拠にした店舗固有判断だけを記録する。
 
 ## Mandatory post-build audit gate
 
@@ -62,6 +66,7 @@ HTML/CSSを作成・修正した案件では、この監査を完成後の独立
 - 390px、768px、1440px前後で通常表示と主要なスクロール位置を確認する。
 - 原典画像版と、情報順、画像役割、色面積、余白、見出し、折返し、密度、店舗識別性を比較する。
 - h1、疑似要素、mask、sticky、継承`padding`・`height`・`margin`を再確認し、色変更や構造変更で旧レイアウトの空白・白帯・重なりが残っていないか確認する。
+- 画像配信を変更した場合、変換前のバイト数、候補幅の根拠、派生後の実表示可読性、`currentSrc`、画像完了、fallback、レイアウトシフトを確認する。容量削減だけで合格にしない。
 - HTMLの妥当性、見出し階層、重複ID、リンク先、画像参照、`alt`、CSS構文をW3C相当の検証手段または利用可能な同等ツールで確認する。
 - コントラスト、フォーカス、キーボード操作、横スクロール、画像の欠落を確認する。規格適合と色の圧迫感は別々に判定する。
 - `design-intent`のCommitments、Deliberate exclusions、Tradeoffsを一項目ずつ照合し、原典にない汎用スキンや説明後付けの装飾がないかを確認する。
@@ -86,6 +91,7 @@ HTML/CSSを作成・修正した案件では、この監査を完成後の独立
 - 画像とHTMLの重複、主要タスクへの到達距離、更新情報の正本が確認されている
 - 主要アンカーを直接開いたとき、固定UIや折返しによる文脈欠落がない
 - lazy画像・遅延フォントの初期表示と低速時の失敗状態が確認されている
+- 画像配信を変更した場合、原典の正本・fallbackが保護され、候補幅・画質・変換条件・実表示での可読性・`currentSrc`が記録されている
 - 同じUI構文の反復と、原版固有性の平坦化が評価されている
 - ブラウザ確認を実施したか、できなかった理由を明記している
 - 自動テストだけで「デザインが正しい」と判断していない

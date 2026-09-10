@@ -1,5 +1,12 @@
 # WBS
 
+## 文書status
+
+- Status: ACTIVE BASELINE + HISTORICAL TASKS
+- 現行の実装可否、対象ブランチ、承認済みScopeはwork packetの`decision.md`を正本とする。
+- 以下の既存タスクは過去の計画を含む。未完了チェックだけを見て、現在の作業指示と推測してはならない。
+- 現在の優先順位や対象が変わった場合は、この文書を直接上書きせず、`decision_log.md`と新しいwork packetで変更理由を残す。
+
 ## 前提
 - 改修対象は `proposal/branch1/` のみ。
 - `currently/` は正本として固定し、変更しない。

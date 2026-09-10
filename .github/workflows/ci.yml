@@ -2,9 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, master]
   pull_request:
-    branches: [main, master]
 
 permissions:
   contents: read
@@ -21,6 +19,15 @@ jobs:
 
       - name: Validate repository contract
         run: python3 tools/validate_repo_contract.py
+
+      - name: Validate Skill packages
+        run: python3 tools/validate_skill_packages.py
+
+      - name: Validate all work packets
+        run: python3 tools/validate_work_packets.py
+
+      - name: Validate static HTML baseline
+        run: python3 tools/validate_static_contract.py proposal/branch5/shop
 
       - name: Check committed whitespace
         run: git diff --check HEAD^ HEAD

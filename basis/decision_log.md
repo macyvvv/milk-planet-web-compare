@@ -199,3 +199,70 @@
 - 理由: 画像内の文字を不自然に切断せずにブランド導入だけを残し、更新対象の運用情報を検索・読み上げ・更新可能なHTMLへ一本化するため。
 - 影響: 新宿店のヒーローの情報量は歓迎ビジュアルに限定される。ポイント欄の情報量は増えるが、原典の更新情報を欠落させず、画像とHTMLの同一情報の重複も避けられる。
 - 残存リスク: 原典画像の文言をHTML化する際、画像固有の装飾表現は再現しない。ポイントカードの運用内容が今後更新された場合は、`event1.jpg`相当の正本とHTMLを同時に確認する。
+
+## 2026-09-09 Planet web OODA / PDCAワークフローの親Skill化
+
+- 論点: `design-intent`と`visual-fidelity`は、意図固定と視覚監査の責務を持つが、原典棚卸し、情報更新の取りこぼし、独立監査、レトロスペクティブ、PR・merge・公開確認を一つの再実行可能なループとして強制していなかった。
+- 観測事実: Shandyではスキン変更に寄った初案をユーザー指摘で修正した。新宿では`event1.jpg`の更新特典を実装後に発見した。さらに、ローカルの未コミット変更とGitHub上のマージ済みコミットを一度混同した。
+- 採用案: `skills/planet-web-workflow/`を親Skillとして追加し、`basis/work/<change-id>/`の作業パケットにIntent、Source map、Decision、Audit、Retrospective、Releaseを保存する。`tools/validate_repo_contract.py`は親Skillの存在と基本契約を検証し、パケット構造はSkill内validatorで検証する。
+- 理由: 今回の失敗を個別ページの注意事項で終わらせず、Observe・Orient・Decide・Act・Check・Learn・Releaseの各段階へ戻せる運用単位へ変換するため。
+- 影響: 今後のPlanet系ページ制作、大幅改修、視覚監査の作業順と証跡が統一される。サイト本体の既存正本・比較画像・公開導線は変更しない。
+- 残存リスク: パケットvalidatorは証跡の欠落を検出するが、判断の正しさ、原典との意味一致、ブラウザの視覚品質を自動判定しない。別店舗・別ページでの前方検証を行い、必要なルールだけを次回レトロスペクティブで追加する。
+
+## 2026-09-09 Skill群の責務整理とゲート検査強化
+
+- 論点: 親Skillに専門Skillの詳細な視覚・コンテンツ監査が重複し、`design-intent`にも実装後ゲートが残っていた。また、パケットvalidatorは必須見出しの存在を中心に検査しており、ゲート未実施と未依頼のrelease状態を区別できなかった。
+- 観測事実: `planet-web-workflow`はライフサイクル、ルーティング、証跡、release状態へ責務を限定できる。`design-intent`は実装前、`visual-fidelity`は実装後へ分けると、同じ判断を複数の正本へ書く必要が減る。一方、同じ不変条件を実装前後で確認するため、完全な重複排除は品質を下げる。
+- 採用案: 親Skillをオーケストレーション、`design-intent`をpre-build、`visual-fidelity`をpost-build、`DESIGN.md`をrepo固有の視覚正本、`agents/22_VISUAL_FIDELITY_REVIEWER.md`をレビュー役割の出力仕様として整理する。validatorは6ゲートの`PASS / FAIL / NOT RUN`、source row、390/768/1440の監査記録、5段階release状態を検査し、`RELEASED`では`MERGED`と`VERIFIED`を要求する。
+- 理由: 手順の重複を減らしつつ、実装前の判断、実装後の観測、外部releaseの状態を別責務・別証跡として扱い、今回の混同を構造的に再発しにくくするため。
+- 残存リスク: validatorは証跡の構造を検査するだけで、原典との意味一致、デザイン品質、アクセシビリティの実質的妥当性は判定しない。CIでの強制、別ページでの前方検証、Revenueに接続するKPIは未実施・未定義のまま残る。
+
+## 2026-09-09 2ページEvidence Matrixと設計哲学の接続
+
+- 論点: Shandy／新宿の経験を完成ページの再現手順として保存するだけでは、次のページで哲学的な判断を再利用できない。代表的な失敗事例と、全アセット・全意味情報の棚卸しを分離する必要がある。
+- 観測事実: `menu/images/`にはShandy13件、新宿12件のアセットがあり、歓迎・案内・禁止事項・料金・商品・販促・更新特典の役割が混在している。`event1.jpg`のように後から発見された更新情報もある。
+- 採用案: `basis/planet_page_evidence_matrix.md`を作成し、画像単位の処理表、ページ横断の判断表、Situatedness／Priority／Authority／Commitment／Productive friction／Content reality／Continuity／Accountabilityの8軸、MECEの残存課題を記録する。
+- 理由: AIらしさを色・カード・フォントの逆張りで隠すのではなく、目的、正本、制約、非採用、更新責任、検証、反復が画面と証跡に残っているかで評価するため。
+- 残存リスク: Matrixは意味ブロック単位であり、商品・価格の一件差分、ブラウザ実表示、KPI、別ページでの反証までは完了していない。外部設計原則は判断軸の候補であり、Planetへの適用は仮説として扱う。
+
+## 2026-09-09 新宿店 menu variant 3 のロゴ背景・改行・コントラスト修正
+
+- 論点: `index_3.html`の独立監査で、淡色背景を持つ`base_shinjuku.png`と青いタイトル面の衝突、ポイント閾値の語中改行、青系小文字のコントラスト不足、比較用titleの残留が確認された。
+- 採用案: 原典ロゴの淡色面にタイトル背景を戻し、タイトル文字を濃色化する。店舗青を`#245a9f`へ寄せ、注記を`#4f626f`へ変更する。`#points`では閾値列を`max-content`かつ`nowrap`とし、報酬文だけを折り返す。titleから`Visual Variant 3`を除去する。
+- 理由: ロゴ画像を加工して矩形を隠すのではなく、画像資産と隣接面の責務を一致させるため。数値・単位の意味境界を保ち、WCAG AA相当の主要色ペアへ移行し、制作途中の名称を公開面から除くため。
+- 影響: `proposal/branch5/shop/shinjuku/menu-html/index_3.html`のURL、原典画像、本文情報、画像とHTMLの役割は維持する。タイトル面は青い大面積から淡色面へ変わる。
+- 残存リスク: 原典ロゴ自体の白文字は淡色面上で強くない。別ロゴ資産の採用は正本所有者の確認が必要。W3C正式検証、複数OSフォント、共通パネル反復の再設計は未実施。
+
+## 2026-09-10 basis・skillsの責務整理と不足機構の明示
+
+- 論点: `basis/`に現行要件、過去計画、運用記録、Evidence、work packetが混在し、`skills/`のroutingとrepo固有文書の正本境界が一箇所で確認できなかった。非機能要件、リスク、traceability、静的Web運用の記述も不足または不整合だった。
+- 観測事実: `basis/README.md`に文書registryがなく、`operations.md`には静的Web repoと無関係なDB運用が含まれていた。既存validatorは必須ファイルと固定文言を中心に検証し、Skill packageの支援ファイルやローカルMarkdownリンクを検証していなかった。
+- 採用案: `basis/README.md`を文書registryの入口とし、`basis/requirements_traceability.md`で要件から公開確認までのlineageを管理する。`skills/README.md`で親Skill・専門Skill・validatorの責務を固定し、repo contract validatorへregistry、Skill package、ローカルリンク検査を追加する。既存文書は削除・移動せず、Historical / Legacyを明示する。
+- 理由: 履歴と正本を混ぜず、次の担当者が「何を読むか」「どこへ更新するか」「何をもって検証済みとするか」を再現できる状態にするため。画像配信や視覚監査の個別ルールだけでなく、要件・判断・運用・releaseの接続を基盤化するため。
+- 影響: ページ、画像、`currently/`、`proposal/`は変更しない。文書・Skill・validatorの構造が変わり、既存work packetは保持される。`init`、`adopt`、`migrate`のchassis CLIは未実装のROADMAPとして明示する。
+- 残存リスク: 文書の内容が正しいか、更新担当やKPIが確定しているか、W3C正式検証やRUMが実施されているかは自動検証できない。registry、traceability、独立レビュー、実運用で継続確認する必要がある。
+
+## 2026-09-10 MECE coverage matrixによる基盤欠落の再検査
+
+- 論点: 文書registry、Skill routing、OODA / PDCA、NFR、risk registerを追加した後も、工程・品質領域・正本・担当・証跡・自動検証・Ownerを横断して確認しなければ、重複と未担当領域をMECEとして見落とす可能性がある。
+- 観測事実: `DESIGN.md`と将来の`design/`、branch1とbranch5の作業境界、Evidence Matrix・traceability・source-map・decision logの役割、公開後運用、SEO・security・legal・KPI、CI検査範囲、Chassis CLIに未確定または未実装の領域が残っている。
+- 採用案: `basis/mece_coverage_matrix.md`を、Planetページ制作とRepo Chassisの責務・検証範囲を横断する管理表として追加する。状態を`COVERED`、`PARTIAL`、`CONFLICT`、`GAP`、`ROADMAP`、`OUT OF SCOPE`に分類し、各行にPrimary owner、Canonical source、Required evidence、Automated check、Owner、完了条件を持たせる。
+- 理由: 文書をさらに増やす前に、どの工程・品質領域が誰の責任で、どの正本と証跡に接続し、何が自動検証されるかを一枚で反証可能にするため。これにより、未定義領域を「既存Skillのどこかが担当している」と誤認しにくくする。
+- 影響: ページ、画像、`currently/`、`proposal/`、既存Skillの本文は変更しない。`basis/README.md`のregistryと更新プロトコルを同期する。今回の表は不足解消そのものではなく、次のScopeを決める入力とする。
+- 残存リスク: Owner、SEO、security、legal、KPI、公開後運用、Chassis CLIは未解決のままであり、表を作っただけではMECE達成にならない。`CONFLICT`の解消と`GAP`の対象範囲決定を次の承認単位に分ける。
+
+## 2026-09-10 MECE conflict resolutionとCI baselineの導入
+
+- 論点: coverage matrixで検出したC-01〜C-06のうち、正本境界、作業範囲、文書責務、CI baseline、最小品質領域を現行repoへ反映する必要がある。
+- 採用案: 現行視覚正本を`DESIGN.md`へ固定し、`design/`は未導入の将来構成とする。branch5は`menu/`を原典画像のread-only、`menu-html/`を承認済みwork packet限定の比較実装と分類する。Matrix、traceability、Evidence Matrix、source-map、decision logの責務をskills READMEへ明文化する。CIは全branchのrepo contract、Skill形式、全work packetを検証する。SEO・外部依存・権利・個人情報は最小確認を必須化し、KPIはOwner不在のため現時点で対象外とする。
+- 理由: 文書上の正本と実際の作業対象の混同を止め、形式検証をローカルだけでなくPR・pushのbaselineへ接続し、未定義品質領域を「どこかで確認済み」と誤認しないため。
+- 影響: `basis/`、`.github/workflows/ci.yml`、`tools/validate_work_packets.py`、`tools/validate_skill_packages.py`、repo routing文書のみを変更する。ページ、画像、currently、既存work packetは変更しない。
+- 残存リスク: 公開後の実在Owner、SLA、監視基盤、W3C・RUM・実ネットワーク性能、専用SEO・securityスキャン、Chassis CLIは未完了である。C-05はPARTIAL、Q-12はOUT OF SCOPEとして次の承認単位へ残す。
+
+## 2026-09-10 operational readinessとstatic HTML baselineの追加
+
+- 論点: C-05およびQ-09〜Q-10の残存リスクを、推測したOwnerや外部サービスに依存せず、repo内で再現可能な記録・検査へ接続する必要がある。
+- 採用案: 新規work packetの`release.md`にOwner、次回鮮度確認、rollback対象、外部依存・権利確認を記録する。既存packetはlegacy証跡として改変しない。`tools/validate_static_contract.py`で指定HTML範囲の`lang`、title、ローカル参照、秘密情報パターンを検査し、CIへ接続する。
+- 理由: 公開後責任を捏造せず、少なくとも公開前に「誰が確認するか」「何を戻せるか」「静的ページの基本参照が壊れていないか」を反証可能にするため。
+- 影響: work-packet schema、operations、matrix、traceability、CI、repo内validatorを更新する。ページ、画像、既存packetの事実、外部公開状態は変更しない。
+- 残存リスク: 既存packetのOwner情報は遡及して補完していない。W3C、実ブラウザ、権利の実在確認、SEO専用検査、監視・SLA・KPI、Chassis CLIは未完了である。

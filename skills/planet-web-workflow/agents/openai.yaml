@@ -1,0 +1,6 @@
+interface:
+  display_name: "Planet Web Workflow"
+  short_description: "Run Planet web OODA/PDCA workflow"
+  default_prompt: "Use $planet-web-workflow to plan, implement, audit, and release this Planet web change with an evidence packet."
+policy:
+  allow_implicit_invocation: true
