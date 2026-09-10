@@ -12,7 +12,7 @@ Create responsive WebP derivatives for the seven Melty menu sheets and update on
 
 ## State
 
-State: LEARNED
+State: RELEASED
 
 ## Gate status
 
@@ -21,7 +21,7 @@ State: LEARNED
 - Structure: PASS — WebP source, JPEG fallback, intrinsic dimensions, lazy policy, and responsive sizes are defined.
 - Intent: PASS — Melty's image-led composition and source order remain unchanged.
 - Independent audit: PASS — static, visual, responsive, navigation, accessibility, and browser delivery checks are recorded in `audit.md`.
-- Release: NOT RUN — external release follows the independent audit.
+- Release: PASS — PR #47 was merged and the published URL was checked after the successful Pages deployment.
 
 ## Definition of done
 
