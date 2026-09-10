@@ -2,23 +2,23 @@
 
 ## Commit
 
-Status: NOT REQUESTED — ローカル修正・検証のみ。確認日時: 2026-09-10 Asia/Tokyo。確認者: Codex。
+Status: COMMITTED — `15e51a9` (`fix: close index3 visual and publication audit gaps`)。確認日時: 2026-09-10 Asia/Tokyo。確認者: Codex。
 
 ## Push
 
-Status: NOT REQUESTED — 今回のScope外。
+Status: PUSHED — `origin/agent/branch5-shandy-menu-html`。確認日時: 2026-09-10 Asia/Tokyo。確認者: Codex。
 
 ## Pull request
 
-Status: NOT REQUESTED — 今回のScope外。
+Status: OPENED then superseded by the merge record below — PR #50: https://github.com/macyvvv/milk-planet-web-compare/pull/50。確認日時: 2026-09-10 Asia/Tokyo。確認者: Codex。
 
 ## Merge
 
-Status: NOT REQUESTED — 今回のScope外。
+Status: MERGED — merge commit `d700ca9160b392f98b4d12a23fd291be4a5026e1`。確認日時: 2026-09-10 Asia/Tokyo。確認者: Codex。
 
 ## Published URL
 
-Status: NOT REQUESTED — 今回のローカル変更は未公開。変更前の公開URLは別監査で確認済み。確認日時: 2026-09-10 Asia/Tokyo。確認者: Codex。
+Status: NOT VERIFIED — mergeは確認済みだが、今回の変更を反映した公開URLのデプロイ・実表示は未確認。確認日時: 2026-09-10 Asia/Tokyo。確認者: Codex。
 
 ## Ownership and freshness
 
