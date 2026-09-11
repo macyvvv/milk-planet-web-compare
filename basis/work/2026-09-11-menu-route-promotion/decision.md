@@ -23,7 +23,7 @@ State: LEARNED
 - Structure: PASS — 移動後の相対パス変換規則を確定
 - Intent: PASS — 保存・昇格・店舗固有判断の境界を確定
 - Independent audit: PASS — Shandyの語中分断を最小修正後、3店舗の最大番号variantを3幅で再確認
-- Release: NOT RUN — commit / push / PR / merge / publishは別承認
+- Release: PASS — commit / push / PR / merge完了。公開確認は未依頼のため未実施
 
 ## Definition of done
 
