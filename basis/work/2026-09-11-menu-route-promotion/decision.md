@@ -4,7 +4,7 @@ Change class: MENU_ROUTE_PROMOTION
 
 ## Scope
 
-11店舗の画像版`menu/index.html`を`menu/index_0.html`へ保存し、監査済みHTML版を同じ`menu/index.html`へ配置する。`menu-html`、元画像、店舗CSS、共通CSS/JSは変更しない。
+11店舗の画像版`menu/index.html`を`menu/index_0.html`へ保存し、監査済みHTML版を同じ`menu/index.html`へ配置する。`menu-html`、元画像、店舗CSS、共通CSS/JSは変更しない。保存版はCIの末尾空白検査に合わせて行末空白だけを正規化し、視覚・意味内容は保持する。
 
 ## Target files
 

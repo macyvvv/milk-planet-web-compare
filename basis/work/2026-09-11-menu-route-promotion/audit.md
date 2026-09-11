@@ -42,6 +42,8 @@ PASS: `validate_repo_contract.py`、`validate_static_contract.py proposal/branch
 
 PASS: 11店舗の新`index.html`で移動後のCSS・画像・共通CSS参照を確認した。新ページの実表示後に404となるローカル参照は確認されなかった。
 
+FACT: `index_0.html`は画像版の視覚・意味内容を保持したまま、GitHub CIの末尾空白検査に適合させるため行末空白のみ正規化した。
+
 FACT: 初回のキャッシュ済み旧ページ確認では旧CSS由来の`images/index.png` 404が記録されたが、キャッシュバスター付き新ページでは該当参照は発生しなかった。これは新HTMLの修正結果ではなく、旧画像版／旧CSSの残存問題として`index_0.html`側へ隔離されている。
 
 ## Browser observations
