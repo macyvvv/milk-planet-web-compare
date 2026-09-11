@@ -69,3 +69,9 @@
 5. `RELEASED`へ進む場合、公開後運用のOwnerとrollback条件が記録されている。
 
 この表自体は不足を解消した証明ではなく、不足を見落とさずに次のScopeへ接続するためのゲートである。
+
+## 2026-09-11 Philosophy learning gate update
+
+`design-intent`、`planet-web-workflow`、`visual-fidelity`へ、哲学を装飾ではなく判断原理として扱うゲートを追加した。新規のSkill改善・複数ページ監査packetでは、現状維持案、残す不均衡、転用境界、未知点、対象Coverage、回帰結果を記録する。監査所見は`LOCAL`、`STRUCTURAL`、`UNKNOWN`へ分類し、複数ページの根拠と反例なしに共通ルールへ昇格しない。
+
+この追加により、L-03、L-07、Q-01、Q-02、Q-08の証跡責務は明確化したが、原典との意味一致、視覚品質、実際の事業成果を自動検証できる状態にはなっていない。そのため既存の`PARTIAL`判定は、実質判断が人手である限り維持する。validatorは証跡の構造だけを検査する。

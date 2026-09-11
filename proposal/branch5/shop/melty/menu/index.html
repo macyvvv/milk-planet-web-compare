@@ -1,98 +1,346 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>システム&メニュー | めいどカフェ＆バー milk planet</title>
-<meta name="description" content="planet groupのオフィシャルサイト">
-<meta name="keywords" content="planet group,メイド喫茶,シーシャ,新宿,歌舞伎町,ミルプラ,みるぷら">
-<meta name="robots" content="noindex,follow">
-<meta name="viewport" content="width=device-width, maximum-scale=5.0">
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-<link href="../../../../../vendor/aos/aos.css" rel="stylesheet">
-<script src="../../../jquery-1.8.3.min.js"></script>
-<link rel="stylesheet" href="../../../../../vendor/swiper/swiper.min.css" />
-<link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="system.css">
-  <link rel="stylesheet" type="text/css" href="../../../proposal.css">
-  <link rel="stylesheet" type="text/css" href="menu_header_override.css">
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-NZ394556');</script>
-  <!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>システム&amp;メニュー | MeltyMousse</title>
+  <meta name="description" content="MeltyMousseのメニュー、料金システム、新規セット、ドリンク、フード、シャンパンをご案内します。">
+  <meta name="robots" content="noindex,follow">
+  <meta name="viewport" content="width=device-width, maximum-scale=5.0">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="../../../jquery-1.8.3.min.js"></script>
+  <link rel="stylesheet" href="../../../proposal.css">
+  <link rel="stylesheet" href="../../menu-html-common.css">
+  <link rel="stylesheet" href="../menu-html/system.css">
+  <style>
+    :root {
+      --melty-pink: #d569a9;
+      --melty-deep-pink: #963062;
+      --melty-ink: #513743;
+      --melty-bg: #fff8fc;
+      --melty-pale: #fff0f8;
+      --melty-title: #fecff3;
+      --melty-line: #e4b1cf;
+    }
+
+    body.melty-menu-page {
+      margin: 0;
+      color: var(--melty-ink);
+      background: var(--melty-bg);
+    }
+
+    body.melty-menu-page .html-menu {
+      color: var(--melty-ink);
+      background: var(--melty-bg);
+      font-family: Lato, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.7;
+      text-shadow: none;
+    }
+
+    html body.melty-menu-page h1.menu-page-title:not(.scrolled-title) {
+      box-sizing: border-box;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 138px;
+      gap: 18px !important;
+      padding: 22px 220px 42px !important;
+      color: var(--melty-ink) !important;
+      background: var(--melty-title) !important;
+      font-size: 30px;
+      letter-spacing: .1em;
+    }
+
+    html body.melty-menu-page h1.menu-page-title > span {
+      position: relative;
+      z-index: 100;
+      color: var(--melty-ink) !important;
+      line-height: 1.4 !important;
+      white-space: nowrap;
+    }
+
+    html body.melty-menu-page h1.menu-page-title .title-shop-logo {
+      position: relative;
+      z-index: 100;
+      display: block;
+      flex: 0 0 auto;
+      width: 260px !important;
+      max-width: 260px !important;
+      height: auto !important;
+      max-height: 70px !important;
+      object-fit: contain;
+      margin: 0;
+    }
+
+    html body.melty-menu-page h1.menu-page-title:not(.scrolled-title)::after {
+      height: 34px !important;
+      background: var(--melty-bg) !important;
+      -webkit-mask: url("images/cutline.png") 0 0 / 100% 34px no-repeat;
+      mask: url("images/cutline.png") 0 0 / 100% 34px no-repeat;
+    }
+
+    html body.melty-menu-page h1.menu-page-title.scrolled-title {
+      color: var(--melty-ink) !important;
+      background: rgba(254, 207, 243, .96) !important;
+    }
+
+    html body.melty-menu-page h1.menu-page-title.scrolled-title .title-shop-logo {
+      width: 180px !important;
+      max-width: 180px !important;
+      height: auto !important;
+      max-height: 48px !important;
+    }
+
+    body.melty-menu-page .menu-sheet {
+      width: min(720px, 100%);
+      margin: 0 auto;
+    }
+
+    body.melty-menu-page .menu-sheet img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 0;
+      border-radius: 0;
+    }
+
+    body.melty-menu-page .menu-sheet picture {
+      display: block;
+    }
+
+    body.melty-menu-page .local-nav {
+      width: min(760px, calc(100% - 40px));
+      margin: 0 auto;
+      gap: 4px 18px;
+      justify-content: flex-start;
+      border-bottom: 1px solid var(--melty-line);
+    }
+
+    body.melty-menu-page .local-nav a {
+      padding: 8px 2px 6px;
+      color: var(--melty-deep-pink);
+      border: 0;
+      border-bottom: 2px solid var(--melty-line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      font-weight: 700;
+    }
+
+    body.melty-menu-page .local-nav a:hover,
+    body.melty-menu-page .local-nav a:focus-visible {
+      color: var(--melty-ink);
+      border-bottom-color: var(--melty-deep-pink);
+    }
+
+    body.melty-menu-page .menu-section {
+      width: min(800px, calc(100% - 40px));
+      padding: 48px 0;
+    }
+
+    body.melty-menu-page .menu-section + .menu-section {
+      border-top: 1px solid var(--melty-line);
+    }
+
+    body.melty-menu-page .html-menu .menu-section h2 {
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 0 26px;
+      padding: 0 0 9px;
+      color: var(--melty-ink);
+      background: transparent;
+      border: 0;
+      border-bottom: 3px solid var(--melty-pink);
+      border-radius: 0;
+      box-shadow: none;
+      text-align: left;
+      font-family: Lato, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+      font-size: 28px;
+      letter-spacing: .08em;
+      line-height: 1.35;
+    }
+
+    body.melty-menu-page .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+
+    body.melty-menu-page .promo-grid .menu-sheet {
+      width: 100%;
+    }
+
+    body.melty-menu-page .site-footer {
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 780px) {
+      html body.melty-menu-page h1.menu-page-title:not(.scrolled-title) {
+        min-height: 90px;
+        gap: 8px !important;
+        padding: 14px 58px 28px 8px !important;
+        font-size: 18px !important;
+      }
+
+      html body.melty-menu-page h1.menu-page-title:not(.scrolled-title)::after {
+        height: 28px !important;
+        -webkit-mask-size: 100% 28px;
+        mask-size: 100% 28px;
+      }
+
+      html body.melty-menu-page h1.menu-page-title .title-shop-logo {
+        width: 128px !important;
+        max-width: 128px !important;
+        max-height: 36px !important;
+      }
+
+      html body.melty-menu-page h1.menu-page-title.scrolled-title .title-shop-logo {
+        width: 108px !important;
+        max-width: 108px !important;
+        max-height: 32px !important;
+      }
+
+      body.melty-menu-page .local-nav,
+      body.melty-menu-page .menu-section {
+        width: calc(100% - 28px);
+      }
+
+      body.melty-menu-page .local-nav {
+        gap: 2px 14px;
+      }
+
+      body.melty-menu-page .menu-section {
+        padding: 38px 0;
+      }
+
+      body.melty-menu-page .html-menu .menu-section h2 {
+        margin-bottom: 20px;
+        font-size: clamp(21px, 6vw, 27px);
+        letter-spacing: .05em;
+      }
+
+      body.melty-menu-page .promo-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
 </head>
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZ394556"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-	<header id="top-head">
-	<div class="inner">
-		<div id="nav-toggle">
-			<div class="nav-toggle-bars">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
-			<span class="nav-toggle-label">めにゅう</span>
-		</div>
-		<nav id="global-nav">
-			<ul>
-				<li><a href="../../../index.html">ほぉむ</a></li>
-				<li><a href="../../../shop/index.html">わくせい｜店舗一覧</a></li>
-				<li><a href="../../../cast/index.html">きゃすと｜キャスト一覧</a></li>
-				<li><a href="../../../okyuji/index.html">おきゅうじ よてい</a></li>
-				<li><a href="../../../index.html#sys-title-wrapper">しすてむ&めにゅう</a></li>
-				<li><a href="../../../index.html#event">いべんと</a></li>
-				<li><a href="../../../recruit/index.html">りくるうと</a></li>
-			</ul>
-		</nav>
-	</div>
-</header>
-		<h1 class="title" style="--page-h1-bg:#fecff3;">システム&メニュー</h1>
-	<article>
+<body class="melty-menu-page">
+  <a class="skip-link" href="#menu-content">メニュー本文へ移動</a>
 
-<div id="system">
+  <header id="top-head">
+    <div class="inner">
+      <button type="button" id="nav-toggle" aria-controls="global-nav" aria-expanded="false" aria-label="めにゅうを開く">
+        <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
+        <span class="nav-toggle-label">めにゅう</span>
+      </button>
+      <nav id="global-nav" aria-label="グローバルナビゲーション">
+        <ul>
+          <li><a href="../../../index.html">ほぉむ</a></li>
+          <li><a href="../../../shop/index.html">わくせい｜店舗一覧</a></li>
+          <li><a href="../../../cast/index.html">きゃすと｜キャスト一覧</a></li>
+          <li><a href="../../../okyuji/index.html">おきゅうじ よてい</a></li>
+          <li><a href="../../../index.html#sys-title-wrapper">しすてむ＆めにゅう</a></li>
+          <li><a href="../../../index.html#event">いべんと</a></li>
+          <li><a href="../../../recruit/index.html">りくるうと</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<!-- //MENU// -->
-<div id="shopinfo" class="content">
+  <h1 class="title menu-page-title" style="--page-h1-bg:#fecff3; --scrolled-bg:rgba(254,207,243,.96);">
+    <img src="../images/shop_melty_logo.jpg" width="380" height="80" alt="Melty Mousse" class="title-shop-logo">
+    <span>システム&amp;メニュー</span>
+  </h1>
 
-	<img alt="メニュー写真1" class="menu"src="images/menu1.jpg"><br>
-	<br>
-	<img alt="メニュー写真2" class="menu"src="images/menu2.jpg"><br>
-	<br>
-	<img alt="メニュー写真3" class="menu"src="images/menu3.jpg"><br>
-	<br> 
-	<img alt="メニュー写真4" class="menu"src="images/menu4.jpg"><br>
-	<br>
-    <img alt="メニュー写真4.5" class="menu"src="images/menu4.5.jpg"><br>
-	<br>
-	<img alt="メニュー写真5" class="menu"src="images/menu5.jpg"><br>
-	<br>
-	<img alt="メニュー写真6" class="menu"src="images/menu6.jpg"><br>
-	<br>  
-	</div>
-	<!-- 以下イベント -->
-	<!--img class="menu"src="images/event1.jpg"><br>
-	
-	<script src="../eventlist.js"></script>
-	
-</div>
-MENU -->
+  <main id="menu-content" class="html-menu">
+    <nav class="local-nav" aria-label="メニュー内目次">
+      <a href="#main-menu">メインメニュー</a>
+      <a href="#newcomer">ご新規セット</a>
+      <a href="#drink">飲み放題</a>
+      <a href="#champagne">シャンパン・単品</a>
+      <a href="#food">フード</a>
+      <a href="#special">オリジナルシャンパン</a>
+    </nav>
 
-</div>
-</div>
-</article>
+    <section id="main-menu" class="menu-section">
+      <h2>メインメニュー</h2>
+      <figure class="menu-sheet">
+        <picture>
+          <source type="image/webp" srcset="images/optimized/menu1-480.webp 480w, images/optimized/menu1-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 720px">
+          <img src="images/menu1.jpg" loading="eager" fetchpriority="high" decoding="async" width="1200" height="1697" alt="Melty Mousseのメインメニュー。1時間飲み放題の営業時間、女性2,500円・男性3,500円、延長料金、おすすめメニューと価格を掲載">
+        </picture>
+      </figure>
+    </section>
 
-<iframe width="100%"
-height="400px"
-scrolling="no"
-frameborder="0"
-src="../../../footer.html"></iframe>
+    <section id="newcomer" class="menu-section">
+      <h2>ご新規セット</h2>
+      <figure class="menu-sheet">
+        <picture>
+          <source type="image/webp" srcset="images/optimized/menu2-480.webp 480w, images/optimized/menu2-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 720px">
+          <img src="images/menu2.jpg" loading="lazy" decoding="async" width="1200" height="1697" alt="ご新規セット。A 3,000円、B 5,000円、C 10,000円の内容と価格を掲載">
+        </picture>
+      </figure>
+    </section>
 
+    <section id="drink" class="menu-section">
+      <h2>飲み放題</h2>
+      <figure class="menu-sheet">
+        <picture>
+          <source type="image/webp" srcset="images/optimized/menu3-480.webp 480w, images/optimized/menu3-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 720px">
+          <img src="images/menu3.jpg" loading="lazy" decoding="async" width="1200" height="1697" alt="飲み放題メニュー。アルコール・カクテル、ソフトドリンクの品目を掲載">
+        </picture>
+      </figure>
+    </section>
+
+    <section id="champagne" class="menu-section">
+      <h2>シャンパン・単品</h2>
+      <figure class="menu-sheet">
+        <picture>
+          <source type="image/webp" srcset="images/optimized/menu4-480.webp 480w, images/optimized/menu4-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 720px">
+          <img src="images/menu4.jpg" loading="lazy" decoding="async" width="1200" height="1697" alt="シャンパンメニュー、ノンアルコールボトル、単品メニューと価格を掲載">
+        </picture>
+      </figure>
+    </section>
+
+    <section id="food" class="menu-section">
+      <h2>フード</h2>
+      <figure class="menu-sheet">
+        <picture>
+          <source type="image/webp" srcset="images/optimized/menu4.5-480.webp 480w, images/optimized/menu4.5-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 720px">
+          <img src="images/menu4.5.jpg" loading="lazy" decoding="async" width="1200" height="1697" alt="フードメニュー。お絵描きオムライス、パスタ、スナック菓子、チョコ盛り、カルパス盛りと価格を掲載">
+        </picture>
+      </figure>
+    </section>
+
+    <section id="special" class="menu-section">
+      <h2>オリジナルシャンパン</h2>
+      <div class="promo-grid">
+        <figure class="menu-sheet">
+          <picture>
+            <source type="image/webp" srcset="images/optimized/menu5-480.webp 480w, images/optimized/menu5-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 389px">
+            <img src="images/menu5.jpg" loading="lazy" decoding="async" width="1200" height="1697" alt="Melty Mousseオリジナルシャンパン。アルコール・ノンアルコール、33,000円の案内とキャスト写真を掲載">
+          </picture>
+        </figure>
+        <figure class="menu-sheet">
+          <picture>
+            <source type="image/webp" srcset="images/optimized/menu6-480.webp 480w, images/optimized/menu6-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 389px">
+            <img src="images/menu6.jpg" loading="lazy" decoding="async" width="1200" height="1697" alt="Melty Mousseオリジナルシャンパン。アルコール・ノンアルコール、55,000円の案内とキャスト写真を掲載">
+          </picture>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <iframe class="site-footer" width="100%" height="400" scrolling="no" frameborder="0" title="サイト共通フッター" src="../../../footer.html"></iframe>
   <script src="../../../analytics.js"></script>
   <script src="../../../proposal.js"></script>
 </body>

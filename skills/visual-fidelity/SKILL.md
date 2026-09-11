@@ -18,6 +18,12 @@ description: Audit implemented Planet pages against Branch5 source pages for vis
 - 見た目の確認を求められた場合: ブラウザで390px、768px、1440px前後を確認し、対象・幅・観測結果を報告する。
 - 新規ビジュアルを生成する場合: 原版に相当する素材がないか確認する。店舗ロゴやメニュー画像を`imagegen`で作り直さない。
 
+## Philosophy continuity audit
+
+Skill改善または複数ページの監査では、実装済みページだけでなく、未変更の比較基準と過去に触ったページを同じ監査範囲へ含める。実装前の`Principle under test`、`No-change option`、`Preserved asymmetry`、`Transfer boundary`が表示後も保持されているかを確認する。
+
+各所見は、店舗固有の`LOCAL`、複数ページへ一般化可能な`STRUCTURAL`、正本不足の`UNKNOWN`へ分類する。`STRUCTURAL`とするには別ページの証拠を必要とし、単一ページの美的好みを共通ルールへ昇格させない。監査ツールのPASSは、哲学や視覚品質のPASSとは別に記録する。
+
 ## Hard constraints
 
 1. 元画像版と既存サイトをHTML版より優先する。
@@ -104,3 +110,5 @@ HTML/CSSを作成・修正した案件では、この監査を完成後の独立
 - 根拠のない「人間らしさ」や手作り感を追加していない
 - 作成中の構造ゲートと、完成後の独立監査ゲートをそれぞれ通過している
 - W3C相当のHTML/CSS検証、主要幅の実表示、意図保持の照合結果が記録されている
+- 実装前の判断原理、現状維持案、残す不均衡、転用境界が実装後監査で照合されている
+- 所見がLOCAL / STRUCTURAL / UNKNOWNに分類され、一般化の根拠と反例が記録されている

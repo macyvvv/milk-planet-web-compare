@@ -9,6 +9,7 @@
 | 新しい視覚方向、大幅な再構成、実装前の意図固定 | `design-intent` | Viewer、目的、情報階層、正本、Evidence Ledger、非採用、トレードオフ | 実装後監査、release状態 |
 | HTML/CSS実装後、既存ページ欠陥、原典との視覚・情報比較 | `visual-fidelity` | 原典差分、店舗固有性、表示品質、アクセシビリティ、画像品質、ブラウザ監査 | 作業順序、PR/merge状態 |
 | Planet系の複数工程、作業パケット、承認境界、独立監査、公開確認 | `planet-web-workflow` | OODA / PDCAの順序、Scope、state、validator、retrospective、release記録 | 個別の色・フォント・クロップ判断 |
+| Skill改善、複数ページ監査、既存変更ページの再監査 | `planet-web-workflow` → `design-intent` / `visual-fidelity` | 判断原理、対象網羅、転用境界、回帰確認、学習昇格 | 単一ページの好みの一般化 |
 
 ## Invocation order
 
@@ -23,6 +24,8 @@ Observe / Orient
 ```
 
 既知の局所バグで視覚方針が変わらない場合は`visual-fidelity`へ直接進める。ただし、正本、画像の役割、情報階層、アクセシビリティ、release状態へ影響する場合は`planet-web-workflow`へ戻す。
+
+「AIらしさを隠す」依頼は、装飾を追加する依頼として扱わず、利用状況・根拠・非採用・トレードオフ・店舗固有性の判断原理を固定する依頼として扱う。哲学的な妥当性は自動validatorで代替しない。
 
 ## Shared boundaries
 

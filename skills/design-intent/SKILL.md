@@ -40,6 +40,19 @@ description: Define and lock situated purpose, source evidence, information hier
 
 `INFERENCE`だけで装飾を追加してはならない。根拠が足りない場合は`UNKNOWN`として保留し、確認なしで実装しない。
 
+## Philosophy learning gate
+
+このSkillで固定するのは「AIらしく見えない見た目」ではなく、状況に根ざした判断原理である。Skill改善または複数ページへ展開する案件では、[philosophy-learning-gate.md](../planet-web-workflow/references/philosophy-learning-gate.md)を読み、次をIntent Memoへ追加する。
+
+- `Principle under test`: 今回検証する設計原理
+- `Priority`: 最優先する価値と引き受ける犠牲
+- `Preserved asymmetry`: 原版から意図的に残す不均衡・密度・固有表現
+- `No-change option`: 現状維持を含む比較案と非採用理由
+- `Transfer boundary`: 共通化できる原理と店舗固有判断の境界
+- `Unknown`: 推測で埋めずに保留する前提
+
+実装後は、判断原理が保持されたかを確認し、単一ページ固有の判断（`LOCAL`）と複数ページへ転用できる構造的学び（`STRUCTURAL`）を分ける。検査に通ったことだけを哲学的な正しさの根拠にしない。
+
 ## Asset and typography gate
 
 元画像と文章を実装へ移すときは、見た目の素材と意味の構造を分けずに判断する。
@@ -120,3 +133,5 @@ Intent MemoとEvidence Ledgerを確定した後、`visual-fidelity`へ渡す。`
 - 根拠のない装飾や、捏造した人間の動機を実装していない
 - 同じUI構文の反復と、原版固有性の平坦化が評価されている
 - `visual-fidelity`へ渡す差分・残存リスクが定義されている
+- Principle under test、No-change option、Transfer boundaryが記録されている
+- 実装後にLOCAL / STRUCTURAL / UNKNOWNの学習分類へ接続できる

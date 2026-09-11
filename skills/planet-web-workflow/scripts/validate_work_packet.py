@@ -90,6 +90,13 @@ STATE_REQUIRED_PASS_GATES = {
 
 RELEASE_SECTIONS = ("Commit", "Push", "Pull request", "Merge", "Published URL")
 
+PHILOSOPHY_PACKET_REQUIREMENTS = {
+    "intent.md": ("## Principle under test", "## No-change option", "## Transfer boundary"),
+    "decision.md": ("## Philosophy gate", "## Coverage"),
+    "audit.md": ("## Philosophy continuity", "## Cross-page regression"),
+    "retrospective.md": ("## Principle update",),
+}
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("packet", type=Path)
@@ -112,6 +119,16 @@ def main() -> int:
                 errors.append(f"missing heading in {filename}: {heading}")
 
     decision = contents.get("decision.md", "")
+    change_class_match = re.search(r"^Change class: (\S+)$", decision, flags=re.MULTILINE)
+    change_class = change_class_match.group(1) if change_class_match else None
+    if change_class == "PHILOSOPHY_LEARNING":
+        for filename, headings in PHILOSOPHY_PACKET_REQUIREMENTS.items():
+            content = contents.get(filename, "")
+            for heading in headings:
+                if heading not in content:
+                    errors.append(f"philosophy packet missing heading in {filename}: {heading}")
+        if "LOCAL" not in contents.get("audit.md", "") and "UNKNOWN" not in contents.get("audit.md", ""):
+            errors.append("philosophy packet audit.md must classify findings as LOCAL, STRUCTURAL, or UNKNOWN")
     state_match = re.search(r"^State: (\S+)", decision, flags=re.MULTILINE)
     if not state_match:
         errors.append("decision.md must contain State:")

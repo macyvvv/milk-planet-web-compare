@@ -100,3 +100,14 @@ External dependency / rights review: PASS / NOT APPLICABLE / UNKNOWN
 ```
 
 `UNKNOWN`を実在のOwnerや承認の代わりに使ってはならない。公開を伴う新規変更でOwner、次回確認、rollback対象が`UNKNOWN`の場合は、公開前に停止して再計画する。既存packetは導入前のlegacy証跡として保持し、過去の外部状態を改変しない。
+
+## Additional fields for philosophy-learning packets
+
+Skill改善、複数ページ監査、既存変更ページの再監査を含む新規packetでは、`decision.md`に`Change class: PHILOSOPHY_LEARNING`を置き、次の見出しを追加する。
+
+- `intent.md`: `## Principle under test`、`## No-change option`、`## Transfer boundary`
+- `decision.md`: `## Philosophy gate`、`## Coverage`
+- `audit.md`: `## Philosophy continuity`、`## Cross-page regression`
+- `retrospective.md`: `## Principle update`
+
+これらは既存のlegacy packetへ遡及追加しない。新規packetでは、対象ページ、比較基準、既存変更ページ、共有consumerをCoverageへ列挙し、所見を`LOCAL`、`STRUCTURAL`、`UNKNOWN`へ分類する。
