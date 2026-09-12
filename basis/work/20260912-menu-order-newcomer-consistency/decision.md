@@ -18,7 +18,7 @@
 
 ## State
 
-State: AUDITED
+State: RELEASED
 
 ## Gate status
 
@@ -27,7 +27,7 @@ State: AUDITED
 - Structure: PASS — 標準順序、例外境界、枠責務を決定済み。
 - Intent: PASS — `intent.md`にViewing situation、階層、非採用、転用境界を記録済み。
 - Independent audit: PASS — 全11店舗を390 / 768 / 1440pxで確認済み。実装者監査であり第三者レビューではない。
-- Release: NOT RUN — 実装・検証後にcommit/push/PR/merge/publishを確認する。
+- Release: PASS — commit、push、PR #60、merge、Pagesデプロイ、公開URLを確認済み。
 
 ## Philosophy gate
 
