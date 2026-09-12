@@ -2,36 +2,36 @@
 
 ## Commit
 
-Status: NOT RUN
-Commit: UNKNOWN
+Status: COMMITTED
+Commit: 1d120bc
 Checked at: 2026-09-12 Asia/Tokyo
 Verifier: Codex
 
 ## Push
 
-Status: NOT RUN
-Remote branch: UNKNOWN
+Status: PUSHED
+Remote branch: origin/agent/branch5-shandy-menu-html
 Checked at: 2026-09-12 Asia/Tokyo
 Verifier: Codex
 
 ## Pull request
 
-Status: NOT RUN
-URL: UNKNOWN
+Status: OPEN → MERGED
+URL: https://github.com/macyvvv/milk-planet-web-compare/pull/62
 Checked at: 2026-09-12 Asia/Tokyo
 Verifier: Codex
 
 ## Merge
 
-Status: NOT RUN
-Commit: UNKNOWN
+Status: MERGED
+Commit: 42572bbe43437ba51579e30617fafe8d1126e869
 Checked at: 2026-09-12 Asia/Tokyo
 Verifier: Codex
 
 ## Published URL
 
-Status: NOT RUN
-URL: UNKNOWN
+Status: VERIFIED
+URL: https://macyvvv.github.io/milk-planet-web-compare/proposal/branch5/recruit/index.html
 Checked at: 2026-09-12 Asia/Tokyo
 Verifier: Codex
 
