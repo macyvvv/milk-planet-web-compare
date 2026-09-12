@@ -4,7 +4,7 @@ Change class: LOCAL UI REFINEMENT + STRUCTURAL BUG FIX
 
 ## State
 
-State: IMPLEMENTED
+State: RELEASED
 
 ## Scope
 
@@ -27,7 +27,7 @@ State: IMPLEMENTED
 - Structure: PASS
 - Intent: PASS
 - Independent audit: PASS
-- Release: NOT RUN
+- Release: PASS
 
 ## Approved outcome
 
