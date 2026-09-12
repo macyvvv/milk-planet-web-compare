@@ -1,7 +1,7 @@
 # Release verification
 
 ## Commit
-Status: LOCAL IMPLEMENTATION COMMIT PENDING — existing-work, branch-retirement, and scope checkpoints are `9369159`, `d2ca5e4`, and `a6a8d50`; the implementation commit will be recorded after final validation.
+Status: COMMITTED LOCALLY — implementation commit `8631e50`; existing-work, branch-retirement, and scope checkpoints are `9369159`, `d2ca5e4`, and `a6a8d50`.
 
 ## Push
 Status: NOT REQUESTED — external repository write is outside this scope.

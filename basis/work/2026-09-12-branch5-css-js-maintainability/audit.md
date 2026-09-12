@@ -1,4 +1,4 @@
-# Post-build audit
+# Independent audit
 
 This is a non-independent same-agent post-build review. It is recorded as a required visual-fidelity gate and is not presented as an independent human approval.
 

@@ -24,7 +24,7 @@ Execution is staged:
 
 ## State
 
-State: IMPLEMENTED
+State: AUDITED
 
 ## Gate status
 
@@ -32,8 +32,8 @@ State: IMPLEMENTED
 - Content and task: PASS — the requested CSS/JS maintainability review is bounded; content, URLs, and store-specific expression are preserved.
 - Structure: PASS — staged execution, rollback checkpoints, selector/load-order mapping, and explicit high-risk exclusions are defined.
 - Intent: PASS — the visual direction remains the Branch5 source and `DESIGN.md`; no generic normalization is introduced.
-- Independent audit: NON-INDEPENDENT SAME-AGENT REVIEW COMPLETE — visual-fidelity and required sequential perspective checks are recorded in audit.md; an independent human review is still not claimed.
-- Release: LOCAL COMMIT PENDING — no push, PR, merge, or publication is in scope.
+- Independent audit: PASS (NON-INDEPENDENT SAME-AGENT REVIEW) — required visual-fidelity and sequential perspective checks are recorded in audit.md; independent human approval is not claimed.
+- Release: PASS — local implementation commit is complete; push, PR, merge, and publication are not requested and remain outside this scope.
 
 ## Definition of done
 
