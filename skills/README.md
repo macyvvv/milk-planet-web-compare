@@ -2,6 +2,8 @@
 
 このディレクトリは、repo固有の状態を保存する`basis/`とは分離された再利用可能な作業知識である。常時適用するrepo契約は`AGENTS.md`、repo固有の正本・判断・証跡は`basis/`を参照する。
 
+Agentの役割契約は`agents/README.md`が正本である。Agentは誰が何を判断し、どの重大度で停止・引き継ぎするかを定義し、Skillはその判断を再現する方法・検査・作業順序を定義する。SkillsへAgentの権限や案件固有の事実を複製しない。
+
 ## Routing
 
 | Request / phase | Skill | Owns | Does not own |

@@ -32,7 +32,8 @@
 - `basis/`: このrepo固有の目的、要件、状態、判断、運用、作業計画。
 - `basis/planet_page_evidence_matrix.md`: Shandy／新宿の原典アセット、意味情報、実装処理、AI一般化を追跡する学習用正本。
 - `DESIGN.md`: 現行repoの視覚的正本とデザイン判断。Chassis引継ぎ資料にある`design/`は、このrepoでは未導入の将来構成であり、勝手に併設しない。
-- `agents/`、`skills/`: レビューや作業の再利用可能な手順。
+- `agents/README.md`: ドメイン非依存のAgent契約。役割、権限、重大度、独立性、引き継ぎ、学習境界を定義する。
+- `agents/*.md`、`skills/`: それぞれ専門Agentの判断プロファイルと、作業の再利用可能な手順。Agent契約を上書きしない。
 - `currently/`: 現行サイトの比較用正本。
 - `proposal/`: 改修案。各branchの役割は`basis/WBS.md`に従う。
 

@@ -17,6 +17,7 @@
 
 | ID | 工程 | Primary owner | Canonical source | Required evidence | Automated check | Owner | Status | 未対応・境界 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| L-00 | Agent contract / authority / handoff | `agents/README.md` | `agents/README.md`、`AGENTS.md` | Role、Scope、Authority、severity、independence、handoff、DoD | repo contract・参照リンク検査 | chassis maintainer | COVERED | 契約は定義済みだが、実行時の権限・独立性の実証は人手確認 |
 | L-01 | Intake / request routing | `planet-web-workflow` | `skills/README.md` | change-id、対象、依頼種別 | Skill存在・リンク検査 | maintainer | PARTIAL | 単純修正・大幅改修・Chassis変更の判定を機械化していない |
 | L-02 | Observe / scope lock | `planet-web-workflow` | `basis/README.md`、対象work packet | branch、dirty tree、比較元、対象外 | repo contract、git差分 | maintainer | COVERED | branch1、branch5/menu、branch5/menu-htmlの境界をpath単位で固定 |
 | L-03 | Source lock / content inventory | `design-intent` | `DESIGN.md`、原典、Evidence Matrix | source-map、画像・文言・告知・価格の棚卸し | packet構造のみ | content owner unknown | PARTIAL | 最新正本、更新担当、更新期限を自動確認できない |
@@ -32,6 +33,7 @@
 
 | ID | 品質領域 | Primary owner | Canonical source | Required evidence | Automated check | Owner | Status | 未対応・境界 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Q-15 | Agent independence / escalation / severity | `agents/README.md` | `agents/README.md`、対象work packet | 独立性、重大度、停止・再計画、引き継ぎ | contract・packet構造検査 | chassis maintainer + reviewer | COVERED | 実際の役割分離と判断の妥当性は人手確認 |
 | Q-01 | 正本・店舗固有性・設計意図 | `design-intent` + `visual-fidelity` | `DESIGN.md`、Evidence Matrix | source lock、Evidence Ledger、Swap / Flattening test | packet構造のみ | design reviewer | PARTIAL | 実質判断は人手であり、視覚品質の自動判定はしない |
 | Q-02 | コンテンツ完全性・更新情報 | `visual-fidelity` | source-map、traceability | HTML化／画像保持／別導線／除外の対応表 | 形式検査のみ | content owner unknown | PARTIAL | 最新価格・特典・更新期限の責任系統がない |
 | Q-03 | 情報設計・タスク達成 | `design-intent` | intent.md、system_spec.md | hierarchy、主要タスク、到達距離 | 未定義 | product owner unknown | PARTIAL | 予約・来店・応募のタスク成功を測定していない |

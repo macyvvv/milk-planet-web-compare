@@ -334,3 +334,22 @@
 - 理由: 検査項目の増加を哲学の学習と誤認せず、ページ固有の好みと再利用可能な判断原理を分離するため。validatorは証跡の欠落を止めるが、哲学的・視覚的な正しさを自動判定しない。
 - 影響: Skills、work-packet schema、packet validator、MECE管理表、今回の再監査証跡のみ。ページ、画像、`currently/`、既存legacy packet、公開状態は変更しない。
 - 残存リスク: 原典の意味一致、店舗固有性、事業成果、アクセシビリティの実質判断は人手監査が必要。哲学の妥当性を単一の監査結果で確定せず、別ページの反証を継続する。
+
+## 2026-09-11 Agent契約とWeb/Planetプロファイルの分離
+
+- 論点: Agent層を強化する際、Shandy、HTMLメニュー、ヒーロー画像など今回の案件知見を直接Agentの基本仕様へ埋め込むと、別ドメインで使えず、案件固有の成功例を一般原則と誤認する。
+- ユーザー要求: SkillsだけでなくAgentsも改善する。ただし、特定案件に偏った専門基盤にはしない。
+- 採用案: `agents/README.md`をドメイン非依存のGeneric contractとして追加し、Role、Scope、Authority、Evidence、重大度、独立性、停止条件、操作種別、handoff、学習昇格条件を定義する。既存の`00_WEB_CREATIVE_DIRECTOR`と`22_VISUAL_FIDELITY_REVIEWER`はWeb/Planet domain profileとして契約を継承し、専門判断だけを持つ。`basis/README.md`、`skills/README.md`、MECE matrixを責務分離に合わせて同期する。
+- 理由: Agentは「誰が何を判断し、どの状態で止め、誰へ渡すか」を安定させ、Skillは「その判断をどう再現するか」を担うべきである。案件固有の視覚知見は、複数根拠・反例・適用境界を経て`STRUCTURAL`と判定されるまで、work packetやEvidenceへ閉じ込める。
+- 影響: Agent文書、Skill routing、basisのregistry・MECE・判断記録のみ。ページ、画像、`currently/`、既存work packet、公開URLは変更しない。
+- 残存リスク: Generic contractの遵守は現時点で文書・構造検査が中心で、Agentの実際の判断品質、権限分離、独立性を自動証明しない。新しいドメインを追加する際は、個別プロファイルの専門性がGeneric contractへ逆流していないか再監査する。
+
+## 2026-09-12 店舗トップCTAの横断正規化
+
+- 論点: 新宿店で確認したCTAの縦積み、小さい操作領域、無効なpadding、空ラッパーが他店舗にも複製されており、全店へ同じ2ボタン配置を適用するとCTAのない店舗へ導線を捏造する。
+- 観測事実: Branch5店舗トップ11ページすべてにメニュー導線があり、メイド一覧導線が有効なのはchocolat、Royal Sugar、ShandyLove、新宿の4店舗。残り7店舗はメニューのみで、うち一部は空の`#link_cast`ラッパーを持つ。各店舗の旧`.button a`には`padding: 10 80`があり、ブラウザのcomputed styleではpaddingが0pxとなる。
+- ユーザー要求: 全店舗に対して必要な措置を順に講じて実装まで行う。
+- 採用案: 全11店舗のCTAを`.shop-actions`へ正規化し、1リンクは中央、2リンクは横並びとする。共通`proposal.css`は`.shop-actions`へ限定し、店舗色は`var(--color-primary)`を継承する。コメントアウトされたキャスト導線は再有効化しない。
+- 理由: 複数ページで共通する欠陥は共通構造へ集約しつつ、CTAの存在・リンク先・色・ロゴ・背景を店舗固有の判断として保持するため。空白と22px程度の操作領域を同時に解消し、来店判断後のキャスト／メニュー到達を明確にする。
+- 影響: `proposal/branch5/proposal.css`、店舗トップ11 HTML、店舗トップ11 CSS、作業packetを変更。menuページ、画像版原典、currently、外部URLは変更しない。
+- 残存リスク: 実装後の独立ブラウザ監査、W3C相当検証、コメントアウト導線の将来運用Owner、外部ウィジェットのload完了は別途確認が必要。
