@@ -1,0 +1,99 @@
+{"kind":"deck","id":"pr/cdt209","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"DEFAULT"}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"Slide 1","textShapes":0}
+{"kind":"notes","id":"nt/y90nupkv","slide":1,"text":""}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"Slide 2","textShapes":0}
+{"kind":"notes","id":"nt/hwbqtkby","slide":2,"text":""}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"Slide 3","textShapes":0}
+{"kind":"notes","id":"nt/ofy9wn61","slide":3,"text":""}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"Slide 4","textShapes":0}
+{"kind":"notes","id":"nt/jyx0ra1s","slide":4,"text":""}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"Slide 5","textShapes":0}
+{"kind":"notes","id":"nt/i107q5of","slide":5,"text":""}
+{"kind":"slide","id":"sl/9olsol","slide":6,"title":"milk planet公式サイト アップデート提案","textShapes":7}
+{"kind":"shape","id":"sh/onyl8fq1","slide":6,"name":"slide-background","bbox":[0,0,1280,720]}
+{"kind":"textbox","id":"sh/nmpkzapg","slide":6,"name":"deck-label","text":"milk planet公式サイト アップデート提案","textPreview":"milk planet公式サイト アップデート提案","textChars":25,"textLines":1,"bbox":[30,23,470,24]}
+{"kind":"textbox","id":"sh/mlg3658b","slide":6,"name":"slide-title","text":"実画面比較：メニューは「探す」から「選ぶ」へ","textPreview":"実画面比較：メニューは「探す」から「選ぶ」へ","textChars":22,"textLines":1,"bbox":[78,73,1080,58]}
+{"kind":"textbox","id":"sh/1k72xkrq","slide":6,"name":"confidential","text":"Confidential","textPreview":"Confidential","textChars":12,"textLines":1,"bbox":[30,677,160,20]}
+{"kind":"textbox","id":"sh/0jyl4fq5","slide":6,"name":"supplement-number","text":"補足 1/4","textPreview":"補足 1/4","textChars":6,"textLines":1,"bbox":[1130,675,120,22]}
+{"kind":"shape","id":"sh/zi5kva9k","slide":6,"name":"current-label-box","bbox":[78,143,510,34]}
+{"kind":"textbox","id":"sh/ehw3258z","slide":6,"name":"current-label","text":"現行サイト","textPreview":"現行サイト","textChars":5,"textLines":1,"bbox":[78,143,510,34]}
+{"kind":"shape","id":"sh/lgrm947u","slide":6,"name":"proposal-label-box","bbox":[692,143,510,34]}
+{"kind":"textbox","id":"sh/kfilgzq9","slide":6,"name":"proposal-label","text":"branch5 改修案","textPreview":"branch5 改修案","textChars":11,"textLines":1,"bbox":[692,143,510,34]}
+{"kind":"shape","id":"sh/s3e9wze1","slide":6,"name":"compare-summary-band","bbox":[78,535,1124,98]}
+{"kind":"textbox","id":"sh/d4nqp4vm","slide":6,"name":"compare-summary","text":"固定された「めにゅう」から、店舗・キャスト・予定・料金・通販へ同じ操作で移動。\n画面をスクロールしても、目的別の入口を見失わない。","textPreview":"固定された「めにゅう」から、店舗・キャスト・予定・料金・通販へ同じ操作で移動。 | 画面をスクロールしても、目的別の入口を見失わない。","textChars":65,"textLines":2,"bbox":[108,555,1064,60]}
+{"kind":"image","id":"im/9oz2d0n6","slide":6,"name":"","geometry":"roundRect","alt":"現行サイトのトップページ。画面上部に文字ナビゲーションが並ぶ","bbox":[78,191,510,319]}
+{"kind":"image","id":"im/on614v6l","slide":6,"name":"","geometry":"roundRect","alt":"branch5のトップページで固定メニューを開いた状態","bbox":[692,191,510,319]}
+{"kind":"notes","id":"nt/9olsol","slide":6,"text":"[Sources]\n- https://milk-planet.com/（2026-08-07取得）\n- https://macyvvv.github.io/milk-planet-web-compare/proposal/branch5/index.html（2026-08-07取得）"}
+{"kind":"slide","id":"sl/x8f69ofe","slide":7,"title":"Slide 7","textShapes":0}
+{"kind":"notes","id":"nt/x8f69ofe","slide":7,"text":""}
+{"kind":"slide","id":"sl/d2d5l1","slide":8,"title":"milk planet公式サイト アップデート提案","textShapes":13}
+{"kind":"shape","id":"sh/sbydgf6d","slide":8,"name":"slide-background","bbox":[0,0,1280,720]}
+{"kind":"textbox","id":"sh/rapwnaps","slide":8,"name":"deck-label","text":"milk planet公式サイト アップデート提案","textPreview":"milk planet公式サイト アップデート提案","textChars":25,"textLines":1,"bbox":[30,23,470,24]}
+{"kind":"textbox","id":"sh/q9gve5o7","slide":8,"name":"slide-title","text":"実画面：「おきゅうじ よてい」を公式サイトへ集約","textPreview":"実画面：「おきゅうじ よてい」を公式サイトへ集約","textChars":24,"textLines":1,"bbox":[78,73,1080,58]}
+{"kind":"textbox","id":"sh/1gret47u","slide":8,"name":"confidential","text":"Confidential","textPreview":"Confidential","textChars":12,"textLines":1,"bbox":[30,677,160,20]}
+{"kind":"textbox","id":"sh/0fydkz6p","slide":8,"name":"supplement-number","text":"補足 2/4","textPreview":"補足 2/4","textChars":6,"textLines":1,"bbox":[1130,675,120,22]}
+{"kind":"shape","id":"sh/fepwrup4","slide":8,"name":"schedule-frame","bbox":[78,144,730,484]}
+{"kind":"shape","id":"sh/hknuh07q","slide":8,"name":"schedule-point-1-number-circle","bbox":[858,170,34,34]}
+{"kind":"textbox","id":"sh/gjed8v65","slide":8,"name":"schedule-point-1-number","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[858,173,34,25]}
+{"kind":"textbox","id":"sh/eh0vi1wn","slide":8,"name":"schedule-point-1-heading","text":"一覧で比較","textPreview":"一覧で比較","textChars":5,"textLines":1,"bbox":[908,168,290,32]}
+{"kind":"textbox","id":"sh/zi9cb6x8","slide":8,"name":"schedule-point-1-body","text":"複数店舗の予定を、同じページ内で確認できる。","textPreview":"複数店舗の予定を、同じページ内で確認できる。","textChars":22,"textLines":1,"bbox":[908,204,292,66]}
+{"kind":"shape","id":"sh/03idkret","slide":8,"name":"schedule-point-2-number-circle","bbox":[858,300,34,34]}
+{"kind":"textbox","id":"sh/14rudwfe","slide":8,"name":"schedule-point-2-number","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[858,303,34,25]}
+{"kind":"textbox","id":"sh/m50vm1wz","slide":8,"name":"schedule-point-2-heading","text":"店舗投稿へ直結","textPreview":"店舗投稿へ直結","textChars":7,"textLines":1,"bbox":[908,298,290,32]}
+{"kind":"textbox","id":"sh/n69cf6x4","slide":8,"name":"schedule-point-2-body","text":"各店舗の最新投稿へ移動し、詳細を確認できる。","textPreview":"各店舗の最新投稿へ移動し、詳細を確認できる。","textChars":22,"textLines":1,"bbox":[908,334,292,66]}
+{"kind":"shape","id":"sh/o72dobep","slide":8,"name":"schedule-point-3-number-circle","bbox":[858,430,34,34]}
+{"kind":"textbox","id":"sh/98buhgfa","slide":8,"name":"schedule-point-3-number","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[858,433,34,25]}
+{"kind":"textbox","id":"sh/a9kvqlwv","slide":8,"name":"schedule-point-3-heading","text":"来店判断を短縮","textPreview":"来店判断を短縮","textChars":7,"textLines":1,"bbox":[908,428,290,32]}
+{"kind":"textbox","id":"sh/batwjqxg","slide":8,"name":"schedule-point-3-body","text":"SNSを個別に探す手間を減らし、来店までの判断を速める。","textPreview":"SNSを個別に探す手間を減らし、来店までの判断を速める。","textChars":28,"textLines":1,"bbox":[908,464,292,66]}
+{"kind":"image","id":"im/retcvap0","slide":8,"name":"","geometry":"roundRect","alt":"branch5のおきゅうじ予定ページ。店舗別の予定表が並ぶ","bbox":[88,154,710,464]}
+{"kind":"notes","id":"nt/d2d5l1","slide":8,"text":"[Sources]\n- https://macyvvv.github.io/milk-planet-web-compare/proposal/branch5/okyuji/index.html（2026-08-07取得）"}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":9,"title":"Slide 9","textShapes":0}
+{"kind":"notes","id":"nt/gnmp4jqx","slide":9,"text":""}
+{"kind":"slide","id":"sl/nik36s","slide":10,"title":"milk planet公式サイト アップデート提案","textShapes":13}
+{"kind":"shape","id":"sh/6lkfu5oj","slide":10,"name":"slide-background","bbox":[0,0,1280,720]}
+{"kind":"textbox","id":"sh/t8bep0na","slide":10,"name":"deck-label","text":"milk planet公式サイト アップデート提案","textPreview":"milk planet公式サイト アップデート提案","textChars":25,"textLines":1,"bbox":[30,23,470,24]}
+{"kind":"textbox","id":"sh/s72xwv6p","slide":10,"name":"slide-title","text":"実画面：BASE通販をブランド別に迷わず選べる","textPreview":"実画面：BASE通販をブランド別に迷わず選べる","textChars":23,"textLines":1,"bbox":[78,73,1080,58]}
+{"kind":"textbox","id":"sh/fatwra5g","slide":10,"name":"confidential","text":"Confidential","textPreview":"Confidential","textChars":12,"textLines":1,"bbox":[30,677,160,20]}
+{"kind":"textbox","id":"sh/u9kfy5ov","slide":10,"name":"supplement-number","text":"補足 3/4","textPreview":"補足 3/4","textChars":6,"textLines":1,"bbox":[1130,675,120,22]}
+{"kind":"shape","id":"sh/hcvetkn6","slide":10,"name":"base-frame","bbox":[78,144,730,484]}
+{"kind":"shape","id":"sh/3edwva5c","slide":10,"name":"base-point-1-number-circle","bbox":[858,170,34,34]}
+{"kind":"textbox","id":"sh/2d4f2por","slide":10,"name":"base-point-1-number","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[858,173,34,25]}
+{"kind":"textbox","id":"sh/4vm9kfih","slide":10,"name":"base-point-1-heading","text":"共通入口","textPreview":"共通入口","textChars":4,"textLines":1,"bbox":[908,168,290,32]}
+{"kind":"textbox","id":"sh/5wvqdkj2","slide":10,"name":"base-point-1-body","text":"どのページからでも「えんかく つうはん」を開ける。","textPreview":"どのページからでも「えんかく つうはん」を開ける。","textChars":25,"textLines":1,"bbox":[908,204,292,66]}
+{"kind":"shape","id":"sh/itkri50r","slide":10,"name":"base-point-2-number-circle","bbox":[858,300,34,34]}
+{"kind":"textbox","id":"sh/3ud8ba1w","slide":10,"name":"base-point-2-number","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[858,303,34,25]}
+{"kind":"textbox","id":"sh/sjm9ofit","slide":10,"name":"base-point-2-heading","text":"ブランド別選択","textPreview":"ブランド別選択","textChars":7,"textLines":1,"bbox":[908,298,290,32]}
+{"kind":"textbox","id":"sh/dkvahkje","slide":10,"name":"base-point-2-body","text":"利用者が目的の店舗名を見て、そのままBASEへ進める。","textPreview":"利用者が目的の店舗名を見て、そのままBASEへ進める。","textChars":27,"textLines":1,"bbox":[908,334,292,66]}
+{"kind":"shape","id":"sh/qx4rmp0n","slide":10,"name":"base-point-3-number-circle","bbox":[858,430,34,34]}
+{"kind":"textbox","id":"sh/ridsfa18","slide":10,"name":"base-point-3-number","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[858,433,34,25]}
+{"kind":"textbox","id":"sh/0n69szip","slide":10,"name":"base-point-3-heading","text":"販売機会を拡張","textPreview":"販売機会を拡張","textChars":7,"textLines":1,"bbox":[908,428,290,32]}
+{"kind":"textbox","id":"sh/1ofal4za","slide":10,"name":"base-point-3-body","text":"通販を知らない来訪者にも、自然な導線で存在を伝える。","textPreview":"通販を知らない来訪者にも、自然な導線で存在を伝える。","textChars":26,"textLines":1,"bbox":[908,464,292,66]}
+{"kind":"image","id":"im/dkj25gre","slide":10,"name":"","geometry":"roundRect","alt":"branch5の固定メニューで遠隔通販のブランド一覧を開いた状態","bbox":[88,154,710,464]}
+{"kind":"notes","id":"nt/nik36s","slide":10,"text":"[Sources]\n- https://macyvvv.github.io/milk-planet-web-compare/proposal/branch5/index.html（2026-08-07取得）"}
+{"kind":"slide","id":"sl/fu1gfa1s","slide":11,"title":"Slide 11","textShapes":0}
+{"kind":"notes","id":"nt/fu1gfa1s","slide":11,"text":""}
+{"kind":"slide","id":"sl/huknwc","slide":12,"title":"milk planet公式サイト アップデート提案","textShapes":7}
+{"kind":"shape","id":"sh/y50b6h4n","slide":12,"name":"slide-background","bbox":[0,0,1280,720]}
+{"kind":"textbox","id":"sh/l8ba1wne","slide":12,"name":"deck-label","text":"milk planet公式サイト アップデート提案","textPreview":"milk planet公式サイト アップデート提案","textChars":25,"textLines":1,"bbox":[30,23,470,24]}
+{"kind":"textbox","id":"sh/072t8rmt","slide":12,"name":"slide-title","text":"実画面：固定メニューで情報階層を一か所に整理","textPreview":"実画面：固定メニューで情報階層を一か所に整理","textChars":22,"textLines":1,"bbox":[78,73,1080,58]}
+{"kind":"textbox","id":"sh/nats3m54","slide":12,"name":"confidential","text":"Confidential","textPreview":"Confidential","textChars":12,"textLines":1,"bbox":[30,677,160,20]}
+{"kind":"textbox","id":"sh/m9kba14z","slide":12,"name":"supplement-number","text":"補足 4/4","textPreview":"補足 4/4","textChars":6,"textLines":1,"bbox":[1130,675,120,22]}
+{"kind":"shape","id":"sh/9cbu5w3a","slide":12,"name":"closed-label-box","bbox":[78,143,510,34]}
+{"kind":"textbox","id":"sh/8b2tcrmp","slide":12,"name":"closed-label","text":"通常表示：写真を主役に","textPreview":"通常表示：写真を主役に","textChars":11,"textLines":1,"bbox":[78,143,510,34]}
+{"kind":"shape","id":"sh/3epsr250","slide":12,"name":"open-label-box","bbox":[692,143,510,34]}
+{"kind":"textbox","id":"sh/2dgbyx4f","slide":12,"name":"open-label","text":"操作時：必要な項目だけ展開","textPreview":"操作時：必要な項目だけ展開","textChars":13,"textLines":1,"bbox":[692,143,510,34]}
+{"kind":"shape","id":"sh/qxwbih03","slide":12,"name":"ui-summary-band","bbox":[78,535,1124,98]}
+{"kind":"textbox","id":"sh/by5sbm1o","slide":12,"name":"ui-summary","text":"通常時はブランド写真を妨げず、必要なときだけ情報階層を表示。\n「今見ているページ」と「次に進める場所」を同じメニュー内で理解できる。","textPreview":"通常時はブランド写真を妨げず、必要なときだけ情報階層を表示。 | 「今見ているページ」と「次に進める場所」を同じメニュー内で理解できる。","textChars":66,"textLines":2,"bbox":[108,555,1064,60]}
+{"kind":"image","id":"im/r65s7q1o","slide":12,"name":"","geometry":"roundRect","alt":"branch5トップページの通常表示。右上に固定メニューがある","bbox":[78,191,510,319]}
+{"kind":"image","id":"im/65wryl03","slide":12,"name":"","geometry":"roundRect","alt":"branch5トップページで固定メニューを開いた状態","bbox":[692,191,510,319]}
+{"kind":"notes","id":"nt/huknwc","slide":12,"text":"[Sources]\n- https://macyvvv.github.io/milk-planet-web-compare/proposal/branch5/index.html（2026-08-07取得）"}
+{"kind":"slide","id":"sl/udsvah03","slide":13,"title":"Slide 13","textShapes":0}
+{"kind":"notes","id":"nt/udsvah03","slide":13,"text":""}
+{"kind":"slide","id":"sl/m90b6t0r","slide":14,"title":"Slide 14","textShapes":0}
+{"kind":"notes","id":"nt/m90b6t0r","slide":14,"text":""}
+{"kind":"slide","id":"sl/jetc3ut0","slide":15,"title":"Slide 15","textShapes":0}
+{"kind":"notes","id":"nt/jetc3ut0","slide":15,"text":""}
+{"kind":"slide","id":"sl/8f2psfyx","slide":16,"title":"Slide 16","textShapes":0}
+{"kind":"notes","id":"nt/8f2psfyx","slide":16,"text":""}

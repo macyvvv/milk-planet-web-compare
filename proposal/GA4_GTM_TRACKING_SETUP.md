@@ -10,10 +10,7 @@
 
 実装ファイル:
 
-- `proposal/branch1/proposal.js`
-- `proposal/branch2/proposal.js`
-- `proposal/branch3/proposal.js`
-- `proposal/branch4/proposal.js`
+- `proposal/branch5/proposal.js`
 
 ## 送信されるイベントパラメータ
 

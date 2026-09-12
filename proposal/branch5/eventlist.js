@@ -1,5 +1,6 @@
 function initializeEventList() {
-  var i=j=0;
+  var i = 0;
+  var j = 0;
   var eventimage='';
   var eventname='';
   var eventNum=0;
@@ -135,31 +136,6 @@ if (document.readyState === 'loading') {
 } else {
   initializeEventList();
 }
-
-
-// function showslide(){
-//  for(i=0;i<event.length;i++){
-//       for(j=0;j<event[i].length;j++){
-//           document.write(
-//             '<li><a href="event/'+event[i][j]+
-//             '.jpg" class="gallery" data-group="gallery"><img src="event/'
-//             +event[i][j]+'.jpg"></a></li>'
-//           );
-//       }
-//  }
-// }
-
-// showslide();
-
- // for(i=0;i<event.length;i++){
- //      for(j=0;j<event[i].length;j++){
- //          document.write(
- //            i,j+'<br>'
- //          );
- //      }
- //      document.write('<br>');    
- // }
-
 
 
 

@@ -36,7 +36,6 @@ REQUIRED_FILES = (
 
 REQUIRED_DIRECTORIES = (
     "currently",
-    "proposal/branch1",
     "proposal/branch5",
     "basis",
     "agents",
@@ -52,7 +51,6 @@ REQUIRED_DIRECTORIES = (
 TEXT_ASSERTIONS = {
     "AGENTS.md": (
         "currently/",
-        "proposal/branch1/",
         "proposal/branch5/",
         "skills/design-intent",
         "tools/validate_repo_contract.py",
@@ -61,7 +59,7 @@ TEXT_ASSERTIONS = {
         "文書の責務と正本",
         "作業境界",
         "currently/",
-        "proposal/branch1/",
+        "proposal/branch5/",
         "文書registry",
         "requirements_traceability.md",
     ),

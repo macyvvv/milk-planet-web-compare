@@ -50,7 +50,7 @@
 | 区分 | パス | 役割 | 変更方針 |
 | --- | --- | --- | --- |
 | 現状正本 | `currently/` | 現行サイトの参照実装 | 改修作業では変更しない |
-| 主改修案 | `proposal/branch1/` | 現在のUI改修対象 | `basis/WBS.md`の範囲で変更 |
+| 主改修案 | `proposal/branch5/` | 現在のUI改修・保守性検証対象 | 承認済みwork packetの範囲で変更 |
 | 視覚比較正本 | `proposal/branch5/shop/<store>/menu/` | 原典画像メニューと店舗表現の比較元 | 変更しない |
 | HTML化比較実装 | `proposal/branch5/shop/<store>/menu-html/` | 原典の意味情報をHTML化した比較実装 | 承認済みwork packetの対象だけ変更 |
 | 設計正本 | `basis/`、`DESIGN.md` | 要件、判断、視覚ルール | 内容変更時に関連文書を同期 |

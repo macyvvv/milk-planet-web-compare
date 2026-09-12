@@ -17,8 +17,9 @@
 
 | ID | 工程 | Primary owner | Canonical source | Required evidence | Automated check | Owner | Status | 未対応・境界 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| L-00 | Agent contract / authority / handoff | `agents/README.md` | `agents/README.md`、`AGENTS.md` | Role、Scope、Authority、severity、independence、handoff、DoD | repo contract・参照リンク検査 | chassis maintainer | COVERED | 契約は定義済みだが、実行時の権限・独立性の実証は人手確認 |
 | L-01 | Intake / request routing | `planet-web-workflow` | `skills/README.md` | change-id、対象、依頼種別 | Skill存在・リンク検査 | maintainer | PARTIAL | 単純修正・大幅改修・Chassis変更の判定を機械化していない |
-| L-02 | Observe / scope lock | `planet-web-workflow` | `basis/README.md`、対象work packet | branch、dirty tree、比較元、対象外 | repo contract、git差分 | maintainer | COVERED | branch1、branch5/menu、branch5/menu-htmlの境界をpath単位で固定 |
+| L-02 | Observe / scope lock | `planet-web-workflow` | `basis/README.md`、対象work packet | branch、dirty tree、比較元、対象外 | repo contract、git差分 | maintainer | COVERED | branch5、branch5/menu、branch5/menu-htmlの境界をpath単位で固定 |
 | L-03 | Source lock / content inventory | `design-intent` | `DESIGN.md`、原典、Evidence Matrix | source-map、画像・文言・告知・価格の棚卸し | packet構造のみ | content owner unknown | PARTIAL | 最新正本、更新担当、更新期限を自動確認できない |
 | L-04 | Orient / intent and hierarchy | `design-intent` | `DESIGN.md`、intent.md | Evidence Ledger、Hierarchy、非採用、Tradeoffs | packet構造のみ | requester + reviewer | COVERED | 意図の妥当性自体は人手判断 |
 | L-05 | Decide / approval and DoD | `planet-web-workflow` | decision.md、AGENTS.md | Scope、Target files、DoD、承認記録 | packet state / gate syntax | requester | PARTIAL | 承認者・承認日時・Scope変更履歴の型がない |
@@ -32,6 +33,7 @@
 
 | ID | 品質領域 | Primary owner | Canonical source | Required evidence | Automated check | Owner | Status | 未対応・境界 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Q-15 | Agent independence / escalation / severity | `agents/README.md` | `agents/README.md`、対象work packet | 独立性、重大度、停止・再計画、引き継ぎ | contract・packet構造検査 | chassis maintainer + reviewer | COVERED | 実際の役割分離と判断の妥当性は人手確認 |
 | Q-01 | 正本・店舗固有性・設計意図 | `design-intent` + `visual-fidelity` | `DESIGN.md`、Evidence Matrix | source lock、Evidence Ledger、Swap / Flattening test | packet構造のみ | design reviewer | PARTIAL | 実質判断は人手であり、視覚品質の自動判定はしない |
 | Q-02 | コンテンツ完全性・更新情報 | `visual-fidelity` | source-map、traceability | HTML化／画像保持／別導線／除外の対応表 | 形式検査のみ | content owner unknown | PARTIAL | 最新価格・特典・更新期限の責任系統がない |
 | Q-03 | 情報設計・タスク達成 | `design-intent` | intent.md、system_spec.md | hierarchy、主要タスク、到達距離 | 未定義 | product owner unknown | PARTIAL | 予約・来店・応募のタスク成功を測定していない |
@@ -52,7 +54,7 @@
 | ID | Conflict / gap | Decision required | Completion condition | Status |
 | --- | --- | --- | --- | --- |
 | C-01 | `DESIGN.md`と将来の`design/` | 現行正本を`DESIGN.md`に固定する | registry・Skill・system specが一致する | RESOLVED |
-| C-02 | branch1とbranch5 | 比較元、改修対象、公開対象をpath単位で分類する | work packetとREADMEの作業境界が矛盾しない | RESOLVED |
+| C-02 | 廃止済みbranch1〜4とbranch5 | 比較元、改修対象、公開対象をpath単位で分類する | work packetとREADMEの作業境界が矛盾しない | RESOLVED |
 | C-03 | Matrix / traceability / source-map / decision log | 各文書を「横断要件」「個別証拠」「判断」「学習」に分離する | 1情報1正本、他文書は参照リンクだけになる | RESOLVED |
 | C-04 | CIの対象と検査範囲 | 全branchでcontract、Skill、work packetのbaselineを実行する | workflowとvalidation scriptが存在し、ローカルで再現できる | RESOLVED |
 | C-05 | 公開後責任 | role owner、freshness、incident、deprecateを記録する | operationsに手順があり、各releaseでOwnerが未確定なら停止する | PARTIAL |

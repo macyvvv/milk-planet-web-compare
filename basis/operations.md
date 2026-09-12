@@ -48,7 +48,7 @@ python3 tools/validate_repo_contract.py
 
 - 必須のbasis文書、`DESIGN.md`、レビュー手順、対象ディレクトリが存在すること
 - `AGENTS.md`が正本・作業境界・検証コマンドを案内していること
-- `currently/`、`proposal/branch1/`、`proposal/branch5/`が比較可能な状態であること
+- `currently/`と`proposal/branch5/`が比較可能な状態であること。branch1〜4は廃止済み。
 
 検証失敗時は、ファイルを自動生成・移動・修正せず、欠落または参照不整合を確認してから個別に修正する。
 

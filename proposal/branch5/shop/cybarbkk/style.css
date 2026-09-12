@@ -510,22 +510,6 @@ width: 100%;
     max-width: 800px;
     margin: 100 auto;
 }
-.button a:hover {
-    opacity: 0.7;
-    transition-duration: 0.2s;
- }
-.button {
-    margin: 5px auto;
-}
-.button a{
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    color: #fff;
-    border-radius: 50px;
-    background: var(--color-primary);
-    padding: 10 80;
-}
 #gotop {
    display: none;
 }

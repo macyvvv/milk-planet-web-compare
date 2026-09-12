@@ -4,7 +4,62 @@
 
 /* Shared navigation and title rules intentionally override legacy CSS. */
 
-/* --- めにゅうボタン: .button スタイル統一 --- */
+/* --- 店舗情報CTA: ページ内の有効な導線数に応じて可変配置 --- */
+html body #shopinfo .shop-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: min(420px, calc(100% - 32px));
+  margin: 32px auto 0;
+}
+
+html body #shopinfo:has(> .shop-actions) > ul {
+  margin-bottom: 0 !important;
+}
+
+html body #shopinfo .shop-actions a {
+  display: inline-flex;
+  flex: 0 1 180px;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 20px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+html body #shopinfo .shop-actions a:hover {
+  opacity: 0.7;
+}
+
+html body #shopinfo .shop-actions a:focus-visible {
+  outline: 3px solid #111;
+  outline-offset: 3px;
+}
+
+@media (max-width: 780px) {
+  html body #shopinfo .shop-actions {
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  html body #shopinfo .shop-actions a {
+    flex: 1 1 140px;
+    min-width: 0;
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+}
 
 /* --- コンテキストメニュー（ナビゲーション） --- */
 
