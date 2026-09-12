@@ -51,6 +51,6 @@ State: AUDITED
 
 - Reduce or remove `!important` only after a selector-level cascade and computed-style baseline.
 - Split `proposal.css` or consolidate store CSS only after load order and all active consumers are proven.
-- Remove `common.js`, minified legacy CSS, `shop_menu_override.css`, or captured 404 payloads only after direct URL, Git-history, and comparison-asset decisions are recorded.
+- Remove `common.js`, minified legacy CSS, `shop_menu_override.css`, or captured 404 payloads only after direct URL, Git-history, comparison-asset, and explicit deletion-approval decisions are recorded. The nine eventlist.js snapshots are currently retained.
 - Replace `document.write` in cast, event, and planet-group scripts only as a separately tested behavior change.
 - Add a CSS parser/dead-selector checker, formal W3C validation, accessibility automation, and performance budgets only as separate toolchain scope.

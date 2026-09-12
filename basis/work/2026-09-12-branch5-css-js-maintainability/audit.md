@@ -50,9 +50,10 @@ This is a non-independent same-agent post-build review. It is recorded as a requ
 - PASS — absent jQuery/Slick/Modaal dependencies now fail closed for the relevant initialization path instead of throwing; repeated Slick/Modaal/gallery/analytics setup is guarded.
 - PASS — eventlist.js no longer writes j as an undeclared global and no longer carries dead showslide/document.write experiments.
 - ADVISORY / Parking Lot — CSS/JS inventory and consumer matrix still show a high-risk shared cascade and legacy artifacts. proposal.css has 343 !important declarations and Branch5 totals 1,092; cascade reduction and CSS decomposition remain separate work.
-- REQUIRED for a future asset-fix packet — 13 planet-group store image URLs return 404 in local serving. No replacement asset was inferred from similarly named files.
-- UNKNOWN — nine store-local eventlist.js paths are captured 404 HTML snapshots; their historical/public URL role is not proven.
+- REQUIRED for a future asset-fix packet — 13 planet-group store image URLs return 404 in local serving. currently/planet-group/ contains no matching JPGs; its existing PNG files are also saved 404 HTML, and same-named recruitment images are not semantically equivalent. Original store assets or an explicit omit/placeholder decision are required.
+- ADVISORY — nine store-local eventlist.js paths are captured 404 HTML snapshots, not executable scripts. Their references occur in HTML comments in legacy JPEG-menu pages, while current shop-top pages load the root eventlist.js. They are retained because deletion of comparison assets was not authorized.
 - ADVISORY / Parking Lot — literal unreferenced candidates (common.js, legacy minified CSS, shop_menu_override.css, and similar assets) remain undeleted until direct URL, Git-history, and comparison-asset checks are completed.
+- ADVISORY / Parking Lot — document.write remains in legacy cast/event/planet-group rendering. It is parser-order-sensitive and requires a separate route-by-route replacement test.
 
 ## Residual risks
 
@@ -61,6 +62,7 @@ This is a non-independent same-agent post-build review. It is recorded as a requ
 - `document.write`-based scripts and legacy menu snapshots remain high-risk behavior boundaries.
 - Formal W3C, real-network performance, and business KPI validation remain outside this packet.
 - Browser audit is non-independent and includes a protocol-timeout limitation for some automated width metrics.
+- Release status is intentionally local-only; no publish action is missing from this request.
 
 ## Sequential perspective review
 

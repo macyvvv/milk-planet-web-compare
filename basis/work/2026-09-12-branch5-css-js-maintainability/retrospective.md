@@ -29,3 +29,5 @@ Use the packet's consumer matrix for every subsequent shared CSS/JS batch. Keep 
 - The low-risk batch was detected and completed in Act without changing markup, content, URLs, or CSS declarations.
 - The browser Check exposed an existing planet-group generated-image gap that was not part of this refactor and cannot be safely repaired by naming similarity alone.
 - The reusable rule is to treat generated asset URLs as a separate content/asset lineage check; passing source-level CSS/JS checks does not imply that document.write-generated image URLs exist.
+- The nine store-local eventlist.js files were reclassified from UNKNOWN to stale, non-executed snapshots after checking the actual HTML comment context and current shop-top script paths.
+- The mitigation for missing images is an explicit source/owner gate, not reuse of a same-named image from a different page family.
