@@ -308,17 +308,7 @@ h1 {
     position: relative;
 }
 h1::before {
-    content: '';
-    position: absolute;
-    top: 120px;
-    z-index: 1;
-    display: block;
-    left: 0;
-    right: 0;
-    margin: auto;
-    background: url(../images/w_shop.png) 0 0 / 100% 69px no-repeat;
-    width: 173px;
-    height: 70px;
+    content: none;
 }
 h1::after{
     content: '';
@@ -618,12 +608,6 @@ h4 span {
         font-size: 12px;
     }
 
-    h1::before {
-        top: 88px;
-        background: url(images/w_shop.png) 0 0 / 100% 37px no-repeat;
-        width: 116px;
-        height: 42px;
-    }
     h1 {
         padding: 80px 0 50px;
         font-size: 24px;
