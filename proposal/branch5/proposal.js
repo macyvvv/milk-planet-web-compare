@@ -282,6 +282,15 @@
     function scrollToAnchor(href) {
       var target = resolveAnchor(href);
       if (!target) return false;
+
+      // The fixed title changes document geometry while scrolling. Collapse it
+      // before measuring the destination so smooth scrolling does not overshoot.
+      var title = document.querySelector('h1.title:not(.scrolled-title)');
+      if (title && target.getBoundingClientRect().top > title.getBoundingClientRect().bottom) {
+        title.classList.add('scrolled-title');
+        void title.offsetHeight;
+      }
+
       var targetTop = target.getBoundingClientRect().top + window.pageYOffset;
       var scrollMarginTop = parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
       window.scrollTo({ top: Math.max(0, targetTop - scrollMarginTop), behavior: 'smooth' });
