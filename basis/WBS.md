@@ -6,11 +6,12 @@
 - 現行の実装可否、対象ブランチ、承認済みScopeはwork packetの`decision.md`を正本とする。
 - 以下の既存タスクは過去の計画を含む。未完了チェックだけを見て、現在の作業指示と推測してはならない。
 - 現在の優先順位や対象が変わった場合は、この文書を直接上書きせず、`decision_log.md`と新しいwork packetで変更理由を残す。
+- 現行の対象ブランチは`proposal/branch5/`のみ。branch1〜4は2026-09-12に廃止し、以下のbranch1前提の項目は履歴として保持する。
 
 ## 前提
-- 改修対象は `proposal/branch1/` のみ。
+- 現在の改修対象は `proposal/branch5/` のみ。過去計画に記載された`proposal/branch1/`は履歴上の対象であり、再開しない。
 - `currently/` は正本として固定し、変更しない。
-- 変更は1項目ずつ入れ、都度 `proposal/branch1/` で確認する。
+- 変更は1項目ずつ入れ、都度 `proposal/branch5/` で確認する。
 
 ## 優先順
 
@@ -102,7 +103,7 @@
 ### 9. 最終差分確認
 - 目的: proposal が currently の正本から意図通り変わっているか確認する。
 - 作業:
-  - `currently` と `proposal/branch1` の差分確認
+  - `currently` と `proposal/branch5` の差分確認
   - 参照切れ確認
   - 壊れたパスの修正
 

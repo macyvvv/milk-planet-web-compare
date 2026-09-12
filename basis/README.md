@@ -35,14 +35,14 @@
 - `agents/README.md`: ドメイン非依存のAgent契約。役割、権限、重大度、独立性、引き継ぎ、学習境界を定義する。
 - `agents/*.md`、`skills/`: それぞれ専門Agentの判断プロファイルと、作業の再利用可能な手順。Agent契約を上書きしない。
 - `currently/`: 現行サイトの比較用正本。
-- `proposal/`: 改修案。各branchの役割は`basis/WBS.md`に従う。
+- `proposal/`: 改修案。現在の実装対象は`proposal/branch5/`のみとし、過去のbranch1〜4は2026-09-12に比較役割を終えて削除した。
 
 正本が衝突する場合の基本順位は、対象に直接対応する観測資料、`basis/`の要件・判断、`DESIGN.md`の共通ルール、一般的な実装慣習の順とする。価格・文言・画像・導線を推測で補わない。
 
 ## 作業境界
 
 - `currently/`は読み取り専用の参照対象とする。
-- 現在の主な改修対象は`proposal/branch1/`である。
+- 現在の改修対象は`proposal/branch5/`である。branch1〜4は廃止済みで、現行作業の対象に含めない。
 - `proposal/branch5/shop/<store>/menu/`は原典画像メニューの比較正本であり、変更しない。
 - `proposal/branch5/shop/<store>/menu-html/`はHTML化比較実装であり、変更する場合は承認済みwork packetの対象ファイルに限定する。元の`menu/`ルートは変更しない。
 - 既存ファイルの移動・削除・無条件上書きは行わない。

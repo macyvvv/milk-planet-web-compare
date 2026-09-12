@@ -17,7 +17,7 @@
 ## ディレクトリ境界
 
 - `currently/`: 現行サイトの参照正本。改修案の作業で変更しない。
-- `proposal/branch1/`: 現在の主な改修案。WBSに記載された対象だけを変更する。
+- `proposal/branch5/`: 現在の改修案。承認済みwork packetに記載された対象だけを変更する。branch1〜4は廃止済み。
 - `proposal/branch5/`: HTMLメニューと店舗固有表現の比較正本。視覚・原稿の根拠として扱う。
 - `basis/`: repo固有の設計、要件、判断、運用情報。
 - `agents/`、`skills/`: repo内のレビュー手順と再利用可能な作業知識。
