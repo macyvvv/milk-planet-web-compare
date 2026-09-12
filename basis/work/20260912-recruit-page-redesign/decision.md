@@ -17,7 +17,7 @@ Change class: PHILOSOPHY_LEARNING
 
 ## State
 
-State: IMPLEMENTED
+State: RELEASED
 
 ## Gate status
 
@@ -26,7 +26,7 @@ State: IMPLEMENTED
 - Structure: PASS — 導入→職種条件→応募手順→エリア→応募先の順を決定。
 - Intent: PASS — 既存資産、非採用、トレードオフ、Unknownをintentへ記録。
 - Independent audit: PASS — 静的・既定ブラウザ・操作監査はPASS。指定viewportの実幅検証はChrome拡張の制約で未完了としてaudit.mdへ残した。
-- Release: NOT RUN — 実装・検証後にcommit/push/PR/merge/publishを確認する。
+- Release: PASS — commit、push、PR #62、main merge、GitHub Pages反映を確認済み。
 
 ## Philosophy gate
 
