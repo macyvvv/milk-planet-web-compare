@@ -62,50 +62,44 @@
 		<div id="list">
 			<p class="cast-scope-note">掲載は一部店舗のみとなります。</p>
 			<dl>
-		      <dt>店舗</dt>
-			 　 <dd class="shandy">
-			　	<input id="select_shandy" type="radio" name="rate" value="shandy">
-				<label for="select_shandy">
-					<img alt="ShandyLove">
-				</label>
-			</dd>
-						<dd class="shinjuku">
-		      	<input id="select_shinjuku" type="radio" name="rate" value="shinjuku">
-		      	<label for="select_shinjuku">
-		      		<img alt="milk planet">
-		      	</label>
-		      </dd>	
-
-			<dd class="chocolat">
-				<input id="select_chocolat" type="radio" name="rate" value="chocolatplanet">
-				<label for="select_chocolat">
-					<img alt="chocolatplanet">
-				</label>
-			</dd>
-
-			<dd class="melty">
-		      	<input id="select_melty" type="radio" name="rate" value="melty">
-		      	<label for="select_melty">
-		      		<img alt="MeltyMousse">
-		      	</label>
-		    </dd> 
-			  
-			<dd class="roysuga">
-		      	<input id="select_roysuga" type="radio" name="rate" value="roysuga">
-		      	<label for="select_roysuga">
-		      		<img alt="RoyalSugar">
-		      	</label>
-		    </dd>
-
-			<dd class="tweeny">
-		      	<input id="select_tweeny" type="radio" name="rate" value="tweeny">
-		      	<label for="select_tweeny">
-		      		<img alt="TweenyHeartCafe">
-		      	</label>
-		    </dd> 
-
-
-	       </dl>
+				<dt>店舗</dt>
+				<dd class="shandy">
+					<input id="select_shandy" type="radio" name="rate" value="shandy">
+					<label for="select_shandy">
+						<img src="../images/list_shandy.png" alt="ShandyLove">
+					</label>
+				</dd>
+				<dd class="shinjuku">
+					<input id="select_shinjuku" type="radio" name="rate" value="shinjuku">
+					<label for="select_shinjuku">
+						<img src="../images/list_shinjuku.png" alt="milk planet">
+					</label>
+				</dd>
+				<dd class="chocolat">
+					<input id="select_chocolat" type="radio" name="rate" value="chocolat">
+					<label for="select_chocolat">
+						<img src="../images/list_cp.png" alt="Chocolatplanet">
+					</label>
+				</dd>
+				<dd class="melty">
+					<input id="select_melty" type="radio" name="rate" value="melty">
+					<label for="select_melty">
+						<img src="../images/list_melty.png" alt="MeltyMousse">
+					</label>
+				</dd>
+				<dd class="roysuga">
+					<input id="select_roysuga" type="radio" name="rate" value="roysuga">
+					<label for="select_roysuga">
+						<img src="../images/list_roysuga.png" alt="RoyalSugar">
+					</label>
+				</dd>
+				<dd class="tweeny">
+					<input id="select_tweeny" type="radio" name="rate" value="tweeny">
+					<label for="select_tweeny">
+						<img src="../images/list_tweeny.png" alt="TweenyHeartCafe">
+					</label>
+				</dd>
+			</dl>
 		</div>
 	<div id="boxes">
 	      <script src="./castlist.js"></script>
@@ -117,45 +111,45 @@
 	<!--キャスト一覧-->
 <script>
   window.addEventListener('DOMContentLoaded', function () {
-    var buttons = Array.prototype.slice.call(document.querySelectorAll('#list dd'));
-    var parent = document.getElementById('boxes');
-    var allBoxes = Array.prototype.slice.call(parent.children);
-
-    function getAreaFromNode(node) {
-      return node && node.classList.length ? node.classList[0] : '';
-    }
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('#list input[type="radio"][value]'));
+    var allBoxes = Array.prototype.slice.call(document.querySelectorAll('#boxes > .all'));
+    var areas = buttons.map(function (input) { return input.value; });
 
     function getAreaFromHash() {
-      var hash = location.hash.replace('#', '');
-      return hash || 'shandy';
+      return location.hash.replace(/^#/, '');
     }
 
-    function activate(area) {
-      if (!area) return;
+    function activate(area, updateHash) {
+      var selectedArea = areas.indexOf(area) >= 0 ? area : 'shandy';
 
       allBoxes.forEach(function (node) {
-        node.classList.toggle('hidden', !node.classList.contains(area));
+        var isVisible = node.classList.contains(selectedArea);
+        node.classList.toggle('hidden', !isVisible);
+        node.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
       });
 
-      buttons.forEach(function (dd) {
-        dd.classList.toggle('active', dd.classList.contains(area));
+      buttons.forEach(function (input) {
+        var isSelected = input.value === selectedArea;
+        input.checked = isSelected;
+        input.parentElement.classList.toggle('active', isSelected);
       });
+
+      if (updateHash && location.hash !== '#' + selectedArea) {
+        history.replaceState(null, '', '#' + selectedArea);
+      }
     }
 
-    buttons.forEach(function (dd) {
-      dd.addEventListener('click', function () {
-        activate(getAreaFromNode(this));
-      });
-      dd.addEventListener('change', function () {
-        activate(getAreaFromNode(this));
+    buttons.forEach(function (input) {
+      input.addEventListener('change', function () {
+        activate(this.value, true);
       });
     });
 
     window.addEventListener('hashchange', function () {
-      activate(getAreaFromHash());
+      activate(getAreaFromHash(), false);
     });
 
-    activate(getAreaFromHash());
+    activate(getAreaFromHash(), true);
   });
 </script>
 

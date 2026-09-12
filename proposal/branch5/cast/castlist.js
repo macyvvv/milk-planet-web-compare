@@ -160,6 +160,37 @@ let cast = [
 
 ];
 
+const boxes = document.getElementById('boxes');
+
+function appendCastCard(store, member) {
+  const card = document.createElement('div');
+  const positionClass = member[4] ? ' ' + member[4] : '';
+  card.className = 'all ' + store + positionClass;
+
+  const listItem = document.createElement('li');
+  const image = document.createElement('img');
+  image.src = './' + store + '/' + member[0] + '.jpg';
+  image.alt = member[1];
+
+  const details = document.createElement('p');
+  details.appendChild(document.createTextNode(member[1]));
+
+  const socialLink = document.createElement('a');
+  socialLink.className = 'sns';
+  socialLink.href = 'https://twitter.com/' + (member[2] || '');
+  socialLink.target = '_blank';
+  socialLink.rel = 'noopener';
+  socialLink.textContent = 'X';
+  details.appendChild(socialLink);
+  details.appendChild(document.createElement('br'));
+  details.appendChild(document.createTextNode('Birth ' + (member[3] || '')));
+
+  listItem.appendChild(image);
+  listItem.appendChild(details);
+  card.appendChild(listItem);
+  boxes.appendChild(card);
+}
+
 let max_numcast= max_area(cast);
 function max_area(cast){
   let max=0;
@@ -176,8 +207,7 @@ for(k=0;k<position.length;k++){
    for(i=0;i<cast.length;i++){
       for(j=0;j<cast[i].length;j++){
           if(cast[i][j][4]=== position[k]){
-          document.write('<div class="all '+area[i]+' '+cast[i][j][4]+'"><li><img src="./'+area[i]+'/'+cast[i][j][0]+'.jpg"><p>'+cast[i][j][1]+
-          '<a class="sns" href="https://twitter.com/'+cast[i][j][2]+'" target="_blank" rel="noopener">X</a><br>Birth '+cast[i][j][3]+'</br></p></li></div>');
+            appendCastCard(area[i], cast[i][j]);
           }
       }
    }
@@ -187,8 +217,7 @@ for(k=0;k<position.length;k++){
     for(j;j<max_numcast;j++){
         if(typeof cast[i][j]=== "undefined"){}
         else if(typeof cast[i][j][4]=== "undefined"){
-          document.write('<div class="all '+area[i]+' '+cast[i][j][4]+'"><li><img src="./'+area[i]+'/'+cast[i][j][0]+'.jpg"><p>'+cast[i][j][1]+
-          '<a class="sns" href="https://twitter.com/'+cast[i][j][2]+'" target="_blank" rel="noopener">X</a><br>Birth '+cast[i][j][3]+'</br></p></li></div>');
+          appendCastCard(area[i], cast[i][j]);
         }
         if(j%2==1){
           if(i+1==cast.length){
