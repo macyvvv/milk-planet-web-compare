@@ -44,6 +44,19 @@
   text-align: left;
   line-height: 1.5;
 }
+.html-menu .newcomer-grid {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.html-menu .newcomer-grid > div {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
 .newcomer-grid p { margin: 0 0 12px; }
 .newcomer-grid p:last-child { margin-bottom: 0; }
 .champagne-columns,

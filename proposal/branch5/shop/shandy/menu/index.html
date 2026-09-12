@@ -210,6 +210,10 @@ body.visual-variant-3 #guide .text-list li::marker {
 }
 body.visual-variant-3 .newcomer-grid {
   gap: 28px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 }
 body.visual-variant-3 .special-grid {
   padding: 0;
@@ -358,6 +362,16 @@ body.visual-variant-3 .site-footer a {
       <p><span class="welcome-sentence">ShandyLoveでは美味しいお食事とお酒を<span class="welcome-phrase">ご用意して</span>、皆様のご来店を心よりお待ちしております。</span><span class="welcome-sentence">かわいいキャストたちと、素敵な時間をお過ごしください。</span></p>
     </div>
 
+    <nav class="local-nav" aria-label="メニュー内目次">
+      <a href="#guide">ご利用案内</a>
+      <a href="#pricing">料金</a>
+      <a href="#newcomer">ご新規セット</a>
+      <a href="#drink">ドリンク</a>
+      <a href="#champagne">シャンパン</a>
+      <a href="#food">フード</a>
+      <a href="#special">限定・その他</a>
+    </nav>
+
     <section id="guide" class="menu-section source-notice">
       <h2>ご利用案内</h2>
       <div class="information-columns">
@@ -383,15 +397,6 @@ body.visual-variant-3 .site-footer a {
         </div>
       </div>
     </section>
-
-    <nav class="local-nav" aria-label="メニュー内目次">
-      <a href="#pricing">料金</a>
-      <a href="#drink">ドリンク</a>
-      <a href="#champagne">シャンパン</a>
-      <a href="#food">フード</a>
-      <a href="#special">限定・その他</a>
-      <a href="#guide">ご利用案内</a>
-    </nav>
 
     <section id="pricing" class="menu-section">
       <h2>料金システム</h2>
@@ -437,7 +442,7 @@ body.visual-variant-3 .site-footer a {
       </dl>
       <p class="annotation">シャンラブオリジナルグッズ、割引券、<wbr>デート特典や貸切など豪華特典あり。</p>
 
-      <h3>ご新規セット</h3>
+      <h3 id="newcomer">ご新規セット</h3>
       <div class="newcomer-grid">
         <div>
           <h4>ご新規セットA <strong>2,000円</strong></h4>
