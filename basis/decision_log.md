@@ -371,3 +371,11 @@
 - 理由: 作業の再現性とロールバック可能性を確保しつつ、廃止対象を現行検証から除外し、次工程の対象誤認を防ぐため。
 - 影響: proposalの実体はbranch5のみとなる。過去branchの比較はGit履歴で参照できる。Branch5の公開URL、currently、原典画像メニュー、未コミットだった既存変更の内容は変更しない。
 - 残存リスク: branch1〜4を直接参照する歴史文書や補助スクリプトが残る可能性があるため、Branch5限定のリファクタリング開始前に参照検索と契約validatorを実行する。
+
+## 2026-09-12 Branch5 planet-group 画像404の原典復旧
+
+- 論点: `proposal/branch5/planet-group/shop.js`が生成する13枚の画像がローカルで404になっていた。`currently/planet-group/`には存在しなかったため、原典にも存在しないのか、取得漏れなのかを再確認した。
+- 観測事実: `https://milk-planet.com/planet-group/images/{milk,cybar,chocolat,cphanare,shandy,melty,bloody,roysuga,tweeny,cybarb,cybarb2,cybarl,planetplanet}.jpg`は全件HTTP 200、`image/jpeg`、正常な620×430 JPEGだった。ローカル取得結果は`currently/planet-group/`に保存されず、Branch5にも存在していなかった。
+- 採用案: オリジナル旧URLから13枚を同名で`proposal/branch5/planet-group/images/`へ追加し、`shop.js`、HTML、CSS、`currently/`は変更しない。取得元、取得日、SHA-256を専用work packetへ記録する。
+- 理由: 既存レンダラーのファイル名契約と原典の実体が一致しており、最小変更で13件の404を解消できるため。求人画像や店舗詳細画像による名前合わせを避け、店舗固有表現を保全する。
+- 残存リスク: `aisatsu.png`、`close.png`、`index.png`、`open.png`の旧原典URLは現在も404であり、CSS参照の整理または代替方針は別判断とする。外部原典の将来変更・権利所有者は未確認。

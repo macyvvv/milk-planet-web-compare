@@ -31,6 +31,7 @@
 - 一部の外部依存はローカル完結していない可能性がある。
 - 動的に差し込まれる Instagram / TikTok 系は、完全な静的再現に追加作業が必要。
 - `eventlist.js` や子ページの JS に依存する領域は、初回の見た目再現と挙動再現を分けて扱うべき。
+- `proposal/branch5/planet-group/`の13店舗サムネイルは、旧オリジナルURLから再取得して復旧済み。`aisatsu.png`、`close.png`、`index.png`、`open.png`は旧オリジナル側でも404のため、別途CSS/代替方針の判断が必要。
 
 ## ここからの使い方
 - `currently/` を現在版の参照実装として固定する。

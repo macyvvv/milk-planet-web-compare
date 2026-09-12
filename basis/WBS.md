@@ -142,4 +142,5 @@
 - [x] CyBAR Bangkok / 2 / Laos transcription
 - [x] CyBAR Shinjuku / Melty / Royal Sugar / milkplanet / Tweeny Heart transcription
 - [x] 1440px, 390px and 320px responsive structure verification for all stores
+- [x] Branch5 planet-group 13店舗サムネイルをオリジナル旧URLから復旧
 - [ ] Publish separate comparison URLs and verify GitHub Pages
