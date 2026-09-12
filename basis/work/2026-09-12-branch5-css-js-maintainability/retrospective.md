@@ -24,3 +24,8 @@ This packet applies the existing Planet workflow and visual-fidelity routing. A 
 
 Use the packet's consumer matrix for every subsequent shared CSS/JS batch. Keep CSS cascade reduction, dead-file deletion, `document.write` replacement, formal validators, and performance budgets as separate approved work.
 
+## Implementation outcome
+
+- The low-risk batch was detected and completed in Act without changing markup, content, URLs, or CSS declarations.
+- The browser Check exposed an existing planet-group generated-image gap that was not part of this refactor and cannot be safely repaired by naming similarity alone.
+- The reusable rule is to treat generated asset URLs as a separate content/asset lineage check; passing source-level CSS/JS checks does not imply that document.write-generated image URLs exist.

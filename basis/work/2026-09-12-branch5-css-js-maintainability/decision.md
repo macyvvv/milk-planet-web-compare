@@ -24,7 +24,7 @@ Execution is staged:
 
 ## State
 
-State: DECIDED
+State: IMPLEMENTED
 
 ## Gate status
 
@@ -32,8 +32,8 @@ State: DECIDED
 - Content and task: PASS — the requested CSS/JS maintainability review is bounded; content, URLs, and store-specific expression are preserved.
 - Structure: PASS — staged execution, rollback checkpoints, selector/load-order mapping, and explicit high-risk exclusions are defined.
 - Intent: PASS — the visual direction remains the Branch5 source and `DESIGN.md`; no generic normalization is introduced.
-- Independent audit: NOT RUN — implementation and post-build audit are pending.
-- Release: NOT RUN — no push, PR, merge, or publication is in scope.
+- Independent audit: NON-INDEPENDENT SAME-AGENT REVIEW COMPLETE — visual-fidelity and required sequential perspective checks are recorded in audit.md; an independent human review is still not claimed.
+- Release: LOCAL COMMIT PENDING — no push, PR, merge, or publication is in scope.
 
 ## Definition of done
 
@@ -54,4 +54,3 @@ State: DECIDED
 - Remove `common.js`, minified legacy CSS, `shop_menu_override.css`, or captured 404 payloads only after direct URL, Git-history, and comparison-asset decisions are recorded.
 - Replace `document.write` in cast, event, and planet-group scripts only as a separately tested behavior change.
 - Add a CSS parser/dead-selector checker, formal W3C validation, accessibility automation, and performance budgets only as separate toolchain scope.
-

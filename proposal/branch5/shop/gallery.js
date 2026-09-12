@@ -1,6 +1,8 @@
 (function (window) {
   'use strict';
 
+  if (document.documentElement.dataset.proposalGalleryInitialized === 'true') return;
+
   // lightbox オプションの設定。依存が読み込まれていないページでは無視する。
   if (window.lightbox && typeof window.lightbox.option === 'function') {
     window.lightbox.option({
@@ -14,6 +16,8 @@
 
   var galleryItems = $('#gallery > ul.gallery2 > li');
   if (!galleryItems.length) return;
+
+  document.documentElement.dataset.proposalGalleryInitialized = 'true';
 
   function fadeAnime() {
     var scroll = $(window).scrollTop();
@@ -39,6 +43,6 @@
     });
   }
 
-  $(window).on('scroll', scheduleFade);
-  $(window).on('load', scheduleFade);
+  $(window).on('scroll.proposalGallery', scheduleFade);
+  $(window).on('load.proposalGallery', scheduleFade);
 }(window));

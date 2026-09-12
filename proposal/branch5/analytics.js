@@ -1,4 +1,7 @@
 (function () {
+  if (document.documentElement.dataset.proposalAnalyticsInitialized === 'true') return;
+  document.documentElement.dataset.proposalAnalyticsInitialized = 'true';
+
   function truncate(str, max) {
     if (!str) return '';
     return String(str).slice(0, max);
