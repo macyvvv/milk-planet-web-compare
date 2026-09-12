@@ -10,6 +10,39 @@ html body h1.menu-page-title{display:flex!important;align-items:center!important
 @media(max-width:420px){.price-list>div{font-size:12px}.item-grid{font-size:13px}.information-columns>div,.system-card,.newcomer-grid>div{padding:20px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
+/* A newcomer offer belongs to pricing, but remains a distinct decision block.
+   Keep one group boundary and avoid nested card frames. */
+.html-menu .newcomer-grid,
+.html-menu .newcomer-group {
+  box-sizing: border-box;
+  padding: 18px;
+  background: var(--shop-pale, #fff);
+  border: 1px solid var(--shop-line, #ccc);
+  border-radius: var(--shop-radius, 8px);
+}
+.html-menu .newcomer-grid > div {
+  padding: 8px 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.html-menu .newcomer-single {
+  display: block;
+  text-align: left;
+}
+.html-menu .newcomer-single .price-list {
+  width: 100%;
+}
+@media(max-width:780px){
+  .html-menu .newcomer-grid,
+  .html-menu .newcomer-group { padding: 16px 14px; }
+}
+@media(max-width:420px){
+  .html-menu .newcomer-grid,
+  .html-menu .newcomer-group { padding: 12px; }
+}
+
 /* Use the menu background for the shared scalloped edge so the title does
    not leave a white strip between the header and menu content. */
 html body h1.menu-page-title:not(.scrolled-title)::after{

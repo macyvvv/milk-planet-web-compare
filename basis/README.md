@@ -43,8 +43,9 @@
 
 - `currently/`は読み取り専用の参照対象とする。
 - 現在の改修対象は`proposal/branch5/`である。branch1〜4は廃止済みで、現行作業の対象に含めない。
-- `proposal/branch5/shop/<store>/menu/`は原典画像メニューの比較正本であり、変更しない。
-- `proposal/branch5/shop/<store>/menu-html/`はHTML化比較実装であり、変更する場合は承認済みwork packetの対象ファイルに限定する。元の`menu/`ルートは変更しない。
+- `proposal/branch5/shop/<store>/menu/index.html`は既存URLで提供するHTMLメニュー実装であり、承認済みwork packetの対象だけを変更する。
+- `proposal/branch5/shop/<store>/menu/index_0.html`は保存した原典画像版であり、変更しない。
+- `proposal/branch5/shop/<store>/menu-html/`はHTML化比較実装であり、変更する場合は承認済みwork packetの対象ファイルに限定する。
 - 既存ファイルの移動・削除・無条件上書きは行わない。
 - UI変更では、実装前の目的・情報階層の確認と、390px / 768px / 1440pxでの表示確認を必須とする。
 - `DESIGN.md`から`design/`へ移行する場合は、先にdecision logで正本・移行範囲・rollbackを決める。

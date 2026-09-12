@@ -51,8 +51,9 @@
 | --- | --- | --- | --- |
 | 現状正本 | `currently/` | 現行サイトの参照実装 | 改修作業では変更しない |
 | 主改修案 | `proposal/branch5/` | 現在のUI改修・保守性検証対象 | 承認済みwork packetの範囲で変更 |
-| 視覚比較正本 | `proposal/branch5/shop/<store>/menu/` | 原典画像メニューと店舗表現の比較元 | 変更しない |
-| HTML化比較実装 | `proposal/branch5/shop/<store>/menu-html/` | 原典の意味情報をHTML化した比較実装 | 承認済みwork packetの対象だけ変更 |
+| 公開メニュー実装 | `proposal/branch5/shop/<store>/menu/index.html` | 既存URLで提供するHTMLメニュー | 承認済みwork packetの対象だけ変更 |
+| 原典画像保存 | `proposal/branch5/shop/<store>/menu/index_0.html`、`menu/images/` | 旧画像メニューと店舗表現の比較元 | 変更しない |
+| HTML化比較実装 | `proposal/branch5/shop/<store>/menu-html/` | 公開実装と原典を比較するHTML variant | 承認済みwork packetの対象だけ変更 |
 | 設計正本 | `basis/`、`DESIGN.md` | 要件、判断、視覚ルール | 内容変更時に関連文書を同期 |
 
 `DESIGN.md`はこのrepoで現在使用する視覚正本である。引継ぎ資料にある`design/`は将来Chassisへ移行する場合の候補であり、現行repoでは作成しない。
@@ -84,11 +85,13 @@ Shandy／新宿で蓄積した原典・意味情報・HTML処理・残存リス�
   `node proposal/branch5/scripts/scrape-instagram-snapshot.mjs`
 ## Branch5 HTML menu variant
 
-The canonical image menu remains at `shop/<store>/menu/`. The comparison implementation is
-served from `shop/<store>/menu-html/` and uses `shop/menu-html-common.css` plus a minimal
-store-local `system.css`. Product and policy information is semantic HTML; imagery is retained
-only where the photograph or promotional composition is itself meaningful. Local navigation
-orders products before the usage guide. Store identity is integrated into the sticky `h1`.
+The published HTML menu remains at `shop/<store>/menu/index.html`; the preserved image menu is
+`shop/<store>/menu/index_0.html`. The comparison implementation is served from
+`shop/<store>/menu-html/` and uses `shop/menu-html-common.css` plus a minimal store-local
+`system.css`. Product and policy information is semantic HTML; imagery is retained only where
+the photograph or promotional composition is itself meaningful. Local navigation follows the
+visible content order. Store identity is integrated into the sticky `h1`.
 The supported store slugs are `bloody`, `chocolat`, `cybarbkk`, `cybarbkk2`, `cybarlaos`,
 `cybarshinjuku`, `melty`, `roysuga`, `shandy`, `shinjuku`, and `tweeny`. Each variant is
-available at `shop/<store>/menu-html/index.html`; the original `menu/` route remains unchanged.
+available at `shop/<store>/menu-html/index.html`; the original image menu is preserved as
+`shop/<store>/menu/index_0.html`.

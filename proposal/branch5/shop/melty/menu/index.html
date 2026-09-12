@@ -167,6 +167,19 @@
       align-items: start;
     }
 
+    body.melty-menu-page .newcomer-block {
+      margin-top: 42px;
+      padding-top: 30px;
+      border-top: 1px solid var(--melty-line);
+    }
+
+    body.melty-menu-page .newcomer-block h3 {
+      margin: 0 0 22px;
+      color: var(--melty-ink);
+      font-size: 22px;
+      letter-spacing: .08em;
+    }
+
     body.melty-menu-page .promo-grid .menu-sheet {
       width: 100%;
     }
@@ -263,7 +276,7 @@
 
   <main id="menu-content" class="html-menu">
     <nav class="local-nav" aria-label="メニュー内目次">
-      <a href="#main-menu">メインメニュー</a>
+      <a href="#pricing">料金</a>
       <a href="#newcomer">ご新規セット</a>
       <a href="#drink">飲み放題</a>
       <a href="#champagne">シャンパン・単品</a>
@@ -271,24 +284,23 @@
       <a href="#special">オリジナルシャンパン</a>
     </nav>
 
-    <section id="main-menu" class="menu-section">
-      <h2>メインメニュー</h2>
+    <section id="pricing" class="menu-section">
+      <h2>料金システム</h2>
       <figure class="menu-sheet">
         <picture>
           <source type="image/webp" srcset="images/optimized/menu1-480.webp 480w, images/optimized/menu1-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 720px">
           <img src="images/menu1.jpg" loading="eager" fetchpriority="high" decoding="async" width="1200" height="1697" alt="Melty Mousseのメインメニュー。1時間飲み放題の営業時間、女性2,500円・男性3,500円、延長料金、おすすめメニューと価格を掲載">
         </picture>
       </figure>
-    </section>
-
-    <section id="newcomer" class="menu-section">
-      <h2>ご新規セット</h2>
-      <figure class="menu-sheet">
-        <picture>
-          <source type="image/webp" srcset="images/optimized/menu2-480.webp 480w, images/optimized/menu2-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 720px">
-          <img src="images/menu2.jpg" loading="lazy" decoding="async" width="1200" height="1697" alt="ご新規セット。A 3,000円、B 5,000円、C 10,000円の内容と価格を掲載">
-        </picture>
-      </figure>
+      <div class="newcomer-block">
+        <h3 id="newcomer">ご新規セット</h3>
+        <figure class="menu-sheet">
+          <picture>
+            <source type="image/webp" srcset="images/optimized/menu2-480.webp 480w, images/optimized/menu2-720.webp 720w" sizes="(max-width: 780px) calc(100vw - 28px), 720px">
+            <img src="images/menu2.jpg" loading="lazy" decoding="async" width="1200" height="1697" alt="ご新規セット。A 3,000円、B 5,000円、C 10,000円の内容と価格を掲載">
+          </picture>
+        </figure>
+      </div>
     </section>
 
     <section id="drink" class="menu-section">
