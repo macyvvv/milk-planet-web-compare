@@ -4,7 +4,7 @@ Change class: LOCAL UI REFINEMENT
 
 ## State
 
-State: IMPLEMENTED
+State: RELEASED
 
 ## Scope
 
@@ -25,7 +25,7 @@ State: IMPLEMENTED
 - Structure: PASS
 - Intent: PASS
 - Independent audit: PASS
-- Release: NOT RUN
+- Release: PASS — PR #66 was merged and the GitHub Pages deployment completed successfully.
 
 ## Definition of done
 
