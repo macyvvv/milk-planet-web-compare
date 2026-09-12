@@ -2,27 +2,27 @@
 
 ## Commit
 
-Status: NOT REQUESTED
+Status: CREATED
 
-No commit was created in this task.
+Implementation commit: `b058844`; main-sync commit: `6ae1740`.
 
 ## Push
 
-Status: NOT REQUESTED
+Status: PUSHED
 
-No remote push was performed.
+Branch: `agent/branch5-shandy-menu-html`.
 
 ## Pull request
 
-Status: NOT REQUESTED
+Status: MERGED
 
-No pull request was created.
+PR #58: https://github.com/macyvvv/milk-planet-web-compare/pull/58
 
 ## Merge
 
-Status: NOT REQUESTED
+Status: MERGED
 
-No merge was performed.
+Main merge commit: `155673d905b075f6b3e60a47f91de42fdaf91068`.
 
 ## Published URL
 
