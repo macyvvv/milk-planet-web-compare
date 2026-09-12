@@ -22,7 +22,7 @@ State: IMPLEMENTED
 - Intent: PASS — store order, identity, layout, and URLs are unchanged.
 - Security: PASS — no dependency, script, or executable content was added.
 - Independent audit: PASS (NON-INDEPENDENT SAME-AGENT REVIEW) — retrieval, signature, dimension, reference, and contract checks are recorded in `audit.md`.
-- Release: NOT RUN — local commit and publication are not included yet.
+- Release: NOT RUN — the recovered assets and provenance record are committed locally; push, merge, and publication remain outside scope.
 
 ## Definition of done
 

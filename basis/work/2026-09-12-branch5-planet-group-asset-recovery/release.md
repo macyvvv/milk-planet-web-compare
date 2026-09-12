@@ -2,7 +2,7 @@
 
 ## Commit
 
-Status: PENDING — assets and documentation are implemented locally; commit follows final validation.
+Status: COMMITTED LOCALLY — implementation commit `2c13728`.
 
 ## Push / pull request / merge / publication
 
